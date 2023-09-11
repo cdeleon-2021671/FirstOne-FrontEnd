@@ -1,0 +1,23 @@
+.searchbarContainer{
+    display: flex;
+    gap: .3em;
+    padding: .3em;
+    width: 35%;
+    background: #fff;
+    border-radius: .2em;
+    input{
+        outline: none;
+        border: none;
+        width: 100%;
+        font-size: 1.2em;
+        font-family: sans-serif;
+        padding-top: .1em;
+        background-color: transparent;
+    }
+    label{
+        svg{
+            height: 100%;
+            font-size: 1.5em;
+        }
+    }
+}

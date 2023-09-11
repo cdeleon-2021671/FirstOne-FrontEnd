@@ -1,0 +1,57 @@
+.introductionContainer {
+  padding: 0 2.5em;
+  .descriptionStore {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    text-align: center;
+    padding: 1em 0;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 1.3em;
+  }
+  .scrollStores {
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 0 2.4em;
+    div {
+      display: flex;
+      gap: 1.5em;
+      overflow: auto;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar{
+        height: 0;
+      }
+      img {
+        width: 13em;
+        height: 13em;
+        object-fit: contain;
+      }
+      span {
+        display: flex;
+        justify-content: center;
+        color: #000;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 900;
+        font-size: 1.2em;
+        margin-top: .5em;
+      }
+    }
+    button {
+      position: absolute;
+      height: 100%;
+      background: #f1f1f1;
+      border: none;
+      font-size: 2em;
+      padding: 0 0.1em;
+      cursor: pointer;
+      color: #999999;
+      &.arrowRight {
+        right: 0;
+      }
+      &.arrowLeft {
+        left: 0;
+      }
+    }
+  }
+}

@@ -1,23 +1,60 @@
-.searchbarContainer{
+.searchbarContainer {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0.5em;
+  margin-top: 1em;
+  position: relative;
+  div {
     display: flex;
-    gap: .3em;
-    padding: .3em;
-    width: 35%;
+    gap: 0.3em;
+    padding: 0.3em;
     background: #fff;
-    border-radius: .2em;
-    input{
-        outline: none;
-        border: none;
-        width: 100%;
-        font-size: 1.2em;
-        font-family: sans-serif;
-        padding-top: .1em;
-        background-color: transparent;
+    border-radius: 0.2em;
+    width: 80%;
+    border: 1px solid #afafaf;
+    input {
+      outline: none;
+      border: none;
+      width: 100%;
+      font-size: 1.2em;
+      font-family: sans-serif;
+      padding-top: 0.1em;
+      background: none;
     }
-    label{
-        svg{
-            height: 100%;
-            font-size: 1.5em;
-        }
+    label {
+      svg {
+        height: 100%;
+        font-size: 1.5em;
+      }
     }
+  }
+  .autoComplete {
+    display: block;
+    padding: 0 0.4em;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    top: 3.05em;
+    background: none;
+    z-index: 100;
+    div {
+      width: 100%;
+      color: #858585;
+      border-radius: 0;
+      border-top: none;
+      border-bottom: none;
+      background: #fcfcfc;
+      input {
+        color: #858585;
+      }
+      svg,
+      input {
+        cursor: pointer;
+      }
+      &:hover{
+        background: #f1f1f1;
+      }
+    }
+  }
 }

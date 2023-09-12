@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
-import { AuthContext } from "../../Index";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { MdOutlineArrowBackIos } from "react-icons/md";
 import { MdOutlineArrowForwardIos } from "react-icons/md";
 import "./Introduction.scss";
 
-export const Introduction = () => {
-  const { stores } = useContext(AuthContext);
+export const Introduction = ({stores}) => {
   const introductionRef = useRef(null);
   const [viewArrow, setViewArrow] = useState(false);
 
@@ -36,7 +34,7 @@ export const Introduction = () => {
   return (
     <div className="introductionContainer">
       <span className="descriptionStore">
-        Todo lo que buscas <br /> lo encuentras en Tienda.gt
+        Todo lo que buscas lo encuentras en Tienda.gt
       </span>
       {stores && (
         <div className="scrollStores">
@@ -46,6 +44,18 @@ export const Introduction = () => {
             </button>
           )}
           <div ref={introductionRef}>
+            {stores.map((item, key) => (
+              <ShowAllStores key={key} {...item} />
+            ))}
+            {stores.map((item, key) => (
+              <ShowAllStores key={key} {...item} />
+            ))}
+            {stores.map((item, key) => (
+              <ShowAllStores key={key} {...item} />
+            ))}
+            {stores.map((item, key) => (
+              <ShowAllStores key={key} {...item} />
+            ))}
             {stores.map((item, key) => (
               <ShowAllStores key={key} {...item} />
             ))}
@@ -63,7 +73,7 @@ export const Introduction = () => {
 
 const ShowAllStores = ({ urlLogo, name, _id }) => {
   return (
-    <Link to={`/store/${name}-${_id}`} target="_blank">
+    <Link to={`/store/${name}-${_id}`}>
       <img src={urlLogo} alt={name} />
       <span>{name}</span>
     </Link>

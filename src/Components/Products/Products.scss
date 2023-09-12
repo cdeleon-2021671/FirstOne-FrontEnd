@@ -1,39 +1,40 @@
 .productsContainer {
-  padding: 0 2.5em;
-  padding-bottom: 2.5em;
+  padding: 0 1em 2.5em;
   display: flex;
   flex-direction: column;
   row-gap: 1em;
+  h1 {
+    padding: 0.5em 0;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
   .products {
     display: flex;
     .singleProduct {
       display: flex;
-      gap: 1em;
+      gap: 1.5em;
       overflow: auto;
       scroll-behavior: smooth;
+      padding: 0.08em 0;
       &::-webkit-scrollbar {
         height: 0;
       }
-      div {
-        img {
-          height: 13em;
-        }
-        span {
-          font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI";
-          font-size: 0.85em;
-        }
-      }
     }
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f1f1f1;
+    .slice {
       border: none;
       font-size: 2em;
       padding: 0 0.1em;
       cursor: pointer;
       color: #999999;
     }
+  }
+}
+
+.filtersContainer {
+  padding: 0 1em 2.5em;
+  .singleFilter {
+    padding-top: 1em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
+    gap: 1em;
   }
 }

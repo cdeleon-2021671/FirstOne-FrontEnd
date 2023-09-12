@@ -12,3 +12,40 @@
     list-style: none;
     font-family: sans;
 }
+a{
+    color: #000;
+}
+.buttonContainer{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2.5em;
+    a{
+        background: #5DADE2;
+        padding: .7em 2em;
+        color: #fff;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: 900;
+        font-size: 1.1em;
+    }
+}
+.bannerContainer{
+    position: relative;
+    margin-bottom: 2.5em;
+    img{
+        width: 100%;
+        object-fit: cover;
+    }
+    a{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        background: #5DADE2;
+        padding: .7em 2em;
+        color: #fff;
+        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-weight: 900;
+        font-size: 1.1em;
+    }
+}

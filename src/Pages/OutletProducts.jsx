@@ -1,0 +1,149 @@
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
+import { useParams, useLocation } from "react-router-dom";
+import { Searchbar } from "../Components/Search/Searchbar";
+import { ProductsCard } from "../Components/Search/ProductsCard";
+import { AuthContext } from "../Index";
+import { Animation } from "../Components/Animation/Animation";
+
+export const OutletProducts = () => {
+  const location = useLocation();
+  const { offers, products } = useContext(AuthContext);
+  const { category, storeId, store, search } = useParams();
+  const [options, setOptions] = useState(null);
+  const [array, setArray] = useState();
+
+  const getProductsByTag = async () => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/product/get-products-by-tag`,
+        { tag: category }
+      );
+      const { products } = data;
+      setArray(products);
+      getAutoComplete(products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getProductsByStoreTag = async () => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/product/get-products-by-store-tag`,
+        { tag: category, storeId: storeId }
+      );
+      const { products } = data;
+      setArray(products);
+      getAutoComplete(products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getOffers = () => {
+    const allOffers = [];
+    offers.forEach((element) => {
+      if (element.storeId._id == storeId) allOffers.push(element);
+    });
+    setArray(allOffers);
+    getAutoComplete(allOffers);
+  };
+
+  const getProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        `${
+          import.meta.env.VITE_URI_API
+        }/product/get-products-by-store/${storeId}`
+      );
+      const { products } = data;
+      setArray(products);
+      getAutoComplete(products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const searchProducts = async () => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/product/search-products`,
+        { search: search }
+      );
+      const { result } = data;
+      setArray(result);
+      getAutoComplete(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAutoComplete = (newOptions) => {
+    let allTags = [];
+    newOptions.forEach(({ tags }) => {
+      tags.forEach((element) => {
+        const tag = element.replace("#", "");
+        if (element != "Home" && tag != category && tag != search)
+          allTags.push(tag);
+      });
+    });
+    allTags = Array.from(new Set(allTags));
+    if (allTags.length > 3) {
+      const result = [];
+      while (result.length < 3) {
+        const number = Math.floor(Math.random() * allTags.length);
+        if (result.includes(allTags[number]) == false) {
+          result.push(allTags[number]);
+        }
+      }
+      setOptions(result);
+    } else setOptions(allTags);
+  };
+
+  useEffect(() => {
+    if (category && !storeId) {
+      // Ver productos de una categoria
+      getProductsByTag();
+    } else if (category && storeId) {
+      // Ver productos de una categoria en tienda especifica
+      getProductsByStoreTag();
+    } else if (location.pathname == "/products/offers") {
+      // Ver todas las ofertas
+      setArray(offers);
+      getAutoComplete(offers);
+    } else if (location.pathname == "/products/all") {
+      // Ver todos los productos
+      setArray(products);
+      getAutoComplete(products);
+    } else if (store && location.pathname.includes("/products")) {
+      // Ver productos de una tienda en especifico
+      getProducts();
+    } else if (store && location.pathname.includes("/offers")) {
+      // Ver ofertas de una tienda en especifico
+      getOffers();
+    } else if (search) {
+      searchProducts();
+    } else {
+      setArray(products);
+      getAutoComplete(products);
+    }
+  }, [location]);
+
+  return (
+    <>
+      {array ? (
+        <>
+          <Searchbar></Searchbar>
+          <ProductsCard
+            products={array}
+            category={category}
+            tags={options}
+          ></ProductsCard>
+        </>
+      ) : (
+        <Animation></Animation>
+      )}
+    </>
+  );
+};

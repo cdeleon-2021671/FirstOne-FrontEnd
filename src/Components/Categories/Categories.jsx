@@ -1,21 +1,35 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import $ from "jquery";
 import "./Categories.scss";
+import { Link } from "react-router-dom";
 
-export const Categories = ({ allTags }) => {
+export const Categories = ({ tags, url }) => {
+
+  useEffect(() => {
+    tags.forEach(({ product }) => {
+      $(`.container-${product._id}`).css(
+        "background-image",
+        `url(${product.image})`
+      );
+    });
+  }, [tags]);
+
   return (
     <>
-      {allTags && (
-        <div className="categoriesContainer">
-          {allTags.map(({ product, tag }) => (
-            <div className="singleCategory" key={product._id}>
-              <img src={product.image} alt={tag} />
-              <div>
-                <span>{tag}</span>
-                <span>
-                  | <b>{product.storeId.name}</b>
-                </span>
-              </div>
-            </div>
+      {tags && (
+        <div id="categories-container">
+          {tags.map(({ tag, product }) => (
+            <Link
+              key={product._id}
+              className={`container-${product._id}`}
+              to={`/${url}/${tag.replace('#', '')}`}
+              title={tag}
+            >
+              <span>
+                {tag} <br />
+                <b>| {product.storeId.name}</b>
+              </span>
+            </Link>
           ))}
         </div>
       )}

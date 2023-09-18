@@ -1,0 +1,80 @@
+#searchbar-container {
+  display: flex;
+  justify-content: center;
+  z-index: 100;
+  width: 100%;
+  &.isActive {
+    position: fixed;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    height: 100%;
+    top: 0;
+    background: rgba($color: #000000, $alpha: 0.3);
+    div {
+      height: 2.6em;
+      background: #fff;
+      border: none;
+      border-radius: 0.4em 0.4em 0 0;
+      &.result {
+        margin: 0;
+        border: none;
+        border-radius: 0;
+        background: #f1f1f1;
+        cursor: pointer;
+        input,
+        label {
+          cursor: pointer;
+          color: #646464;
+        }
+        &:hover {
+          background: #d8d8d8;
+        }
+        &:last-child {
+          border-radius: 0 0 0.4em 0.4em;
+        }
+      }
+    }
+  }
+  div {
+    border: 1px solid #afafaf;
+    margin-top: 1em;
+    width: 80%;
+    padding: 0.4em;
+    display: flex;
+    gap: 0.2em;
+    border-radius: 0.2em;
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+      background: none;
+      font-size: 1.2em;
+      font-family: sans-serif;
+    }
+    label {
+      display: flex;
+      svg {
+        width: 1.7em;
+        height: 1.7em;
+      }
+    }
+    @media screen and (max-width: 600px) {
+      width: 90%;
+      input {
+        font-size: 1.05em;
+        padding-top: 0.2em;
+      }
+    }
+    @media screen and (max-width: 500px) {
+      width: 100%;
+      margin-top: 0;
+      label {
+        svg {
+          width: 1.5em;
+          height: 1.5em;
+        }
+      }
+    }
+  }
+}

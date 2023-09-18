@@ -1,44 +1,84 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Introduction } from "../Components/Introduction/Introduction";
-import { Searchbar } from "../Components/Searchbar/Searchbar";
+import React, { useState, useContext, useEffect } from "react";
+import { Introduction } from "../Components/HomePage/Introduction";
 import { Categories } from "../Components/Categories/Categories";
-import { ProductsCard } from "../Components/Products/ProductsCard";
+import { Products } from "../Components/Products/Products";
+import { Searchbar } from "../Components/Search/Searchbar";
+import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { AuthContext } from "../Index";
-import { SkeletonAnimation } from "../Components/Animation/SkeletonAnimation";
+import { v4 } from "uuid";
 
 export const HomePage = () => {
-  const { tags, products, stores } = useContext(AuthContext);
-  const [allTags, setAllTags] = useState(null);
+  const { tags, offers, products } = useContext(AuthContext);
+  const [categories, setCategories] = useState([]);
+  const [allProducts, setAllProducts] = useState([]);
+  const [allOffers, setAllOffers] = useState([]);
 
-  const getTags = () => {
-    let newTags = [];
+  const getNewCategories = () => {
+    const newCategories = [];
     while (true) {
-      if (newTags.length == 15) {
-        break;
-      } else {
-        const random = Math.floor(Math.random() * tags.length);
-        if (newTags.includes(tags[random]) == false) {
-          newTags.push(tags[random]);
-        }
-      }
+      if (newCategories.length == 16) break;
+      const random = Math.floor(Math.random() * tags.length);
+      const product = tags[random];
+      if (newCategories.includes(product) == false)
+        newCategories.push(tags[random]);
     }
-    setAllTags(newTags);
+    setCategories(newCategories);
+  };
+
+  const getProducts = () => {
+    const newProducts = Array.from(products);
+    if (products.length > 40) newProducts.length = 40;
+    setAllProducts(newProducts);
+  };
+
+  const getOffers = () => {
+    const newOffers = Array.from(offers);
+    if (products.length > 40) newOffers.length = 40;
+    setAllOffers(newOffers);
   };
 
   useEffect(() => {
-    getTags();
-  }, []);
+    if (tags.length >= 16) {
+      getNewCategories();
+    } else {
+      setCategories(tags);
+    }
+  }, [tags]);
+
+  useEffect(() => {
+    getProducts();
+  }, [products]);
+
+  useEffect(() => {
+    getOffers();
+  }, [offers]);
+
   return (
     <>
-      {stores && allTags && products ? (
+      <Introduction></Introduction>
+      <Searchbar></Searchbar>
+      <Categories tags={categories} url={"products"}></Categories>
+      {allOffers.length !== 0 && (
         <>
-          <Introduction stores={stores}></Introduction>
-          <Searchbar></Searchbar>
-          <Categories allTags={allTags}></Categories>
-          <ProductsCard products={products} title={"Populares"}></ProductsCard>
+          <Products
+            products={allOffers}
+            title={"Ofertas"}
+            classRight={v4()}
+            classLeft={v4()}
+          ></Products>
+          <GoToLink url="/products/offers"></GoToLink>
         </>
-      ) : (
-        <SkeletonAnimation></SkeletonAnimation>
+      )}
+      {allProducts.length !== 0 && (
+        <>
+          <Products
+            products={allProducts}
+            title={"Populares"}
+            classRight={v4()}
+            classLeft={v4()}
+          ></Products>
+          <GoToLink url="/products/all"></GoToLink>
+        </>
       )}
     </>
   );

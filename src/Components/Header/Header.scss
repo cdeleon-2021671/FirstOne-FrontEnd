@@ -1,33 +1,58 @@
-.headerContainer {
-  background: #5DADE2;
-  padding: .7em;
+#header-content {
+  height: 3.5em;
   position: relative;
-  h1{
-    text-align: center;
-    a {
-      font-family: serif;
-      font-family: Geneva, Tahoma, sans-serif;
-      color: #fff;
-    }
-  }
-  .menuHeader {
+  background: #5DADE2;
+  label {
     position: absolute;
+    height: 100%;
+    font-size: 1.5em;
     display: flex;
     align-items: center;
-    gap: .2em;
-    top: 0;
-    height: 100%;
-    color: #fff;
+    gap: 0.3em;
+    padding: 0 0.5em;
     cursor: pointer;
-    label {
-      cursor: pointer;
-      font-family: Geneva, Tahoma, sans-serif;
-      font-weight: 900;
-      font-size: 1.4em;
+    color: #fff;
+    font-weight: 900;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+  h1 {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    a {
+      color: #fff;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
-    svg{
-      font-size: 1.8em;
-      height: 100%;
+  }
+  @media screen and (max-width: 550px) {
+    label {
+      font-size: 1.2em;
+    }
+    h1 {
+      a {
+        font-size: 0.85em;
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    label {
+      font-size: 1, 1em;
+    }
+    h1 {
+      a {
+        font-size: 0.75em;
+      }
+    }
+  }
+  @media screen and (max-width: 300px) {
+    label {
+      font-size: 0.9em;
+    }
+    h1 {
+      a {
+        font-size: 0.65em;
+      }
     }
   }
 }

@@ -1,0 +1,148 @@
+#products-card{
+    padding: 1em;
+    .more-options{
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        padding: .3em 0;
+        label, button{
+            font-family: Roboto;
+            font-size: 1.3em;
+            min-width: max-content;
+        }
+        button{
+            border: none;
+            border-radius: 1em;
+            background: #5dade2;
+            padding: .3em 1.2em;
+            color: #fff;
+            cursor: pointer;
+            transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+            &:hover{
+                box-shadow: 0 1px 2px rgba($color: #000000, $alpha: .5);
+            }
+        }
+    }
+    .products{
+        padding: 1em 0 0;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(30vw, 1fr));
+        justify-content: center;
+        gap: 1vw;
+        a{
+            border-radius: .3em;
+            height: 13vw;
+            display: flex;
+            img{
+                height: 13vw;
+                width: 13vw;
+                object-fit: cover;
+                border: 1px solid rgba(114, 114, 114, .4);
+                border-right: none;
+            }
+            div{
+                border: 1px solid rgba(114, 114, 114, .4);
+                border-left: none;
+                width: 100%;
+                padding: .5em;
+                display: flex;
+                flex-direction: column;
+                gap: .6em;
+                justify-content: center;
+                span{
+                    font-family: sans-serif;
+                    &.price{
+                        font-size: 1.2em;
+                        font-weight: 100;
+                    }
+                    &.stock{
+                        font-family: Roboto;
+                    }
+                    @media screen and (max-width: 1010px) {
+                        font-size: .9em;
+                        &.price{
+                            font-size: 1.1em;
+                        }
+                    }
+                    @media screen and (max-width: 620px) {
+                        font-size: .8em;
+                        &.price{
+                            font-size: 1em;
+                        }
+                    }
+                    @media screen and (max-width: 570px) {
+                        font-size: .75em;
+                        &.price{
+                            font-size: .9em;
+                        }
+                    }
+                    @media screen and (max-width: 500px) {
+                        font-size: .9em;
+                        &.price{
+                            font-size: 1em;
+                        }
+                    }
+                    @media screen and (max-width: 350px) {
+                        font-size: .8em;
+                        &.price{
+                            font-size: .9em;
+                        }
+                    }
+                    @media screen and (max-width: 300px) {
+                        font-size: .75em;
+                        &.price{
+                            font-size: .8em;
+                        }
+                    }
+                }
+            }
+        }
+        @media screen and (max-width: 950px) {
+            grid-template-columns: repeat(2, minmax(30vw, 1fr));
+            a{
+                height: 18vw;
+                img{
+                    width: 18vw;
+                    height: 18vw;
+                }
+            }
+        }
+        @media screen and (max-width: 700px) {
+            a{
+                height: 23vw;
+                img{
+                    width: 23vw;
+                    height: 23vw;
+                }
+            }
+        }
+        @media screen and (max-width: 500px) {
+            grid-template-columns: minmax(30vw, 1fr);
+            a{
+                height: 30vw;
+                img{
+                    width: 30vw;
+                    height: 30vw;
+                }
+            }
+        }
+        @media screen and (max-width: 375px) {
+            a{
+                height: 35vw;
+                img{
+                    width: 35vw;
+                    height: 35vw;
+                }
+            }
+        }
+        @media screen and (max-width: 330px) {
+            a{
+                height: 40vw;
+                img{
+                    width: 40vw;
+                    height: 40vw;
+                }
+            }
+        }
+    }
+}

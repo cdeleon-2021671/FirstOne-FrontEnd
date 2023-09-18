@@ -1,0 +1,25 @@
+#aside-content {
+  background: #f1f1f1;
+  max-width: 18em;
+  min-width: 18em;
+}
+
+.hiddenAside {
+  margin-left: 0;
+  animation: hiddenAside 0.4s normal forwards ease-in-out;
+  @keyframes hiddenAside {
+    to {
+      margin-left: -18em;
+    }
+  }
+}
+
+.showAside {
+  margin-left: -18em;
+  animation: showAside 0.4s normal forwards ease-in-out;
+  @keyframes showAside {
+    to {
+      margin-left: 0;
+    }
+  }
+}

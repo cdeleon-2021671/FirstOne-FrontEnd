@@ -1,40 +1,159 @@
-.productsContainer {
-  padding: 0 1em 2.5em;
-  display: flex;
-  flex-direction: column;
-  row-gap: 1em;
+.products-container {
+  padding: 0 1em;
   h1 {
-    padding: 0.5em 0;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-family: Verdana, Times, "Times New Roman", serif;
+    padding-top: 0.5em;
+    @media screen and (max-width: 725px) {
+      font-size: 1.8em;
+    }
+    @media screen and (max-width: 500px) {
+      font-size: 1.2em;
+    }
+    @media screen and (max-width: 380px) {
+      font-size: 1em;
+    }
   }
-  .products {
+  .products-content {
     display: flex;
-    .singleProduct {
+    margin-top: 1em;
+    button {
+      border: none;
+      background: #f1f1f1;
+      padding: 0;
+      font-size: 0;
+      width: 0;
+      cursor: pointer;
+      animation: showButton 0.4s normal forwards ease-in-out;
+      @keyframes showButton {
+        to {
+          padding: 0 0.1em;
+          font-size: 2em;
+          width: auto;
+        }
+      }
+      &.hiddenButton {
+        padding: 0 0.1em;
+        font-size: 2em;
+        width: auto;
+        animation: hiddenButton 0.4s normal forwards ease-in-out;
+        @keyframes hiddenButton {
+          to {
+            padding: 0;
+            font-size: 0;
+            width: 0;
+          }
+        }
+      }
+    }
+    .products {
+      width: 100%;
       display: flex;
-      gap: 1.5em;
       overflow: auto;
-      scroll-behavior: smooth;
-      padding: 0.08em 0;
+      overflow-y: hidden;
       &::-webkit-scrollbar {
         height: 0;
       }
+      gap: 1em;
+      scroll-behavior: smooth;
+      .single {
+        &:hover {
+          h3, h4 {
+            color: #4d4d4d
+          }
+        }
+        div {
+          height: calc(100% - 25vw);
+          padding: 0 .5em;
+          h4 {
+            font-family: "Roboto";
+            font-size: 0.95em;
+          }
+          h3 {
+            transition: background 0.1s ease-in-out;
+            font-family: "Roboto";
+            padding: 0.5em 0 0.6em 0;
+          }
+        }
+        img {
+          width: 25vw;
+          height: 25vw;
+          object-fit: cover;
+        }
+      }
     }
-    .slice {
-      border: none;
-      font-size: 2em;
-      padding: 0 0.1em;
-      cursor: pointer;
-      color: #999999;
+    @media screen and (max-width: 950px) {
+      .products {
+        .single {
+          img {
+            width: 30vw;
+            height: 30vw;
+          }
+          div {
+            height: calc(100% - 30vw);
+          }
+        }
+      }
     }
-  }
-}
-
-.filtersContainer {
-  padding: 0 1em 2.5em;
-  .singleFilter {
-    padding-top: 1em;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(25vw, 1fr));
-    gap: 1em;
+    @media screen and (max-width: 750px) {
+      button {
+        display: none;
+      }
+      .offers {
+        .single {
+          img {
+            width: 35vw;
+            height: 35vw;
+          }
+          div {
+            height: calc(100% - 35vw);
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 600px) {
+      .products {
+        .single {
+          div {
+            height: calc(100% - 37vw);
+            h4 {
+              font-size: 0.85em;
+            }
+            h3 {
+              font-size: 1em;
+            }
+          }
+          img {
+            width: 37vw;
+            height: 37vw;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 550px) {
+      .products {
+        .single {
+          img {
+            width: 45vw;
+            height: 45vw;
+          }
+          div {
+            height: calc(100% - 45vw);
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 450px) {
+      .products {
+        .single {
+          img {
+            width: 57vw;
+            height: 57vw;
+          }
+          div {
+            height: calc(100% - 57vw);
+          }
+        }
+      }
+    }
   }
 }

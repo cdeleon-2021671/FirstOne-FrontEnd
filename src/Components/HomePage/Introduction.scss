@@ -1,0 +1,125 @@
+#stores-container {
+  padding: 1em 1em 0;
+  .description {
+    text-align: center;
+    font-size: 1.5em;
+    span {
+      font-family: sans-serif;
+    }
+  }
+  .stores {
+    padding-top: 1em;
+    display: flex;
+    div {
+      display: flex;
+      overflow: auto;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        height: 0;
+      }
+      a {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        font-size: 1.3em;
+        img {
+          width: 20vw;
+          height: 20vw;
+          object-fit: contain;
+        }
+        span {
+          padding: 0.4em 0;
+          font-weight: 900;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+        }
+      }
+    }
+    button {
+      background: #f1f1f1;
+      color: #000;
+      cursor: pointer;
+      border: none;
+      font-size: 0;
+      padding: 0;
+      width: 0;
+      animation: showBtn 0.2s normal forwards ease-in-out;
+      @keyframes showBtn {
+        to {
+          font-size: 2em;
+          padding: 0 0.1em;
+          width: auto;
+        }
+      }
+      &.hiddenButton {
+        font-size: 2em;
+        padding: 0 0.1em;
+        width: auto;
+        animation: hiddenBtn 0.2s normal forwards ease-in-out;
+        @keyframes hiddenBtn {
+          to {
+            font-size: 0;
+            padding: 0;
+            width: 0;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    .stores {
+      div {
+        a {
+          img {
+            width: 25vw;
+            height: 25vw;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 750px) {
+    button {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 700px) {
+    .description {
+      font-size: 1.3em;
+    }
+    .stores {
+      div {
+        a {
+          img {
+            width: 30vw;
+            height: 30vw;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 575px) {
+    .description {
+      font-size: 1.2em;
+    }
+    .stores {
+      div {
+        a {
+          font-size: 1.1em;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 400px) {
+    .stores {
+      div {
+        a {
+          img {
+            width: 37vw;
+            height: 37vw;
+          }
+        }
+      }
+    }
+  }
+}

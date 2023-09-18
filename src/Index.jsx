@@ -8,6 +8,7 @@ export const AuthContext = createContext();
 export const Index = () => {
   const [stores, setStores] = useState(null);
   const [tags, setTags] = useState(null);
+  const [offers, setOffers] = useState(null);
   const [products, setProducts] = useState(null);
   const [autoComplete, setAutoComplete] = useState(null);
 
@@ -23,7 +24,43 @@ export const Index = () => {
     }
   };
 
-  const getOptions = async () => {
+  const getCategories = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/product/get-products-of-tags`
+      );
+      const { result } = data;
+      setTags(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getOffers = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/product/get-all-offers`
+      );
+      const { allOffers } = data;
+      setOffers(allOffers);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/product/get-all-products`
+      );
+      const { allProducts } = data;
+      setProducts(allProducts);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAutoComplete = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_URI_API}/product/get-options`
@@ -35,42 +72,19 @@ export const Index = () => {
     }
   };
 
-  const getProductsOfTags = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-products-of-fags`
-      );
-      const { result } = data;
-      setTags(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getAllProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-products`
-      );
-      const { products } = data;
-      setProducts(products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
     getStores();
-    getProductsOfTags();
-    getAllProducts();
-    getOptions();
+    getCategories();
+    getOffers();
+    getProducts();
+    getAutoComplete();
   }, []);
 
   return (
     <>
-      {stores && products && tags && autoComplete ? (
+      {stores && tags && offers && products && autoComplete ? (
         <AuthContext.Provider
-          value={{ stores, tags, products, autoComplete, socialLinks }}
+          value={{ stores, tags, offers, products, socialLinks, autoComplete }}
         >
           <RouterProvider router={routes} />
         </AuthContext.Provider>

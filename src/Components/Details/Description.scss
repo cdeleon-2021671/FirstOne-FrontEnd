@@ -1,0 +1,100 @@
+#description-container {
+  p {
+    padding: 1em;
+    font-family: sans-serif;
+    text-align: center;
+    text-align: justify;
+    @media screen and (max-width: 725px) {
+      font-size: 0.9em;
+    }
+    @media screen and (max-width: 380px) {
+      font-size: 0.8em;
+    }
+  }
+  .social-links {
+    background: #f1f1f1;
+    display: flex;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      height: 0;
+    }
+    width: 100%;
+    padding: 1em;
+    span {
+      font-size: 1.2em;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin-right: 1em;
+    }
+    a {
+      display: flex;
+      gap: 0.3em;
+      font-size: 1.2em;
+      margin-right: 1em;
+      label {
+        font-family: sans-serif;
+        cursor: pointer;
+      }
+      svg {
+        height: 90%;
+      }
+      &:hover {
+        color: #666666;
+      }
+    }
+    @media screen and (max-width: 830px) {
+      span,
+      a {
+        font-size: 1em;
+      }
+    }
+    @media screen and (max-width: 700px) {
+      span,
+      a {
+        font-size: 0.9em;
+      }
+    }
+    @media screen and (max-width: 670px) {
+      position: fixed;
+      bottom: 0;
+      background: #5dade2;
+      span{
+        color: #fff;
+      }
+      a {
+        color: #fff;
+        min-width: max-content;
+      }
+    }
+    @media screen and (max-width: 450px) {
+      span,
+      a {
+        font-size: 1.2em;
+      }
+    }
+  }
+  .store {
+    padding: 0.5em 1em 0;
+    h1 {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin-bottom: 0.5em;
+      @media screen and (max-width: 725px) {
+        font-size: 1.8em;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 1.2em;
+      }
+      @media screen and (max-width: 380px) {
+        font-size: 1em;
+      }
+    }
+    span {
+      font-family: sans-serif;
+      @media screen and (max-width: 725px) {
+        font-size: 0.9em;
+      }
+      @media screen and (max-width: 380px) {
+        font-size: 0.8em;
+      }
+    }
+  }
+}

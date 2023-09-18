@@ -1,64 +1,94 @@
-import React, { useEffect, useState, useContext } from "react";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { Searchbar } from "../Components/Search/Searchbar";
+import { Introduction } from "../Components/StorePage/Introduction";
 import { useParams } from "react-router-dom";
-import { Searchbar } from "../Components/Searchbar/Searchbar";
-import { AuthContext } from "../Index";
-import { ProductsCard } from "../Components/Products/ProductsCard";
-import { StoreIntroduction } from "../Components/Introduction/StoreIntroduction";
 import { Categories } from "../Components/Categories/Categories";
+import { Products } from "../Components/Products/Products";
 import { Animation } from "../Components/Animation/Animation";
+import { GoToLink } from "../Components/GoToLink/GoToLink";
+import { AuthContext } from "../Index";
+import axios from "axios";
+import { v4 } from "uuid";
 
 export const StorePage = () => {
-  const { tags } = useContext(AuthContext);
-  const { store } = useParams();
-  const [infoStore, setInfoStore] = useState(null);
-  const [storeTags, setStoreTags] = useState(null);
+  const { tags, offers } = useContext(AuthContext);
+  const { storeId } = useParams("");
+  const [categories, setCategories] = useState(null);
+  const [store, setStore] = useState(null);
+  const [newOffers, setNewOffers] = useState(null);
   const [products, setProducts] = useState(null);
 
-  const getTagsByStore = () => {
-    const newTags = tags.filter((item) => {
-      const { product } = item;
-      const { storeId } = product;
-      const { _id } = storeId;
-      const filter = store.split("-")[1];
-      if (_id == filter) return item;
-    });
-    setStoreTags(newTags);
-  };
-
-  const getProductsByStore = async () => {
+  const getProducts = async () => {
     try {
-      const id = store.split("-")[1];
       const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-products-by-store/${id}`
+        `${
+          import.meta.env.VITE_URI_API
+        }/product/get-products-by-store/${storeId}`
       );
       const { products } = data;
-      setInfoStore(products[0][0].storeId);
-      setProducts(products);
-      getTagsByStore();
+      const newProducts = Array.from(products);
+      if (products.length > 40) newProducts.length = 40;
+      setProducts(newProducts);
+      setStore(newProducts[0].storeId);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getProductsByStore();
+    getProducts();
   }, []);
+
+  useEffect(() => {
+    const allOffers = [];
+    offers.forEach((element) => {
+      if (element.storeId._id == storeId) allOffers.push(element);
+    });
+    if (allOffers.length > 40) allOffers.length = 40;
+    setNewOffers(allOffers);
+  }, [offers]);
+
+  useEffect(() => {
+    const newCategories = [];
+    tags.forEach((element) => {
+      if (element.product.storeId._id == storeId) newCategories.push(element);
+    });
+    setCategories(newCategories);
+  }, [tags]);
 
   return (
     <>
-      {infoStore ? (
+      {tags && storeId && store && categories && products && newOffers ? (
         <>
           <Searchbar></Searchbar>
-          <StoreIntroduction {...infoStore}></StoreIntroduction>
-          <Categories allTags={storeTags}></Categories>
-          <ProductsCard
-            title={`Populares de ${infoStore.name}`}
-            products={products}
-          ></ProductsCard>
-          <ShowAllProducts {...infoStore}></ShowAllProducts>
-          <Banner {...infoStore}></Banner>
+          {store.length !== 0 && <Introduction {...store}></Introduction>}
+          <Categories
+            tags={categories}
+            url={`store/${store.name}/${storeId}`}
+          ></Categories>
+          {newOffers && newOffers.length != 0 && (
+            <>
+              <Products
+                classRight={v4()}
+                classLeft={v4()}
+                products={newOffers}
+                title={"Ofertas"}
+              ></Products>
+              <GoToLink url={`/${store.name}/offers/${storeId}`}></GoToLink>
+            </>
+          )}
+          {products.length !== 0 && (
+            <>
+              <Products
+                classRight={v4()}
+                classLeft={v4()}
+                products={products}
+                title={"Populares"}
+              ></Products>
+              <GoToLink url={`/${store.name}/products/${storeId}`}></GoToLink>
+            </>
+          )}
+          <Banner {...store}></Banner>
         </>
       ) : (
         <Animation></Animation>
@@ -67,21 +97,19 @@ export const StorePage = () => {
   );
 };
 
-const ShowAllProducts = ({ name }) => {
+const Banner = ({ banner, urlStore }) => {
   return (
-    <div className="buttonContainer">
-      <Link to={`/searching/${name}`}>Ver todos los productos</Link>
-    </div>
-  );
-};
-
-const Banner = ({ banner, name, urlStore }) => {
-  return (
-    <div className="bannerContainer">
-      <img src={banner} alt={name} />
-      <Link to={urlStore} target="_blank" style={{ width: "50%", textAlign: "center" }}>
-        Explora toda la tienda
-      </Link>
+    <div
+      id="banner"
+      style={{
+        backgroundImage: `url(${banner})`,
+      }}
+    >
+      <GoToLink
+        url={urlStore}
+        mode="_blank"
+        title="Explora toda la tienda"
+      ></GoToLink>
     </div>
   );
 };

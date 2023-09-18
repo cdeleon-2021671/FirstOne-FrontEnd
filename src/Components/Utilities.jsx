@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
 import {
   BsWhatsapp,
@@ -11,10 +11,10 @@ import {
 } from "react-icons/bs";
 import { NotFoundPage } from "../Pages/NotFoundPage/NotFoundPage";
 import { HomePage } from "../Pages/HomePage";
-import { StorePage } from "../Pages/StorePage";
-import { ProductDetails } from "../Pages/ProductDetails";
-import { Filters } from "../Pages/Filters";
 import App from "../App";
+import { StorePage } from "../Pages/StorePage";
+import { Details } from "../Pages/Details";
+import { OutletProducts } from "../Pages/OutletProducts";
 
 export const routes = createBrowserRouter([
   {
@@ -27,16 +27,56 @@ export const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "store/:store",
-        element: <StorePage />,
+        path: "store",
+        element: <Outlet></Outlet>,
+        children: [
+          {
+            path: ":store/:storeId",
+            element: <StorePage />,
+          },
+          {
+            path: ":store/:storeId/:category",
+            element: <OutletProducts />,
+          },
+        ],
       },
       {
-        path: "product-details/:productId",
-        element: <ProductDetails />,
+        path: ":store/products/:storeId",
+        element: <OutletProducts />,
+      },
+      {
+        path: ":store/offers/:storeId",
+        element: <OutletProducts />,
+      },
+      {
+        path: "searching",
+        element: <OutletProducts />,
       },
       {
         path: "searching/:search",
-        element: <Filters />,
+        element: <OutletProducts />,
+      },
+      {
+        path: "products",
+        element: <Outlet></Outlet>,
+        children: [
+          {
+            path: "all",
+            element: <OutletProducts />,
+          },
+          {
+            path: "offers",
+            element: <OutletProducts />,
+          },
+          {
+            path: ":category",
+            element: <OutletProducts />,
+          },
+        ],
+      },
+      {
+        path: "product/:product/:productId",
+        element: <Details />,
       },
     ],
   },
@@ -64,11 +104,11 @@ export const socialLinks = [
     element: <BsInstagram />,
   },
   {
-    title: "Teléfono",
+    title: "Phone",
     element: <BsFillTelephoneFill />,
   },
   {
     title: "TikTok",
     element: <BsTiktok />,
-  }
+  },
 ];

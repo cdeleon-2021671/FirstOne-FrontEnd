@@ -1,51 +1,40 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Koulen&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap");
 
-*{
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: sans;
+}
+a {
+  color: #000;
+}
+#main-content {
+  display: flex;
+  height: calc(100vh - 3.5em);
+  overflow: hidden;
+  #outlet-content {
+    overflow: auto;
+    overflow-x: hidden;
+    min-width: 100%;
+    padding-bottom: 1em;
+  }
+}
+
+#banner{
+  margin-top: 1.4em;
+  height: 20vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  div{
     padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    font-family: sans;
-}
-a{
-    color: #000;
-}
-.buttonContainer{
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2.5em;
-    a{
-        background: #5DADE2;
-        padding: .7em 2em;
-        color: #fff;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-        font-weight: 900;
-        font-size: 1.1em;
-    }
-}
-.bannerContainer{
-    position: relative;
-    margin-bottom: 2.5em;
-    img{
-        width: 100%;
-        object-fit: cover;
-    }
-    a{
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 100;
-        background: #5DADE2;
-        padding: .7em 2em;
-        color: #fff;
-        font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-        font-weight: 900;
-        font-size: 1.1em;
-    }
+    height: 100%;
+  }
 }

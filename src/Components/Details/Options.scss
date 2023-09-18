@@ -1,0 +1,79 @@
+#options-container {
+  padding: 0 1em;
+  display: flex;
+  .options {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+    border: 1px solid #f1f1f1;
+    button {
+      display: none;
+    }
+    span {
+      background: #f1f1f1;
+      font-size: 1.3em;
+      font-family: Roboto;
+      font-weight: 900;
+      padding: 0.5em;
+    }
+    div {
+      width: 100%;
+      padding-left: 0.5em;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4em;
+      padding-top: 0.4em;
+      label,
+      a {
+        font-family: sans-serif;
+        font-size: 1.05em;
+      }
+    }
+  }
+  @media screen and (max-width: 800px) {
+    display: flex;
+    flex-direction: column;
+    padding: 0 1em;
+    .options {
+      width: 100%;
+      border: none;
+      button {
+        display: block;
+        background: #fff;
+        border: none;
+        font-size: 1.2em;
+        font-family: Roboto;
+        text-align: left;
+        padding: 0.4em;
+        cursor: pointer;
+        @media screen and (max-width: 500px) {
+          font-size: 1em;
+        }
+      }
+      span {
+        display: none;
+      }
+      div {
+        font-size: .9em;
+        animation: hiddenOptions 0.3s normal forwards ease-in-out;
+        @keyframes hiddenOptions {
+          to {
+            font-size: 0;
+          }
+        }
+      }
+      .showOptions {
+        font-size: 0;
+        animation: showOptions 0.3s normal forwards ease-in-out;
+        @keyframes showOptions {
+          to {
+            font-size: .9em;
+          }
+        }
+      }
+      .isActive {
+        border-left: 1px solid #000;
+      }
+    }
+  }
+}

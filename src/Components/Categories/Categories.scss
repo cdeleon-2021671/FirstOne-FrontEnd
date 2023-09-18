@@ -1,28 +1,61 @@
-.categoriesContainer {
-  padding: 1em;
+#categories-container {
+  padding: 1em 1em 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(17vw, 1fr));
-  grid-template-rows: repeat(auto-fit, 20vw);
-  gap: 1.4vw;
-  .singleCategory {
+  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+  gap: 1em;
+  a {
     position: relative;
-    div {
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      background: rgba($color: #000000, $alpha: 0.4);
-      padding: 1em;
-      span {
-        display: block;
-        font-family: "Times New Roman", Times, serif;
-        font-size: 1.05em;
-        color: #fff;
-      }
-    }
+    width: 100%;
+    height: 25vw;
+    background-size: cover;
     img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+    }
+    span {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      background: rgba($color: #000000, $alpha: 0.45);
+      width: 100%;
+      padding: 1em;
+      color: #fff;
+      font-family: Roboto;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    grid-template-columns: repeat(3, minmax(28vw, 1fr));
+    a{
+        height: 30vw;
+        span{
+            padding: .5em;
+        }
+    }
+  }
+  @media screen and (max-width: 635px) {
+    a{
+        span{
+            font-size: .9em;
+        }
+    }
+  }
+  @media screen and (max-width: 550px) {
+    grid-template-columns: repeat(2, minmax(40vw, 1fr));
+    a{
+        height: 40vw;
+    }
+  }
+  @media screen and (max-width: 410px) {
+    a{
+        span{
+            font-size: .8em;
+        }
+    }
+  }
+  @media screen and (max-width: 372px) {
+    a{
+        span{
+            font-size: .7em;
+        }
     }
   }
 }

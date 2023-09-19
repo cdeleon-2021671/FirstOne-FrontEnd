@@ -1,13 +1,17 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import $ from 'jquery';
 import "./ProductsCard.scss";
 
 export const ProductsCard = ({ products, tags }) => {
-
+  const {search} = useParams();
   useEffect(()=>{
     $('.more-options')[0].scrollLeft = 0
   }, [tags]);
+
+  const setLocal = ()=>{
+    console.log(search);
+  }
 
   return (
     <>
@@ -24,8 +28,8 @@ export const ProductsCard = ({ products, tags }) => {
             </div>
           )}
           <div className="products">
-            {products.map(({ _id, image, price, name, storeId, stock }) => (
-              <Link key={_id} to={`/product/${name}/${_id}`}>
+            {products.map(({ _id, image, price, name, storeId, stock }, key) => (
+              <Link key={key} to={`/product/${name}/${_id}`} onClick={setLocal}>
                 <img src={image} alt={name} />
                 <div>
                   <span>

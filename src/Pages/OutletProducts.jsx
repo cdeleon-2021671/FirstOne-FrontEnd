@@ -73,8 +73,13 @@ export const OutletProducts = () => {
         { search: search }
       );
       const { result } = data;
-      setArray(result);
-      getAutoComplete(result);
+      if(result.length === 0) {
+        setArray(products);
+        getAutoComplete(products)
+      }else {
+        setArray(result);
+        getAutoComplete(result);
+      }
     } catch (err) {
       console.log(err);
     }
@@ -130,6 +135,7 @@ export const OutletProducts = () => {
       getOffers();
       setFilter(`Ofertas ${store}`);
     } else if (search) {
+      setArray(null);
       searchProducts();
       setFilter(search)
     } else {
@@ -141,7 +147,7 @@ export const OutletProducts = () => {
 
   return (
     <>
-      {array ? (
+      {array && options ? (
         <>
           <Searchbar filter={filter} />
           <ProductsCard

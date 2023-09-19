@@ -1,17 +1,17 @@
 import React, { useContext, useEffect, useState, useRef } from "react";
+import { AiFillCloseSquare } from "react-icons/ai";
 import { FiSearch } from "react-icons/fi";
-import $ from "jquery";
 import { AuthContext } from "../../Index";
-import "./Searchbar.scss";
 import { useNavigate } from "react-router-dom";
+import "./Searchbar.scss";
 
-export const Searchbar = () => {
+export const Searchbar = ({ filter = "" }) => {
   const { autoComplete } = useContext(AuthContext);
   const navigate = useNavigate();
   const inputRef = useRef(null);
   const [options, setOptions] = useState(null);
   const [search, setSearch] = useState("");
-  const [actual, setActual] = useState("");
+  const [actual, setActual] = useState(filter);
   const [indexOption, setIndexOption] = useState(0);
   const [viewOptions, setViewOptions] = useState(false);
 
@@ -52,12 +52,10 @@ export const Searchbar = () => {
   };
 
   const focusInput = () => {
-    $("#searchbar-container").addClass("isActive");
     setViewOptions(true);
   };
 
   const blurInput = () => {
-    $("#searchbar-container").removeClass("isActive");
     setIndexOption(0);
     setViewOptions(false);
   };
@@ -67,6 +65,10 @@ export const Searchbar = () => {
     newAutoComplete.length = 8;
     setOptions(newAutoComplete);
   }, []);
+  
+  useEffect(() => {
+    handleChange({target: {value: filter}});
+  }, [filter]);
 
   useEffect(() => {
     if (indexOption == 0) setSearch(actual);
@@ -91,34 +93,39 @@ export const Searchbar = () => {
           onBlur={() =>
             setTimeout(() => {
               blurInput();
-            }, 200)
+            }, 100)
           }
           ref={inputRef}
         />
+        {viewOptions == true && (
+          <AiFillCloseSquare id="closeSearch" onClick={blurInput} />
+        )}
       </div>
-      {options &&
-        viewOptions &&
-        options.map((item, key) => {
-          return (
-            <div
-              className="result"
-              key={key}
-              style={{ background: indexOption == key + 1 ? "#d8d8d8" : "" }}
-              onClick={() => goToSearch(item)}
-            >
-              <label>
-                <FiSearch></FiSearch>
-              </label>
-              <input
-                type="text"
-                autoComplete="off"
-                placeholder="Estoy buscando..."
-                readOnly
-                value={item}
-              />
-            </div>
-          );
-        })}
+      {options && options.length != 0 && viewOptions === true && (
+        <div className="autoCompleteOptions">
+          {options.map((item, key) => {
+            return (
+              <div
+                className="result"
+                key={key}
+                style={{ background: indexOption == key + 1 ? "#d8d8d8" : "" }}
+                onClick={() => goToSearch(item)}
+              >
+                <label>
+                  <FiSearch></FiSearch>
+                </label>
+                <input
+                  type="text"
+                  autoComplete="off"
+                  placeholder="Estoy buscando..."
+                  readOnly
+                  value={item}
+                />
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

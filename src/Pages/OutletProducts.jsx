@@ -12,6 +12,7 @@ export const OutletProducts = () => {
   const { category, storeId, store, search } = useParams();
   const [options, setOptions] = useState(null);
   const [array, setArray] = useState();
+  const [filter, setFilter] = useState("");
 
   const getProductsByTag = async () => {
     try {
@@ -105,28 +106,36 @@ export const OutletProducts = () => {
     if (category && !storeId) {
       // Ver productos de una categoria
       getProductsByTag();
+      setFilter(category);
     } else if (category && storeId) {
       // Ver productos de una categoria en tienda especifica
       getProductsByStoreTag();
+      setFilter(category);
     } else if (location.pathname == "/products/offers") {
       // Ver todas las ofertas
       setArray(offers);
       getAutoComplete(offers);
+      setFilter('Ofertas');
     } else if (location.pathname == "/products/all") {
       // Ver todos los productos
       setArray(products);
       getAutoComplete(products);
+      setFilter('Todos los productos');
     } else if (store && location.pathname.includes("/products")) {
       // Ver productos de una tienda en especifico
       getProducts();
+      setFilter(`Productos ${store}`);
     } else if (store && location.pathname.includes("/offers")) {
       // Ver ofertas de una tienda en especifico
       getOffers();
+      setFilter(`Ofertas ${store}`);
     } else if (search) {
       searchProducts();
+      setFilter(search)
     } else {
       setArray(products);
       getAutoComplete(products);
+      setFilter('Todos los productos')
     }
   }, [location]);
 
@@ -134,7 +143,7 @@ export const OutletProducts = () => {
     <>
       {array ? (
         <>
-          <Searchbar></Searchbar>
+          <Searchbar filter={filter} />
           <ProductsCard
             products={array}
             category={category}

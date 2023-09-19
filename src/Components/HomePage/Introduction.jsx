@@ -4,7 +4,7 @@ import $ from "jquery";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { AuthContext } from "../../Index";
-import './Introduction.scss'
+import "./Introduction.scss";
 
 export const Introduction = () => {
   const { stores } = useContext(AuthContext);
@@ -40,25 +40,28 @@ export const Introduction = () => {
   }, []);
 
   return (
-    <div id="stores-container">
-      <div className="description">
-        <span>Todo lo que buscas lo encuentras en Tienda.gt</span>
-      </div>
-      <div className="stores">
-        <button onClick={moveLeft} id="arrowLeftStore">
-          <IoIosArrowBack />
-        </button>
-        <div ref={containerRef}>
-          {stores &&
-            Array.from(new Array(repeat)).map((item, key) => (
-              <ShowStores array={stores} key={key}></ShowStores>
-            ))}
+    <>
+      {stores && stores.length !== 0 && (
+        <div id="stores-container">
+          <div className="description">
+            <span>Todo lo que buscas lo encuentras en Tienda.gt</span>
+          </div>
+          <div className="stores">
+            <button onClick={moveLeft} id="arrowLeftStore">
+              <IoIosArrowBack />
+            </button>
+            <div ref={containerRef}>
+              {Array.from(new Array(repeat)).map((item, key) => (
+                <ShowStores array={stores} key={key}></ShowStores>
+              ))}
+            </div>
+            <button onClick={moveRight} id="arrowRightStore">
+              <IoIosArrowForward />
+            </button>
+          </div>
         </div>
-        <button onClick={moveRight} id="arrowRightStore">
-          <IoIosArrowForward />
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
@@ -66,7 +69,11 @@ const ShowStores = ({ array }) => {
   return (
     <>
       {array.map(({ _id, urlLogo, name }) => (
-        <Link key={_id} to={`/store/${name}/${_id}`} title={`Ver tienda ${name}`}>
+        <Link
+          key={_id}
+          to={`/store/${name}/${_id}`}
+          title={`Ver tienda ${name}`}
+        >
           <img src={urlLogo} alt={name} />
           <span>{name}</span>
         </Link>

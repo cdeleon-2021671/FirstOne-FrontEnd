@@ -68,7 +68,7 @@ const MediaCard = (product) => {
         <h4>
           {name} - {storeId.name}
         </h4>
-        <h3>QTQ: {price.toFixed(2)}</h3>
+        <h3>GTQ: {price.toFixed(2)}</h3>
       </div>
     </Link>
   );

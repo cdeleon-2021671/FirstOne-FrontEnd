@@ -1,46 +1,67 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import $ from "jquery";
 import "./Options.scss";
 
 export const Options = ({ shippingTerms, paymentOptions }) => {
+  const location = useLocation();
+
+  const setViewShip = () => {
+    $(`.btn1Ship`).addClass("isActive");
+    $(`.btn2Pay`).removeClass("isActive");
+    $(`.option1`).toggleClass("hiddenOption");
+    $(`.option2`).addClass("hiddenOption");
+  };
+
+  const setViewPay = () => {
+    $(`.btn2Pay`).addClass("isActive");
+    $(`.btn1Ship`).removeClass("isActive");
+    $(`.option1`).addClass("hiddenOption");
+    $(`.option2`).toggleClass("hiddenOption");
+  };
+
+  useEffect(() => {
+    if ($("#outlet-content")[0].offsetWidth <= 800) {
+      $(`.option1`).addClass("hiddenOption");
+      $(`.option2`).addClass("hiddenOption");
+    }
+  }, [location]);
+
   return (
     <div id="options-container">
       {shippingTerms && paymentOptions && (
         <>
-          <TwoOptions array={shippingTerms} title="envío"></TwoOptions>
-          <TwoOptions array={paymentOptions} title="pago"></TwoOptions>
+          <TwoOptions
+            array={shippingTerms}
+            title="envío"
+            setView={setViewShip}
+            myClass={"btn1Ship"}
+            optionClass={"option1"}
+          ></TwoOptions>
+          <TwoOptions
+            array={paymentOptions}
+            title="pago"
+            setView={setViewPay}
+            myClass={"btn2Pay"}
+            optionClass={"option2"}
+          ></TwoOptions>
         </>
       )}
     </div>
   );
 };
 
-const TwoOptions = ({ array, title }) => {
-  const fnOpen = (e) => {
-    if(e.target.id == 'btn1'){
-        $('#btn2').removeClass('isActive');
-        $('#btn1').addClass('isActive');
-        $('.option2').removeClass('showOptions')
-        $('.option1').toggleClass('showOptions');
-    }else {
-        $('#btn1').removeClass('isActive')
-        $('#btn2').addClass('isActive')
-        $('.option1').removeClass('showOptions')
-        $('.option2').toggleClass('showOptions')
-    }
-  };
+const TwoOptions = ({ array, title, view, setView, myClass, optionClass }) => {
   return (
     <div className="options">
       <button
-        className={`${title != "pago" ? "isActive" : ""}`}
-        id={`${title != 'pago' ? 'btn1' : 'btn2'}`}
-        onClick={fnOpen}
+        className={`${title != "pago" ? "isActive" : ""} ${myClass}`}
+        onClick={setView}
       >
         Opciones de {title}
       </button>
       <span>Opciones de {title}</span>
-      <div className={`${title != 'pago' ? 'option1' : 'option2'}`}>
+      <div className={optionClass}>
         {array.map((item, key) => {
           if (item.includes("http") || item.includes("www"))
             return (

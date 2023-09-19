@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import $ from 'jquery';
 import "./ProductsCard.scss";
 
 export const ProductsCard = ({ products, tags }) => {
-  const navigate = useNavigate();
+
+  useEffect(()=>{
+    $('.more-options')[0].scrollLeft = 0
+  }, [tags]);
 
   return (
     <>
@@ -13,9 +17,9 @@ export const ProductsCard = ({ products, tags }) => {
             <div className="more-options">
               <label>Ver más:</label>
               {tags.map((item, key) => (
-                <button key={key} onClick={() => navigate(`/products/${item}`)}>
+                <Link key={key} to={`/products/${item}`}>
                   {item}
-                </button>
+                </Link>
               ))}
             </div>
           )}

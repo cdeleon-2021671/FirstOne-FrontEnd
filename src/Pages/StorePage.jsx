@@ -60,7 +60,7 @@ export const StorePage = () => {
     <>
       {tags && storeId && store && categories && products && newOffers ? (
         <>
-          <Searchbar></Searchbar>
+          <Searchbar filter={store.name}></Searchbar>
           {store.length !== 0 && <Introduction {...store}></Introduction>}
           <Categories
             tags={categories}

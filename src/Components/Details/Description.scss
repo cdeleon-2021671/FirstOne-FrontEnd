@@ -1,14 +1,58 @@
 #description-container {
   p {
-    padding: 1em;
+    position: relative;
+    background: #fff;
+    padding: 1em 1em 0;
+    margin-bottom: 1em;
+    font-size: 1.05em;
     font-family: sans-serif;
-    text-align: center;
     text-align: justify;
+    max-height: 15vw;
+    overflow: hidden;
+    &.seeDescription {
+      max-height: min-content;
+    }
+    @media screen and (max-width: 960px) {
+      max-height: 22vw;
+    }
     @media screen and (max-width: 725px) {
       font-size: 0.9em;
     }
     @media screen and (max-width: 380px) {
       font-size: 0.8em;
+    }
+    button {
+      position: absolute;
+      border: none;
+      display: flex;
+      align-items: end;
+      justify-content: center;
+      top: calc(100% - 2em);
+      height: 2em;
+      left: 0.8em;
+      cursor: pointer;
+      font-size: 1.2em;
+      font-weight: 900;
+      width: calc(100% - 1.6em);
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      background: linear-gradient(transparent, #fff);
+      &.btnSeeDesc{
+        top: 1em;
+        background: #f1f1f1;
+        align-items: center;
+      }
+    }
+    @media screen and (max-width: 675px) {
+      max-height: 28vw;
+      button {
+        font-size: 1.1em;
+      }
+    }
+    @media screen and (max-width: 440px) {
+      max-height: 40vw;
+    }
+    @media screen and (max-width: 350px) {
+      max-height: 50vw;
     }
   }
   .social-links {
@@ -57,7 +101,7 @@
       position: fixed;
       bottom: 0;
       background: #5dade2;
-      span{
+      span {
         color: #fff;
       }
       a {

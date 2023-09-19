@@ -15,13 +15,15 @@ export const Details = () => {
   const { productId } = useParams();
   const [details, setDetails] = useState(null);
   const [similar, setSimilar] = useState(null);
-
+  const [category, setCategory] = useState("");
   const getProduct = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_URI_API}/product/get-product-by-id/${productId}`
       );
       const { product } = data;
+      const { category } = data;
+      setCategory(category);
       getSimilarProducts(product.tags, product.storeId._id, product.name);
       setDetails(product);
     } catch (err) {
@@ -52,8 +54,8 @@ export const Details = () => {
   return (
     <>
       {details && similar ? (
-        <>
-          <Searchbar></Searchbar>
+        <div id="product-details">
+          <Searchbar filter={category}></Searchbar>
           <Introduction {...details}></Introduction>
           <Options {...details.storeId}></Options>
           <Description {...details}></Description>
@@ -70,7 +72,7 @@ export const Details = () => {
             title={`Ver tienda ${details.storeId.name}`}
             url={`/store/${details.storeId.name}/${details.storeId._id}`}
           ></GoToLink>
-        </>
+        </div>
       ) : (
         <Animation></Animation>
       )}

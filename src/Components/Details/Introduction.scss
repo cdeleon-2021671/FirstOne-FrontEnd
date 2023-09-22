@@ -4,7 +4,6 @@
   .mainTitle {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     margin-bottom: 0.5em;
-    font-size: 1.5em;
     display: none;
   }
   .img-logo-store {
@@ -32,7 +31,7 @@
         font-weight: 100;
         text-align: center;
         margin-bottom: 1em;
-        font-size: 1.5em;
+        font-size: 1.6em;
         padding: 0 1em;
       }
       span {
@@ -117,9 +116,23 @@
       }
     }
   }
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 550px) {
     .mainTitle {
-      font-size: 1.2em;
+      font-size: 1.7em;
+    }
+    .price-store {
+      div {
+        span {
+          &:nth-child(2) {
+            font-size: 1.7em;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .mainTitle {
+      font-size: 1.5em;
     }
     .img-logo-store {
       height: 75vw;
@@ -137,9 +150,9 @@
       }
     }
   }
-  @media screen and (max-width: 400px) {
+  @media screen and (max-width: 320px) {
     .mainTitle {
-      font-size: 1em;
+      font-size: 1.3em;
     }
     .img-logo-store {
       height: 80vw;
@@ -151,7 +164,7 @@
             font-size: 1.3em;
           }
           &:nth-child(3) {
-            font-size: 1em;
+            font-size: 1.1em;
             font-weight: 900;
           }
         }

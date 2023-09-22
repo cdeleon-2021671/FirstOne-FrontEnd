@@ -148,14 +148,14 @@ export const OutletProducts = () => {
   return (
     <>
       {array && options ? (
-        <>
+        <div id="margin-padding-container">
           <Searchbar filter={filter} />
           <ProductsCard
             products={array}
             category={category}
             tags={options}
           ></ProductsCard>
-        </>
+        </div>
       ) : (
         <Animation></Animation>
       )}

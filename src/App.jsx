@@ -12,12 +12,10 @@ function App() {
   return (
     <>
       <Header></Header>
-      <main id="main-content">
-        <Aside></Aside>
-        <div id="outlet-content">
-          <Outlet></Outlet>
-        </div>
-      </main>
+      <Aside></Aside>
+      <div id="outlet-content" className="goToLeft">
+        <Outlet></Outlet>
+      </div>
     </>
   );
 }

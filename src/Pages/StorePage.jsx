@@ -59,7 +59,7 @@ export const StorePage = () => {
   return (
     <>
       {tags && storeId && store && categories && products && newOffers ? (
-        <>
+        <div id='margin-container'>
           <Searchbar filter={store.name}></Searchbar>
           {store.length !== 0 && <Introduction {...store}></Introduction>}
           <Categories
@@ -89,7 +89,7 @@ export const StorePage = () => {
             </>
           )}
           <Banner {...store}></Banner>
-        </>
+        </div>
       ) : (
         <Animation></Animation>
       )}

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
-import $ from "jquery";
-import "./Categories.scss";
 import { Link } from "react-router-dom";
+import "./Categories.scss";
+import $ from "jquery";
 
 export const Categories = ({ tags, url }) => {
 

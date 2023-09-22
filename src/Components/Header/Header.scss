@@ -1,7 +1,10 @@
 #header-content {
   height: 3.5em;
-  position: relative;
+  position: fixed;
+  top: 0;
+  width: 100%;
   background: #5DADE2;
+  z-index: 500;
   label {
     position: absolute;
     height: 100%;
@@ -25,10 +28,12 @@
       font-family: Verdana, Geneva, Tahoma, sans-serif;
     }
   }
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: 700px) {
     label {
       font-size: 1.2em;
     }
+  }
+  @media screen and (max-width: 550px) {
     h1 {
       a {
         font-size: 0.85em;
@@ -37,7 +42,7 @@
   }
   @media screen and (max-width: 450px) {
     label {
-      font-size: 1, 1em;
+      font-size: 1.1em;
     }
     h1 {
       a {
@@ -45,7 +50,7 @@
       }
     }
   }
-  @media screen and (max-width: 300px) {
+  @media screen and (max-width: 320px) {
     label {
       font-size: 0.9em;
     }

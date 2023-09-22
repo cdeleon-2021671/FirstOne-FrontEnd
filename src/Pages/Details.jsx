@@ -48,11 +48,11 @@ export const Details = () => {
 
   useEffect(() => {
     getProduct();
-    $("#outlet-content").scrollTop("0");
+    $(window).scrollTop("0");
   }, [productId]);
 
   return (
-    <>
+    <div id="margin-padding-container">
       {details && similar ? (
         <div id="product-details">
           <Searchbar filter={category}></Searchbar>
@@ -76,6 +76,6 @@ export const Details = () => {
       ) : (
         <Animation></Animation>
       )}
-    </>
+    </div>
   );
 };

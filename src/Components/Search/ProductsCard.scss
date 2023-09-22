@@ -1,167 +1,194 @@
-#products-card{
-    padding: 1em;
-    @media screen and (max-width: 550px) {
-        padding: .5em;
+#products-card {
+  padding: 1em;
+  @media screen and (max-width: 550px) {
+    padding: 0.5em;
+  }
+  .more-options {
+    display: flex;
+    align-items: center;
+    overflow: auto;
+    &::-webkit-scrollbar {
+      height: 0;
     }
-    .more-options{
+    gap: 1em;
+    padding: 0.3em 0;
+    label,
+    a {
+      font-family: Roboto;
+      font-size: 1.3em;
+      min-width: max-content;
+      @media screen and (max-width: 950px) {
+        font-size: 1.2em;
+      }
+      @media screen and (max-width: 850px) {
+        font-size: 1em;
+      }
+      @media screen and (max-width: 750px) {
+        font-size: 0.95em;
+      }
+    }
+    a {
+      border: none;
+      border-radius: 1em;
+      background: #5dade2;
+      padding: 0.3em 1.2em;
+      color: #fff;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+      &:hover {
+        box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.5);
+      }
+    }
+  }
+  .products {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(18vw, 1fr));
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: repeat(4, minmax(20vw, 1fr));
+    }
+    @media screen and (max-width: 800px) {
+      grid-template-columns: repeat(3, minmax(30vw, 1fr));
+    }
+    @media screen and (max-width: 600px) {
+      grid-template-columns: repeat(2, minmax(40vw, 1fr));
+    }
+    @media screen and (max-width: 500px) {
+      gap: 0.5em;
+    }
+    @media screen and (max-width: 300px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    justify-content: center;
+    gap: 1vw;
+    margin-top: 1em;
+    a {
+      flex: 1;
+      min-width: 18vw;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      h1 {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 1em;
+        @media screen and (max-width: 500px) {
+          font-size: 0.9em;
+          font-weight: 100;
+        }
+        @media screen and (max-width: 400px) {
+          font-size: 0.8em;
+        }
+        @media screen and (max-width: 300px) {
+          font-size: 1.1em;
+        }
+      }
+      .salePrice {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 0.3em;
+        span {
+          font-size: 1.2em;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+          position: relative;
+          @media screen and (max-width: 500px) {
+            font-size: 0.9em;
+          }
+          @media screen and (max-width: 400px) {
+            font-size: 0.8em;
+          }
+          @media screen and (max-width: 300px) {
+            font-size: 1.1em;
+          }
+          &.tipico {
+            &::before {
+              position: absolute;
+              content: "";
+              background: #5c5c5c;
+              top: 50%;
+              width: 100%;
+              height: 0.01em;
+            }
+          }
+        }
+      }
+      .price {
+        margin-top: 0.3em;
+        display: flex;
+        span {
+          font-size: 1.9em;
+          font-family: Roboto;
+          @media screen and (max-width: 500px) {
+            font-size: 1.5em;
+          }
+          @media screen and (max-width: 400px) {
+            font-size: 1.3em;
+          }
+          @media screen and (max-width: 300px) {
+            font-size: 1.9em;
+          }
+        }
+        .little {
+          font-size: 1.2em;
+          @media screen and (max-width: 500px) {
+            font-size: 0.9em;
+          }
+          @media screen and (max-width: 400px) {
+            font-size: 0.8em;
+          }
+          @media screen and (max-width: 300px) {
+            font-size: 1.1em;
+          }
+          margin-top: 0.2em;
+        }
+        div {
+          display: flex;
+          align-items: end;
+          span {
+            color: #f44336;
+            margin-right: 0.3em;
+          }
+        }
+      }
+      small {
+        position: absolute;
+        top: 1em;
+        right: -2em;
+        width: min-content;
+        padding: 0 2em;
+        height: 10%;
         display: flex;
         align-items: center;
-        overflow: auto;
-        &::-webkit-scrollbar{
-            height: 0;
-        }
-        gap: 1em;
-        padding: .3em 0;
-        label, a{
-            font-family: Roboto;
-            font-size: 1.3em;
-            min-width: max-content;
-            @media screen and (max-width: 950px) {
-                font-size: 1.2em;
-            }
-            @media screen and (max-width: 850px) {
-                font-size: 1em;
-            }
-            @media screen and (max-width: 750px) {
-                font-size: .95em;
-            }
-        }
-        a{
-            border: none;
-            border-radius: 1em;
-            background: #5dade2;
-            padding: .3em 1.2em;
-            color: #fff;
-            cursor: pointer;
-            transition: all .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-            &:hover{
-                box-shadow: 0 1px 2px rgba($color: #000000, $alpha: .5);
-            }
-        }
-    }
-    .products{
-        padding: 1em 0 0;
-        @media screen and (max-width: 550px) {
-            padding: .5em 0 0;
-        }
-        display: grid;
-        grid-template-columns: repeat(3, minmax(30vw, 1fr));
         justify-content: center;
-        gap: 1vw;
-        a{
-            border-radius: .3em;
-            height: 13vw;
-            display: flex;
-            img{
-                height: 13vw;
-                width: 13vw;
-                object-fit: cover;
-                border: 1px solid rgba(114, 114, 114, .4);
-                border-right: none;
-            }
-            div{
-                border: 1px solid rgba(114, 114, 114, .4);
-                border-left: none;
-                width: 100%;
-                padding: .5em;
-                display: flex;
-                flex-direction: column;
-                gap: .6em;
-                justify-content: center;
-                span{
-                    font-family: sans-serif;
-                    &.price{
-                        font-size: 1.2em;
-                        font-weight: 100;
-                    }
-                    &.stock{
-                        font-family: Roboto;
-                    }
-                    @media screen and (max-width: 1010px) {
-                        font-size: .9em;
-                        &.price{
-                            font-size: 1.1em;
-                        }
-                    }
-                    @media screen and (max-width: 620px) {
-                        font-size: .8em;
-                        &.price{
-                            font-size: 1em;
-                        }
-                    }
-                    @media screen and (max-width: 570px) {
-                        font-size: .75em;
-                        &.price{
-                            font-size: .9em;
-                        }
-                    }
-                    @media screen and (max-width: 500px) {
-                        font-size: .9em;
-                        &.price{
-                            font-size: 1em;
-                        }
-                    }
-                    @media screen and (max-width: 350px) {
-                        font-size: .8em;
-                        &.price{
-                            font-size: .9em;
-                        }
-                    }
-                    @media screen and (max-width: 300px) {
-                        font-size: .75em;
-                        &.price{
-                            font-size: .8em;
-                        }
-                    }
-                }
-            }
-        }
-        @media screen and (max-width: 950px) {
-            grid-template-columns: repeat(2, minmax(30vw, 1fr));
-            a{
-                height: 18vw;
-                img{
-                    width: 18vw;
-                    height: 18vw;
-                }
-            }
-        }
-        @media screen and (max-width: 700px) {
-            a{
-                height: 23vw;
-                img{
-                    width: 23vw;
-                    height: 23vw;
-                }
-            }
-        }
-        @media screen and (max-width: 500px) {
-            grid-template-columns: minmax(30vw, 1fr);
-            a{
-                height: 30vw;
-                img{
-                    width: 30vw;
-                    height: 30vw;
-                }
-            }
-        }
-        @media screen and (max-width: 375px) {
-            a{
-                height: 35vw;
-                img{
-                    width: 35vw;
-                    height: 35vw;
-                }
-            }
-        }
-        @media screen and (max-width: 330px) {
-            a{
-                height: 40vw;
-                img{
-                    width: 40vw;
-                    height: 40vw;
-                }
-            }
-        }
+        font-size: 1.5em;
+        font-weight: 900;
+        color: #fff;
+        background: #f44336;
+        transform: rotate(45deg);
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
     }
+    img {
+      width: 18vw;
+      height: 22vw;
+      object-fit: cover;
+      @media screen and (max-width: 1000px) {
+        width: 23vw;
+        height: 27vw;
+      }
+      @media screen and (max-width: 800px) {
+        width: 30vw;
+        height: 34vw;
+      }
+      @media screen and (max-width: 600px) {
+        width: 46vw;
+        height: 50vw;
+      }
+      @media screen and (max-width: 300px) {
+        width: 90vw;
+        height: 95vw;
+      }
+    }
+  }
 }

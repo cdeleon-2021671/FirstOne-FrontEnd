@@ -12,9 +12,13 @@ export const Header = () => {
     if(showAside){
       $('#aside-content').addClass('hiddenAside');
       $('#aside-content').removeClass('showAside');
+      $('#outlet-content').removeClass('goToRight');
+      $('#outlet-content').addClass('goToLeft');
     }else{
       $('#aside-content').removeClass('hiddenAside');
       $('#aside-content').addClass('showAside');
+      $('#outlet-content').addClass('goToRight');
+      $('#outlet-content').removeClass('goToLeft');
     }
   }
 

@@ -16,6 +16,7 @@
     "@mui/material": "^5.14.8",
     "@mui/styled-engine-sc": "^5.14.8",
     "axios": "^1.4.0",
+    "fuzzy-search": "^3.2.1",
     "jquery": "^3.7.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

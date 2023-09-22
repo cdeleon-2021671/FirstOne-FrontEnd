@@ -5,6 +5,8 @@ import { AuthContext } from "../../Index";
 import { useNavigate } from "react-router-dom";
 import "./Searchbar.scss";
 
+import FuzzySearch from "fuzzy-search";
+
 export const Searchbar = ({ filter = "" }) => {
   const { autoComplete } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -16,11 +18,10 @@ export const Searchbar = ({ filter = "" }) => {
   const [viewOptions, setViewOptions] = useState(false);
 
   const searchOptions = (value) => {
-    const newOptions = autoComplete.filter((item) => {
-      const mySearch = value.toLowerCase();
-      const recomendation = item.toLowerCase();
-      if (recomendation.includes(mySearch)) return item;
+    const searcher = new FuzzySearch(autoComplete, {
+      caseSensitive: false,
     });
+    const newOptions = Array.from(searcher.search(value));
     if (newOptions.length > 8) newOptions.length = 8;
     setOptions(newOptions);
   };
@@ -65,9 +66,9 @@ export const Searchbar = ({ filter = "" }) => {
     newAutoComplete.length = 8;
     setOptions(newAutoComplete);
   }, []);
-  
+
   useEffect(() => {
-    handleChange({target: {value: filter}});
+    handleChange({ target: { value: filter } });
   }, [filter]);
 
   useEffect(() => {

@@ -41,14 +41,12 @@ export const Description = ({ description, urlProduct, storeId }) => {
   };
 
   const moveMenu = () => {
-    if ($("#outlet-content")[0].offsetWidth <= 670) {
+    if ($("#root")[0].offsetWidth <= 670) {
       const positionScroll =
-        $("#outlet-content")[0].offsetHeight +
-        $("#header-content")[0].offsetHeight -
-        myRef.current.getBoundingClientRect().top -
-        myRef.current.offsetHeight;
-      const positionRef = menuRef.current.offsetHeight;
-      if (positionRef < positionScroll)
+        window.innerHeight -
+        menuRef.current.offsetHeight -
+        myRef.current.getBoundingClientRect().bottom - 16;
+      if (positionScroll > 0)
         $(".social-links").css("position", "relative");
       else $(".social-links").css("position", "fixed");
     } else {
@@ -58,9 +56,9 @@ export const Description = ({ description, urlProduct, storeId }) => {
 
   useEffect(() => {
     getSocialLinks();
-    $("#outlet-content").on("scroll", moveMenu);
+    $(window).on("scroll", moveMenu);
     return () => {
-      $("#outlet-content").off("scroll");
+      $(window).off("scroll");
     };
   }, [urlProduct]);
 
@@ -70,9 +68,13 @@ export const Description = ({ description, urlProduct, storeId }) => {
     }
     $(window).on("resize", () => {
       moveMenu();
-      if ($("#outlet-content")[0].offsetWidth <= 800) {
+      if ($("#root")[0].offsetWidth <= 800) {
         $(`.option1`).addClass("hiddenOption");
         $(`.option2`).addClass("hiddenOption");
+        $(`#arrowIcon1`).removeClass("animateIcon");
+        $(`#arrowIcon2`).removeClass("animateIcon");
+        $(`.btn1Ship`).addClass("isActive");
+        $(`.btn2Pay`).removeClass("isActive");
       }
       $("#description-of-product button").removeClass("btnSeeDesc");
       $("#description-of-product").removeClass("seeDescription");
@@ -95,7 +97,7 @@ export const Description = ({ description, urlProduct, storeId }) => {
   const toggleDescription = () => {
     $("#description-of-product").toggleClass("seeDescription");
     $("#description-of-product button").toggleClass("btnSeeDesc");
-    moveMenu()
+    moveMenu();
     if ($("#description-of-product")[0].className == "seeDescription") {
       setText("Ver menos");
     } else {

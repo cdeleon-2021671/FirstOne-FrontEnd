@@ -4,26 +4,17 @@ import { Categories } from "../Components/Categories/Categories";
 import { Products } from "../Components/Products/Products";
 import { Searchbar } from "../Components/Search/Searchbar";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
+import { useLocation } from "react-router-dom";
 import { AuthContext } from "../Index";
 import { v4 } from "uuid";
+import $ from "jquery";
 
 export const HomePage = () => {
-  const { tags, offers, products } = useContext(AuthContext);
+  const location = useLocation();
+  const { randomCategories, offers, products } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [allOffers, setAllOffers] = useState([]);
-
-  const getNewCategories = () => {
-    const newCategories = [];
-    while (true) {
-      if (newCategories.length == 16) break;
-      const random = Math.floor(Math.random() * tags.length);
-      const product = tags[random];
-      if (newCategories.includes(product) == false)
-        newCategories.push(tags[random]);
-    }
-    setCategories(newCategories);
-  };
 
   const getProducts = () => {
     const newProducts = Array.from(products);
@@ -37,13 +28,33 @@ export const HomePage = () => {
     setAllOffers(newOffers);
   };
 
-  useEffect(() => {
-    if (tags.length >= 16) {
-      getNewCategories();
+  const getMyCategories = () => {
+    if (randomCategories.length >= 16) {
+      const newCategories = Array.from(randomCategories);
+      const containerWidth = window.innerWidth;
+      if (containerWidth >= 550 && containerWidth <= 800) {
+        if (randomCategories.length >= 18) newCategories.length = 18;
+        setCategories(newCategories);
+      } else {
+        if (randomCategories.length >= 16) newCategories.length = 16;
+        setCategories(newCategories);
+      }
     } else {
-      setCategories(tags);
+      setCategories(randomCategories);
     }
-  }, [tags]);
+  };
+
+  const getCategoriesBySize = () => {
+    $(window).on("resize", getMyCategories);
+  };
+
+  useEffect(() => {
+    getMyCategories();
+    getCategoriesBySize();
+    return () => {
+      $(window).off("resize");
+    };
+  }, [randomCategories]);
 
   useEffect(() => {
     getProducts();
@@ -54,10 +65,13 @@ export const HomePage = () => {
   }, [offers]);
 
   return (
-    <>
+    <div id="margin-padding-container">
       <Introduction></Introduction>
       <Searchbar></Searchbar>
       <Categories tags={categories} url={"products"}></Categories>
+      <div style={{ marginTop: "1em" }}>
+        <GoToLink url="/all-categories"></GoToLink>
+      </div>
       {allOffers.length !== 0 && (
         <>
           <Products
@@ -80,6 +94,6 @@ export const HomePage = () => {
           <GoToLink url="/products/all"></GoToLink>
         </>
       )}
-    </>
+    </div>
   );
 };

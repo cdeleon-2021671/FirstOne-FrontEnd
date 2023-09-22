@@ -15,18 +15,34 @@
 a {
   color: #000;
 }
-#main-content {
-  display: flex;
-  height: calc(100vh - 3.5em);
-  overflow: hidden;
-  #outlet-content {
-    overflow: auto;
-    overflow-x: hidden;
-    min-width: 100%;
-    padding-bottom: 1em;
+#margin-padding-container{
+  margin-top: 3.5em;
+  padding-bottom: 1em;
+}
+#margin-container{
+  margin-top: 3.5em;
+}
+#root{
+  overflow-x: hidden;
+}
+.goToRight{
+  transform: translateX(0);
+  animation: goToRight .4s forwards ease-in-out;
+  @keyframes goToRight {
+    to{
+      transform: translateX(18em);
+    }
   }
 }
-
+.goToLeft{
+  transform: translateX(18em);
+  animation: goToLeft .4s forwards ease-in-out;
+  @keyframes goToLeft {
+    to{
+      transform: translateX(0);
+    }
+  }
+}
 #banner{
   margin-top: 1.4em;
   height: 20vw;

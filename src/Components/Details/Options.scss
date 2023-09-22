@@ -36,14 +36,44 @@
       width: 100%;
       border: none;
       button {
-        display: block;
         background: #fff;
         border: none;
         font-size: 1.2em;
         font-family: Roboto;
-        text-align: left;
         padding: 0.4em;
         cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.4em;
+        background: #fff;
+        position: relative;
+        label {
+          cursor: pointer;
+          position: absolute;
+          display: flex;
+          width: 100%;
+          justify-content: right;
+          padding-right: 1em;
+          svg {
+            font-size: 1.3em;
+            animation: rotateIcon 1s forwards cubic-bezier(0.19, 1, 0.22, 1);
+            transform: rotate((180deg));
+            @keyframes rotateIcon {
+              100% {
+                transform: rotate(360deg);
+              }
+            }
+            &.animateIcon {
+              animation: rotateIcon1 1s forwards cubic-bezier(0.19, 1, 0.22, 1);
+              transform: rotate((0deg));
+              @keyframes rotateIcon1 {
+                100% {
+                  transform: rotate(180deg);
+                }
+              }
+            }
+          }
+        }
         @media screen and (max-width: 500px) {
           font-size: 1em;
         }
@@ -52,37 +82,38 @@
         display: none;
       }
       div {
+        background: #fff;
         font-size: 0.9em;
         gap: 0;
-        animation: showOption2 .3s normal forwards
+        animation: showOption2 0.3s normal forwards
           cubic-bezier(0.075, 0.82, 0.165, 1);
         a,
         label {
           padding: 0;
           padding-left: 1em;
-          animation: showOption .3s normal forwards
+          animation: showOption 0.3s normal forwards
             cubic-bezier(0.075, 0.82, 0.165, 1);
           @keyframes showOption {
             to {
-              padding: .5em;
+              padding: 0.5em;
               padding-left: 1em;
             }
           }
         }
         @keyframes showOption2 {
           to {
-            gap: .3em;
+            gap: 0.3em;
           }
         }
         &.hiddenOption {
-          gap: .3em;
-          animation: hiddenOption2 .3s normal forwards
+          gap: 0.3em;
+          animation: hiddenOption2 0.3s normal forwards
             cubic-bezier(0.075, 0.82, 0.165, 1);
           a,
           label {
-            padding: .5em;
+            padding: 0.5em;
             padding-left: 1em;
-            animation: hiddenOption .3s normal forwards
+            animation: hiddenOption 0.3s normal forwards
               cubic-bezier(0.075, 0.82, 0.165, 1);
             @keyframes hiddenOption {
               to {
@@ -102,6 +133,7 @@
 
       .isActive {
         border-left: 1px solid #000;
+        background: #f1f1f1;
       }
     }
   }

@@ -26,20 +26,23 @@ a {
   overflow-x: hidden;
 }
 .goToRight{
-  transform: translateX(0);
+  left: 0;
   animation: goToRight .4s forwards ease-in-out;
   @keyframes goToRight {
     to{
-      transform: translateX(18em);
+      left: 18em;
     }
   }
 }
+#outlet-content{
+  position: relative;
+}
 .goToLeft{
-  transform: translateX(18em);
+  left: 18em;
   animation: goToLeft .4s forwards ease-in-out;
   @keyframes goToLeft {
     to{
-      transform: translateX(0);
+      left: 0;
     }
   }
 }

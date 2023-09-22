@@ -56,6 +56,7 @@ export const Description = ({ description, urlProduct, storeId }) => {
 
   useEffect(() => {
     getSocialLinks();
+    moveMenu();
     $(window).on("scroll", moveMenu);
     return () => {
       $(window).off("scroll");

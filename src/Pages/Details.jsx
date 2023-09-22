@@ -52,30 +52,32 @@ export const Details = () => {
   }, [productId]);
 
   return (
-    <div id="margin-padding-container">
+    <>
       {details && similar ? (
-        <div id="product-details">
-          <Searchbar filter={category}></Searchbar>
-          <Introduction {...details}></Introduction>
-          <Options {...details.storeId}></Options>
-          <Description {...details}></Description>
-          {similar.length !== 0 && (
-            <Products
-              products={similar}
-              classLeft={v4()}
-              classRight={v4()}
-              title={"También te podrían interesar"}
-            ></Products>
-          )}
+        <div id="margin-padding-container">
+          <div id="product-details">
+            <Searchbar filter={category}></Searchbar>
+            <Introduction {...details}></Introduction>
+            <Options {...details.storeId}></Options>
+            <Description {...details}></Description>
+            {similar.length !== 0 && (
+              <Products
+                products={similar}
+                classLeft={v4()}
+                classRight={v4()}
+                title={"También te podrían interesar"}
+              ></Products>
+            )}
 
-          <GoToLink
-            title={`Ver tienda ${details.storeId.name}`}
-            url={`/store/${details.storeId.name}/${details.storeId._id}`}
-          ></GoToLink>
+            <GoToLink
+              title={`Ver tienda ${details.storeId.name}`}
+              url={`/store/${details.storeId.name}/${details.storeId._id}`}
+            ></GoToLink>
+          </div>
         </div>
       ) : (
         <Animation></Animation>
       )}
-    </div>
+    </>
   );
 };

@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import "./Categories.scss";
 import $ from "jquery";
 
-export const Categories = ({ tags, url }) => {
-
+export const Categories = ({ tags, url = "" }) => {
   useEffect(() => {
     tags.forEach(({ product }) => {
       $(`.container-${product._id}`).css(
@@ -18,19 +17,21 @@ export const Categories = ({ tags, url }) => {
     <>
       {tags && (
         <div id="categories-container">
-          {tags.map(({ tag, product }) => (
-            <Link
-              key={product._id}
-              className={`container-${product._id}`}
-              to={`/${url}/${tag.replace('#', '')}`}
-              title={tag}
-            >
-              <span>
-                {tag} <br />
-                <b>| {product.storeId.name}</b>
-              </span>
-            </Link>
-          ))}
+          <div>
+            {tags.map(({ tag, product }) => (
+              <Link
+                key={product._id}
+                className={`container-${product._id}`}
+                to={`/${tag}${url}`}
+                title={tag}
+              >
+                <span>
+                  {tag} <br />
+                  <b>| {product.storeId.name}</b>
+                </span>
+              </Link>
+            ))}
+          </div>
         </div>
       )}
     </>

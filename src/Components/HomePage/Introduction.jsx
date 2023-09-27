@@ -8,56 +8,74 @@ import "./Introduction.scss";
 
 export const Introduction = () => {
   const { stores } = useContext(AuthContext);
-  const repeat = stores && stores.length < 4 ? 5 : 1;
   const containerRef = useRef(null);
 
   const moveLeft = () => {
     const container = containerRef.current;
-    container.scrollLeft -= 400;
+    const { innerWidth } = window;
+    let scroll = 0;
+    if (innerWidth >= 1550) scroll = 24 * 10.7;
+    else scroll = (innerWidth * 15) / 100;
+    container.scrollLeft -= scroll;
     const { scrollLeft } = container;
-    const { scrollWidth } = container;
-    const { clientWidth } = container;
-    const scrollRight = scrollWidth - clientWidth - scrollLeft;
-    if (scrollRight == 0) $("#arrowRightStore").removeClass("hiddenButton");
-    if (scrollLeft <= 400) $("#arrowLeftStore").addClass("hiddenButton");
+    $("#arrowRightStore").removeClass("hiddenButton");
+    if (scrollLeft <= scroll) $("#arrowLeftStore").addClass("hiddenButton");
   };
 
   const moveRight = () => {
     const container = containerRef.current;
-    container.scrollLeft += 400;
+    const { innerWidth } = window;
+    let scroll = 0;
+    if (innerWidth >= 1550) scroll = 24 * 10.7;
+    else scroll = (innerWidth * 15) / 100;
+    container.scrollLeft += scroll;
     const { scrollLeft } = container;
     const { scrollWidth } = container;
     const { clientWidth } = container;
     const scrollRight = scrollWidth - clientWidth - scrollLeft;
-    if (scrollRight <= 400) {
+    $("#arrowLeftStore").removeClass("hiddenButton");
+    if (scrollRight <= scroll) {
       $("#arrowRightStore").addClass("hiddenButton");
     }
-    if (scrollLeft == 0) $("#arrowLeftStore").removeClass("hiddenButton");
   };
 
   useEffect(() => {
-    $("#arrowLeftStore").addClass("hiddenButton");
+    moveLeft();
   }, []);
 
   return (
     <>
       {stores && stores.length !== 0 && (
         <div id="stores-container">
-          <div className="description">
-            <span>Todo lo que buscas lo encuentras en Tienda.gt</span>
-          </div>
           <div className="stores">
-            <button onClick={moveLeft} id="arrowLeftStore">
-              <IoIosArrowBack />
-            </button>
-            <div ref={containerRef}>
-              {Array.from(new Array(repeat)).map((item, key) => (
-                <ShowStores array={stores} key={key}></ShowStores>
-              ))}
+            <div className="single">
+              <button id="arrowLeftStore" onClick={moveLeft}>
+                <IoIosArrowBack />
+              </button>
+              <div ref={containerRef}>
+                {stores.map(({ urlLogo, _id, name, description }) => {
+                  return (
+                    <Link key={_id} to={`/${name}/${_id}`}>
+                      <img src={urlLogo} alt={name} />
+                      <label>{name}</label>
+                    </Link>
+                  );
+                })}
+                {stores.map(({ urlLogo, _id, name }) => {
+                  return (
+                    <Link key={_id}>
+                      <img src={urlLogo} alt={name} />
+                      <label>{name}</label>
+                    </Link>
+                  );
+                })}
+              </div>
+              {stores.length > 1 && (
+                <button id="arrowRightStore" onClick={moveRight}>
+                  <IoIosArrowForward />
+                </button>
+              )}
             </div>
-            <button onClick={moveRight} id="arrowRightStore">
-              <IoIosArrowForward />
-            </button>
           </div>
         </div>
       )}

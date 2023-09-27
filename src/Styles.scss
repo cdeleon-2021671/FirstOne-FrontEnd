@@ -15,45 +15,42 @@
 a {
   color: #000;
 }
-#margin-padding-container{
-  margin-top: 3.5em;
-  padding-bottom: 1em;
-}
-#margin-container{
-  margin-top: 3.5em;
-}
-#root{
+#root {
+  min-height: 100vh;
   overflow-x: hidden;
 }
-.goToRight{
-  left: 0;
-  animation: goToRight .4s forwards ease-in-out;
-  @keyframes goToRight {
-    to{
-      left: 18em;
+.padding-container {
+  padding-bottom: 1em;
+}
+.margin-padding-container {
+  padding: 1em 0;
+}
+.max-page-container {
+  @media screen and (min-width: 1550px) {
+    display: flex;
+    justify-content: center;
+    background: #f1f1f1;
+  }
+  .max-width-computer {
+    background: #ffff;
+    @media screen and (min-width: 1550px) {
+      width: 1500px;
+      padding: 0 1em;
     }
   }
 }
-#outlet-content{
-  position: relative;
-}
-.goToLeft{
-  left: 18em;
-  animation: goToLeft .4s forwards ease-in-out;
-  @keyframes goToLeft {
-    to{
-      left: 0;
-    }
-  }
-}
-#banner{
+#banner {
   margin-top: 1.4em;
   height: 20vw;
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
-  div{
+  div {
     padding: 0;
     height: 100%;
+  }
+  @media screen and (min-width: 1550px) {
+    height: 15em;
+    background-size: contain;
   }
 }

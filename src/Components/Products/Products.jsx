@@ -2,11 +2,14 @@ import React, { useRef, useEffect } from "react";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 import { Link, useLocation } from "react-router-dom";
+import { v4 } from "uuid";
 import $ from "jquery";
 import "./Products.scss";
 
-export const Products = ({ products, title, classRight, classLeft }) => {
+export const Products = ({ products, title }) => {
   const containerRef = useRef(null);
+  const classRight = v4();
+  const classLeft = v4();
   const location = useLocation();
 
   const moveRight = () => {
@@ -38,19 +41,23 @@ export const Products = ({ products, title, classRight, classLeft }) => {
     <>
       {products && (
         <div className="products-container">
-          <h1>{title}</h1>
-          <div className="products-content">
-            <button className={`${classLeft} hiddenButton`} onClick={moveLeft}>
-              <IoIosArrowBack />
-            </button>
-            <div className="products" ref={containerRef}>
-              {products.map((product, key) => (
-                <MediaCard key={key} {...product} />
-              ))}
+          <div className="container">
+            <h2>{title}</h2>
+            <div className="products-content">
+              <button className={`${classLeft} btnLeft2 hiddenButton`}>
+                <IoIosArrowBack
+                  onClick={moveLeft}
+                />
+              </button>
+              <div className="products" ref={containerRef}>
+                {products.map((product, key) => (
+                  <MediaCard key={key} {...product} />
+                ))}
+              </div>
+              <button className={`${classRight} btnRight2`}>
+                <IoIosArrowForward onClick={moveRight} />
+              </button>
             </div>
-            <button className={`${classRight}`} onClick={moveRight}>
-              <IoIosArrowForward />
-            </button>
           </div>
         </div>
       )}
@@ -59,10 +66,10 @@ export const Products = ({ products, title, classRight, classLeft }) => {
 };
 
 const MediaCard = (product) => {
-  const { image, name, storeId, price, _id } = product;
-
+  const { image, name, storeId, price, tags, _id } = product;
+  const categorias = tags.join('-');
   return (
-    <Link className="single" to={`/product/${name}/${_id}`}>
+    <Link className="single" to={`/${name}/${categorias}/${price}/${_id}`}>
       <img src={image} alt={name} />
       <div>
         <h4>

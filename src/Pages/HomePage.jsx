@@ -4,13 +4,12 @@ import { Categories } from "../Components/Categories/Categories";
 import { Products } from "../Components/Products/Products";
 import { Searchbar } from "../Components/Search/Searchbar";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
-import { useLocation } from "react-router-dom";
+import { BuyInformation } from "../Components/HomePage/BuyInformation";
 import { AuthContext } from "../Index";
-import { v4 } from "uuid";
+import { Helmet } from "react-helmet";
 import $ from "jquery";
 
 export const HomePage = () => {
-  const location = useLocation();
   const { randomCategories, offers, products } = useContext(AuthContext);
   const [categories, setCategories] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
@@ -32,10 +31,13 @@ export const HomePage = () => {
     if (randomCategories.length >= 16) {
       const newCategories = Array.from(randomCategories);
       const containerWidth = window.innerWidth;
-      if (containerWidth >= 550 && containerWidth <= 800) {
-        if (randomCategories.length >= 18) newCategories.length = 18;
+      if (containerWidth > 1000) {
+        if (randomCategories.length >= 20) newCategories.length = 20;
         setCategories(newCategories);
-      } else {
+      } else if (containerWidth <= 800) {
+        if (randomCategories.length >= 12) newCategories.length = 12;
+        setCategories(newCategories);
+      } else if (containerWidth < 1000) {
         if (randomCategories.length >= 16) newCategories.length = 16;
         setCategories(newCategories);
       }
@@ -65,33 +67,39 @@ export const HomePage = () => {
   }, [offers]);
 
   return (
-    <div id="margin-padding-container">
+    <div className="padding-container">
+      <Helmet>
+        <title>Tienda.gt</title>
+        <meta
+          name="description"
+          content="Tienda para toda guatemala en donde puede encontrar
+    productos tanto para hombre como para mujer"
+        />
+        <meta
+          name="keywords"
+          content="guatemala, online, compras, ofertas, accesorios, ropa, mujer, hombre, calidad"
+        />
+        <link rel="canonical" href="https://tienda.gt" />
+      </Helmet>
       <Introduction></Introduction>
-      <Searchbar></Searchbar>
-      <Categories tags={categories} url={"products"}></Categories>
-      <div style={{ marginTop: "1em" }}>
-        <GoToLink url="/all-categories"></GoToLink>
-      </div>
-      {allOffers.length !== 0 && (
+      <BuyInformation></BuyInformation>
+      {window.innerWidth <= 500 && <Searchbar></Searchbar>}
+      {categories && (
         <>
-          <Products
-            products={allOffers}
-            title={"Ofertas"}
-            classRight={v4()}
-            classLeft={v4()}
-          ></Products>
-          <GoToLink url="/products/offers"></GoToLink>
+          <Categories tags={categories}></Categories> <br />
+          <GoToLink url="all-categories"></GoToLink>
         </>
       )}
-      {allProducts.length !== 0 && (
+      {allOffers && allOffers.length !== 0 && (
         <>
-          <Products
-            products={allProducts}
-            title={"Populares"}
-            classRight={v4()}
-            classLeft={v4()}
-          ></Products>
-          <GoToLink url="/products/all"></GoToLink>
+          <Products products={allOffers} title={"Ofertas"} />
+          <GoToLink url="all-offers-in-store"></GoToLink>
+        </>
+      )}
+      {allProducts && allProducts.length !== 0 && (
+        <>
+          <Products products={allProducts} title={"Populares"} />
+          <GoToLink url="all-products-in-store"></GoToLink>
         </>
       )}
     </div>

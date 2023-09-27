@@ -6,16 +6,24 @@
   a {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-weight: 900;
-    background: #5dade2;
-    padding: .3em 5em;
+    background: #58D68D;
     text-align: center;
     color: #fff;
+    padding: 0.3em 5em;
     border-radius: 0.25em;
+    @media screen and (min-width: 1000px) {
+      padding: 0.3em 10em;
+    }
   }
   @media screen and (max-width: 600px) {
     font-size: 1.2em;
   }
   @media screen and (max-width: 430px) {
     font-size: 1.08em;
+  }
+  @media screen and (min-width: 1500px) {
+    a {
+      padding: 0.3em 10em;
+    }
   }
 }

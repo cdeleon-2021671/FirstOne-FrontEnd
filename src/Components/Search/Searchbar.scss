@@ -1,23 +1,19 @@
 #searchbar-container {
   display: flex;
   justify-content: center;
-  z-index: 100;
   width: 100%;
   position: relative;
-  &.isNull {
-    div {
-      border-radius: 5em;
-    }
-  }
   div {
+    width: 100%;
     position: relative;
     border: 1px solid #afafaf;
-    margin-top: 1em;
-    width: 80%;
     padding: 0.4em;
     display: flex;
+    align-items: center;
+    background: #fff;
     gap: 0.2em;
-    border-radius: 0.2em;
+    border-radius: 2em;
+    z-index: 500;
     #closeSearch {
       display: none;
       position: absolute;
@@ -28,9 +24,8 @@
     }
     &.autoCompleteOptions {
       position: absolute;
+      top: 95%;
       border-top: none;
-      top: 3.5em;
-      margin-top: 0;
       padding: 0;
       gap: 0;
       flex-direction: column;
@@ -83,7 +78,9 @@
       }
     }
     @media screen and (max-width: 600px) {
-      width: 90%;
+      width: 100%;
+      margin-top: 0;
+      border-radius: 0;
       #closeSearch{
         display: flex;
         align-items: center;
@@ -93,23 +90,6 @@
       input {
         font-size: 1.05em;
         padding-top: 0.2em;
-      }
-    }
-    @media screen and (max-width: 550px) {
-      width: 97%;
-      #closeSearch{
-        width: 1.7em;
-      }
-      &.autoCompleteOptions {
-        top: 2.4em;
-      }
-    }
-    @media screen and (max-width: 500px) {
-      width: 100%;
-      margin-top: 0;
-      border-radius: 0;
-      #closeSearch{
-        width: 1.7em;
       }
       &.autoCompleteOptions {
         top: 2.4em;
@@ -141,5 +121,14 @@
 @keyframes showIcon {
   to {
     height: 1.7em;
+  }
+}
+
+#details-container, #store-page-container, #outlet-products-container{
+  #searchbar-container{
+    display: none;
+    @media screen and (max-width: 600px) {
+      display: block;
+    }
   }
 }

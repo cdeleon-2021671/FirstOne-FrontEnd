@@ -1,0 +1,109 @@
+#buy-container {
+  display: flex;
+  justify-content: center;
+  padding: 1em;
+  article {
+    display: flex;
+    justify-content: space-between;
+    padding: 1em;
+    background: #58d68d;
+    width: 100%;
+    .explore {
+      a {
+        color: #fff;
+        display: flex;
+        label {
+          display: flex;
+          align-items: center;
+          font-size: 1.1em;
+        }
+        span {
+          font-size: 1.1em;
+          font-family: sans-serif;
+        }
+      }
+    }
+    .items {
+      display: flex;
+      gap: 1em;
+      a {
+        color: #fff;
+        display: flex;
+        align-items: center;
+        gap: 0.2em;
+        width: max-content;
+        label {
+          cursor: pointer;
+          display: flex;
+          svg {
+            color: #fff;
+            font-size: 1.2em;
+          }
+          img {
+            height: 1em;
+          }
+        }
+        span {
+          font-size: 1.1em;
+          font-family: sans-serif;
+        }
+      }
+    }
+  }
+  @media screen and (min-width: 1550px) {
+    padding: 0;
+    margin-top: 1em;
+  }
+  @media screen and (max-width: 950px) {
+    article {
+      .items,
+      .explore {
+        a {
+          span {
+            font-size: 1em;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 880px) {
+    article {
+      flex-direction: column;
+      gap: 1em;
+    }
+  }
+  @media screen and (max-width: 780px) {
+    article {
+      flex-direction: row;
+      justify-content: space-between;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        height: 0;
+      }
+    }
+  }
+  @media screen and (max-width: 500px) {
+    padding: 0;
+    article {
+      background: #fff;
+      .items,
+      .explore {
+        a {
+          label {
+            svg {
+                font-size: .9em;
+              color: #3a3a3a;
+            }
+            img{
+                height: .7em;
+            }
+          }
+          span {
+            font-size: .9em;
+            color: #3a3a3a;
+          }
+        }
+      }
+    }
+  }
+}

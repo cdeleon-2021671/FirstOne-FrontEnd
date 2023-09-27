@@ -9,6 +9,7 @@ import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { AuthContext } from "../Index";
 import axios from "axios";
 import { v4 } from "uuid";
+import { Helmet } from "react-helmet";
 
 export const StorePage = () => {
   const { tags, offers } = useContext(AuthContext);
@@ -59,12 +60,27 @@ export const StorePage = () => {
   return (
     <>
       {tags && storeId && store && categories && products && newOffers ? (
-        <div id='margin-container'>
+        <div
+          id="store-page-container"
+          itemscope
+          itemtype="https://schema.org/Store"
+        >
+          <Helmet>
+            <title>Tienda.gt - {store.name}</title>
+            <meta
+              name="description"
+              content={`En Tienda.gt contamos con productos de ${store.name} de excelente calidad. ${store.description}`}
+            />
+            <link
+              rel="canonical"
+              href={`https://tienda.gt/${store.name}/${store._id}`}
+            />
+          </Helmet>
           <Searchbar filter={store.name}></Searchbar>
           {store.length !== 0 && <Introduction {...store}></Introduction>}
           <Categories
             tags={categories}
-            url={`store/${store.name}/${storeId}`}
+            url={`/${store.name}/${store._id}`}
           ></Categories>
           {newOffers && newOffers.length != 0 && (
             <>
@@ -74,7 +90,7 @@ export const StorePage = () => {
                 products={newOffers}
                 title={"Ofertas"}
               ></Products>
-              <GoToLink url={`/${store.name}/offers/${storeId}`}></GoToLink>
+              <GoToLink url={`/${store.name}/offers/${store._id}`}></GoToLink>
             </>
           )}
           {products.length !== 0 && (
@@ -85,7 +101,7 @@ export const StorePage = () => {
                 products={products}
                 title={"Populares"}
               ></Products>
-              <GoToLink url={`/${store.name}/products/${storeId}`}></GoToLink>
+              <GoToLink url={`/${store.name}/products/${store._id}`}></GoToLink>
             </>
           )}
           <Banner {...store}></Banner>

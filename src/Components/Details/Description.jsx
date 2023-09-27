@@ -41,7 +41,6 @@ export const Description = ({ description, urlProduct, storeId }) => {
   };
 
   const moveMenu = () => {
-    if ($("#root")[0].offsetWidth <= 670) {
       const positionScroll =
         window.innerHeight -
         menuRef.current.offsetHeight -
@@ -49,9 +48,6 @@ export const Description = ({ description, urlProduct, storeId }) => {
       if (positionScroll > 0)
         $(".social-links").css("position", "relative");
       else $(".social-links").css("position", "fixed");
-    } else {
-      $(".social-links").css("position", "relative");
-    }
   };
 
   useEffect(() => {

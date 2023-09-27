@@ -5,18 +5,15 @@
     padding: 1em 1em 0;
     margin-bottom: 1em;
     font-size: 1.05em;
-    font-family: sans-serif;
+    font-family: sans-serif; 
     text-align: justify;
-    max-height: 15vw;
     overflow: hidden;
+    font-size: 0.9em;
     &.seeDescription {
       max-height: min-content;
     }
-    @media screen and (max-width: 960px) {
-      max-height: 22vw;
-    }
-    @media screen and (max-width: 725px) {
-      font-size: 0.9em;
+    @media screen and (max-width: 800px) {
+      max-height: 20vw;
     }
     @media screen and (max-width: 380px) {
       font-size: 0.8em;
@@ -44,11 +41,9 @@
         align-items: center;
       }
     }
-    @media screen and (max-width: 675px) {
-      max-height: 28vw;
-      button {
-        font-size: 1.1em;
-      }
+    max-height: 28vw;
+    button {
+      font-size: 1.1em;
     }
     @media screen and (max-width: 440px) {
       max-height: 40vw;
@@ -87,41 +82,31 @@
         color: #666666;
       }
     }
-    @media screen and (max-width: 830px) {
-      span,
-      a {
-        font-size: 1em;
-      }
+    span,
+    a {
+      font-size: 0.9em;
     }
-    @media screen and (max-width: 700px) {
-      span,
-      a {
-        font-size: 0.9em;
+    position: fixed;
+    bottom: 0;
+    background: #138D75;
+    padding: 0.5em 1em;
+    span,
+    a {
+      color: #fff;
+      min-width: max-content;
+      font-size: 1.6em;
+      display: flex;
+      align-items: center;
+      margin-right: 0.5em;
+      label {
+        display: none;
       }
-    }
-    @media screen and (max-width: 670px) {
-      position: fixed;
-      bottom: 0;
-      background: #5dade2;
-      padding: 0.5em 1em;
-      span,
-      a {
+      &:hover {
         color: #fff;
-        min-width: max-content;
-        font-size: 1.6em;
-        display: flex;
-        align-items: center;
-        margin-right: 0.5em;
-        label {
-          display: none;
-        }
-        &:hover {
-          color: #fff;
-        }
       }
-      span {
-        font-size: 1.3em;
-      }
+    }
+    span {
+      font-size: 1.3em;
     }
   }
   .store {

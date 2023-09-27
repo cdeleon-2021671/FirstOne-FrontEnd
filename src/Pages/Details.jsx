@@ -10,6 +10,7 @@ import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { Description } from "../Components/Details/Description";
 import $ from "jquery";
 import { v4 } from "uuid";
+import { Helmet } from "react-helmet";
 
 export const Details = () => {
   const { productId } = useParams();
@@ -51,29 +52,90 @@ export const Details = () => {
     $(window).scrollTop("0");
   }, [productId]);
 
+  const [viewOptions, setViewOptions] = useState(false);
+  const [shouldRunShowOptions, setShouldRunShowOptions] = useState(true);
+
+  const showOptions = () => {
+    if (shouldRunShowOptions) {
+      if (window.innerWidth <= 600) {
+        setViewOptions(true);
+      } else {
+        setViewOptions(false);
+      }
+    }
+  };
+
+  useEffect(() => {
+    showOptions();
+    window.addEventListener("resize", showOptions);
+    return () => {
+      window.removeEventListener("resize", showOptions);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (viewOptions === true) {
+      setShouldRunShowOptions(false);
+    } else {
+      setShouldRunShowOptions(true);
+    }
+  }, [viewOptions]);
+
   return (
     <>
       {details && similar ? (
-        <div id="margin-padding-container">
-          <div id="product-details">
-            <Searchbar filter={category}></Searchbar>
-            <Introduction {...details}></Introduction>
-            <Options {...details.storeId}></Options>
-            <Description {...details}></Description>
-            {similar.length !== 0 && (
+        <div className="padding-container" id="details-container">
+          <Helmet>
+            <title>Tienda.gt - {details.name}</title>
+            <meta name="description" content={details.description} />
+            <meta name="keywords" content={details.tags.join(", ")} />
+            <link
+              rel="stylesheet"
+              href={`https://tienda.gt/${details.name}/${details.tags.join(
+                "-"
+              )}/${details.price}/${details._id}`}
+            />
+            <script type="application/ld+json">
+              {JSON.stringify({
+                "@context": "https://schema.org/",
+                "@type": "Product",
+                description: details.description,
+                name: details.name,
+                image: details.image,
+                url: `https://tienda.gt/${details.name}/${details.tags.join(
+                  "-"
+                )}/${details.price}/${details._id}`,
+                offers: {
+                  "@type": "Offer",
+                  availability: details.stock,
+                  price: details.price,
+                  priceCurrency: "Q",
+                },
+              })}
+            </script>
+          </Helmet>
+          <Searchbar filter={category}></Searchbar>
+          <Introduction {...details}></Introduction>
+          {viewOptions == true && (
+            <>
+              <Options {...details.storeId}></Options>
+              <Description {...details}></Description>
+            </>
+          )}
+          {similar.length !== 0 && (
+            <>
               <Products
                 products={similar}
                 classLeft={v4()}
                 classRight={v4()}
                 title={"También te podrían interesar"}
               ></Products>
-            )}
-
-            <GoToLink
-              title={`Ver tienda ${details.storeId.name}`}
-              url={`/store/${details.storeId.name}/${details.storeId._id}`}
-            ></GoToLink>
-          </div>
+              <GoToLink
+                title={`Ver tienda ${details.storeId.name}`}
+                url={`/${details.storeId.name}/${details.storeId._id}`}
+              ></GoToLink>
+            </>
+          )}
         </div>
       ) : (
         <Animation></Animation>

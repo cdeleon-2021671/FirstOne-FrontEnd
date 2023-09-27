@@ -73,10 +73,10 @@ export const OutletProducts = () => {
         { search: search }
       );
       const { result } = data;
-      if(result.length === 0) {
+      if (result.length === 0) {
         setArray(products);
-        getAutoComplete(products)
-      }else {
+        getAutoComplete(products);
+      } else {
         setArray(result);
         getAutoComplete(result);
       }
@@ -108,47 +108,44 @@ export const OutletProducts = () => {
   };
 
   useEffect(() => {
-    if (category && !storeId) {
+    if (category && !storeId && !store) {
       // Ver productos de una categoria
       getProductsByTag();
       setFilter(category);
-    } else if (category && storeId) {
+    } else if (category && store && storeId) {
       // Ver productos de una categoria en tienda especifica
       getProductsByStoreTag();
       setFilter(category);
-    } else if (location.pathname == "/products/offers") {
+    } else if (location.pathname == "/all-offers-in-store") {
       // Ver todas las ofertas
       setArray(offers);
       getAutoComplete(offers);
-      setFilter('Ofertas');
-    } else if (location.pathname == "/products/all") {
+      setFilter("Ofertas");
+    } else if (location.pathname == "/all-products-in-store") {
       // Ver todos los productos
       setArray(products);
       getAutoComplete(products);
-      setFilter('Todos los productos');
-    } else if (store && location.pathname.includes("/products")) {
+      setFilter("Todos los productos");
+    } else if (location.pathname.includes(`/products/${storeId}`)) {
       // Ver productos de una tienda en especifico
+      console.log(location.pathname);
       getProducts();
       setFilter(`Productos ${store}`);
-    } else if (store && location.pathname.includes("/offers")) {
+    } else if (location.pathname.includes(`/offers/${storeId}`)) {
       // Ver ofertas de una tienda en especifico
       getOffers();
       setFilter(`Ofertas ${store}`);
     } else if (search) {
       setArray(null);
       searchProducts();
-      setFilter(search)
-    } else {
-      setArray(products);
-      getAutoComplete(products);
-      setFilter('Todos los productos')
+      setFilter(search);
     }
   }, [location]);
 
   return (
     <>
       {array && options ? (
-        <div id="margin-padding-container">
+        <div id="outlet-products-container">
           <Searchbar filter={filter} />
           <ProductsCard
             products={array}

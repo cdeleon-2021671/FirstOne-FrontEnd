@@ -1,9 +1,11 @@
 #store-introduction{
-    margin-top: 1em;
     div:first-child{
         height: 35vw;
         background-position: center;
         background-attachment: local;
+        @media screen and (min-width: 1550px) {
+            height: 30em;
+        }
         @media screen and (max-width: 775px) {
             height: 45vw;
         }
@@ -12,14 +14,10 @@
         }
         @media screen and (max-width: 500px) {
             height: 70vw;
-            margin-top: 0;
         }
     }
-    @media screen and (max-width: 500px) {
-        margin-top: 0;
-    }
     .introduction{
-        padding: 1em 1em 0;
+        padding: 1em;
         h1{
             font-family: Verdana, Geneva, Tahoma, sans-serif;
         }

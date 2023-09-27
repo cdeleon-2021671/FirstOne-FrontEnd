@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet, createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import { HiShoppingCart } from "react-icons/hi";
 import {
   BsWhatsapp,
@@ -8,9 +8,9 @@ import {
   BsInstagram,
   BsTiktok,
   BsFillTelephoneFill,
-  BsTwitter,
-  BsCheckCircle,
+  BsShieldLock,
 } from "react-icons/bs";
+import { MdVerified } from "react-icons/md";
 import { NotFoundPage } from "../Pages/NotFoundPage/NotFoundPage";
 import { HomePage } from "../Pages/HomePage";
 import App from "../App";
@@ -18,12 +18,6 @@ import { StorePage } from "../Pages/StorePage";
 import { Details } from "../Pages/Details";
 import { OutletProducts } from "../Pages/OutletProducts";
 import { AllCategories } from "../Pages/AllCategories";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { AiOutlineDropbox } from "react-icons/ai";
-import { FaCircleUser } from "react-icons/fa6";
-import { HiUserAdd } from "react-icons/hi";
-import { BiLogoGmail } from "react-icons/bi";
-import { TfiWorld } from "react-icons/tfi";
 import { v4 } from "uuid";
 
 export const routes = createBrowserRouter([
@@ -36,60 +30,54 @@ export const routes = createBrowserRouter([
         path: "",
         element: <HomePage />,
       },
+      // Detalles de una tienda | Funciona
       {
-        path: "store",
-        element: <Outlet></Outlet>,
-        children: [
-          {
-            path: ":store/:storeId",
-            element: <StorePage />,
-          },
-          {
-            path: ":store/:storeId/:category",
-            element: <OutletProducts />,
-          },
-        ],
+        path: ":store/:storeId",
+        element: <StorePage />,
       },
+      // Todas los productos de una categoria | Funciona
       {
-        path: ":store/products/:storeId",
+        path: ":category",
         element: <OutletProducts />,
       },
-      {
-        path: ":store/offers/:storeId",
-        element: <OutletProducts />,
-      },
-      {
-        path: "searching",
-        element: <OutletProducts />,
-      },
-      {
-        path: "searching/:search",
-        element: <OutletProducts />,
-      },
+      // Todas las categorias | Funciona
       {
         path: "all-categories",
         element: <AllCategories />,
       },
+      // Todos los productos | Funciona
       {
-        path: "products",
-        element: <Outlet></Outlet>,
-        children: [
-          {
-            path: "all",
-            element: <OutletProducts />,
-          },
-          {
-            path: "offers",
-            element: <OutletProducts />,
-          },
-          {
-            path: ":category",
-            element: <OutletProducts />,
-          },
-        ],
+        path: "all-products-in-store",
+        element: <OutletProducts />,
       },
+      // Todas las ofertas | Funciona
       {
-        path: "product/:product/:productId",
+        path: "all-offers-in-store",
+        element: <OutletProducts />,
+      },
+      // Todos los productos de una categoria de una tienda
+      {
+        path: ":category/:store/:storeId",
+        element: <OutletProducts />,
+      },
+      // Todas las ofertas de una tienda | Funciona
+      {
+        path: ":store/offers/:storeId",
+        element: <OutletProducts />,
+      },
+      // Todos los productos de una tienda | Funciona
+      {
+        path: ":store/products/:storeId",
+        element: <OutletProducts />,
+      },
+      // Resultados de busqueda | Funciona
+      {
+        path: "gt/products-results/:search",
+        element: <OutletProducts />,
+      },
+      // Detalles de un producto | Funciona
+      {
+        path: ":product/:tags/:price/:productId",
         element: <Details />,
       },
     ],
@@ -98,7 +86,7 @@ export const routes = createBrowserRouter([
 
 export const socialLinks = [
   {
-    title: "Store",
+    title: "Producto",
     element: <HiShoppingCart />,
   },
   {
@@ -127,65 +115,23 @@ export const socialLinks = [
   },
 ];
 
-export const menuItems = {
-  menu: [
-    {
-      id: v4(),
-      title: "Acerca de tienda.gt",
-      icon: <IoIosInformationCircleOutline />,
-      url: "",
-    },
-    {
-      id: v4(),
-      title: "Todas las tiendas",
-      icon: <HiShoppingCart />,
-      url: "",
-    },
-    {
-      id: v4(),
-      title: "Todos los productos",
-      icon: <AiOutlineDropbox />,
-      url: "",
-    },
-    {
-      id: v4(),
-      title: "Disponibles",
-      icon: <BsCheckCircle />,
-      url: "",
-    },
-    {
-      id: v4(),
-      title: "Iniciar sesión",
-      icon: <FaCircleUser />,
-      url: "",
-    },
-    {
-      id: v4(),
-      title: "Registrarse",
-      icon: <HiUserAdd />,
-      url: "",
-    },
-  ],
-  methods: [
-    {
-      id: v4(),
-      icon: <BiLogoGmail />,
-      url: "",
-    },
-    {
-      id: v4(),
-      icon: <BsWhatsapp />,
-      url: "",
-    },
-    {
-      id: v4(),
-      icon: <TfiWorld />,
-      url: "https://webifica.com/",
-    },
-    {
-      id: v4(),
-      icon: <BsFacebook />,
-      url: "",
-    },
-  ],
-};
+export const menuItems = [
+  {
+    id: v4(),
+    title: "Sitios seguros",
+    icon: <BsShieldLock />,
+    url: "",
+  },
+  {
+    id: v4(),
+    title: "Empresas verificadas",
+    icon: <MdVerified />,
+    url: "",
+  },
+  {
+    id: v4(),
+    title: "Tienda.gt 100% empresas chapinas verificadas",
+    icon: <img src="https://flagcdn.com/w20/gt.png" alt="GT" />,
+    url: "",
+  },
+];

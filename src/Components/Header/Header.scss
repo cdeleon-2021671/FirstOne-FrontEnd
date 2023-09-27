@@ -1,23 +1,8 @@
 #header-content {
+  display: flex;
+  justify-content: space-evenly;
   height: 3.5em;
-  position: fixed;
-  top: 0;
-  width: 100%;
-  background: #5DADE2;
-  z-index: 500;
-  label {
-    position: absolute;
-    height: 100%;
-    font-size: 1.5em;
-    display: flex;
-    align-items: center;
-    gap: 0.3em;
-    padding: 0 0.5em;
-    cursor: pointer;
-    color: #fff;
-    font-weight: 900;
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-  }
+  background: #138D75;
   h1 {
     height: 100%;
     display: flex;
@@ -25,39 +10,54 @@
     justify-content: center;
     a {
       color: #fff;
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
-    }
-  }
-  @media screen and (max-width: 700px) {
-    label {
-      font-size: 1.2em;
-    }
-  }
-  @media screen and (max-width: 550px) {
-    h1 {
-      a {
-        font-size: 0.85em;
-      }
-    }
-  }
-  @media screen and (max-width: 450px) {
-    label {
       font-size: 1.1em;
+      font-family: Koulen;
     }
-    h1 {
-      a {
-        font-size: 0.75em;
+  }
+  .identify{
+    display: flex;
+    align-items: center;
+    button{
+      background: none;
+      color: #fff;
+      border: none;
+      padding: .5em;
+      font-size: 1.4em;
+      font-family: Koulen;
+      display: flex;
+      align-items: center;
+      gap: .3em;
+      cursor: pointer;
+      label{
+        display: flex;
       }
     }
   }
-  @media screen and (max-width: 320px) {
-    label {
-      font-size: 0.9em;
+  .header-searchbar{
+    display: flex;
+    align-items: center;
+    width: 50%;
+    @media screen and (max-width: 700px) {
+    width: 40%;
     }
-    h1 {
-      a {
-        font-size: 0.65em;
-      }
+    @media screen and (max-width: 600px) {
+      display: none;
+    }
+  }
+  .header-info{
+    display: flex;
+    align-items: center;
+    gap: .2em;
+    img{
+      border-radius: 100%;
+      width: 1.7em;
+      height: 1.7em;
+      object-fit: cover;
+    }
+    span{
+      font-size: 1.4em;
+      font-family: Koulen;
+      color: #fff;
     }
   }
 }

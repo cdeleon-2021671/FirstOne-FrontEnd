@@ -30,7 +30,7 @@
     a {
       border: none;
       border-radius: 1em;
-      background: #5dade2;
+      background: #58D68D;
       padding: 0.3em 1.2em;
       color: #fff;
       cursor: pointer;
@@ -41,153 +41,213 @@
     }
   }
   .products {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(18vw, 1fr));
-    @media screen and (max-width: 1000px) {
-      grid-template-columns: repeat(4, minmax(20vw, 1fr));
-    }
-    @media screen and (max-width: 800px) {
-      grid-template-columns: repeat(3, minmax(30vw, 1fr));
-    }
-    @media screen and (max-width: 600px) {
-      grid-template-columns: repeat(2, minmax(40vw, 1fr));
-    }
-    @media screen and (max-width: 500px) {
-      gap: 0.5em;
-    }
-    @media screen and (max-width: 300px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    justify-content: center;
-    gap: 1vw;
     margin-top: 1em;
-    a {
-      flex: 1;
-      min-width: 18vw;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    .single-product {
       position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+      flex: 1;
+      border: 1px solid rgba($color: #000000, $alpha: 0.2);
+      box-shadow: 1px 1px 3px rgba($color: #000000, $alpha: 0.2);
+      padding: 1em;
+      min-width: 15em;
+      border-radius: 0.3em;
       overflow: hidden;
-      h1 {
+      img {
+        width: 100%;
+        height: 15em;
+        object-fit: contain;
+        background: #fff;
+      }
+      .tag-offer {
+        position: absolute;
+        top: 1em;
+        right: -3em;
         font-family: Verdana, Geneva, Tahoma, sans-serif;
-        font-size: 1em;
-        @media screen and (max-width: 500px) {
-          font-size: 0.9em;
+        font-weight: 900;
+        font-size: 1.5em;
+        color: #fff;
+        padding: 0.2em 3em;
+        background: #ff2b14;
+        transform: rotate(45deg);
+      }
+      .product-information {
+        h1 {
+          font-size: 1em;
+          font-family: Roboto;
           font-weight: 100;
         }
-        @media screen and (max-width: 400px) {
-          font-size: 0.8em;
+        .price-container {
+          display: flex;
+          gap: 0.3em;
+          .offer-porcent {
+            span {
+              font-size: 1.3em;
+              font-family: sans-serif;
+              color: #ff2b14;
+            }
+          }
+          .price {
+            display: flex;
+            span {
+              font-size: 1.3em;
+              font-family: sans-serif;
+              display: flex;
+              &.little {
+                font-size: .9em;
+                margin-top: 0.05em;
+              }
+            }
+          }
         }
-        @media screen and (max-width: 300px) {
-          font-size: 1.1em;
-        }
-      }
-      .salePrice {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 0.3em;
-        span {
-          font-size: 1.2em;
-          font-family: Verdana, Geneva, Tahoma, sans-serif;
-          position: relative;
-          @media screen and (max-width: 500px) {
-            font-size: 0.9em;
+        .salePrice {
+          display: flex;
+          .normal-price {
+            font-size: 1em;
+            font-family: sans-serif;
+            color: rgb(95, 95, 95);
           }
-          @media screen and (max-width: 400px) {
-            font-size: 0.8em;
-          }
-          @media screen and (max-width: 300px) {
-            font-size: 1.1em;
-          }
-          &.tipico {
+          .tipico {
+            font-size: 1em;
+            font-family: sans-serif;
+            color: rgb(95, 95, 95);
+            font-style: italic;
+            position: relative;
             &::before {
-              position: absolute;
               content: "";
-              background: #5c5c5c;
-              top: 50%;
+              position: absolute;
               width: 100%;
-              height: 0.01em;
+              left: 0;
+              top: 50%;
+              height: 1px;
+              background: rgb(95, 95, 95);
             }
           }
         }
       }
-      .price {
-        margin-top: 0.3em;
+      .social-links {
+        margin-top: 0.5em;
+        padding: 0;
         display: flex;
-        span {
-          font-size: 1.9em;
-          font-family: Roboto;
-          @media screen and (max-width: 500px) {
-            font-size: 1.5em;
-          }
-          @media screen and (max-width: 400px) {
-            font-size: 1.3em;
-          }
-          @media screen and (max-width: 300px) {
-            font-size: 1.9em;
-          }
-        }
-        .little {
-          font-size: 1.2em;
-          @media screen and (max-width: 500px) {
-            font-size: 0.9em;
-          }
-          @media screen and (max-width: 400px) {
-            font-size: 0.8em;
-          }
-          @media screen and (max-width: 300px) {
-            font-size: 1.1em;
-          }
-          margin-top: 0.2em;
-        }
-        div {
-          display: flex;
-          align-items: end;
-          span {
-            color: #f44336;
-            margin-right: 0.3em;
+        flex-wrap: wrap;
+        gap: 0.5em;
+        justify-content: space-between;
+        a {
+          width: 2.5em;
+          height: 2.5em;
+          padding: 0.5em;
+          border-radius: 100em;
+          background: #fff;
+          border: 1px solid rgba($color: #000000, $alpha: 0.2);
+          box-shadow: 1px 1px 3px rgba($color: #000000, $alpha: 0.2);
+          svg {
+            width: 100%;
+            height: 100%;
           }
         }
-      }
-      small {
-        position: absolute;
-        top: 1em;
-        right: -2em;
-        width: min-content;
-        padding: 0 2em;
-        height: 10%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5em;
-        font-weight: 900;
-        color: #fff;
-        background: #f44336;
-        transform: rotate(45deg);
-        font-family: Verdana, Geneva, Tahoma, sans-serif;
       }
     }
-    img {
-      width: 18vw;
-      height: 22vw;
-      object-fit: cover;
-      @media screen and (max-width: 1000px) {
-        width: 23vw;
-        height: 27vw;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #products-card {
+    .products {
+      .single-product {
+        position: relative;
+        min-width: 12em;
+        img {
+          height: 12em;
+        }
+        .tag-offer {
+          font-size: 1.3em;
+        }
+        .product-information {
+          h1 {
+            font-size: 0.9em;
+          }
+          .price-container {
+            display: flex;
+            gap: 0.3em;
+            .offer-porcent {
+              span {
+                font-size: 1.2em;
+              }
+            }
+            .price {
+              span {
+                font-size: 1.2em;
+                &.little {
+                  font-size: 0.8em;
+                }
+              }
+            }
+          }
+          .salePrice {
+            .normal-price {
+              font-size: 0.9em;
+            }
+            .tipico {
+              font-size: 0.9em;
+            }
+          }
+        }
+        .social-links {
+          gap: 0.3em;
+          a {
+            width: 2em;
+            height: 2em;
+            padding: 0.3em;
+          }
+        }
       }
-      @media screen and (max-width: 800px) {
-        width: 30vw;
-        height: 34vw;
-      }
-      @media screen and (max-width: 600px) {
-        width: 46vw;
-        height: 50vw;
-      }
-      @media screen and (max-width: 300px) {
-        width: 90vw;
-        height: 95vw;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  #products-card {
+    .products {
+      .single-product {
+        min-width: 10em;
+        img {
+          height: 9.5em;
+        }
+        .tag-offer {
+          font-size: 1em;
+        }
+        .product-information {
+          .price-container {
+            .offer-porcent {
+              span {
+                font-size: 1.1em;
+              }
+            }
+            .price {
+              span {
+                font-size: 1.1em;
+                &.little {
+                  font-size: 0.7em;
+                }
+              }
+            }
+          }
+          .salePrice {
+            .normal-price {
+              font-size: 0.8em;
+            }
+            .tipico {
+              font-size: 0.8em;
+            }
+          }
+        }
+        .social-links {
+          a {
+            width: 1.8em;
+            height: 1.8em;
+          }
+        }
       }
     }
   }

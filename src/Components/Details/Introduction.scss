@@ -1,173 +1,327 @@
 #details-introduction {
-  display: flex;
-  padding: 1em;
-  .mainTitle {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    margin-bottom: 0.5em;
+  .title-responsive {
     display: none;
   }
-  .img-logo-store {
-    background-position: center;
-    background-size: contain;
-    width: 50vw;
-    height: 50vw;
+  padding: 1em 1em 0;
+  justify-content: center;
+  display: grid;
+  grid-template-columns: 45vw 50vw;
+  .img-product {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
-  .price-store {
-    background: #f1f1f1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50vw;
-    div {
-      height: 70%;
-      width: 65%;
-      background: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      h1 {
-        font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-        font-weight: 100;
-        text-align: center;
-        margin-bottom: 1em;
-        font-size: 1.6em;
-        padding: 0 1em;
-      }
-      span {
-        &:nth-child(2) {
-          font-size: 2em;
-          margin-bottom: 1em;
-          font-family: fantasy;
-          text-align: center;
-        }
-        &:nth-child(3) {
-          text-align: center;
-          font-size: 1.5em;
-          padding: 0 1em;
-          font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
-        }
-      }
-      @media screen and (max-width: 970px) {
-        width: 70%;
-        height: 75%;
-        h1 {
-          font-size: 1.3em;
-        }
-        span {
-          &:nth-child(2) {
-            font-size: 1.8em;
-          }
-          &:nth-child(3) {
-            font-size: 1.3em;
-          }
-        }
-      }
-      @media screen and (max-width: 900px) {
-        width: 73%;
-        height: 78%;
-      }
-      @media screen and (max-width: 720px) {
-        width: 90%;
-        height: 90%;
-      }
+  .information-container {
+    padding: 0 1em;
+    width: 100%;
+    h1 {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 1.6em;
     }
-  }
-  @media screen and (max-width: 670px) {
-    padding: 1em;
-    display: block;
-    .mainTitle {
-      display: block;
-    }
-    .img-logo-store {
-      height: 60vw;
-      width: 100%;
-    }
-    .price-store {
-      background: none;
-      width: 100%;
-      display: block;
-      div {
-        padding: 1em 0 0;
-        width: 100%;
+    .banner {
+      background-image: url("../../Assets/Banner - Telefono.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 13vw;
+      margin: 0.5em 0;
+      padding-left: 9vw;
+      .price-container {
         height: 100%;
-        align-items: start;
-        justify-content: start;
-        gap: 0.5em;
-        h1 {
-          display: none;
-        }
-        span {
-          text-align: left;
-          &:nth-child(2) {
-            margin: 0;
-            padding: 0;
-            font-size: 1.8em;
-          }
-          &:nth-child(3) {
-            font-size: 1.3em;
-            margin: 0;
-            padding: 0;
-            br {
-              display: none;
+        width: 10vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        div {
+          display: flex;
+          span {
+            font-size: 3.5em;
+            font-family: fantasy;
+            color: #fff;
+            &.little {
+              font-size: 2em;
+              margin-top: 0.2em;
             }
           }
         }
       }
     }
-  }
-  @media screen and (max-width: 550px) {
-    .mainTitle {
-      font-size: 1.7em;
+    p {
+      text-align: justify;
+      font-family: sans-serif;
+      margin-bottom: 0.5em;
+      max-height: 13vw;
+      overflow: auto;
     }
-    .price-store {
-      div {
+    .options-container {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5em;
+      .options {
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #B2BABB;
+        padding: 0.5em;
         span {
-          &:nth-child(2) {
-            font-size: 1.7em;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 1.1em;
+          display: flex;
+          align-items: center;
+          gap: 0.3em;
+          label {
+            display: flex;
+          }
+        }
+        div {
+          display: flex;
+          flex-direction: column;
+          gap: 0.4em;
+          margin-top: 0.5em;
+          a,
+          label {
+            font-family: sans-serif;
           }
         }
       }
     }
+    .goToProduct,
+    .goToMyStore {
+      display: flex;
+      a {
+        width: 100%;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight: 900;
+        font-size: 1.4em;
+        text-align: center;
+        background: #58D68D;
+        color: #fff;
+        padding: 0.4em 0;
+        margin-top: 0.5em;
+      }
+    }
   }
-  @media screen and (max-width: 450px) {
-    .mainTitle {
-      font-size: 1.5em;
+  .store-information {
+    margin: 1em 0 0;
+    border: 1px solid #B2BABB;
+    padding: 1em;
+    h2 {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      margin-bottom: 0.5em;
     }
-    .img-logo-store {
-      height: 75vw;
+    .imgLogo {
+      height: 10vw;
+      background-position: center;
+      background-size: contain;
+      margin-bottom: 1em;
     }
-    .price-store {
-      div {
-        span {
-          &:nth-child(2) {
-            font-size: 1.5em;
-          }
-          &:nth-child(3) {
-            font-size: 1.2em;
-          }
+    .rrss {
+      display: flex;
+      justify-content: space-evenly;
+      flex-wrap: wrap;
+      column-gap: 0.3em;
+      row-gap: 1em;
+      a {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        font-size: 1.1em;
+        font-family: sans-serif;
+        min-width: max-content;
+        color: #3498DB;
+        label {
+          display: flex;
         }
       }
     }
   }
-  @media screen and (max-width: 320px) {
-    .mainTitle {
-      font-size: 1.3em;
+}
+
+@media screen and (min-width: 1375px) {
+  #details-introduction {
+    display: flex;
+    .img-product {
+      max-width: 30em;
+      height: auto;
+      object-position: top;
     }
-    .img-logo-store {
-      height: 80vw;
-    }
-    .price-store {
-      div {
-        span {
-          &:nth-child(2) {
-            font-size: 1.3em;
-          }
-          &:nth-child(3) {
+    .information-container {
+      justify-content: space-evenly;
+      display: flex;
+      gap: 1em;
+      .banner {
+        background-image: url("../../Assets/Banner - Telefono.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 8vw;
+        padding-left: 5.4em;
+      }
+      p {
+        max-height: 8em;
+      }
+      .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        .options {
+          display: flex;
+          flex-direction: column;
+          border: 1px solid #B2BABB;
+          padding: 0.5em;
+          span {
+            font-family: Arial, Helvetica, sans-serif;
             font-size: 1.1em;
-            font-weight: 900;
+            display: flex;
+            align-items: center;
+            gap: 0.3em;
+            label {
+              display: flex;
+            }
+          }
+          div {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4em;
+            margin-top: 0.5em;
+            a,
+            label {
+              font-family: sans-serif;
+            }
           }
         }
+      }
+      .goToProduct,
+      .goToMyStore {
+        display: flex;
+        a {
+          width: 100%;
+          font-family: Verdana, Geneva, Tahoma, sans-serif;
+          font-weight: 900;
+          font-size: 1.4em;
+          text-align: center;
+          background: #138D75;    background: #58D68D;    background: #58D68D;
+          color: #fff;
+          padding: 0.4em 0;
+          margin-top: 0.5em;
+        }
+      }
+    }
+    .store-information {
+      margin: 0;
+      border: 1px solid #B2BABB;
+      min-width: 20em;
+      max-width: 20em;
+      p {
+        text-align: justify;
+        max-height: max-content;
+      }
+      .imgLogo {
+        height: 10em;
+        background-position: center;
+        background-size: cover;
+        margin-bottom: 1em;
+      }
+      .rrss {
+        display: flex;
+        flex-direction: column;
+        row-gap: 0.5em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1115px) {
+  #details-introduction {
+    display: flex;
+    .img-product {
+      max-width: 35vw;
+      height: auto;
+      object-position: top;
+    }
+    .information-container {
+      .banner {
+        background-image: url("../../Assets/Banner - Tablet.jpg");
+        background-size: cover;
+        background-position: center;
+        height: 12vw;
+        padding-left: 13vw;
+      }
+      .store-information {
+        .imgLogo {
+          height: 20vw;
+          background-position: center;
+          margin-bottom: 1em;
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 800px) {
+  #details-introduction {
+    .information-container {
+      h1 {
+        font-size: 1.4em;
+      }
+    }
+  }
+}
+@media screen and (max-width: 700px) {
+  #details-introduction {
+    .title-responsive {
+      display: block;
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 1.4em;
+      margin-bottom: 0.5em;
+    }
+    display: flex;
+    flex-direction: column;
+    .img-product {
+      max-width: 100vw;
+      height: 30em;
+      background: #fff;
+    }
+    .information-container {
+      padding: 0;
+      h1 {
+        display: none;
+      }
+      .banner {
+        background-image: url("../../Assets/Banner - Telefono.jpg");
+        height: 20vw;
+        padding-left: 22vw;
+      }
+      p {
+        max-height: 25vw;
+      }
+    }
+  }
+}
+@media screen and (max-width: 600px) {
+  #details-introduction {
+    .img-product {
+      height: auto;
+    }
+    .title-responsive {
+      font-size: 1.2em;
+    }
+    .information-container {
+      .banner {
+        .price-container {
+          div {
+            span {
+              font-size: 2.7em;
+              &.little {
+                font-size: 1.7em;
+                margin-top: .18em;
+              }
+            }
+          }
+        }
+      }
+      p,
+      .options-container,
+      .goToMyStore,
+      .goToProduct,
+      .store-information {
+        display: none;
       }
     }
   }

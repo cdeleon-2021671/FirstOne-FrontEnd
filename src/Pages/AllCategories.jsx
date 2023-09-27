@@ -11,7 +11,7 @@ export const AllCategories = () => {
     }, []);
 
   return (
-    <div id='margin-padding-container'>
+    <div className='margin-padding-container'>
         <Categories tags={tags} url={"products"}></Categories>
     </div>
   )

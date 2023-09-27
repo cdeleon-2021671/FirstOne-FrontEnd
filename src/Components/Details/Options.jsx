@@ -27,43 +27,50 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
   };
 
   useEffect(() => {
-    if ($("#root")[0].offsetWidth <= 800) {
-      $(`.option1`).addClass("hiddenOption");
-      $(`.btn1Ship`).addClass("isActive");
-      $(`.option2`).addClass("hiddenOption");
-      $(`.btn2Pay`).removeClass("isActive");
-      $(`#arrowIcon1`).removeClass("animateIcon");
-      $(`#arrowIcon2`).removeClass("animateIcon");
-    }
+    $(`.option1`).addClass("hiddenOption");
+    $(`.btn1Ship`).addClass("isActive");
+    $(`.option2`).addClass("hiddenOption");
+    $(`.btn2Pay`).removeClass("isActive");
+    $(`#arrowIcon1`).removeClass("animateIcon");
+    $(`#arrowIcon2`).removeClass("animateIcon");
   }, [location]);
 
   return (
-    <div id="options-container">
-      {shippingTerms && paymentOptions && (
-        <>
-          <TwoOptions
-            array={shippingTerms}
-            title="envío"
-            setView={setViewShip}
-            myClass={"btn1Ship"}
-            optionClass={"option1"}
-            arrowNumber={"arrowIcon1"}
-          ></TwoOptions>
-          <TwoOptions
-            array={paymentOptions}
-            title="pago"
-            setView={setViewPay}
-            myClass={"btn2Pay"}
-            optionClass={"option2"}
-            arrowNumber={"arrowIcon2"}
-          ></TwoOptions>
-        </>
-      )}
-    </div>
+    <>
+      <div id="options-container">
+        {shippingTerms && paymentOptions && (
+          <>
+            <TwoOptions
+              array={shippingTerms}
+              title="envío"
+              setView={setViewShip}
+              myClass={"btn1Ship"}
+              optionClass={"option1"}
+              arrowNumber={"arrowIcon1"}
+            ></TwoOptions>
+            <TwoOptions
+              array={paymentOptions}
+              title="pago"
+              setView={setViewPay}
+              myClass={"btn2Pay"}
+              optionClass={"option2"}
+              arrowNumber={"arrowIcon2"}
+            ></TwoOptions>
+          </>
+        )}
+      </div>
+    </>
   );
 };
 
-const TwoOptions = ({ array, title, arrowNumber, setView, myClass, optionClass }) => {
+const TwoOptions = ({
+  array,
+  title,
+  arrowNumber,
+  setView,
+  myClass,
+  optionClass,
+}) => {
   return (
     <div className="options">
       <button
@@ -75,8 +82,7 @@ const TwoOptions = ({ array, title, arrowNumber, setView, myClass, optionClass }
           <IoIosArrowDown id={arrowNumber} />
         </label>
       </button>
-      <span>Opciones de {title}</span>
-      <div className={optionClass}>
+      <div className={`${optionClass}`}>
         {array.map((item, key) => {
           if (item.includes("http") || item.includes("www"))
             return (

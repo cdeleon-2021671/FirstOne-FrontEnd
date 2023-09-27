@@ -1,122 +1,128 @@
 #stores-container {
-  padding: 1em 1em 0;
-  .description {
-    text-align: center;
-    font-size: 1.5em;
-    span {
-      font-family: sans-serif;
-    }
+  position: relative;
+  background-image: url("/src/assets/Tienda.gt.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: 21vw;
+  @media screen and (max-width: 800px) {
+    background-image: url("/src/assets/Banner - Tablet.jpg");
+    height: 21.95vw;
+  }
+  @media screen and (max-width: 500px) {
+    background-image: url("/src/assets/Banner - Telefono.jpg");
+    height: 28vw;
+  }
+  @media screen and (min-width: 1550px) {
+    height: 20em;
   }
   .stores {
-    padding-top: 1em;
-    display: flex;
-    div {
+    height: 100%;
+    padding-left: 14vw;
+    @media screen and (min-width: 1550px) {
+      padding-left: 14em;
+    }
+    @media screen and (max-width: 800px) {
+      padding-left: 21vw;
+    }
+    @media screen and (max-width: 650px) {
+      padding-left: 18vw;
+    }
+    @media screen and (max-width: 500px) {
+      padding-left: 12vw;
+    }
+    .single {
+      position: relative;
+      width: 22.5vw;
+      height: 100%;
       display: flex;
-      overflow: auto;
-      scroll-behavior: smooth;
-      &::-webkit-scrollbar {
-        height: 0;
+      @media screen and (min-width: 1550px) {
+        width: 24em;
       }
-      a {
+      @media screen and (max-width: 800px) {
+        width: 17.5vw;
+      }
+      @media screen and (max-width: 650px) {
+        width: 25.5vw;
+      }
+      @media screen and (max-width: 500px) {
+        width: 30vw;
+      }
+      div {
         display: flex;
-        flex-direction: column;
-        text-align: center;
-        font-size: 1.3em;
-        img {
-          width: 20vw;
-          height: 20vw;
-          object-fit: contain;
+        align-items: center;
+        overflow: auto;
+        scroll-behavior: smooth;
+        &::-webkit-scrollbar {
+          height: 0;
         }
-        span {
-          padding: 0.4em 0;
-          font-weight: 900;
-          font-family: Verdana, Geneva, Tahoma, sans-serif;
+        a {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          img {
+            height: 15vw;
+            width: 15vw;
+            object-fit: contain;
+            border-radius: 100%;
+            background: #fff;
+            @media screen and (min-width: 1550px) {
+              width: 16em;
+              height: 16em;
+            }
+            @media screen and (max-width: 800px) {
+              width: 17.5vw;
+              height: 17.5vw;
+            }
+          }
+          label {
+            width: 100%;
+            text-align: center;
+            font-size: 1.2em;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 900;
+            margin-top: 0.3em;
+            color: #fff;
+            min-width: max-content;
+            @media screen and (max-width: 650px) {
+              font-size: 1em;
+            }
+            @media screen and (max-width: 500px) {
+              font-size: 0.9em;
+            }
+          }
         }
       }
-    }
-    button {
-      background: #f1f1f1;
-      color: #000;
-      cursor: pointer;
-      border: none;
-      font-size: 0;
-      padding: 0;
-      width: 0;
-      animation: showBtn 0.2s normal forwards ease-in-out;
-      @keyframes showBtn {
-        to {
-          font-size: 2em;
-          padding: 0 0.1em;
-          width: auto;
+      button {
+        position: absolute;
+        background: none;
+        height: 100%;
+        border: none;
+        cursor: pointer;
+        font-size: 0;
+        animation: showBtn 0.2s normal forwards ease-in-out;
+        @media screen and (max-width: 570px) {
+          display: none;
         }
-      }
-      &.hiddenButton {
-        font-size: 2em;
-        padding: 0 0.1em;
-        width: auto;
-        animation: hiddenBtn 0.2s normal forwards ease-in-out;
-        @keyframes hiddenBtn {
+        &#arrowLeftStore {
+          left: -1.1em;
+        }
+        &#arrowRightStore {
+          right: -1.1em;
+        }
+        @keyframes showBtn {
           to {
-            font-size: 0;
-            padding: 0;
-            width: 0;
+            font-size: 2.2em;
           }
         }
-      }
-    }
-  }
-
-  @media screen and (max-width: 800px) {
-    .stores {
-      div {
-        a {
-          img {
-            width: 25vw;
-            height: 25vw;
-          }
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 750px) {
-    button {
-      display: none;
-    }
-  }
-  @media screen and (max-width: 700px) {
-    .description {
-      font-size: 1.3em;
-    }
-    .stores {
-      div {
-        a {
-          img {
-            width: 30vw;
-            height: 30vw;
-          }
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 575px) {
-    .description {
-      font-size: 1.2em;
-    }
-    .stores {
-      div {
-        a {
-          font-size: 1.1em;
-        }
-      }
-    }
-  }
-  @media screen and (max-width: 400px) {
-    .stores {
-      div {
-        a {
-          img {
-            width: 37vw;
-            height: 37vw;
+        &.hiddenButton {
+          font-size: 2.2em;
+          animation: hiddenBtn 0.2s normal forwards ease-in-out;
+          @keyframes hiddenBtn {
+            to {
+              font-size: 0;
+            }
           }
         }
       }

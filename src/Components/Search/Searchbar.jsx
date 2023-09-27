@@ -4,6 +4,7 @@ import { FiSearch } from "react-icons/fi";
 import { AuthContext } from "../../Index";
 import { useNavigate } from "react-router-dom";
 import "./Searchbar.scss";
+import $ from 'jquery';
 
 import FuzzySearch from "fuzzy-search";
 
@@ -33,7 +34,12 @@ export const Searchbar = ({ filter = "" }) => {
   };
 
   const goToSearch = (filter) => {
-    navigate(`/searching/${filter}`);
+    console.log(filter == '' || filter == ' ');
+    if(filter != '' && filter != ' '){
+      navigate(`gt/products-results/${filter}`);
+    }else{
+    navigate(`/all-products-in-store`);
+    }
   };
 
   const moveSelection = (e) => {
@@ -54,11 +60,17 @@ export const Searchbar = ({ filter = "" }) => {
 
   const focusInput = () => {
     setViewOptions(true);
+    if (window.innerWidth > 500) {
+      $("#searchbar-id").css("border-radius", "0");
+    }
   };
 
   const blurInput = () => {
     setIndexOption(0);
     setViewOptions(false);
+    if (window.innerWidth > 500) {
+      $("#searchbar-id").css("border-radius", "2em");
+    }
   };
 
   useEffect(() => {
@@ -78,7 +90,7 @@ export const Searchbar = ({ filter = "" }) => {
 
   return (
     <div id="searchbar-container">
-      <div>
+      <div id="searchbar-id">
         <label htmlFor="search-icon">
           <FiSearch></FiSearch>
         </label>

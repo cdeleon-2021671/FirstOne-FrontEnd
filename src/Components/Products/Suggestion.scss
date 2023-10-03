@@ -4,12 +4,11 @@
   display: flex;
   align-items: center;
   overflow: auto;
-  background: var(--bg-blanco);
   &::-webkit-scrollbar {
     height: 0;
   }
   gap: var(--espacio-secundario);
-  padding: 0 var(--espacio-principal) var(--espacio-principal);
+  padding: var(--espacio-principal) var(--espacio-principal) 0;
   label,
   a {
     min-width: max-content;
@@ -37,6 +36,6 @@
 
 @media screen and (max-width: 500px) {
   .suggestion {
-    padding: 0 var(--espacio-secundario) var(--espacio-secundario);
+    padding: var(--espacio-secundario) var(--espacio-secundario) 0;
   }
 }

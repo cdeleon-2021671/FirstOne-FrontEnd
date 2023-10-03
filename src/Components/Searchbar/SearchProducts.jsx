@@ -1,7 +1,75 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import Fuse from "fuse.js";
 import "./SearchProducts.scss";
 
-export const SearchProducts = () => {
+export const SearchProducts = ({ original, setOriginal, action }) => {
+  const [search, setSearch] = useState("");
+  const location = useLocation();
+
+  const searchProducts = (value) => {
+    const fuse = new Fuse(original, {
+      ignoreLocation: true,
+      distance: 0,
+      threshold: 0.0,
+      keys: [
+        "name",
+        "description",
+        "tags",
+        "stock",
+        "storeId.name",
+        "storeId.description",
+      ],
+    });
+    const result = Array.from(fuse.search(value));
+    const filters = result.map(({ item }) => item);
+    if (filters.length == 0) {
+      setOriginal(original);
+    } else setOriginal(filters);
+  };
+
+  const searchCategories = (value) => {
+    const fuse = new Fuse(original, {
+      distance: 2,
+      threshold: 0.5,
+      keys: ["tag", "product.storeId.name"],
+    });
+    const result = Array.from(fuse.search(value));
+    const filters = result.map(({ item }) => item);
+    if (filters.length == 0) {
+      setOriginal(original);
+    } else setOriginal(filters);
+  };
+
+  const searchStores = (value) => {
+    const fuse = new Fuse(original, {
+      distance: 2,
+      threshold: 0.5,
+      keys: ["store.name", "store.description"],
+    });
+    const result = Array.from(fuse.search(value));
+    const filters = result.map(({ item }) => item);
+    if (filters.length == 0) {
+      setOriginal(original);
+    } else setOriginal(filters);
+  };
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    setSearch(value);
+    if (action == "products") {
+      searchProducts(value);
+    } else if (action == "categories") {
+      searchCategories(value);
+    } else if (action == "stores") {
+      searchStores(value);
+    }
+  };
+
+  useEffect(() => {
+    setSearch("");
+  }, [location]);
+
   return (
     <div className="search-products">
       <div className="search-products-content">
@@ -11,6 +79,8 @@ export const SearchProducts = () => {
           type="text"
           autoComplete="off"
           placeholder="Estoy buscando..."
+          value={search}
+          onChange={handleChange}
         />
       </div>
     </div>

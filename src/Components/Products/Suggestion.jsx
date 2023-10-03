@@ -13,7 +13,9 @@ export const Suggestion = ({ options }) => {
     options.forEach(({ tags }) => {
       tags.forEach((element) => {
         const tag = element.replace("#", "");
-        if (tag != "Home" && tag != category && tag != search)
+        const newCategory = category ? category.replace(/[-]+/g, " ") : "";
+        const newSearch = search ? search.replace(/[-]+/g, " ") : "";
+        if (tag != "Home" && tag != newCategory && tag != newSearch)
           allTags.push(tag);
       });
     });

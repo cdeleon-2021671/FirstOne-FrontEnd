@@ -3,12 +3,16 @@
 .outlet-products {
   width: 100%;
   min-height: calc(100vh - 6em);
-  background: var(--bg-gris);
+  .all-stores {
+    padding-bottom: 0;
+  }
   .results {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
     gap: var(--espacio-principal);
     padding: var(--espacio-principal);
+    margin-top: var(--espacio-principal);
+    background: var(--bg-gris);
     .card {
       box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.5),
         -1px -1px 2px rgba($color: #fff, $alpha: 0.5);
@@ -78,6 +82,15 @@
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .outlet-products {
+    .results {
+      padding-left: 0;
+      padding-right: 0;
     }
   }
 }
@@ -167,6 +180,7 @@
 @media screen and (max-width: 500px) {
   .outlet-products {
     .results {
+      margin-top: var(--espacio-secundario);
       grid-template-columns: repeat(2, minmax(12em, 1fr));
       .card {
         &-image {
@@ -214,7 +228,7 @@
     .results {
       grid-template-columns: repeat(2, minmax(10em, 1fr));
       .card {
-        padding: .2em;
+        padding: 0.2em;
         &-image {
           height: 10em;
           min-width: 10em;

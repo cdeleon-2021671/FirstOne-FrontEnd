@@ -21,10 +21,47 @@
       font-weight: 900;
     }
     &-store {
-      color: var(--color-secundario);
-      width: max-content;
-      &:hover {
-        color: #008000;
+      position: relative;
+      input {
+        width: 50%;
+        min-width: max-content;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        color: var(--color-secundario);
+        &:hover {
+          color: #008000;
+        }
+      }
+      div {
+        position: absolute;
+        background: #fff;
+        border: 1px solid #808080;
+        box-shadow: 1px 1px 2px var(--color-negro), -1px -1px 2px var(--bg-gris) inset;
+        left: 1em;
+        padding: 1em;
+        width: 15em;
+        opacity: 0;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 600;
+        &.isActive {
+          opacity: 1;
+        }
+        img {
+          width: 13em;
+          height: 13em;
+          object-fit: contain;
+        }
+        span {
+          display: flex;
+          width: 100%;
+        }
+        a{
+          background: var(--color-secundario);
+          color: var(--color-blanco);
+          text-align: center;
+          padding: .3em 0;
+        }
       }
     }
     &-description {
@@ -137,12 +174,12 @@
 }
 
 @media screen and (min-width: 1500px) {
-  .details{
-    img{
+  .details {
+    img {
       max-height: 40em;
       max-width: 45em;
     }
-    &-content{
+    &-content {
       width: 45em;
       min-width: 46em;
     }
@@ -234,7 +271,7 @@
                 border: none;
                 background: var(--color-secundario);
                 color: var(--color-blanco);
-                margin-bottom: .3em;
+                margin-bottom: 0.3em;
               }
             }
             small {
@@ -282,13 +319,13 @@
 
 @media screen and (max-width: 500px) {
   .details {
+    padding: var(--espacio-secundario);
     &-title {
       display: block;
       font-size: 1.2em;
       font-weight: 900;
     }
     img {
-      background: red;
       height: auto;
       margin: var(--espacio-secundario) 0;
     }
@@ -312,6 +349,7 @@
         }
       }
       .social-links {
+        margin-bottom: 0;
         gap: 0;
         span {
           font-size: 1.1em;

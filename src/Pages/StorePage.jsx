@@ -76,7 +76,7 @@ export const StorePage = () => {
               href={`https://tienda.gt/${store.name}/${store._id}`}
             />
           </Helmet>
-          {store.length !== 0 && <Introduction {...store}></Introduction>}
+          {store && store.length !== 0 && <Introduction {...store}></Introduction>}
           <Categories
             categories={categories}
             url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}

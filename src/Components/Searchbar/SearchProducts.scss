@@ -2,7 +2,7 @@
 
 .search-products {
   padding: var(--espacio-principal);
-  background: var(--bg-blanco);
+  padding-bottom: 0;
   &-content {
     display: flex;
     border: 1px solid var(--color-secundario);
@@ -25,5 +25,6 @@
 @media screen and (max-width: 500px) {
   .search-products {
     padding: var(--espacio-secundario);
+    padding-bottom: 0;
   }
 }

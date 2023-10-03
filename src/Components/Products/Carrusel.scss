@@ -11,6 +11,7 @@
     display: flex;
     align-items: center;
     background: var(--bg-gris);
+    position: relative;
     &-content {
       padding: var(--espacio-principal) 0;
       display: flex;

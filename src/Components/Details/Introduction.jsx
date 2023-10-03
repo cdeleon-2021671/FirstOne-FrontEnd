@@ -12,12 +12,20 @@ export const Introduction = ({ product, offer }) => {
       $("#img-produt-details").css("top", "0");
       $(".details-content").css("position", "sticky");
       $(".details-content").css("top", "0");
-    }else{
-        $("#img-produt-details").css("position", "static");
+    } else {
+      $("#img-produt-details").css("position", "static");
       $("#img-produt-details").css("top", "0");
       $(".details-content").css("position", "static");
       $(".details-content").css("top", "0");
     }
+  };
+
+  const showStore = () => {
+    $(".details-content-store div").addClass("isActive");
+  };
+
+  const hiddenStore = () => {
+    $(".details-content-store div").removeClass("isActive");
   };
 
   useEffect(() => {
@@ -42,14 +50,25 @@ export const Introduction = ({ product, offer }) => {
           <div>
             <div className="details-content">
               <h2 className="details-content-title">{product.name}</h2>
-              <Link
-                to={product.storeId.urlStore}
-                target="_blank"
-                className="details-content-store"
-                title="Ver tienda"
-              >
-                Producto vendido por {product.storeId.name}
-              </Link>
+              <div className="details-content-store">
+                <input
+                  type="text"
+                  value={`Producto vendido por ${product.storeId.name}`}
+                  readOnly
+                  onFocus={showStore}
+                  onBlur={hiddenStore}
+                />
+                <div>
+                  <img
+                    src={product.storeId.urlLogo}
+                    alt={product.storeId.name}
+                  />
+                  <span>{product.storeId.description}</span>
+                  <Link to={product.storeId.urlStore} target="_blank">
+                    Visitar tienda oficial
+                  </Link>
+                </div>
+              </div>
               <p className="details-content-description">
                 {product.description}
               </p>

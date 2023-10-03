@@ -26,6 +26,9 @@
 .max-page-container {
   min-height: 100vh;
   max-width: 1500px;
+  @media screen and (min-width: 1500px) {
+    min-width: 1500px;
+  }
   background: var(--bg-blanco);
 }
 

@@ -12,10 +12,46 @@
     padding-left: 11vw;
     &-container {
       display: flex;
+      align-items: center;
       width: 42.5vw;
       max-width: 38.8em;
-      overflow: hidden;
       gap: 0.15em;
+      position: relative;
+      button {
+        position: absolute;
+        width: 2.3em;
+        height: 2.3em;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding-right: .2em;
+        cursor: pointer;
+        &.btnLeft1{
+          left: -3em;
+        }
+        &.btnRight1{
+          right: -3em;
+        }
+        @media screen and (max-width: 500px) {
+          display: none;
+        }
+        &.inactive{
+          background: var(--bg-gris);
+          border-radius: 100%;
+        }
+        svg {
+          padding: .2em;
+          width: 2em;
+        }
+      }
+      div {
+        overflow: auto;
+        display: flex;
+        scroll-behavior: smooth;
+        &::-webkit-scrollbar{
+          height: 0;
+        }
+      }
       &-item {
         img {
           object-fit: contain;
@@ -50,7 +86,7 @@
 }
 
 @media screen and (max-width: 700px) {
-    .home-introduction {
+  .home-introduction {
     &-stores {
       padding-left: 14vw;
       &-container {
@@ -70,13 +106,16 @@
     &-stores {
       &-container {
         width: 41.5vw;
+        height: 100%;
+        align-items: center;
         &-item {
           img {
             width: 13.5vw;
             height: 13.5vw;
           }
           span {
-            font-size: 0.9em;
+            // font-size: 0.9em;
+            display: none;
           }
         }
       }
@@ -85,33 +124,33 @@
 }
 
 @media screen and (max-width: 500px) {
-    .home-introduction {
-      &-stores {
-        padding-left: 8vw;
-        &-container {
-          &-item {
-            img {
-              width: 18vw;
-              height: 18vw;
-            }
+  .home-introduction {
+    &-stores {
+      padding-left: 8vw;
+      &-container {
+        &-item {
+          img {
+            width: 18vw;
+            height: 18vw;
           }
         }
       }
     }
   }
-  
+}
+
 @media screen and (max-width: 330px) {
-    .home-introduction {
-      &-stores {
-        padding-left: 7vw;
-        &-container {
-          &-item {
-            span{
-                margin-top: 0;
-                font-size: .8em;
-            }
-          }
-        }
-      }
+  .home-introduction {
+    &-stores {
+      padding-left: 7vw;
+      // &-container {
+      // &-item {
+      // span{
+      //     margin-top: 0;
+      //     font-size: .8em;
+      // }
+      // }
+      // }
     }
   }
+}

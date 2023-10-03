@@ -8,9 +8,9 @@ export const Introduction = () => {
   const { stores } = useContext(AuthContext);
 
   const resizeWindow = () => {
-    const tablet = "/src/Assets/Banner - Tablet.jpg";
-    const phone = "/src/Assets/Banner - Telefono.jpg";
-    const computer = "/src/Assets/Banner - Computadora1.jpg";
+    const tablet = "https://api.tienda.gt/image/phone";
+    const phone = "https://api.tienda.gt/image/tablet";
+    const computer = "https://api.tienda.gt/image/computer";
     const { innerWidth } = window;
     if (innerWidth <= 500) {
       $(".home-introduction-banner")[0].src = phone;
@@ -30,8 +30,9 @@ export const Introduction = () => {
   return (
     <div className="home-introduction">
       <img
-        src="/src/Assets/Banner - Computadora1.jpg"
+        src="https://api.tienda.gt/image/computer"
         alt="Tienda.gt"
+        crossOrigin="anonymous"
         className="home-introduction-banner"
       />
       {stores && (

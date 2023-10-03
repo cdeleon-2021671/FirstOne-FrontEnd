@@ -70,7 +70,7 @@ export const HomePage = () => {
           <Carrusel products={newOffers} title="Ofertas"></Carrusel>
           <GoToLink url="/all-offers-in-store"></GoToLink>
           <Carrusel products={popular} title="Populares"></Carrusel>
-          <GoToLink url="//all-products-in-store"></GoToLink>
+          <GoToLink url="/all-products-in-store"></GoToLink>
         </div>
       ) : (
         <Animation></Animation>

@@ -8,8 +8,8 @@ export const Introduction = () => {
   const { stores } = useContext(AuthContext);
 
   const resizeWindow = () => {
-    const tablet = "https://api.tienda.gt/image/phone";
-    const phone = "https://api.tienda.gt/image/tablet";
+    const tablet = "https://api.tienda.gt/image/tablet";
+    const phone = "https://api.tienda.gt/image/phone";
     const computer = "https://api.tienda.gt/image/computer";
     const { innerWidth } = window;
     if (innerWidth <= 500) {

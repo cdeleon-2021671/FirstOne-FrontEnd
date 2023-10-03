@@ -1,7 +1,7 @@
 import React, { createContext, useEffect, useState } from "react";
 import axios from "axios";
 import { RouterProvider } from "react-router-dom";
-import { routes, socialLinks, menuItems } from "./Components/Utilities";
+import { routes, socialLinks } from "./Components/Utilities";
 import { Animation } from "./Components/Animation/Animation";
 
 export const AuthContext = createContext();
@@ -12,6 +12,7 @@ export const Index = () => {
   const [products, setProducts] = useState(null);
   const [autoComplete, setAutoComplete] = useState(null);
   const [randomCategories, setRandomCategories] = useState([]);
+  const [mostViewed, setMostViewed] = useState(null);
 
   const getStores = async () => {
     try {
@@ -69,6 +70,18 @@ export const Index = () => {
       console.log(err);
     }
   };
+  
+  const getMostViewed = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/product/get-most-viewed`
+      );
+      const { products } = data;
+      setMostViewed(products);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const getAutoComplete = async () => {
     try {
@@ -88,6 +101,7 @@ export const Index = () => {
     getOffers();
     getProducts();
     getAutoComplete();
+    getMostViewed()
   }, []);
 
   return (
@@ -102,7 +116,7 @@ export const Index = () => {
             socialLinks,
             autoComplete,
             randomCategories,
-            menuItems,
+            mostViewed
           }}
         >
           <RouterProvider router={routes} />

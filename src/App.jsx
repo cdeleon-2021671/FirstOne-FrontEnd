@@ -1,22 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { Login } from "./Components/Forms/Login";
 import { Header } from "./Components/Header/Header";
-import "@fontsource/roboto/300.css";
-import "@fontsource/roboto/400.css";
-import "@fontsource/roboto/500.css";
-import "@fontsource/roboto/700.css";
+import { Navbar } from "./Components/Navbar/Navbar";
 import "./Styles.scss";
 
 function App() {
+  const [showForm, setShowForm] = useState(false);
   return (
-    <>
-      <Header></Header>
-      <div className="max-page-container">
-        <div className="max-width-computer">
-          <Outlet></Outlet>
-        </div>
-      </div>
-    </>
+    <div className="max-page-container">
+      {showForm && <Login setView={setShowForm}></Login>}
+      <Header setView={setShowForm}></Header>
+      <Navbar></Navbar>
+      <Outlet></Outlet>
+    </div>
   );
 }
 

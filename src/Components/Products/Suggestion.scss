@@ -1,0 +1,42 @@
+@import "../../Styles.scss";
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  overflow: auto;
+  background: var(--bg-blanco);
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+  gap: var(--espacio-secundario);
+  padding: 0 var(--espacio-principal) var(--espacio-principal);
+  label,
+  a {
+    min-width: max-content;
+    @media screen and (max-width: 950px) {
+      font-size: 1.2em;
+    }
+    @media screen and (max-width: 850px) {
+      font-size: 1em;
+    }
+    @media screen and (max-width: 750px) {
+      font-size: 0.95em;
+    }
+  }
+  a {
+    background: var(--color-secundario);
+    padding: 0.3em 1.2em;
+    color: var(--color-blanco);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    &:hover {
+        background: var(--color-primario);
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .suggestion {
+    padding: 0 var(--espacio-secundario) var(--espacio-secundario);
+  }
+}

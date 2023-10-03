@@ -1,19 +1,19 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Searchbar } from "../Components/Search/Searchbar";
+import { Searchbar } from "../Components/Searchbar/Searchbar";
 import { Introduction } from "../Components/StorePage/Introduction";
 import { useParams } from "react-router-dom";
 import { Categories } from "../Components/Categories/Categories";
-import { Products } from "../Components/Products/Products";
+import { Carrusel } from "../Components/Products/Carrusel";
 import { Animation } from "../Components/Animation/Animation";
-import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { AuthContext } from "../Index";
 import axios from "axios";
-import { v4 } from "uuid";
-import { Helmet } from "react-helmet";
+import { Banner } from "../Components/StorePage/Banner";
+import { Helmet } from "react-helmet-async";
+import { GoToLink } from "../Components/GoToLink/GoToLink";
 
 export const StorePage = () => {
   const { tags, offers } = useContext(AuthContext);
-  const { storeId } = useParams("");
+  const { storeId } = useParams();
   const [categories, setCategories] = useState(null);
   const [store, setStore] = useState(null);
   const [newOffers, setNewOffers] = useState(null);
@@ -76,56 +76,26 @@ export const StorePage = () => {
               href={`https://tienda.gt/${store.name}/${store._id}`}
             />
           </Helmet>
-          <Searchbar filter={store.name}></Searchbar>
           {store.length !== 0 && <Introduction {...store}></Introduction>}
           <Categories
-            tags={categories}
-            url={`/${store.name}/${store._id}`}
+            categories={categories}
+            url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}
           ></Categories>
-          {newOffers && newOffers.length != 0 && (
-            <>
-              <Products
-                classRight={v4()}
-                classLeft={v4()}
-                products={newOffers}
-                title={"Ofertas"}
-              ></Products>
-              <GoToLink url={`/${store.name}/offers/${store._id}`}></GoToLink>
-            </>
-          )}
-          {products.length !== 0 && (
-            <>
-              <Products
-                classRight={v4()}
-                classLeft={v4()}
-                products={products}
-                title={"Populares"}
-              ></Products>
-              <GoToLink url={`/${store.name}/products/${store._id}`}></GoToLink>
-            </>
-          )}
+          <Carrusel products={newOffers} title={"Destacados"}></Carrusel>
+          <GoToLink></GoToLink>
+          <Carrusel products={newOffers} title={"Ofertas"}></Carrusel>
+          <GoToLink
+            url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}
+          ></GoToLink>
+          <Carrusel products={products} title={"Populares"}></Carrusel>
+          <GoToLink
+            url={`/${store.name.replace(/[ ]+/g, "-")}/products/${storeId}`}
+          ></GoToLink>
           <Banner {...store}></Banner>
         </div>
       ) : (
         <Animation></Animation>
       )}
     </>
-  );
-};
-
-const Banner = ({ banner, urlStore }) => {
-  return (
-    <div
-      id="banner"
-      style={{
-        backgroundImage: `url(${banner})`,
-      }}
-    >
-      <GoToLink
-        url={urlStore}
-        mode="_blank"
-        title="Explora toda la tienda"
-      ></GoToLink>
-    </div>
   );
 };

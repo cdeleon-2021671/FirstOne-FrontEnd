@@ -1,35 +1,47 @@
 import React from "react";
+import { Searchbar } from "../Searchbar/Searchbar";
 import { Link } from "react-router-dom";
-import { BsPersonCircle } from "react-icons/bs";
 import "./Header.scss";
-import { Searchbar } from "../Search/Searchbar";
 
-export const Header = () => {
+export const Header = ({ setView }) => {
   return (
-    <div id="header-content">
-      <h1>
-        <Link to={"/"} title="Página Principal">
-          Tienda.gt
-        </Link>
+    <div className="header">
+      <h1 className="header-title">
+        <Link title="Página Principal">Tienda.gt</Link>
       </h1>
-      <div className="header-searchbar">
-        <Searchbar></Searchbar>
-      </div>
-      <div className="header-info">
+      <Searchbar></Searchbar>
+      <button
+        className="header-identify"
+        title="Iniciar sesión"
+        onClick={() => setView(true)}
+      >
+        <Icon></Icon>
+        Únete
+      </button>
+      <label className="header-gt">
         <img
-          src={`https://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Flag_of_Guatemala.svg/640px-Flag_of_Guatemala.svg.png`}
-          alt="Guatemala"
+          src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"
+          alt="GT"
         />
-        <span>GT</span>
-      </div>
-      <div className="identify">
-        <button>
-          <label>
-            <BsPersonCircle />
-          </label>
-          Identificate
-        </button>
-      </div>
+        GT
+      </label>
     </div>
+  );
+};
+
+const Icon = () => {
+  return (
+    <svg
+      fill="none"
+      shapeRendering="geometricPrecision"
+      stroke="currentColor"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth="1.5"
+      viewBox="0 0 24 24"
+    >
+      <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+      <circle cx="12" cy="7" r="4" />
+    </svg>
   );
 };

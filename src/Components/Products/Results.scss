@@ -1,0 +1,228 @@
+@import "../../Styles.scss";
+
+.outlet-products {
+  width: 100%;
+  min-height: calc(100vh - 6em);
+  background: var(--bg-gris);
+  .results {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
+    gap: var(--espacio-principal);
+    padding: var(--espacio-principal);
+    .card {
+      box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.5),
+        -1px -1px 2px rgba($color: #fff, $alpha: 0.5);
+      background: #fff;
+      &-image {
+        height: 13em;
+        min-width: 13em;
+        object-fit: contain;
+      }
+      &-information {
+        padding: var(--espacio-secundario);
+        overflow: hidden;
+        &-product {
+          min-width: max-content;
+        }
+        &-store {
+          color: var(--color-secundario);
+          font-size: 0.9em;
+          transition: all 0.3s ease;
+          min-width: max-content;
+          &:hover {
+            color: #008000;
+          }
+        }
+        .price {
+          display: flex;
+          gap: 0.3em;
+          font-family: var(--tipo-secundario);
+          &-porcent {
+            color: #ff0000;
+            font-size: 1.4em;
+          }
+          &-price {
+            display: flex;
+            span {
+              font-size: 1.4em;
+              &.little {
+                font-size: 0.9em;
+                margin-top: 0.1em;
+              }
+            }
+          }
+        }
+        &-salePrice {
+          display: flex;
+          flex-direction: column;
+          .normal {
+            color: rgb(80, 80, 80);
+            font-size: 0.9em;
+            span {
+              position: relative;
+              &::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                height: 1px;
+                width: 100%;
+                background: rgb(80, 80, 80);
+              }
+            }
+          }
+          .aditional {
+            font-size: 0.9em;
+            color: rgb(80, 80, 80);
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1300px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(5, minmax(15em, 1fr));
+      .card {
+        &-image {
+          height: 15em;
+          min-width: 15em;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1190px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(4, minmax(13em, 1fr));
+    }
+  }
+}
+
+@media screen and (max-width: 970px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(4, minmax(11em, 1fr));
+      gap: var(--espacio-secundario);
+      padding: var(--espacio-secundario);
+      .card {
+        &-image {
+          height: 11em;
+          min-width: 11em;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(3, minmax(13em, 1fr));
+      .card {
+        &-image {
+          height: 13em;
+          min-width: 13em;
+        }
+        &-information {
+          .price {
+            &-porcent {
+              font-size: 1.3em;
+            }
+            &-price {
+              span {
+                font-size: 1.3em;
+                &.little {
+                  font-size: 0.8em;
+                  margin-top: 0.15em;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 710px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(2, minmax(13em, 1fr));
+      .card {
+        &-image {
+          height: 13em;
+          min-width: 13em;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(2, minmax(12em, 1fr));
+      .card {
+        &-image {
+          height: 12em;
+          min-width: 12em;
+        }
+        &-information {
+          &-product {
+            font-size: 15px;
+          }
+          &-store {
+            font-size: 0.8em;
+          }
+          .price {
+            &-porcent {
+              font-size: 1.1em;
+            }
+            &-price {
+              display: flex;
+              span {
+                font-size: 1.1em;
+                &.little {
+                  font-size: 0.75em;
+                  margin-top: 0.15em;
+                }
+              }
+            }
+          }
+          &-salePrice {
+            .normal {
+              font-size: 0.8em;
+            }
+            .aditional {
+              font-size: 0.8em;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .outlet-products {
+    .results {
+      grid-template-columns: repeat(2, minmax(10em, 1fr));
+      .card {
+        padding: .2em;
+        &-image {
+          height: 10em;
+          min-width: 10em;
+        }
+        &-information {
+          padding: 0;
+        }
+      }
+    }
+  }
+}

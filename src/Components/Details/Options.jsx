@@ -1,98 +1,98 @@
-import React, { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { IoIosArrowDown } from "react-icons/io";
+import React from "react";
+import { Link } from "react-router-dom";
+import { LiaShippingFastSolid } from "react-icons/lia";
 import $ from "jquery";
-import "./Options.scss";
 
 export const Options = ({ shippingTerms, paymentOptions }) => {
-  const location = useLocation();
-
-  const setViewShip = () => {
-    $(`.btn1Ship`).addClass("isActive");
-    $(`.btn2Pay`).removeClass("isActive");
-    $(`.option1`).toggleClass("hiddenOption");
-    $(`.option2`).addClass("hiddenOption");
-    $(`#arrowIcon1`).toggleClass("animateIcon");
-    $(`#arrowIcon2`).removeClass("animateIcon");
-    $();
+  const showShipping = () => {
+    if (window.innerWidth <=6800) {
+      $(".options-shipping").toggleClass("isActive");
+      $(".options-shipping label").addClass("isActive");
+      $(".options-payments").removeClass("isActive");
+      $(".options-payments label").removeClass("isActive");
+    }
   };
 
-  const setViewPay = () => {
-    $(`.btn2Pay`).addClass("isActive");
-    $(`.btn1Ship`).removeClass("isActive");
-    $(`.option1`).addClass("hiddenOption");
-    $(`.option2`).toggleClass("hiddenOption");
-    $(`#arrowIcon2`).toggleClass("animateIcon");
-    $(`#arrowIcon1`).removeClass("animateIcon");
+  const showPayments = () => {
+    if (window.innerWidth <= 600) {
+      $(".options-payments").toggleClass("isActive");
+      $(".options-payments label").addClass("isActive");
+      $(".options-shipping").removeClass("isActive");
+      $(".options-shipping label").removeClass("isActive");
+    }
   };
 
-  useEffect(() => {
-    $(`.option1`).addClass("hiddenOption");
-    $(`.btn1Ship`).addClass("isActive");
-    $(`.option2`).addClass("hiddenOption");
-    $(`.btn2Pay`).removeClass("isActive");
-    $(`#arrowIcon1`).removeClass("animateIcon");
-    $(`#arrowIcon2`).removeClass("animateIcon");
-  }, [location]);
-
-  return (
-    <>
-      <div id="options-container">
-        {shippingTerms && paymentOptions && (
-          <>
-            <TwoOptions
-              array={shippingTerms}
-              title="envío"
-              setView={setViewShip}
-              myClass={"btn1Ship"}
-              optionClass={"option1"}
-              arrowNumber={"arrowIcon1"}
-            ></TwoOptions>
-            <TwoOptions
-              array={paymentOptions}
-              title="pago"
-              setView={setViewPay}
-              myClass={"btn2Pay"}
-              optionClass={"option2"}
-              arrowNumber={"arrowIcon2"}
-            ></TwoOptions>
-          </>
-        )}
-      </div>
-    </>
-  );
-};
-
-const TwoOptions = ({
-  array,
-  title,
-  arrowNumber,
-  setView,
-  myClass,
-  optionClass,
-}) => {
   return (
     <div className="options">
-      <button
-        className={`${title != "pago" ? "isActive" : ""} ${myClass}`}
-        onClick={setView}
-      >
-        Opciones de {title}{" "}
-        <label>
-          <IoIosArrowDown id={arrowNumber} />
-        </label>
-      </button>
-      <div className={`${optionClass}`}>
-        {array.map((item, key) => {
-          if (item.includes("http") || item.includes("www"))
-            return (
-              <Link to={item} key={key} target="_blank">
-                Ver más
-              </Link>
-            );
-          else return <label key={key}>{item}</label>;
-        })}
-      </div>
+      {shippingTerms && (
+        <div className="options-shipping">
+          <label onClick={showShipping} className="isActive">
+            Opciones de envío
+            <LiaShippingFastSolid></LiaShippingFastSolid>
+            {Icons[1]}
+          </label>
+          {shippingTerms.map((item, key) => {
+            if (item.includes("http") || item.includes("www"))
+              return (
+                <Link key={key} to={item}>
+                  Ver más
+                </Link>
+              );
+            else item.includes("http") || item.includes("www");
+            return <span key={key}>{item}</span>;
+          })}
+        </div>
+      )}
+      {paymentOptions && (
+        <div className="options-payments">
+          <label onClick={showPayments}>
+            Opciones de pago {Icons[0]}
+            {Icons[1]}
+          </label>
+          {paymentOptions.map((item, key) => {
+            if (item.includes("http") || item.includes("www"))
+              return (
+                <Link key={key} to={item}>
+                  Ver más
+                </Link>
+              );
+            else item.includes("http") || item.includes("www");
+            return <span key={key}>{item}</span>;
+          })}
+        </div>
+      )}
     </div>
   );
 };
+
+const Icons = [
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    strokeWidth="1.5"
+    stroke="currentColor"
+    fillOpacity={0}
+  >
+    <path
+      strokeLinecap="round"
+      strokeLineJoin="round"
+      d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
+    />
+  </svg>,
+  <small>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      strokeWidth="1.5"
+      stroke="currentColor"
+      fillOpacity={0}
+      id="optionArrow"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M19.5 8.25l-7.5 7.5-7.5-7.5"
+      />
+    </svg>
+  </small>,
+];

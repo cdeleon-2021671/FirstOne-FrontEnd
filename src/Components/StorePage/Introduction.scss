@@ -1,36 +1,41 @@
-#store-introduction{
-    div:first-child{
-        height: 35vw;
-        background-position: center;
-        background-attachment: local;
-        @media screen and (min-width: 1550px) {
-            height: 30em;
-        }
-        @media screen and (max-width: 775px) {
-            height: 45vw;
-        }
-        @media screen and (max-width: 650px) {
-            height: 55vw;
-        }
-        @media screen and (max-width: 500px) {
-            height: 70vw;
-        }
+#store-introduction {
+  div:first-child {
+    height: 35vw;
+    background-position: center;
+    background-attachment: local;
+    @media screen and (min-width: 1550px) {
+      height: 30em;
     }
-    .introduction{
-        padding: 1em;
-        h1{
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-        }
-        p{
-            font-family: Roboto;
-            font-size: 1.3em;
-            margin-top: .5em;
-            @media screen and (max-width: 800px) {
-                font-size: 1em;
-            }
-            @media screen and (max-width: 500px) {
-                font-size: .9em;
-            }
-        }
+    @media screen and (max-width: 775px) {
+      height: 45vw;
     }
+    @media screen and (max-width: 650px) {
+      height: 55vw;
+    }
+    @media screen and (max-width: 500px) {
+      height: 70vw;
+    }
+  }
+  .introduction {
+    padding: 1em;
+    h1 {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-size: 1.6em;
+      font-weight: bold;
+      @media screen and (max-width: 415px) {
+        font-size: 1.5em;
+      }
+    }
+    p {
+      font-family: Roboto;
+      font-size: 1.3em;
+      margin-top: 0.5em;
+      @media screen and (max-width: 800px) {
+        font-size: 1em;
+      }
+      @media screen and (max-width: 500px) {
+        font-size: 0.9em;
+      }
+    }
+  }
 }

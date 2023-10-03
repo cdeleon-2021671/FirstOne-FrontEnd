@@ -1,0 +1,17 @@
+#banner {
+    height: 20vw;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    .goToLink{
+      background: none;
+    }
+    div {
+      padding: 0;
+      height: 100%;
+    }
+    @media screen and (min-width: 1500px) {
+      height: 15em;
+      background-size: contain;
+    }
+  }

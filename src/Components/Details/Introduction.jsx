@@ -1,162 +1,91 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../Index";
-import { LiaShippingFastSolid } from "react-icons/lia";
-import { MdOutlinePayments } from "react-icons/md";
-import "./Introduction.scss";
+import { Options } from "./Options";
+import { Buy } from "./Buy";
+import "./Details.scss";
+import $ from "jquery";
 
-export const Introduction = (product) => {
-  const { name, price, description, urlProduct, image, storeId } = product;
-  const { shippingTerms, paymentOptions } = storeId;
-
-  return (
-    <div id="details-introduction">
-      <h1 className="title-responsive">{name}</h1>
-      <img src={image} alt={name} className="img-product" />
-      <div className="information-container">
-        <div className="content">
-          <h1>{name}</h1>
-          <div className="banner">
-            <div className="price-container">
-              <div>
-                <span>Q{price.toFixed(2).split(".")[0]}.</span>
-                <span className="little">{price.toFixed(2).split(".")[1]}</span>
-              </div>
-            </div>
-          </div>
-          <p>{description}</p>
-          <div className="options-container">
-            {shippingTerms && (
-              <TwoOptions
-                array={shippingTerms}
-                title="envío"
-                myClass={"btn1Ship"}
-                optionClass={"option1"}
-                arrowNumber={"arrowIcon1"}
-                icon={<LiaShippingFastSolid />}
-              ></TwoOptions>
-            )}
-
-            {paymentOptions && (
-              <TwoOptions
-                array={paymentOptions}
-                title="pago"
-                myClass={"btn2Pay"}
-                optionClass={"option2"}
-                arrowNumber={"arrowIcon2"}
-                icon={<MdOutlinePayments />}
-              ></TwoOptions>
-            )}
-          </div>
-          <div className="goToProduct">
-            <Link to={urlProduct} target="_blank" title="Detalles del producto">
-              Comprar
-            </Link>
-          </div>
-        </div>
-        <div className="store-information">
-          <h2>{storeId.name}</h2>
-          <div
-            style={{ backgroundImage: `url(${storeId.urlLogo})` }}
-            className="imgLogo"
-          />
-          <p>{storeId.description}</p>
-          <div className="rrss">
-            <Link to={`${storeId.urlStore}`} title={`Ir a ${storeId.name}`} target="_blank">
-              Vendido por {storeId.name}
-            </Link>
-            <RRSS storeId={storeId} />
-          </div>
-          <div className="goToMyStore">
-            <Link
-              to={`/${storeId.name}/${storeId._id}`}
-              title={`Detalles de ${storeId.name}`}
-            >
-              Ver tienda
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const RRSS = ({ storeId }) => {
-  const { socialLinks } = useContext(AuthContext);
-  const [social, setSocial] = useState(null);
-
-  const ssll = [
-    "",
-    storeId.whatsapp,
-    storeId.messenger,
-    storeId.facebook,
-    storeId.instagram,
-    storeId.phone,
-    storeId.tiktok,
-  ];
-
-  const getSocialLinks = () => {
-    const newSocial = [];
-    ssll.forEach((item, key) => {
-      const icon = socialLinks[key].element;
-      const title = socialLinks[key].title;
-      const object = {
-        icon: icon,
-        title: title == "Phone" ? item : title,
-        link:
-          title == "Whatsapp"
-            ? `https://wa.me/${item}`
-            : title == "Phone"
-            ? ""
-            : item,
-      };
-      if (item != "") newSocial.push(object);
-    });
-    setSocial(newSocial);
+export const Introduction = ({ product, offer }) => {
+  const scrolling = () => {
+    if (window.innerWidth > 800) {
+      $("#img-produt-details").css("position", "sticky");
+      $("#img-produt-details").css("top", "0");
+      $(".details-content").css("position", "sticky");
+      $(".details-content").css("top", "0");
+    }else{
+        $("#img-produt-details").css("position", "static");
+      $("#img-produt-details").css("top", "0");
+      $(".details-content").css("position", "static");
+      $(".details-content").css("top", "0");
+    }
   };
+
   useEffect(() => {
-    getSocialLinks();
+    scrolling();
+    $(window).on("resize", scrolling);
+    return () => {
+      $(window).off("resize");
+    };
   }, []);
   return (
     <>
-      {social && (
-        <>
-          {social.map(({ title, link, icon }, key) => (
-            <Link
-              key={key}
-              to={link}
-              title={title}
-              target={link == "" ? "" : "_blank"}
-              style={{ cursor: link == "" && "text" }}
-            >
-              <label>{icon}</label>
-              {title}
-            </Link>
-          ))}
-        </>
+      {product && (
+        <div className="details">
+          <h2 className="details-title">{product.name}</h2>
+          <div>
+            <img
+              src={product.image}
+              alt={product.name}
+              id="img-produt-details"
+            />
+          </div>
+          <div>
+            <div className="details-content">
+              <h2 className="details-content-title">{product.name}</h2>
+              <Link
+                to={product.storeId.urlStore}
+                target="_blank"
+                className="details-content-store"
+                title="Ver tienda"
+              >
+                Producto vendido por {product.storeId.name}
+              </Link>
+              <p className="details-content-description">
+                {product.description}
+              </p>
+              <span className="details-content-introduction">
+                {product.views} vistas - {product.condition} -&nbsp;
+                <strong
+                  style={{
+                    color: `${
+                      product.stock == "Agotado" ? "#ff0000" : "#008000"
+                    }`,
+                  }}
+                >
+                  {product.stock}
+                </strong>
+              </span>
+              <hr />
+              <div className="details-content-price">
+                {product.salePrice && (
+                  <span className="porcent">-{offer}%</span>
+                )}
+                <span>Q{product.price.toFixed(2).split(".")[0]}.</span>
+                <span className="little">
+                  {product.price.toFixed(2).split(".")[1]}
+                </span>
+              </div>
+              {product.salePrice && (
+                <div className="details-content-salePrice">
+                  Precio normal: <span>Q{product.salePrice.toFixed(2)}</span>
+                </div>
+              )}
+              <Options {...product.storeId}></Options>
+              <Buy {...product}></Buy>
+            </div>
+          </div>
+        </div>
       )}
     </>
-  );
-};
-
-const TwoOptions = ({ array, title, myClass, optionClass, icon }) => {
-  return (
-    <div className="options">
-      <span className={`${title != "pago" ? "isActive" : ""} ${myClass}`}>
-        Opciones de {title}
-        <label>{icon}</label>
-      </span>
-      <div className={`${optionClass}`}>
-        {array.map((item, key) => {
-          if (item.includes("http") || item.includes("www"))
-            return (
-              <Link to={item} key={key} target="_blank">
-                Ver más
-              </Link>
-            );
-          else return <label key={key}>{item}</label>;
-        })}
-      </div>
-    </div>
   );
 };

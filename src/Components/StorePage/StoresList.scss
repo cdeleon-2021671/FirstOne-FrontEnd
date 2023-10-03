@@ -1,0 +1,42 @@
+@import "../../Styles.scss";
+
+.all-stores {
+  display: flex;
+  flex-direction: column;
+  padding: var(--espacio-principal);
+  gap: var(--espacio-principal);
+  &-store {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1px;
+    gap: 1px;
+    background: var(--color-secundario);
+    img {
+      width: 15em;
+      height: 15em;
+      object-fit: contain;
+      background: #fff;
+    }
+    &-information {
+      display: flex;
+      flex-direction: column;
+      padding: var(--espacio-secundario);
+      background: #fff;
+      &-title{
+        font-size: 1.5em;
+        font-weight: 900;
+      }
+      span{
+        text-align: justify;
+      }
+    }
+    &-shipping {
+      background: #fff;
+      padding: var(--espacio-secundario);
+    }
+    &-payments {
+      background: #fff;
+      padding: var(--espacio-secundario);
+    }
+  }
+}

@@ -1,56 +1,177 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Koulen&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Averia+Serif+Libre&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Kanit&display=swap");
 
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  list-style: none;
-  font-family: sans;
+/* Definimos las Custom properties */
+:root {
+  /* Colores */
+  --negro: #393939;
+  --color-primario: #154360;
+  --color-secundario: #21618c;
+  --color-blanco: #fff;
+  --color-negro: #393939;
+  /* Colores fondo */
+  --bg-blanco: #fff;
+  --bg-gris: #e8e8e8;
+  /* Tipografía */
+  --tipo-principal: Roboto;
+  --tipo-secundario: Helvetica, Arial, sans-serif;
+  --tipo-texto: sans-serif;
+  /* Espaciado */
+  --espacio-principal: 1em;
+  --espacio-secundario: 0.5em;
 }
-a {
-  color: #000;
-}
-#root {
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-.padding-container {
-  padding-bottom: 1em;
-}
-.margin-padding-container {
-  padding: 1em 0;
-}
+
 .max-page-container {
-  @media screen and (min-width: 1550px) {
+  min-height: 100vh;
+  max-width: 1500px;
+  background: var(--bg-blanco);
+}
+
+/* (Opcional) Las adaptamos al modo oscuro */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --negro: #ececec;
+  }
+}
+
+/* (Opcional) Configuramos si un usuario ha activado el modo alto contraste. (WD) */
+@media (prefers-contrast: high) {
+  :root {
+  }
+}
+
+/* (Opcional) Desactivamos los animations en el caso de que el usuario haya configurado el modo sin animation */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Reseteamos los margin y paddings de todas las etiquetas */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  vertical-align: baseline;
+}
+*::before,
+*::after {
+  display: block;
+}
+
+/* Evitamos problemas con las imagenes */
+img,
+picture,
+video,
+iframe,
+figure {
+  max-width: 100%;
+  width: 100%;
+  display: block;
+  /* (Opcional) */
+  object-fit: cover;
+  /* (Opcional) */
+  object-position: center center;
+}
+
+/* Reseteamos los enlaces para funcionar como cajas... */
+a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  font-size: inherit;
+}
+/* ... excepto los que se encuentran en párrafos */
+p a {
+  display: inline;
+}
+
+/* Quitamos los puntos de los <li> */
+li {
+  list-style-type: none;
+}
+
+/* Desactivamos estilos por defecto de las principales etiquetas de texto */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+strong,
+blockquote,
+i,
+b,
+u,
+em {
+  font-size: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  text-decoration: none;
+  color: inherit;
+}
+/* Evitamos problemas con los pseudoelementos de quotes */
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+/* (Opcional) Configuramos el texto que seleccionamos */
+::selection {
+  background-color: #3291ff;
+  color: var(--color-blanco);
+}
+
+/* Nivelamos problemas de tipografías y colocación de formularios */
+form,
+input,
+textarea,
+select,
+button,
+label {
+  font-family: inherit;
+  font-size: inherit;
+  hyphens: auto;
+  background-color: transparent;
+  color: inherit;
+  display: block;
+}
+
+/* Reseteamos las tablas */
+table,
+tr,
+td {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/* Evitamos problemas con los SVG */
+svg {
+  width: 100%;
+  display: block;
+  fill: currentColor;
+}
+
+/* Configuramos la tipografía para toda la web */
+body {
+  min-height: 100vh;
+  font-size: 100%;
+  background: var(--bg-gris);
+  font-family: var(--tipo-principal);
+  @media screen and (min-width: 1516px) {
     display: flex;
     justify-content: center;
-    background: #f1f1f1;
-  }
-  .max-width-computer {
-    background: #ffff;
-    @media screen and (min-width: 1550px) {
-      width: 1500px;
-      padding: 0 1em;
-    }
-  }
-}
-#banner {
-  margin-top: 1.4em;
-  height: 20vw;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  div {
-    padding: 0;
-    height: 100%;
-  }
-  @media screen and (min-width: 1550px) {
-    height: 15em;
-    background-size: contain;
   }
 }

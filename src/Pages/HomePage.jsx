@@ -1,107 +1,80 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Helmet } from "react-helmet-async";
 import { Introduction } from "../Components/HomePage/Introduction";
+import { Toolbar } from "../Components/HomePage/Toolbar";
 import { Categories } from "../Components/Categories/Categories";
-import { Products } from "../Components/Products/Products";
-import { Searchbar } from "../Components/Search/Searchbar";
-import { GoToLink } from "../Components/GoToLink/GoToLink";
-import { BuyInformation } from "../Components/HomePage/BuyInformation";
+import { Carrusel } from "../Components/Products/Carrusel";
 import { AuthContext } from "../Index";
-import { Helmet } from "react-helmet";
 import $ from "jquery";
+import { Animation } from "../Components/Animation/Animation";
+import { GoToLink } from "../Components/GoToLink/GoToLink";
 
 export const HomePage = () => {
-  const { randomCategories, offers, products } = useContext(AuthContext);
-  const [categories, setCategories] = useState([]);
-  const [allProducts, setAllProducts] = useState([]);
-  const [allOffers, setAllOffers] = useState([]);
+  const { randomCategories, products, offers } = useContext(AuthContext);
+  const [categories, setCategories] = useState(Array.from(randomCategories));
+  const [popular, setPopular] = useState(Array.from(products));
+  const [newOffers, setNewOffers] = useState(Array.from(offers));
 
-  const getProducts = () => {
-    const newProducts = Array.from(products);
-    if (products.length > 40) newProducts.length = 40;
-    setAllProducts(newProducts);
-  };
-
-  const getOffers = () => {
-    const newOffers = Array.from(offers);
-    if (products.length > 40) newOffers.length = 40;
-    setAllOffers(newOffers);
-  };
-
-  const getMyCategories = () => {
-    if (randomCategories.length >= 16) {
-      const newCategories = Array.from(randomCategories);
-      const containerWidth = window.innerWidth;
-      if (containerWidth > 1000) {
-        if (randomCategories.length >= 20) newCategories.length = 20;
-        setCategories(newCategories);
-      } else if (containerWidth <= 800) {
-        if (randomCategories.length >= 12) newCategories.length = 12;
-        setCategories(newCategories);
-      } else if (containerWidth < 1000) {
-        if (randomCategories.length >= 16) newCategories.length = 16;
-        setCategories(newCategories);
-      }
+  const resizeWindow = () => {
+    const newCategories = Array.from(randomCategories);
+    const { innerWidth } = window;
+    if (innerWidth > 1000) {
+      if (newCategories.length > 20) newCategories.length = 20;
+      setCategories(newCategories);
+    } else if (innerWidth > 730) {
+      if (newCategories.length > 16) newCategories.length = 16;
+      setCategories(newCategories);
     } else {
-      setCategories(randomCategories);
+      // Arriba de 500 3 columnas
+      if (newCategories.length > 12) newCategories.length = 12;
+      setCategories(newCategories);
     }
   };
 
-  const getCategoriesBySize = () => {
-    $(window).on("resize", getMyCategories);
+  const getPopular = () => {
+    if (products.length > 40) products.length = 40;
+    if (offers.length > 40) offers.length = 40;
   };
 
   useEffect(() => {
-    getMyCategories();
-    getCategoriesBySize();
+    resizeWindow();
+    getPopular();
+    $(window).on("resize", resizeWindow);
     return () => {
       $(window).off("resize");
     };
-  }, [randomCategories]);
-
-  useEffect(() => {
-    getProducts();
-  }, [products]);
-
-  useEffect(() => {
-    getOffers();
-  }, [offers]);
+  }, []);
 
   return (
-    <div className="padding-container">
-      <Helmet>
-        <title>Tienda.gt</title>
-        <meta
-          name="description"
-          content="Tienda para toda guatemala en donde puede encontrar
-    productos tanto para hombre como para mujer"
-        />
-        <meta
-          name="keywords"
-          content="guatemala, online, compras, ofertas, accesorios, ropa, mujer, hombre, calidad"
-        />
-        <link rel="canonical" href="https://tienda.gt" />
-      </Helmet>
-      <Introduction></Introduction>
-      <BuyInformation></BuyInformation>
-      {window.innerWidth <= 500 && <Searchbar></Searchbar>}
-      {categories && (
-        <>
-          <Categories tags={categories}></Categories> <br />
-          <GoToLink url="all-categories"></GoToLink>
-        </>
+    <>
+      {randomCategories && offers && products ? (
+        <div className="padding-container">
+          <Helmet>
+            <title>Tienda.gt - Inicio</title>
+            <meta
+              name="description"
+              content="Tienda guatemalteca en donde puedes buscar productos de alta calidad,
+          productos en oferta, productos destacados de alguna tienda. No te lo pierdas!"
+            />
+            <meta
+              name="keywords"
+              content="Relojes, ofertas, guatemala, accesorios, ropa, mujer, hombre"
+            />
+            <link rel="canonical" href="https://tienda.gt" />
+          </Helmet>
+          <Introduction></Introduction>
+          <Toolbar></Toolbar>
+          <Categories categories={categories}></Categories>
+          <Carrusel products={popular} title="Destacados"></Carrusel>
+          <GoToLink url="/"></GoToLink>
+          <Carrusel products={newOffers} title="Ofertas"></Carrusel>
+          <GoToLink url="/all-offers-in-store"></GoToLink>
+          <Carrusel products={popular} title="Populares"></Carrusel>
+          <GoToLink url="//all-products-in-store"></GoToLink>
+        </div>
+      ) : (
+        <Animation></Animation>
       )}
-      {allOffers && allOffers.length !== 0 && (
-        <>
-          <Products products={allOffers} title={"Ofertas"} />
-          <GoToLink url="all-offers-in-store"></GoToLink>
-        </>
-      )}
-      {allProducts && allProducts.length !== 0 && (
-        <>
-          <Products products={allProducts} title={"Populares"} />
-          <GoToLink url="all-products-in-store"></GoToLink>
-        </>
-      )}
-    </div>
+    </>
   );
 };

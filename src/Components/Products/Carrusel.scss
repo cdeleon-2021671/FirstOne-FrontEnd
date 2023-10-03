@@ -1,0 +1,145 @@
+@import "../../Styles.scss";
+
+.products {
+  &-title {
+    font-size: 1.6em;
+    padding: var(--espacio-principal);
+    background: var(--color-primario);
+    color: var(--color-blanco);
+  }
+  &-container {
+    display: flex;
+    align-items: center;
+    background: var(--bg-gris);
+    &-content {
+      padding: var(--espacio-principal) 0;
+      display: flex;
+      gap: var(--espacio-principal);
+      width: 100%;
+      overflow: auto;
+      scroll-behavior: smooth;
+      &::-webkit-scrollbar {
+        height: 0;
+      }
+      .card {
+        box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.5),
+          -1px -1px 2px rgba($color: #fff, $alpha: 0.5);
+        background: #fff;
+        &-image {
+          height: 17em;
+          min-width: 17em;
+          object-fit: contain;
+        }
+        &-information {
+          padding: var(--espacio-secundario);
+          &-product {
+            max-height: 1.15em;
+            overflow: hidden;
+          }
+          &-store {
+            color: var(--color-secundario);
+            font-size: .9em;
+            transition: all .3s ease;
+            &:hover{
+              color: #008000;
+            }
+          }
+          .price {
+            display: flex;
+            gap: 0.3em;
+            font-family: var(--tipo-secundario);
+            &-porcent {
+              color: #ff0000;
+              font-size: 1.4em;
+            }
+            &-price {
+              display: flex;
+              span {
+                font-size: 1.4em;
+                &.little {
+                  font-size: .9em;
+                  margin-top: 0.1em;
+                }
+              }
+            }
+          }
+          &-salePrice {
+            display: flex;
+            flex-direction: column;
+            .normal {
+              color: rgb(80, 80, 80);
+              font-size: .9em;
+              span {
+                position: relative;
+                &::before {
+                  content: "";
+                  position: absolute;
+                  top: 50%;
+                  left: 50%;
+                  transform: translate(-50%, -50%);
+                  height: 1px;
+                  width: 100%;
+                  background: rgb(80, 80, 80);
+                }
+              }
+            }
+            .aditional{
+              font-size: .9em;
+              color: rgb(80, 80, 80);
+            }
+          }
+        }
+      }
+    }
+    button {
+      position: absolute;
+      cursor: pointer;
+      background: #fff;
+      border-radius: 100%;
+      transition: all 0.3s ease;
+      box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.4),
+        -1px -1px 2px rgba($color: #fff, $alpha: 0.4);
+      &.btnRight {
+        right: var(--espacio-principal);
+      }
+      &.btnLeft {
+        left: var(--espacio-principal);
+      }
+      &.inactive {
+        background: var(--bg-gris);
+        box-shadow: none;
+      }
+      svg {
+        width: 2.3em;
+        padding: 0.5em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  
+.products {
+  &-title {
+    padding: var(--espacio-secundario);
+  }
+  &-container {
+    &-content {
+      .card {
+        &-image {
+          height: 15em;
+          min-width: 15em;
+        }
+      }
+    }
+  }
+}
+}
+
+@media screen and (max-width: 415px) {
+  .products {
+    &-title {
+      font-size: 1.5em;
+    }
+  }
+}

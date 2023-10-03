@@ -1,101 +1,71 @@
-import React, { useContext, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import $ from "jquery";
-import { IoIosArrowBack } from "react-icons/io";
-import { IoIosArrowForward } from "react-icons/io";
+import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Index";
+import { Link } from "react-router-dom";
 import "./Introduction.scss";
+import $ from "jquery";
 
 export const Introduction = () => {
   const { stores } = useContext(AuthContext);
-  const containerRef = useRef(null);
 
-  const moveLeft = () => {
-    const container = containerRef.current;
+  const resizeWindow = () => {
+    const tablet = "/src/Assets/Banner - Tablet.jpg";
+    const phone = "/src/Assets/Banner - Telefono.jpg";
+    const computer = "../../src/Assets/Banner-Computadora1.jpg";
     const { innerWidth } = window;
-    let scroll = 0;
-    if (innerWidth >= 1550) scroll = 24 * 10.7;
-    else scroll = (innerWidth * 15) / 100;
-    container.scrollLeft -= scroll;
-    const { scrollLeft } = container;
-    $("#arrowRightStore").removeClass("hiddenButton");
-    if (scrollLeft <= scroll) $("#arrowLeftStore").addClass("hiddenButton");
-  };
-
-  const moveRight = () => {
-    const container = containerRef.current;
-    const { innerWidth } = window;
-    let scroll = 0;
-    if (innerWidth >= 1550) scroll = 24 * 10.7;
-    else scroll = (innerWidth * 15) / 100;
-    container.scrollLeft += scroll;
-    const { scrollLeft } = container;
-    const { scrollWidth } = container;
-    const { clientWidth } = container;
-    const scrollRight = scrollWidth - clientWidth - scrollLeft;
-    $("#arrowLeftStore").removeClass("hiddenButton");
-    if (scrollRight <= scroll) {
-      $("#arrowRightStore").addClass("hiddenButton");
-    }
+    if (innerWidth <= 500) {
+      $(".home-introduction-banner")[0].src = phone;
+    } else if (innerWidth <= 700) {
+      $(".home-introduction-banner")[0].src = tablet;
+    } else $(".home-introduction-banner")[0].src = computer;
   };
 
   useEffect(() => {
-    moveLeft();
+    resizeWindow();
+    $(window).on("resize", resizeWindow);
+    return () => {
+      $(window).off("resize");
+    };
   }, []);
 
   return (
-    <>
-      {stores && stores.length !== 0 && (
-        <div id="stores-container">
-          <div className="stores">
-            <div className="single">
-              <button id="arrowLeftStore" onClick={moveLeft}>
-                <IoIosArrowBack />
-              </button>
-              <div ref={containerRef}>
-                {stores.map(({ urlLogo, _id, name, description }) => {
-                  return (
-                    <Link key={_id} to={`/${name}/${_id}`}>
-                      <img src={urlLogo} alt={name} />
-                      <label>{name}</label>
-                    </Link>
-                  );
-                })}
-                {stores.map(({ urlLogo, _id, name }) => {
-                  return (
-                    <Link key={_id}>
-                      <img src={urlLogo} alt={name} />
-                      <label>{name}</label>
-                    </Link>
-                  );
-                })}
-              </div>
-              {stores.length > 1 && (
-                <button id="arrowRightStore" onClick={moveRight}>
-                  <IoIosArrowForward />
-                </button>
-              )}
-            </div>
+    <div className="home-introduction">
+      <img
+        src="../../src/Assets/Banner - Computer1.jpg"
+        alt="Tienda.gt"
+        className="home-introduction-banner"
+      />
+      {stores && (
+        <div className="home-introduction-stores">
+          <div className="home-introduction-stores-container">
+            {stores.map(({ store }, key) => {
+              const { name, urlLogo, _id } = store;
+              return (
+                <Link
+                  className={`home-introduction-stores-container-item`}
+                  to={`/${name.replace(/[ ]+/g, "-")}/${_id}`}
+                  key={key}
+                >
+                  <img src={urlLogo} alt={name} title={name} />
+                  <span>{name}</span>
+                </Link>
+              );
+            })}
+            {stores.map(({ store }, key) => {
+              const { name, urlLogo, _id } = store;
+              return (
+                <Link
+                  className={`home-introduction-stores-container-item`}
+                  to={`/${name.replace(/[ ]+/g, "-")}/${_id}`}
+                  key={key}
+                >
+                  <img src={urlLogo} alt={name} title={name} />
+                  <span>{name}</span>
+                </Link>
+              );
+            })}
           </div>
         </div>
       )}
-    </>
-  );
-};
-
-const ShowStores = ({ array }) => {
-  return (
-    <>
-      {array.map(({ _id, urlLogo, name }) => (
-        <Link
-          key={_id}
-          to={`/store/${name}/${_id}`}
-          title={`Ver tienda ${name}`}
-        >
-          <img src={urlLogo} alt={name} />
-          <span>{name}</span>
-        </Link>
-      ))}
-    </>
+    </div>
   );
 };

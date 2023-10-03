@@ -1,0 +1,72 @@
+@import "../../Styles.scss";
+
+.menu {
+  background: var(--color-secundario);
+  display: flex;
+  padding: 0 1em;
+  gap: 1em;
+  overflow: auto;
+  &::-webkit-scrollbar {
+    height: 0;
+  }
+  &-item {
+    padding: var(--espacio-secundario);
+    color: var(--color-blanco);
+    font-family: var(--tipo-secundario);
+    display: flex;
+    align-items: center;
+    gap: var(--espacio-secundario);
+    position: relative;
+    z-index: 100;
+    min-width: max-content;
+    svg {
+      width: 1.3em;
+    }
+    &::before {
+      content: "";
+      background: rgba($color: #fff, $alpha: 0.1);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      height: 0;
+      width: 0;
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    &:hover {
+      &::before {
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &.isActive {
+      &::before {
+        height: 100%;
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .menu {
+    padding: 0 0.5em;
+    gap: 0.5em;
+    &-item {
+      gap: 0.3em;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .menu {
+    gap: 0.2em;
+  }
+}
+@media screen and (max-width: 500px) {
+  .menu {
+    &-item {
+      font-size: 15px;
+    }
+  }
+}

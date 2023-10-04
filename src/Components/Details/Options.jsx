@@ -5,7 +5,7 @@ import $ from "jquery";
 
 export const Options = ({ shippingTerms, paymentOptions }) => {
   const showShipping = () => {
-    if (window.innerWidth <=6800) {
+    if (window.innerWidth <= 6800) {
       $(".options-shipping").toggleClass("isActive");
       $(".options-shipping label").addClass("isActive");
       $(".options-payments").removeClass("isActive");
@@ -27,8 +27,8 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
       {shippingTerms && (
         <div className="options-shipping">
           <label onClick={showShipping} className="isActive">
-            Opciones de envío
             <LiaShippingFastSolid></LiaShippingFastSolid>
+            Opciones de envío
             {Icons[1]}
           </label>
           {shippingTerms.map((item, key) => {
@@ -46,7 +46,8 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
       {paymentOptions && (
         <div className="options-payments">
           <label onClick={showPayments}>
-            Opciones de pago {Icons[0]}
+            {Icons[0]}
+            Opciones de pago
             {Icons[1]}
           </label>
           {paymentOptions.map((item, key) => {

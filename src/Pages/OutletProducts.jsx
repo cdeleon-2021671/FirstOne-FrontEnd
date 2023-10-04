@@ -108,15 +108,6 @@ export const OutletProducts = () => {
         )} que estamos seguros que te encantará. No te lo pierdas!`
       );
       setUrl(`/${store}/offers/${storeId}`);
-    } else if (location.pathname == "/all-products-in-store") {
-      setBoxes(Array.from(products));
-      setOriginal(Array.from(products));
-      setTitle(`Productos`);
-      setDescription(
-        `Te mostramos todos nuestros productos de alta calidad que estamos seguros que 
-        te encantará. No te lo pierdas!`
-      );
-      setUrl(`/all-products-in-store`);
     } else if (location.pathname == "/all-offers-in-store") {
       setBoxes(Array.from(offers));
       setOriginal(Array.from(products));
@@ -126,15 +117,15 @@ export const OutletProducts = () => {
         te encantará. No te lo pierdas!`
       );
       setUrl(`/all-offers-in-store`);
-    } else if (location.pathname == "/most-viewed") {
+    } else if (location.pathname == "/popular") {
       setBoxes(Array.from(mostViewed));
       setOriginal(Array.from(mostViewed));
-      setTitle(`Más vistos`);
+      setTitle(`Populares`);
       setDescription(
         `Te mostramos los productos más vistos de alta calidad que estamos seguros que 
         te encantará. No te lo pierdas!`
       );
-      setUrl(`/most-viewed`);
+      setUrl(`/popular`);
     } else if (search) {
       getSearching();
       setTitle(`Resultados`);
@@ -200,18 +191,9 @@ const CardProducts = ({ products }) => {
                 <img src={item.image} alt={item.name} className="card-image" />
                 <div className="card-information">
                   <h3 className="card-information-product">{item.name}</h3>
-                  <Link
-                    className="card-information-store"
-                    title={item.storeId.name}
-                    to={`/${item.storeId.name.replace(/[ ]+/g, "-")}/${
-                      item.storeId._id
-                    }`}
-                    onClick={(e) => {
-                      e.stopPropagation();
-                    }}
-                  >
+                  <span className="card-information-store">
                     Producto vendido por {item.storeId.name}
-                  </Link>
+                  </span>
                   <div className="price">
                     {item.salePrice && (
                       <span className="price-porcent">-{offer}%</span>
@@ -230,11 +212,6 @@ const CardProducts = ({ products }) => {
                         <span>Q{item.salePrice.toFixed(2)}</span>
                       </div>
                     )}
-                    <div className="aditional">
-                      <span>
-                        {item.condition} - {item.views} vistas
-                      </span>
-                    </div>
                   </div>
                 </div>
               </Link>

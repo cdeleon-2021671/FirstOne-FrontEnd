@@ -59,7 +59,7 @@ export const Details = () => {
             <meta name="description" content={product.description} />
             <link
               rel="stylesheet"
-              href={`http://tienda.gt/${product.name.replace(
+              href={`https://tienda.gt/${product.name.replace(
                 /[ ]+/g,
                 "-"
               )}/${product.tags.join("-")}/${product.price}/${product._id}`}
@@ -67,7 +67,7 @@ export const Details = () => {
           </Helmet>
           <Introduction product={product} offer={offer}></Introduction>
           <Carrusel
-            title={"También podría interesarte"}
+            title={"También te podría interesar"}
             products={similar}
           ></Carrusel>
           <GoToLink

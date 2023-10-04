@@ -98,22 +98,29 @@ const menu = [
   },
   {
     id: v4(),
-    title: "Más vistos",
+    title: "Populares",
     icon: (
       <svg
-        shapeRendering="geometricPrecision"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
         viewBox="0 0 24 24"
+        strokeWidth="1.5"
+        stroke="currentColor"
         fillOpacity={0}
       >
-        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-        <circle cx="12" cy="12" r="3" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M15.362 5.214A8.252 8.252 0 0112 21 8.25 8.25 0 016.038 7.048 8.287 8.287 0 009 9.6a8.983 8.983 0 013.361-6.867 8.21 8.21 0 003 2.48z"
+        />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 18a3.75 3.75 0 00.495-7.467 5.99 5.99 0 00-1.925 3.546 5.974 5.974 0 01-2.133-1A3.75 3.75 0 0012 18z"
+        />
       </svg>
     ),
-    url: "/most-viewed",
+    url: "/popular",
   },
   {
     id: v4(),
@@ -132,26 +139,6 @@ const menu = [
       </svg>
     ),
     url: "",
-  },
-  {
-    id: v4(),
-    title: "Productos",
-    icon: (
-      <svg
-        shapeRendering="geometricPrecision"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth="1.5"
-        viewBox="0 0 24 24"
-        fillOpacity={0}
-      >
-        <path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z" />
-        <path d="M3.27 6.96L12 12.01l8.73-5.05" />
-        <path d="M12 22.08V12" />
-      </svg>
-    ),
-    url: "/all-products-in-store",
   },
   {
     id: v4(),

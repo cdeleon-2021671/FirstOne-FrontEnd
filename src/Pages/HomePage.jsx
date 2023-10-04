@@ -25,7 +25,6 @@ export const HomePage = () => {
       if (newCategories.length > 16) newCategories.length = 16;
       setCategories(newCategories);
     } else {
-      // Arriba de 500 3 columnas
       if (newCategories.length > 12) newCategories.length = 12;
       setCategories(newCategories);
     }
@@ -47,7 +46,7 @@ export const HomePage = () => {
 
   return (
     <>
-      {randomCategories && offers && products ? (
+      {randomCategories && offers && products && popular ? (
         <div className="padding-container">
           <Helmet>
             <title>Tienda.gt - Inicio</title>

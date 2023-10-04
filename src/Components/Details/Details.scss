@@ -10,7 +10,7 @@
   }
   img {
     width: 45vw;
-    height: 45vw;
+    max-height: 45vw;
     object-fit: contain;
     object-position: top;
   }
@@ -22,13 +22,16 @@
     }
     &-store {
       position: relative;
+      display: flex;
       input {
-        width: 50%;
-        min-width: max-content;
+        width: 0;
+      }
+      label {
         cursor: pointer;
         border: none;
         outline: none;
         color: var(--color-secundario);
+        min-width: max-content;
         &:hover {
           color: #008000;
         }
@@ -37,30 +40,29 @@
         position: absolute;
         background: #fff;
         border: 1px solid #808080;
-        box-shadow: 1px 1px 2px var(--color-negro), -1px -1px 2px var(--bg-gris) inset;
+        box-shadow: 1px 1px 2px var(--color-negro),
+          -1px -1px 2px var(--bg-gris) inset;
         left: 1em;
         padding: 1em;
-        width: 15em;
-        opacity: 0;
-        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         z-index: 600;
+        display: none;
+        top: 1.2em;
+        width: 15em;
         &.isActive {
-          opacity: 1;
+          display: block;
         }
         img {
           width: 13em;
-          height: 13em;
+          max-height: 13em;
           object-fit: contain;
+          margin-bottom: var(--espacio-secundario);
         }
-        span {
-          display: flex;
-          width: 100%;
-        }
-        a{
+        a {
           background: var(--color-secundario);
           color: var(--color-blanco);
           text-align: center;
-          padding: .3em 0;
+          padding: 0.3em 0;
+          margin-top: var(--espacio-secundario);
         }
       }
     }
@@ -69,6 +71,7 @@
       font-family: var(--tipo-texto);
       max-height: 6em;
       overflow: auto;
+      margin: 8px 0;
     }
     &-price {
       font-size: 1.6em;
@@ -103,11 +106,13 @@
     }
     .options {
       margin-top: var(--espacio-secundario);
+      display: flex;
+      flex-direction: column;
+      gap: var(--espacio-secundario);
       div {
-        border: 1px solid var(--color-secundario);
+        border: 1px solid var(--bg-gris);
         display: flex;
         flex-direction: column;
-        padding-bottom: 0.3em;
         a {
           color: var(--color-secundario);
           max-width: max-content;
@@ -116,14 +121,13 @@
           }
         }
         label {
-          padding: 0 var(--espacio-secundario);
-          background: var(--color-secundario);
-          color: var(--color-blanco);
+          padding: var(--espacio-secundario);
+          background: var(--color-terciario);
+          color: var(--bg-blanco);
           display: flex;
           align-items: center;
           width: 100%;
           gap: 0.2em;
-          margin-bottom: 0.3em;
           svg {
             width: 1.5em;
             height: 1.5em;
@@ -134,24 +138,26 @@
         }
         span,
         a {
-          padding-left: var(--espacio-secundario);
+          display: flex;
+          align-items: center;
+          padding: var(--espacio-secundario);
         }
       }
     }
     .social-links {
-      background: var(--color-secundario);
+      background: var(--color-terciario);
       color: var(--color-blanco);
       display: flex;
       margin: var(--espacio-secundario) 0;
-      gap: var(--espacio-secundario);
+      margin-bottom: 0;
       padding: 0 var(--espacio-secundario);
       align-items: center;
       overflow: auto;
       span {
-        font-size: 1.3em;
+        font-size: 1.2em;
       }
       a {
-        padding: var(--espacio-secundario) 0;
+        padding: var(--espacio-secundario);
         display: flex;
         align-items: center;
         gap: 0.2em;
@@ -159,14 +165,14 @@
         min-width: max-content;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         &:hover {
-          background: var(--color-primario);
+          background: rgba($color: #fff, $alpha: 0.2);
         }
         label {
           pointer-events: none;
         }
         svg {
-          width: 1.5em;
-          height: 1.5em;
+          width: 1.2em;
+          height: 1.2em;
         }
       }
     }
@@ -193,50 +199,94 @@
     padding: var(--espacio-principal);
     padding-bottom: 0;
     gap: 0;
+    &-title {
+      display: block;
+      font-size: 1.6em;
+      font-weight: 900;
+      margin-bottom: var(--espacio-secundario);
+    }
     img {
       width: 100%;
-      height: 70vw;
+      max-height: 70vw;
+      margin-bottom: var(--espacio-secundario);
     }
     &-content {
       display: flex;
       flex-direction: column;
       width: 100%;
       min-width: 0;
-      hr {
+      &-title {
         display: none;
       }
       &-store {
-        order: 1;
-      }
-      &-introduction {
-        order: 2;
-      }
-      &-price {
+        margin-top: var(--espacio-secundario);
+        label {
+          cursor: auto;
+          &:hover {
+            color: var(--color-secundario);
+          }
+        }
         order: 3;
       }
+      &-price {
+        order: 1;
+      }
       &-salePrice {
-        order: 4;
+        order: 2;
       }
       .options {
-        margin-bottom: var(--espacio-secundario);
-        order: 5;
+        flex-direction: row;
+        div {
+          width: 50%;
+        }
+        order: 4;
       }
       &-description {
-        order: 6;
-        margin-bottom: 0.5em;
+        order: 5;
       }
       .social-links {
         position: relative;
-        order: 7;
+        order: 6;
         left: -1em;
         width: calc(100% + 2em);
-        margin-bottom: var(--espacio-principal);
+        margin: 0;
         &.isActive {
           position: fixed;
           left: 0;
           bottom: 0;
           width: 100%;
           margin-bottom: 0;
+          z-index: 100;
+        }
+      }
+      &-responsiveStore {
+        order: 7;
+        margin: var(--espacio-secundario) 0;
+        h2 {
+          font-size: 1.5em;
+          font-weight: 900;
+        }
+        p {
+          font-family: var(--tipo-texto);
+          margin-top: var(--espacio-secundario);
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .details {
+    &-content {
+      .options {
+        flex-direction: column;
+        div {
+          width: 100%;
+        }
+      }
+      .social-links {
+        &::-webkit-scrollbar {
+          height: 0;
         }
       }
     }
@@ -246,30 +296,27 @@
 @media screen and (max-width: 600px) {
   .details {
     &-title {
-      display: block;
       font-size: 1.4em;
-      font-weight: 900;
     }
     img {
-      height: 80vw;
+      height: auto;
+      max-height: 100vh;
     }
     &-content {
-      &-title {
-        display: none;
-      }
       &-description {
         font-size: 1.2em;
       }
       .options {
+        flex-direction: column;
         div {
-          padding: 0;
+          width: 100%;
           border: none;
           &.isActive {
-            border: 1px solid var(--color-primario);
+            border: 1px solid var(--bg-gris);
             label {
               &.isActive {
                 border: none;
-                background: var(--color-secundario);
+                background: var(--color-terciario);
                 color: var(--color-blanco);
                 margin-bottom: 0.3em;
               }
@@ -303,14 +350,10 @@
           span,
           a {
             height: 0;
+            padding: 0 0 0 var(--espacio-secundario);
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           }
-        }
-      }
-      .social-links {
-        &::-webkit-scrollbar {
-          height: 0;
         }
       }
     }
@@ -321,9 +364,8 @@
   .details {
     padding: var(--espacio-secundario);
     &-title {
-      display: block;
-      font-size: 1.2em;
-      font-weight: 900;
+      font-size: 1.4em;
+      margin-bottom: 0;
     }
     img {
       height: auto;
@@ -349,16 +391,30 @@
         }
       }
       .social-links {
-        margin-bottom: 0;
+        width: 100vw;
+        padding: 0;
         gap: 0;
+        left: -0.8em;
         span {
-          font-size: 1.1em;
+          padding-left: var(--espacio-secundario);
+          font-size: 1.4em;
         }
         a {
           padding: var(--espacio-secundario);
+          display: flex;
           label {
             display: none;
           }
+          svg {
+            height: 100%;
+            width: 1.5em;
+          }
+        }
+      }
+      &-responsiveStore {
+        margin: var(--espacio-secundario) 0;
+        h2 {
+          font-size: 1.4em;
         }
       }
     }

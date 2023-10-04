@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Options } from "./Options";
 import { Buy } from "./Buy";
@@ -6,17 +6,21 @@ import "./Details.scss";
 import $ from "jquery";
 
 export const Introduction = ({ product, offer }) => {
+  const [viewStore, setViewStore] = useState(false);
+
   const scrolling = () => {
     if (window.innerWidth > 800) {
       $("#img-produt-details").css("position", "sticky");
       $("#img-produt-details").css("top", "0");
       $(".details-content").css("position", "sticky");
       $(".details-content").css("top", "0");
+      setViewStore(true);
     } else {
       $("#img-produt-details").css("position", "static");
       $("#img-produt-details").css("top", "0");
       $(".details-content").css("position", "static");
       $(".details-content").css("top", "0");
+      setViewStore(false);
     }
   };
 
@@ -53,38 +57,46 @@ export const Introduction = ({ product, offer }) => {
               <div className="details-content-store">
                 <input
                   type="text"
-                  value={`Producto vendido por ${product.storeId.name}`}
-                  readOnly
+                  id="showInfoStore"
                   onFocus={showStore}
-                  onBlur={hiddenStore}
+                  onBlur={() => {
+                    setTimeout(() => hiddenStore(), 100);
+                  }}
                 />
-                <div>
-                  <img
-                    src={product.storeId.urlLogo}
-                    alt={product.storeId.name}
-                  />
-                  <span>{product.storeId.description}</span>
-                  <Link to={product.storeId.urlStore} target="_blank">
-                    Visitar tienda oficial
-                  </Link>
-                </div>
-              </div>
-              <p className="details-content-description">
-                {product.description}
-              </p>
-              <span className="details-content-introduction">
-                {product.views} vistas - {product.condition} -&nbsp;
-                <strong
+                <label htmlFor="showInfoStore">
+                  Producto vendido por {product.storeId.name}
+                </label>
+                &nbsp;-&nbsp;
+                <span
+                  className="stock"
                   style={{
                     color: `${
-                      product.stock == "Agotado" ? "#ff0000" : "#008000"
+                      product.stock == "Agotado"
+                        ? "#ff0000"
+                        : product.stock == "Disponible"
+                        ? "#008000"
+                        : "#ff6600"
                     }`,
                   }}
                 >
                   {product.stock}
-                </strong>
-              </span>
-              <hr />
+                </span>
+                {viewStore && (
+                  <div>
+                    <img
+                      src={product.storeId.urlLogo}
+                      alt={product.storeId.name}
+                    />
+                    <span>{product.storeId.description}</span>
+                    <Link to={product.storeId.urlStore} target="_blank">
+                      Visitar tienda oficial
+                    </Link>
+                  </div>
+                )}
+              </div>
+              <p className="details-content-description">
+                {product.description}
+              </p>
               <div className="details-content-price">
                 {product.salePrice && (
                   <span className="porcent">-{offer}%</span>
@@ -96,11 +108,17 @@ export const Introduction = ({ product, offer }) => {
               </div>
               {product.salePrice && (
                 <div className="details-content-salePrice">
-                  Precio normal: <span>Q{product.salePrice.toFixed(2)}</span>
+                  Precio original: <span>Q{product.salePrice.toFixed(2)}</span>
                 </div>
               )}
               <Options {...product.storeId}></Options>
               <Buy {...product}></Buy>
+              {viewStore == false && (
+                <div className="details-content-responsiveStore">
+                  <h2>{product.storeId.name}</h2>
+                  <p>{product.storeId.description}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

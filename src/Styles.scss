@@ -9,6 +9,7 @@
   --negro: #393939;
   --color-primario: #154360;
   --color-secundario: #21618c;
+  --color-terciario: #5DADE2;
   --color-blanco: #fff;
   --color-negro: #393939;
   /* Colores fondo */
@@ -173,6 +174,7 @@ body {
   font-size: 100%;
   background: var(--bg-gris);
   font-family: var(--tipo-principal);
+  overflow-x: hidden;
   @media screen and (min-width: 1516px) {
     display: flex;
     justify-content: center;

@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import { Login } from "./Components/Forms/Login";
 import { Header } from "./Components/Header/Header";
 import { Navbar } from "./Components/Navbar/Navbar";
+import { Helmet, HelmetData } from "react-helmet-async";
 import "./Styles.scss";
 
 function App() {

@@ -29,10 +29,13 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   };
 
   const searchCategories = (value) => {
+    console.log(original);
     const fuse = new Fuse(original, {
-      distance: 2,
+      minMatch: 0.5,
+      ignoreLocation: true,
+      distance: 0,
       threshold: 0.5,
-      keys: ["tag", "product.storeId.name"],
+      keys: ["product.name", "tag", "product.tags", "product.storeId.name"],
     });
     const result = Array.from(fuse.search(value));
     const filters = result.map(({ item }) => item);

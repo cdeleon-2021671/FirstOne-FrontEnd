@@ -11,7 +11,7 @@ export const Carrusel = ({ products, title }) => {
 
   const moveLeft = () => {
     const container = containerRef.current;
-    const widthItem = $("#item-card")[0].clientWidth + 10;
+    const widthItem = $("#item-card")[0].offsetWidth + 16;
     const { scrollLeft } = container;
     container.scrollLeft -= widthItem;
     if (scrollLeft <= widthItem) $(`.${classLeft}`).addClass("inactive");
@@ -20,7 +20,7 @@ export const Carrusel = ({ products, title }) => {
 
   const moveRight = () => {
     const container = containerRef.current;
-    const widthItem = $("#item-card")[0].clientWidth + 10;
+    const widthItem = $("#item-card")[0].offsetWidth + 16;
     const { scrollLeft } = container;
     const { scrollWidth } = container;
     const { clientWidth } = container;
@@ -30,10 +30,10 @@ export const Carrusel = ({ products, title }) => {
     $(`.${classLeft}`).removeClass("inactive");
   };
 
-  const goToDetails = ()=>{
-    window.scrollTo({top: 0})
-    containerRef.current.scrollTo({left: 0});
-  }
+  const goToDetails = () => {
+    window.scrollTo({ top: 0 });
+    containerRef.current.scrollTo({ left: 0 });
+  };
 
   return (
     <>
@@ -78,18 +78,9 @@ export const Carrusel = ({ products, title }) => {
                     />
                     <div className="card-information">
                       <h3 className="card-information-product">{item.name}</h3>
-                      <Link
-                        className="card-information-store"
-                        title={item.storeId.name}
-                        to={`/${item.storeId.name.replace(/[ ]+/g, "-")}/${
-                          item.storeId._id
-                        }`}
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                      >
+                      <span className="card-information-store">
                         Producto vendido por {item.storeId.name}
-                      </Link>
+                      </span>
                       <div className="price">
                         {item.salePrice && (
                           <span className="price-porcent">-{offer}%</span>
@@ -104,15 +95,10 @@ export const Carrusel = ({ products, title }) => {
                       <div className="card-information-salePrice">
                         {item.salePrice && (
                           <div className="normal">
-                            Precio normal: &nbsp;
+                            Precio original: &nbsp;
                             <span>Q{item.salePrice.toFixed(2)}</span>
                           </div>
                         )}
-                        <div className="aditional">
-                          <span>
-                            {item.condition} - {item.views} vistas
-                          </span>
-                        </div>
                       </div>
                     </div>
                   </Link>

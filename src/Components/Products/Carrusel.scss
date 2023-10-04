@@ -4,7 +4,7 @@
   &-title {
     font-size: 1.6em;
     padding: var(--espacio-principal);
-    background: var(--color-primario);
+    background: var(--color-secundario);
     color: var(--color-blanco);
   }
   &-container {
@@ -40,10 +40,6 @@
           &-store {
             color: var(--color-secundario);
             font-size: .9em;
-            transition: all .3s ease;
-            &:hover{
-              color: #008000;
-            }
           }
           .price {
             display: flex;
@@ -83,10 +79,6 @@
                   background: rgb(80, 80, 80);
                 }
               }
-            }
-            .aditional{
-              font-size: .9em;
-              color: rgb(80, 80, 80);
             }
           }
         }

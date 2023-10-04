@@ -39,11 +39,13 @@ export const Buy = ({ urlProduct, storeId }) => {
   const scrolling = () => {
     if (window.innerWidth <= 800) {
       const options = $(".social-links")[0].clientHeight;
-      const description = $(".details-content-description")[0].getBoundingClientRect().bottom
+      const description = $(
+        ".details-content-description"
+      )[0].getBoundingClientRect().bottom;
       const { innerHeight } = window;
-      const flag = description + options + 14.5 - innerHeight;
-      if (flag > 0) $(".social-links").addClass('isActive')
-      else $(".social-links").removeClass('isActive')
+      const flag = innerHeight - description - options - 8;
+      if (flag < 0) $(".social-links").addClass("isActive");
+      else $(".social-links").removeClass("isActive");
     }
   };
 

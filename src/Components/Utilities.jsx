@@ -37,12 +37,7 @@ export const routes = createBrowserRouter([
       },
       // Todas las mas vistos | Funciona
       {
-        path: "most-viewed",
-        element: <OutletProducts />,
-      },
-      // Todos los productos | Funciona
-      {
-        path: "all-products-in-store",
+        path: "popular",
         element: <OutletProducts />,
       },
       // Todas las ofertas | Funciona
@@ -86,7 +81,7 @@ export const routes = createBrowserRouter([
 
 export const socialLinks = [
   {
-    title: "Producto",
+    title: "Compralo",
     element: (
       <svg
         shapeRendering="geometricPrecision"

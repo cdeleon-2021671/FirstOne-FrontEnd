@@ -245,10 +245,7 @@
         order: 5;
       }
       .social-links {
-        position: relative;
         order: 6;
-        left: -1em;
-        width: calc(100% + 2em);
         margin: 0;
         &.isActive {
           position: fixed;
@@ -391,10 +388,8 @@
         }
       }
       .social-links {
-        width: 100vw;
         padding: 0;
         gap: 0;
-        left: -0.8em;
         span {
           padding-left: var(--espacio-secundario);
           font-size: 1.4em;

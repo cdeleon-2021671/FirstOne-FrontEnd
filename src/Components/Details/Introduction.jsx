@@ -58,6 +58,7 @@ export const Introduction = ({ product, offer }) => {
                 <input
                   type="text"
                   id="showInfoStore"
+                  readOnly
                   onFocus={showStore}
                   onBlur={() => {
                     setTimeout(() => hiddenStore(), 100);

@@ -8,17 +8,22 @@ export const Introduction = () => {
   const { stores } = useContext(AuthContext);
   const [imgBanner, setImgBanner] = useState(null);
 
-  const heightContainer = async () => {
+  const heightContainer =  () => {
     const date = new Date();
     const start = date.getSeconds();
     const getImg = setInterval(() => {
       const end = date.getSeconds();
       const img = $(".home-introduction-banner");
-      const { offsetHeight } = img[0];
-      if (offsetHeight > 100) {
-        $(".home-introduction").css("height", offsetHeight);
-        clearInterval(getImg);
-      } else if (end - start >= 3) {
+      if(img){
+        const { offsetHeight } = img[0];
+        if (offsetHeight > 50) {
+          $(".home-introduction").css("height", offsetHeight);
+          clearInterval(getImg);
+        } else if (end - start >= 3) {
+          $(".home-introduction").css("height", "auto");
+          clearInterval(getImg);
+        }
+      }else if (end - start >= 3) {
         $(".home-introduction").css("height", "auto");
         clearInterval(getImg);
       }

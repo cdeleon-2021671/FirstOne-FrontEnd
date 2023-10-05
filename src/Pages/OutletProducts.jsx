@@ -3,11 +3,12 @@ import { SearchProducts } from "../Components/Searchbar/SearchProducts";
 import { Suggestion } from "../Components/Products/Suggestion";
 import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
+import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
 import axios from "axios";
-import { StoresList } from "../Components/StorePage/StoresList";
+import $ from "jquery";
 
 export const OutletProducts = () => {
   const location = useLocation();
@@ -75,6 +76,19 @@ export const OutletProducts = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    setTimeout(() => {
+      const container = $(".card-information-product");
+      const title = $(".card-information-product h3");
+      const span = $(".card-information-product span");
+      for (let index = 0; index < container.length; index++) {
+        if (title[index].offsetWidth < container[index].offsetWidth) {
+          span[index].style.display = "none";
+        }
+      }
+    }, 500);
+  }, [boxes]);
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
@@ -190,9 +204,12 @@ const CardProducts = ({ products }) => {
               >
                 <img src={item.image} alt={item.name} className="card-image" />
                 <div className="card-information">
-                  <h3 className="card-information-product">{item.name}</h3>
+                  <div className="card-information-product">
+                    <h3>{item.name}</h3>
+                    <span>...</span>
+                  </div>
                   <span className="card-information-store">
-                    Producto vendido por {item.storeId.name}
+                    Vendido por {item.storeId.name}
                   </span>
                   <div className="price">
                     {item.salePrice && (

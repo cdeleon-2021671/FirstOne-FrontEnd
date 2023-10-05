@@ -35,6 +35,20 @@ export const Carrusel = ({ products, title }) => {
     containerRef.current.scrollTo({ left: 0 });
   };
 
+  
+  useEffect(() => {
+    setTimeout(() => {
+      const container = $(".card-information-product");
+      const title = $(".card-information-product h3");
+      const span = $(".card-information-product span");
+      for (let index = 0; index < container.length; index++) {
+        if (title[index].offsetWidth < container[index].offsetWidth) {
+          span[index].style.display = "none";
+        }
+      }
+    }, 500);
+  }, [products]);
+
   return (
     <>
       {products && (
@@ -77,9 +91,12 @@ export const Carrusel = ({ products, title }) => {
                       className="card-image"
                     />
                     <div className="card-information">
-                      <h3 className="card-information-product">{item.name}</h3>
+                      <div className="card-information-product">
+                        <h3>{item.name}</h3>
+                        <span>...</span>
+                      </div>
                       <span className="card-information-store">
-                        Producto vendido por {item.storeId.name}
+                        Vendido por {item.storeId.name}
                       </span>
                       <div className="price">
                         {item.salePrice && (

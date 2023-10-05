@@ -32,14 +32,30 @@
           object-fit: contain;
         }
         &-information {
+          width: 17em;
           padding: var(--espacio-secundario);
           &-product {
-            max-height: 1.15em;
-            overflow: hidden;
+            position: relative;
+            display: flex;
+            h3 {
+              min-width: max-content;
+            }
+            span {
+              position: absolute;
+              top: 0;
+              right: 0;
+              background: #fff;
+              padding: 0 0.4em 0 0;
+            }
+            pointer-events: none;
+            overflow: auto;
+            &::-webkit-scrollbar {
+              height: 0;
+            }
           }
           &-store {
             color: var(--color-secundario);
-            font-size: .9em;
+            font-size: 0.9em;
           }
           .price {
             display: flex;
@@ -54,7 +70,7 @@
               span {
                 font-size: 1.4em;
                 &.little {
-                  font-size: .9em;
+                  font-size: 0.9em;
                   margin-top: 0.1em;
                 }
               }
@@ -65,7 +81,7 @@
             flex-direction: column;
             .normal {
               color: rgb(80, 80, 80);
-              font-size: .9em;
+              font-size: 0.9em;
               span {
                 position: relative;
                 &::before {
@@ -111,22 +127,26 @@
 }
 
 @media screen and (max-width: 800px) {
-  
-.products {
-  &-title {
-    padding: var(--espacio-secundario);
-  }
-  &-container {
-    &-content {
-      .card {
-        &-image {
-          height: 15em;
-          min-width: 15em;
+  .products {
+    &-title {
+      padding: var(--espacio-secundario);
+    }
+    &-container {
+      &-content {
+        .card {
+          &-image {
+            height: 15em;
+            min-width: 15em;
+          }
+          &-information {
+            &-product {
+              width: 15em;
+            }
+          }
         }
       }
     }
   }
-}
 }
 
 @media screen and (max-width: 415px) {

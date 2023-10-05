@@ -27,7 +27,7 @@
 .max-page-container {
   min-height: 100vh;
   max-width: 1500px;
-  @media screen and (min-width: 1500px) {
+  @media screen and (min-width: 1532px) {
     min-width: 1500px;
   }
   background: var(--bg-blanco);
@@ -37,12 +37,6 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --negro: #ececec;
-  }
-}
-
-/* (Opcional) Configuramos si un usuario ha activado el modo alto contraste. (WD) */
-@media (prefers-contrast: high) {
-  :root {
   }
 }
 
@@ -174,7 +168,6 @@ body {
   font-size: 100%;
   background: var(--bg-gris);
   font-family: var(--tipo-principal);
-  overflow-x: hidden;
   @media screen and (min-width: 1516px) {
     display: flex;
     justify-content: center;

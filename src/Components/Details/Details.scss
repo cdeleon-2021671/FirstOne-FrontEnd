@@ -71,23 +71,23 @@
       overflow: auto;
       margin: 8px 0;
       position: relative;
-      transition: all .5s ease;
+      transition: all 0.5s ease;
       overflow: hidden;
-      &.viewButton{
+      &.viewButton {
         max-height: 7em;
         height: 7em;
-        button{
+        button {
           display: block;
         }
       }
-      &.isActive{
+      &.isActive {
         max-height: max-content;
         height: max-content;
-        button{
+        button {
           position: static;
         }
       }
-      button{
+      button {
         display: none;
         position: absolute;
         bottom: 0;
@@ -174,7 +174,7 @@
       color: var(--color-blanco);
       display: flex;
       margin: var(--espacio-secundario) 0 0;
-      padding:var(--espacio-secundario);
+      padding: var(--espacio-secundario);
       align-items: center;
       gap: 1.5em;
       overflow: auto;
@@ -380,6 +380,20 @@
           }
         }
       }
+      .social-links {
+        gap: 1em;
+        span {
+          font-size: 1em;
+        }
+        a {
+          margin-right: 0.5em;
+          padding: 0.3em var(--espacio-secundario);
+          svg {
+            height: 100%;
+            width: 1.5em;
+          }
+        }
+      }
     }
   }
 }
@@ -415,21 +429,14 @@
         }
       }
       .social-links {
-        gap: 1em;
-        span {
-          padding-left: var(--espacio-secundario);
-          font-size: 1.4em;
-        }
         a {
-          margin-right: .5em;
-          padding: var(--espacio-secundario);
-          display: flex;
           label {
             display: none;
           }
+          padding: var(--espacio-secundario);
           svg {
             height: 100%;
-            width: 1.5em;
+            width: 1.4em;
           }
         }
       }

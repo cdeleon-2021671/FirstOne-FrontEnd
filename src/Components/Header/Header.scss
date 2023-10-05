@@ -20,11 +20,11 @@
   transition: all 0.4s ease;
   &-identify {
     cursor: pointer;
-    color: var(--color-blanco);
     border-radius: 0.3em;
     display: flex;
     align-items: center;
     gap: var(--spacing);
+    color: var(--color-blanco);
     svg {
       width: var(--icon-dimensions);
       height: var(--icon-dimensions);

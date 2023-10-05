@@ -2,7 +2,7 @@
 
 .menu {
   background: var(--color-primario);
-  border-top: 1px solid var(--color-terciario);
+  color: var(--color-blanco);
   display: flex;
   padding: 0 1em;
   gap: 1em;
@@ -12,7 +12,6 @@
   }
   &-item {
     padding: var(--espacio-secundario);
-    color: var(--color-blanco);
     font-family: var(--tipo-secundario);
     display: flex;
     align-items: center;

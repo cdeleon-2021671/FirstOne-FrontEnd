@@ -17,6 +17,10 @@
     @media screen and (min-width: 1000px) {
       padding: 0.3em 10em;
     }
+    @media screen and (max-width: 315px) {
+      padding: 0.3em 0;
+      width: 100%;
+    }
   }
   @media screen and (max-width: 600px) {
     font-size: 1.2em;
@@ -24,10 +28,5 @@
   @media screen and (max-width: 430px) {
     font-size: 1.08em;
   }
-  @media screen and (max-width: 385px) {
-    a{
-      padding: 0.3em 1em;
-      width: 100%;
-    }
-  }
+
 }

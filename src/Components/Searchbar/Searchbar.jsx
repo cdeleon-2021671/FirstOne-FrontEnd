@@ -142,6 +142,25 @@ export const Searchbar = () => {
             }, 100);
           }}
         />
+        <label
+          className="closeInput"
+          onClick={() => {
+            inputRef.current.blur();
+          }}
+        >
+          <svg
+            shapeRendering="geometricPrecision"
+            stroke="currentColor"
+            strokLinecap="round"
+            strokLinejoin="round"
+            strokeWidth="1.5"
+            viewBox="0 0 24 24"
+            fillOpacity={0}
+          >
+            <path d="M18 6L6 18" />
+            <path d="M6 6l12 12" />
+          </svg>
+        </label>
       </div>
       {options && options.length !== 0 && viewOptions && (
         <div className="searchbar-options">

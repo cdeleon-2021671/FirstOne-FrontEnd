@@ -1,4 +1,5 @@
 #store-introduction {
+  padding-bottom: 0;
   div:first-child {
     height: 35vw;
     background-position: center;
@@ -17,8 +18,12 @@
     }
   }
   .introduction {
-    padding: 1em;
+    padding: var(--espacio-principal);
     padding-bottom: 0;
+    @media screen and (max-width: 500px) {
+      padding: var(--espacio-secundario);
+      padding-bottom: 0;
+    }
     h2 {
       font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 1.6em;
@@ -30,7 +35,7 @@
     p {
       font-family: Roboto;
       font-size: 1.3em;
-      margin-top: 0.5em;
+      margin-top: var(--espacio-secundario);
       @media screen and (max-width: 800px) {
         font-size: 1em;
       }

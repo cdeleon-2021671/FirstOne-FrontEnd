@@ -9,12 +9,14 @@ export const StoresList = ({ stores }) => {
       {stores && stores.length !== 0 && (
         <div className="all-stores">
           {stores.map(({ store, products }, key) => {
-            const { urlLogo, name, description } = store;
+            const { urlLogo, name, description, _id } = store;
             return (
-              <div className="all-stores-content" key={key}>
-                <Link to={`/${name.replace(/[ ]+/g, "-")}/${store._id}`}>
-                  <img src={urlLogo} alt={name} />
-                </Link>
+              <Link
+                to={`/${name.replace(/[ ]+/g, "-")}/${_id}`}
+                className="all-stores-content"
+                key={key}
+              >
+                <img src={urlLogo} alt={name} />
                 <div className="container">
                   <div className="all-stores-content-information">
                     <h2>{name}</h2>
@@ -28,7 +30,7 @@ export const StoresList = ({ stores }) => {
                     {store.shippingTerms.map((item, key) => {
                       if (item.includes("http") || item.includes("www"))
                         return (
-                          <Link key={key} to={item} target="_blank">
+                          <Link key={key} to={item} onClick={(e)=>e.stopPropagation()} target="_blank">
                             Ver más
                           </Link>
                         );
@@ -43,7 +45,7 @@ export const StoresList = ({ stores }) => {
                   </div>
                   <SocialLinks store={store}></SocialLinks>
                 </div>
-              </div>
+              </Link>
             );
           })}
         </div>
@@ -91,10 +93,11 @@ const SocialLinks = ({ store }) => {
   return (
     <>
       {social && (
-        <div className="links">
+        <div className="links" onClick={(e)=>e.preventDefault()}>
           {social.map(({ title, link, icon }, key) => (
             <Link
               key={key}
+              onClick={(e)=>e.stopPropagation()}
               to={link}
               target={link == "" ? "" : "_blank"}
               style={{ cursor: link == "" && "text" }}

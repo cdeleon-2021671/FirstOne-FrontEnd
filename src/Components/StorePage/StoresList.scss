@@ -9,9 +9,9 @@
     padding: var(--espacio-secundario);
   }
   &-content {
-    border: 1px solid var(--color-primario);
+    border: 1px solid var(--color-secundario);
     display: grid;
-    grid-template-columns: 17.3vw 1fr;
+    grid-template-columns: 18em 1fr;
     @media screen and (min-width: 1500px) {
       grid-template-columns: 18em 1fr;
     }
@@ -31,18 +31,14 @@
     }
     .container {
       display: grid;
-      grid-template-columns: 23vw 24vw 24vw 6.5em;
+      grid-template-columns: 23vw minmax(10em, 1fr) minmax(10em, 1fr) 7em;
       @media screen and (min-width: 1500px) {
-        grid-template-columns: 18em 24em 24em 6.5em;
-      }
-      @media screen and (max-width: 1120px) {
-        grid-template-columns: 15em 20vw 20vw 6.5em;
-        justify-content: center;
+        grid-template-columns: 17em 24.6em 24.6em 7.4em;
       }
       @media screen and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
-        padding-left: var(--espacio-principal);
+        padding: var(--espacio-principal);
         .all-stores-content-information,
         .all-stores-content-options {
           padding: 0;
@@ -55,16 +51,21 @@
           }
         }
         .links {
-          padding-right: 0;
           display: flex;
           align-items: center;
           direction: ltr;
-          padding: var(--espacio-secundario) 0;
+          height: auto;
+          padding-left: 0;
           svg {
-            width: 1.5em;
-            height: 1.5em;
+            box-sizing: content-box;
+            padding: var(--espacio-secundario);
+            width: 1.3em;
+            height: 1.3em;
           }
         }
+      }
+      @media screen and (max-width: 500px) {
+        padding: var(--espacio-secundario);
       }
     }
     &-information,
@@ -79,13 +80,17 @@
       }
       a {
         color: var(--color-secundario);
+        transition: all .2s ease;
+        &:hover{
+          color: #008000
+        }
       }
       span {
         padding: 0.2em 0;
       }
     }
     .links {
-      padding-right: var(--espacio-principal);
+      padding: 0 var(--espacio-principal);
       display: grid;
       grid-template-rows: repeat(3, 1fr);
       grid-template-columns: repeat(2, 1fr);
@@ -93,10 +98,15 @@
       align-items: center;
       gap: var(--espacio-secundario);
       direction: rtl;
+      background: var(--color-terciario);
       svg {
         width: 2em;
         height: 2em;
-        color: var(--color-primario);
+        color: var(--color-blanco);
+        transition: all .2s ease;
+        &:hover{
+          color: var(--color-primario);
+        }
       }
     }
   }

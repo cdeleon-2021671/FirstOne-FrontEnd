@@ -14,11 +14,11 @@ export const Introduction = () => {
     const getImg = setInterval(() => {
       const end = date.getSeconds();
       const img = $(".home-introduction-banner");
-      if (img) {
+      if (img && img.length != 0) {
         const { offsetHeight } = img[0];
         if (offsetHeight > 50) {
-          const fnColor = getComputedStyle(document.documentElement)
-          const color = fnColor.getPropertyValue('--color-secundario');
+          const fnColor = getComputedStyle(document.documentElement);
+          const color = fnColor.getPropertyValue("--color-secundario");
           $(".home-introduction").css("height", offsetHeight);
           $(".home-introduction").css("background", color);
           clearInterval(getImg);

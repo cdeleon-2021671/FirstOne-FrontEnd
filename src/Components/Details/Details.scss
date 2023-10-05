@@ -415,13 +415,13 @@
         }
       }
       .social-links {
-        padding: 0;
-        gap: 0;
+        gap: 1em;
         span {
           padding-left: var(--espacio-secundario);
           font-size: 1.4em;
         }
         a {
+          margin-right: .5em;
           padding: var(--espacio-secundario);
           display: flex;
           label {

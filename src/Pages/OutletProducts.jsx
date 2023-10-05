@@ -124,7 +124,7 @@ export const OutletProducts = () => {
       setUrl(`/${store}/offers/${storeId}`);
     } else if (location.pathname == "/all-offers-in-store") {
       setBoxes(Array.from(offers));
-      setOriginal(Array.from(products));
+      setOriginal(Array.from(offers));
       setTitle(`Ofertas`);
       setDescription(
         `Te mostramos todos nuestros productos en oferta de alta calidad que estamos seguros que 
@@ -141,11 +141,16 @@ export const OutletProducts = () => {
       );
       setUrl(`/popular`);
     } else if (search) {
-      getSearching();
+      if (search == "all") {
+        setBoxes(Array.from(products));
+        setOriginal(Array.from(products));
+      } else {
+        getSearching();
+      }
       setTitle(`Resultados`);
       setDescription(
         `Te mostramos los productos reloacionados con tu busqueda, esperamos 
-        que los resultados sean los mas acertados posible. No te lo pierdas!`
+          que los resultados sean los mas acertados posible. No te lo pierdas!`
       );
       setUrl(`/gt/products-results/${search}`);
     }

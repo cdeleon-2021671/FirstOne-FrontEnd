@@ -8,22 +8,25 @@ export const Introduction = () => {
   const { stores } = useContext(AuthContext);
   const [imgBanner, setImgBanner] = useState(null);
 
-  const heightContainer =  () => {
+  const heightContainer = () => {
     const date = new Date();
     const start = date.getSeconds();
     const getImg = setInterval(() => {
       const end = date.getSeconds();
       const img = $(".home-introduction-banner");
-      if(img){
+      if (img) {
         const { offsetHeight } = img[0];
         if (offsetHeight > 50) {
+          const fnColor = getComputedStyle(document.documentElement)
+          const color = fnColor.getPropertyValue('--color-secundario');
           $(".home-introduction").css("height", offsetHeight);
+          $(".home-introduction").css("background", color);
           clearInterval(getImg);
         } else if (end - start >= 3) {
           $(".home-introduction").css("height", "auto");
           clearInterval(getImg);
         }
-      }else if (end - start >= 3) {
+      } else if (end - start >= 3) {
         $(".home-introduction").css("height", "auto");
         clearInterval(getImg);
       }
@@ -92,7 +95,6 @@ export const Introduction = () => {
 };
 
 const Items = ({ stores }) => {
-  
   return (
     <div className="home-introduction-stores">
       {stores.map(({ store }, key) => {

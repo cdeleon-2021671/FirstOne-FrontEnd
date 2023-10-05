@@ -94,10 +94,10 @@ export const Searchbar = () => {
     setSearching(filter);
     setIndexPosition(0);
     if (filter == "" || filter == " ") {
-      navigate("/all-products-in-store");
+      navigate("/gt/products-results/all");
     } else {
       const newSearch = filter.replace(/[ ]+/g, "-");
-      navigate(`gt/products-results/${newSearch}`);
+      navigate(`/gt/products-results/${newSearch}`);
     }
   };
 

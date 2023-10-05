@@ -5,7 +5,6 @@ import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
-import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
 import axios from "axios";
 import $ from "jquery";
@@ -160,11 +159,6 @@ export const OutletProducts = () => {
     <>
       {boxes ? (
         <div className="outlet-products">
-          <Helmet>
-            <title>Tienda.gt - {title}</title>
-            <meta name="description" content={description} />
-            <link rel="canonical" href={url} />
-          </Helmet>
           <StoresList stores={storeResult}></StoresList>
           <SearchProducts
             original={original}

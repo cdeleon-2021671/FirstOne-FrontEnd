@@ -5,14 +5,13 @@
   justify-content: center;
   align-items: center;
   font-size: 1.5em;
-  background: var(--bg-gris);
+  background: var(--color-terciario);
   padding: 0 var(--espacio-principal) var(--espacio-principal);
   a {
     font-weight: 900;
-    background: var(--bg-blanco);
+    background: var(--color-primario);
     text-align: center;
-    color: var(--color-secundario);
-    box-shadow: 1px 1px 2px var(--color-negro), -1px -1px 2px var(--bg-blanco);
+    color: var(--color-blanco);
     padding: 0.3em 5em;
     @media screen and (min-width: 1000px) {
       padding: 0.3em 10em;

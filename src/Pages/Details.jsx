@@ -3,7 +3,6 @@ import { Carrusel } from "../Components/Products/Carrusel";
 import { Animation } from "../Components/Animation/Animation";
 import React, { useEffect, useState } from "react";
 import { useLocation, useParams, Link } from "react-router-dom";
-import { Helmet } from "react-helmet-async";
 import { Introduction } from "../Components/Details/Introduction";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
 
@@ -52,19 +51,8 @@ export const Details = () => {
 
   return (
     <>
-      {product ? (
+      {product && product.length != 0 ? (
         <>
-          <Helmet>
-            <title>Tienda.gt - {product.name}</title>
-            <meta name="description" content={product.description} />
-            <link
-              rel="stylesheet"
-              href={`https://tienda.gt/${product.name.replace(
-                /[ ]+/g,
-                "-"
-              )}/${product.tags.join("-")}/${product.price}/${product._id}`}
-            />
-          </Helmet>
           <Introduction product={product} offer={offer}></Introduction>
           <Carrusel
             title={"También te podría interesar"}

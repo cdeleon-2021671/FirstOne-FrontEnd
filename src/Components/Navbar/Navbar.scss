@@ -1,7 +1,8 @@
 @import "../../Styles.scss";
 
 .menu {
-  background: var(--color-secundario);
+  background: var(--color-primario);
+  border-top: 1px solid var(--color-terciario);
   display: flex;
   padding: 0 1em;
   gap: 1em;

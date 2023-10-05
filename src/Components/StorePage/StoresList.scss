@@ -79,7 +79,7 @@
         font-weight: 900;
       }
       a {
-        color: var(--color-secundario);
+        color: var(--color-primario);
         transition: all .2s ease;
         &:hover{
           color: #008000
@@ -98,14 +98,14 @@
       align-items: center;
       gap: var(--espacio-secundario);
       direction: rtl;
-      background: var(--color-terciario);
+      background: var(--color-secundario);
       svg {
         width: 2em;
         height: 2em;
         color: var(--color-blanco);
         transition: all .2s ease;
         &:hover{
-          color: var(--color-primario);
+          color: var(--color-terciario);
         }
       }
     }

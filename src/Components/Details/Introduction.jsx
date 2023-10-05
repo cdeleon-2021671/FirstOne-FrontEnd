@@ -7,6 +7,7 @@ import $ from "jquery";
 
 export const Introduction = ({ product, offer }) => {
   const [viewStore, setViewStore] = useState(false);
+  const [btnText, setBtnText] = useState("Ver más");
 
   const scrolling = () => {
     if (window.innerWidth > 800) {
@@ -24,13 +25,29 @@ export const Introduction = ({ product, offer }) => {
     }
   };
 
-  const showStore = () => {
-    $(".details-content-store div").addClass("isActive");
+  const getStore = () => {
+    $(".details-content-store div").toggleClass("isActive");
   };
 
-  const hiddenStore = () => {
-    $(".details-content-store div").removeClass("isActive");
+  const tooggleDescription = () => {
+    if (btnText == "Ver menos") setBtnText("Ver más");
+    if (btnText == "Ver más") setBtnText("Ver menos");
+    $(".details-content-description").toggleClass("isActive");
   };
+
+  const getDescription = () => {
+    const container = $(".details-content-description");
+    const { scrollHeight, clientHeight } = container[0];
+    if (scrollHeight > clientHeight) {
+      $(".details-content-description").addClass("viewButton");
+    }
+  };
+
+  useEffect(() => {
+    $(".details-content-description").removeClass("isActive");
+    setBtnText("Ver más");
+    getDescription();
+  }, [product]);
 
   useEffect(() => {
     scrolling();
@@ -39,6 +56,7 @@ export const Introduction = ({ product, offer }) => {
       $(window).off("resize");
     };
   }, []);
+
   return (
     <>
       {product && (
@@ -59,9 +77,9 @@ export const Introduction = ({ product, offer }) => {
                   type="text"
                   id="showInfoStore"
                   readOnly
-                  onFocus={showStore}
+                  onFocus={getStore}
                   onBlur={() => {
-                    setTimeout(() => hiddenStore(), 100);
+                    setTimeout(() => getStore(), 100);
                   }}
                 />
                 <label htmlFor="showInfoStore">
@@ -97,6 +115,10 @@ export const Introduction = ({ product, offer }) => {
               </div>
               <p className="details-content-description">
                 {product.description}
+                <button onClick={() => tooggleDescription()}>
+                  {" "}
+                  {btnText}{" "}
+                </button>
               </p>
               <div className="details-content-price">
                 {product.salePrice && (

@@ -4,13 +4,13 @@
   &-title {
     font-size: 1.6em;
     padding: var(--espacio-principal);
-    background: var(--color-secundario);
+    background: var(--color-primario);
     color: var(--color-blanco);
   }
   &-container {
     display: flex;
     align-items: center;
-    background: var(--bg-gris);
+    background: var(--color-terciario);
     position: relative;
     &-content {
       padding: var(--espacio-principal) 0;
@@ -54,7 +54,7 @@
             }
           }
           &-store {
-            color: var(--color-secundario);
+            color: var(--color-primario);
             font-size: 0.9em;
           }
           .price {
@@ -115,7 +115,7 @@
         left: var(--espacio-principal);
       }
       &.inactive {
-        background: var(--bg-gris);
+        background: var(--color-terciario);
         box-shadow: none;
       }
       svg {

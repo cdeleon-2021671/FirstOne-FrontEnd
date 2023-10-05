@@ -5,10 +5,10 @@
   padding-bottom: 0;
   &-content {
     display: flex;
-    border: 1px solid var(--color-secundario);
+    border: 1px solid var(--color-primario);
     label {
       width: 2em;
-      background: var(--color-secundario);
+      background: var(--color-primario);
       color: var(--color-blanco);
       padding: 0.1em;
     }

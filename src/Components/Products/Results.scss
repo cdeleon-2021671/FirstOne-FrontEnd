@@ -11,8 +11,12 @@
     grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
     gap: var(--espacio-principal);
     padding: var(--espacio-principal);
+    @media screen and (min-width: 1500px) {
+      padding: 0;
+      background: #fff;
+    }
     margin-top: var(--espacio-principal);
-    background: var(--bg-gris);
+    background: var(--color-terciario);
     .card {
       box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.5),
         -1px -1px 2px rgba($color: #fff, $alpha: 0.5);
@@ -45,7 +49,7 @@
           }
         }
         &-store {
-          color: var(--color-secundario);
+          color: var(--color-primario);
           font-size: 0.9em;
           transition: all 0.3s ease;
         }
@@ -131,7 +135,7 @@
       grid-template-columns: repeat(4, minmax(13em, 1fr));
       .card{
         &-image{
-          height: 23vw;
+          height: 23.2vw;
         }
       }
     }
@@ -146,7 +150,7 @@
       padding: var(--espacio-secundario);
       .card {
         &-image {
-          height: 23.5vw;
+          height: 23.8vw;
           min-width: 11em;
         }
       }
@@ -160,7 +164,7 @@
       grid-template-columns: repeat(3, minmax(13em, 1fr));
       .card {
         &-image {
-          height: 31.5vw;
+          height: 32.2vw;
           min-width: 13em;
         }
         &-information {
@@ -207,7 +211,8 @@
       grid-template-columns: repeat(2, minmax(12em, 1fr));
       .card {
         &-image {
-          height: 46.3vw;
+          height: 47.85vw;
+          max-height: 100vw;
           min-width: 12em;
         }
         &-information {
@@ -252,13 +257,12 @@
     .results {
       grid-template-columns: repeat(2, minmax(5em, 1fr));
       .card {
-        padding: 0.2em;
         &-image {
-          height: 44vw;
+          height: 47.5vw;
           min-width: 5em;
         }
         &-information {
-          padding: 0;
+          padding: 0.2em;
         }
       }
     }

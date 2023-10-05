@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Helmet } from "react-helmet-async";
 import { Introduction } from "../Components/HomePage/Introduction";
 import { Toolbar } from "../Components/HomePage/Toolbar";
 import { Categories } from "../Components/Categories/Categories";
@@ -48,19 +47,6 @@ export const HomePage = () => {
     <>
       {randomCategories && offers && products && popular ? (
         <div className="padding-container">
-          <Helmet>
-            <title>Tienda.gt - Inicio</title>
-            <meta
-              name="description"
-              content="Tienda guatemalteca en donde puedes buscar productos de alta calidad,
-          productos en oferta, productos destacados de alguna tienda. No te lo pierdas!"
-            />
-            <meta
-              name="keywords"
-              content="Relojes, ofertas, guatemala, accesorios, ropa, mujer, hombre"
-            />
-            <link rel="canonical" href="https://tienda.gt" />
-          </Helmet>
           <Introduction></Introduction>
           <Toolbar></Toolbar>
           <Categories categories={categories}></Categories>

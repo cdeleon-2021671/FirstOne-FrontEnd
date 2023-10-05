@@ -30,7 +30,7 @@
         cursor: pointer;
         border: none;
         outline: none;
-        color: var(--color-secundario);
+        color: var(--color-primario);
         min-width: max-content;
         &:hover {
           color: #008000;
@@ -40,8 +40,6 @@
         position: absolute;
         background: #fff;
         border: 1px solid #808080;
-        box-shadow: 1px 1px 2px var(--color-negro),
-          -1px -1px 2px var(--bg-gris) inset;
         left: 1em;
         padding: 1em;
         z-index: 600;
@@ -58,7 +56,7 @@
           margin-bottom: var(--espacio-secundario);
         }
         a {
-          background: var(--color-secundario);
+          background: var(--color-primario);
           color: var(--color-blanco);
           text-align: center;
           padding: 0.3em 0;
@@ -72,6 +70,33 @@
       max-height: 6em;
       overflow: auto;
       margin: 8px 0;
+      position: relative;
+      transition: all .5s ease;
+      overflow: hidden;
+      &.viewButton{
+        max-height: 7em;
+        height: 7em;
+        button{
+          display: block;
+        }
+      }
+      &.isActive{
+        max-height: max-content;
+        height: max-content;
+        button{
+          position: static;
+        }
+      }
+      button{
+        display: none;
+        position: absolute;
+        bottom: 0;
+        background: var(--color-terciario);
+        width: 100%;
+        height: 1.8em;
+        color: var(--color-texto-terciario);
+        cursor: pointer;
+      }
     }
     &-price {
       font-size: 1.6em;
@@ -110,11 +135,11 @@
       flex-direction: column;
       gap: var(--espacio-secundario);
       div {
-        border: 1px solid var(--bg-gris);
+        border: 1px solid var(--color-terciario);
         display: flex;
         flex-direction: column;
         a {
-          color: var(--color-secundario);
+          color: var(--color-texto-terciario);
           max-width: max-content;
           &:hover {
             color: #008000;
@@ -123,7 +148,7 @@
         label {
           padding: var(--espacio-secundario);
           background: var(--color-terciario);
-          color: var(--bg-blanco);
+          color: var(--color-texto-terciario);
           display: flex;
           align-items: center;
           width: 100%;
@@ -140,23 +165,26 @@
         a {
           display: flex;
           align-items: center;
-          padding: .35em var(--espacio-secundario);
+          padding: 0.35em var(--espacio-secundario);
         }
       }
     }
     .social-links {
-      background: var(--color-terciario);
+      background: var(--color-secundario);
       color: var(--color-blanco);
       display: flex;
-      margin: var(--espacio-secundario) 0;
-      margin-bottom: 0;
-      padding: 0 var(--espacio-secundario);
+      margin: var(--espacio-secundario) 0 0;
+      padding:var(--espacio-secundario);
       align-items: center;
+      gap: 1.5em;
       overflow: auto;
       span {
         font-size: 1.2em;
+        min-width: max-content;
       }
       a {
+        border-left: 1px solid #fff;
+        margin-right: 1em;
         padding: var(--espacio-secundario);
         display: flex;
         align-items: center;
@@ -223,7 +251,7 @@
         label {
           cursor: auto;
           &:hover {
-            color: var(--color-secundario);
+            color: var(--color-primario);
           }
         }
         order: 3;
@@ -309,12 +337,10 @@
           width: 100%;
           border: none;
           &.isActive {
-            border: 1px solid var(--bg-gris);
+            border: 1px solid var(--color-terciario);
             label {
               &.isActive {
                 border: none;
-                background: var(--color-terciario);
-                color: var(--color-blanco);
                 margin-bottom: 0.3em;
               }
             }
@@ -327,14 +353,15 @@
             }
           }
           label {
-            background: var(--bg-blanco);
-            color: var(--bg-negro);
+            background: #fff;
+            color: #000;
             padding: var(--espacio-secundario);
             margin-bottom: 0;
             cursor: pointer;
             position: relative;
             &.isActive {
-              background: var(--bg-gris);
+              background: var(--color-terciario);
+              color: var(--color-texto-terciario);
               border-left: 1px solid #000;
             }
             small {

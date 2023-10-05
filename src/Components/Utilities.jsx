@@ -81,7 +81,8 @@ export const routes = createBrowserRouter([
 
 export const socialLinks = [
   {
-    title: "Compralo",
+    title: "Tienda",
+    color: "transparent",
     element: (
       <svg
         shapeRendering="geometricPrecision"
@@ -100,14 +101,17 @@ export const socialLinks = [
   },
   {
     title: "Whatsapp",
+    color: "#00a884",
     element: <BsWhatsapp />,
   },
   {
     title: "Messenger",
+    color: "#0866ff",
     element: <BsMessenger />,
   },
   {
     title: "Facebook",
+    color: "#0866ff",
     element: (
       <svg
         shapeRendering="geometricPrecision"
@@ -127,6 +131,7 @@ export const socialLinks = [
   },
   {
     title: "Instagram",
+    color: "linear-gradient(45deg, #ff0000, #0000FF)",
     element: (
       <svg
         shapeRendering="geometricPrecision"
@@ -145,6 +150,7 @@ export const socialLinks = [
   },
   {
     title: "Phone",
+    color: "transparent",
     element: (
       <svg
         shapeRendering="geometricPrecision"
@@ -161,6 +167,7 @@ export const socialLinks = [
   },
   {
     title: "TikTok",
+    color: 'transparent',
     element: <BsTiktok />,
   },
 ];

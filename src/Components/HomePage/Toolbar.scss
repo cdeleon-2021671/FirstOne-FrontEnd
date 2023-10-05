@@ -2,20 +2,25 @@
 
 .toolbar {
   padding: var(--espacio-principal);
-  background: var(--color-secundario);
+  background: var(--color-terciario);
   display: flex;
   justify-content: center;
   gap: var(--espacio-principal);
   &-item {
     display: flex;
     align-items: center;
-    color: var(--color-blanco);
     gap: var(--espacio-secundario);
     font-family: var(--tipo-secundario);
     min-width: max-content;
     svg {
       width: 1.2em;
     }
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .toolbar {
+    margin: var(--espacio-principal) var(--espacio-principal) 0;
   }
 }
 
@@ -30,7 +35,7 @@
     &-item {
       gap: 0.3em;
       font-weight: normal;
-      svg{
+      svg {
         width: 1.3em;
       }
     }
@@ -38,15 +43,14 @@
 }
 
 @media screen and (max-width: 500px) {
-    .toolbar {
-      &-item {
-        font-size: 15px;
-        gap: 0.3em;
-        font-weight: normal;
-        svg{
-          width: 1.3em;
-        }
+  .toolbar {
+    &-item {
+      font-size: 15px;
+      gap: 0.3em;
+      font-weight: normal;
+      svg {
+        width: 1.3em;
       }
     }
   }
-  
+}

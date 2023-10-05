@@ -21,8 +21,10 @@ export const Buy = ({ urlProduct, storeId }) => {
     rrss.forEach((item, key) => {
       const icon = socialLinks[key].element;
       const title = socialLinks[key].title;
+      const bg = socialLinks[key].color;
       const object = {
         icon: icon,
+        bg: bg,
         title: title == "Phone" ? item : title,
         link:
           title == "Whatsapp"
@@ -63,14 +65,14 @@ export const Buy = ({ urlProduct, storeId }) => {
 
   return (
     <div className="social-links">
-      <span>Comprar:</span>
+      <span>Compralo en:</span>
       {social &&
-        social.map(({ title, link, icon }, key) => (
+        social.map(({ title, link, icon, bg }, key) => (
           <Link
             key={key}
             to={link}
             target={link == "" ? "" : "_blank"}
-            style={{ cursor: link == "" && "text" }}
+            style={{ cursor: link == "" && "text", background: bg}}
           >
             {icon}
             <label>{title}</label>

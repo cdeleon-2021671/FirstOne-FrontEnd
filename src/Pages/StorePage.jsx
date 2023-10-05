@@ -8,7 +8,6 @@ import { Animation } from "../Components/Animation/Animation";
 import { AuthContext } from "../Index";
 import axios from "axios";
 import { Banner } from "../Components/StorePage/Banner";
-import { Helmet } from "react-helmet-async";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
 
 export const StorePage = () => {
@@ -65,18 +64,9 @@ export const StorePage = () => {
           itemscope
           itemtype="https://schema.org/Store"
         >
-          <Helmet>
-            <title>Tienda.gt - {store.name}</title>
-            <meta
-              name="description"
-              content={`En Tienda.gt contamos con productos de ${store.name} de excelente calidad. ${store.description}`}
-            />
-            <link
-              rel="canonical"
-              href={`https://tienda.gt/${store.name}/${store._id}`}
-            />
-          </Helmet>
-          {store && store.length !== 0 && <Introduction {...store}></Introduction>}
+          {store && store.length !== 0 && (
+            <Introduction {...store}></Introduction>
+          )}
           <Categories
             categories={categories}
             url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}

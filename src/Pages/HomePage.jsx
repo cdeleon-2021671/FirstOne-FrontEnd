@@ -50,8 +50,13 @@ export const HomePage = () => {
         <title>Tienda.gt - Inicio</title>
         <meta
           name="description"
-          content="Tienda guatemalteca en donde puedes buscar productos de alta calidad,
-          productos en oferta y los productos más vistos por nuestros clientes. No te lo pierdas!"
+          content="Descubre nuestra tienda en línea, tu destino para encontrar una amplia gama de productos
+          de alta calidad. Explora nuestra selección cuidadosamente curada que incluye ropa, accesorios,
+          electrónicos y mucho más. Con un enfoque en la calidad y la satisfacción del cliente,
+          nuestra tienda te ofrece una experiencia de compra conveniente y confiable.
+          Encuentra los productos que necesitas y descubre nuestras ofertas especiales mientras
+          exploras nuestro catálogo en constante crecimiento. ¡Bienvenido a tu tienda de confianza para
+          todas tus necesidades de compras en línea. No te lo pierdas!"
         />
         <link rel="canonical" href="https://tienda.gt" />
       </Helmet>

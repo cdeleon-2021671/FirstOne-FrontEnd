@@ -3,12 +3,13 @@ import { Outlet } from "react-router-dom";
 import { Login } from "./Components/Forms/Login";
 import { Header } from "./Components/Header/Header";
 import { Navbar } from "./Components/Navbar/Navbar";
+import { HelmetProvider } from "react-helmet-async";
 import "./Styles.scss";
 
 function App() {
   const [showForm, setShowForm] = useState(false);
   return (
-    <>
+    <HelmetProvider>
       {showForm && <Login setView={setShowForm}></Login>}
       <Header setView={setShowForm}></Header>
       <Navbar></Navbar>
@@ -17,8 +18,7 @@ function App() {
           <Outlet></Outlet>
         </div>
       </div>
-    </>
+    </HelmetProvider>
   );
 }
-
 export default App;

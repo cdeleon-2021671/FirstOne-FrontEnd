@@ -1,15 +1,18 @@
-import axios from "axios";
-import { Carrusel } from "../Components/Products/Carrusel";
-import { Animation } from "../Components/Animation/Animation";
 import React, { useEffect, useState } from "react";
-import { useLocation, useParams, Link } from "react-router-dom";
 import { Introduction } from "../Components/Details/Introduction";
+import { useLocation, useParams, Link } from "react-router-dom";
+import { Animation } from "../Components/Animation/Animation";
+import { Carrusel } from "../Components/Products/Carrusel";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
+import { helmetJsonLdProp } from "react-schemaorg";
+import { Helmet } from "react-helmet-async";
+import { Product } from "schema-dts";
+import axios from "axios";
 
 export const Details = () => {
-  const { productId } = useParams();
+  const { productId, product, tags, price } = useParams();
   const location = useLocation();
-  const [product, setProduct] = useState(null);
+  const [details, setProduct] = useState(null);
   const [offer, setOffer] = useState(null);
   const [similar, setSimilar] = useState(null);
 
@@ -51,17 +54,46 @@ export const Details = () => {
 
   return (
     <>
-      {product && product.length != 0 ? (
+      {details && details.length != 0 ? (
         <>
-          <Introduction product={product} offer={offer}></Introduction>
+          <Helmet
+            script={[
+              helmetJsonLdProp <
+                Product >
+                {
+                  "@context": "https://schema.org",
+                  "@type": "Product",
+                  name: details.name,
+                  image: details.image,
+                  description: details.description,
+                  brand: {
+                    "@type": "Brand",
+                    name: details.storeId.name,
+                    logo: details.storeId.urlLogo,
+                  },
+                  offers: {
+                    "@type": "Offer",
+                    price: details.price,
+                  },
+                },
+            ]}
+          >
+            <title>Tienda.gt - {details.name}</title>
+            <meta name="description" content={details.description} />
+            <link
+              rel="canonical"
+              href={`https://tienda.gt/${product}/${tags}/${price}/${productId}`}
+            />
+          </Helmet>
+          <Introduction product={details} offer={offer}></Introduction>
           <Carrusel
             title={"También te podría interesar"}
             products={similar}
           ></Carrusel>
           <GoToLink
-            title={`Ver tienda ${product.storeId.name}`}
-            url={`/${product.storeId.name.replace(/[ ]+/g, "-")}/${
-              product.storeId._id
+            title={`Ver tienda ${details.storeId.name}`}
+            url={`/${details.storeId.name.replace(/[ ]+/g, "-")}/${
+              details.storeId._id
             }`}
           ></GoToLink>
         </>

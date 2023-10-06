@@ -5,6 +5,7 @@ import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
+import { Helmet } from 'react-helmet-async';
 import { AuthContext } from "../Index";
 import axios from "axios";
 import $ from "jquery";
@@ -15,9 +16,9 @@ export const OutletProducts = () => {
   const { products, offers, mostViewed } = useContext(AuthContext);
   const [boxes, setBoxes] = useState(null);
   const [original, setOriginal] = useState(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [url, setUrl] = useState("");
+  const [title, setTitle] = useState(null);
+  const [description, setDescription] = useState(null);
+  const [url, setUrl] = useState(null);
   const [storeResult, setStoreResult] = useState(null);
 
   const getProductsByCategory = async () => {
@@ -100,7 +101,7 @@ export const OutletProducts = () => {
           " "
         )} que estamos seguros que te encantará. No te lo pierdas!`
       );
-      setUrl(`/${category}`);
+      setUrl(`${category}`);
     } else if (location.pathname == `/${store}/products/${storeId}`) {
       getProductsByStore();
       setDescription(
@@ -109,7 +110,7 @@ export const OutletProducts = () => {
           " "
         )} que estamos seguros que te encantará. No te lo pierdas!`
       );
-      setUrl(`/${store}/products/${storeId}`);
+      setUrl(`${store}/products/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
     } else if (location.pathname == `/${store}/offers/${storeId}`) {
       getOffersByStore();
@@ -120,7 +121,7 @@ export const OutletProducts = () => {
           " "
         )} que estamos seguros que te encantará. No te lo pierdas!`
       );
-      setUrl(`/${store}/offers/${storeId}`);
+      setUrl(`${store}/offers/${storeId}`);
     } else if (location.pathname == "/all-offers-in-store") {
       setBoxes(Array.from(offers));
       setOriginal(Array.from(offers));
@@ -129,7 +130,7 @@ export const OutletProducts = () => {
         `Te mostramos todos nuestros productos en oferta de alta calidad que estamos seguros que 
         te encantará. No te lo pierdas!`
       );
-      setUrl(`/all-offers-in-store`);
+      setUrl(`all-offers-in-store`);
     } else if (location.pathname == "/popular") {
       setBoxes(Array.from(mostViewed));
       setOriginal(Array.from(mostViewed));
@@ -138,7 +139,7 @@ export const OutletProducts = () => {
         `Te mostramos los productos más vistos de alta calidad que estamos seguros que 
         te encantará. No te lo pierdas!`
       );
-      setUrl(`/popular`);
+      setUrl(`popular`);
     } else if (search) {
       if (search == "all") {
         setBoxes(Array.from(products));
@@ -151,23 +152,30 @@ export const OutletProducts = () => {
         `Te mostramos los productos reloacionados con tu busqueda, esperamos 
           que los resultados sean los mas acertados posible. No te lo pierdas!`
       );
-      setUrl(`/gt/products-results/${search}`);
+      setUrl(`gt/products-results/${search}`);
     }
   }, [location]);
 
   return (
     <>
-      {boxes ? (
-        <div className="outlet-products">
-          <StoresList stores={storeResult}></StoresList>
-          <SearchProducts
-            original={original}
-            setOriginal={setBoxes}
-            action={"products"}
-          ></SearchProducts>
-          <Suggestion options={boxes}></Suggestion>
-          <CardProducts products={boxes}></CardProducts>
-        </div>
+      {boxes && title && description && url ? (
+        <>
+          <Helmet>
+            <title>Tienda.gt - {title}</title>
+            <meta name="description" content={description} />
+            <link rel="canonical" href={`https://tienda.gt/${url}`} />
+          </Helmet>
+          <div className="outlet-products">
+            <StoresList stores={storeResult}></StoresList>
+            <SearchProducts
+              original={original}
+              setOriginal={setBoxes}
+              action={"products"}
+            ></SearchProducts>
+            <Suggestion options={boxes}></Suggestion>
+            <CardProducts products={boxes}></CardProducts>
+          </div>
+        </>
       ) : (
         <Animation />
       )}

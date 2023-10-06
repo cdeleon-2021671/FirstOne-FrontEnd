@@ -1,10 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./NotFoundPage.scss";
+import { Helmet } from "react-helmet-async";
 
 export const NotFoundPage = () => {
   const navigate = useNavigate();
   return (
+    <>
+    <Helmet>
+      <title>Tienda.gt - Página no encontrada</title>
+      <meta name="description" content="Lo sentimos! no hemos podido encontrar lo que estás buscando.
+      Regresa a la página anterior para seguir navegando. Bienvenido!" />
+      <link rel="canonical" href="https://tienda.gt" />
+    </Helmet>
     <div className="max-page-container">
       <div className="not-found-page">
         <div>
@@ -15,5 +23,6 @@ export const NotFoundPage = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };

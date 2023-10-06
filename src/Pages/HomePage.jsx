@@ -1,12 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Introduction } from "../Components/HomePage/Introduction";
-import { Toolbar } from "../Components/HomePage/Toolbar";
 import { Categories } from "../Components/Categories/Categories";
-import { Carrusel } from "../Components/Products/Carrusel";
-import { AuthContext } from "../Index";
-import $ from "jquery";
 import { Animation } from "../Components/Animation/Animation";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
+import { Carrusel } from "../Components/Products/Carrusel";
+import { Toolbar } from "../Components/HomePage/Toolbar";
+import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../Index";
+import $ from "jquery";
 
 export const HomePage = () => {
   const { randomCategories, products, offers } = useContext(AuthContext);
@@ -45,6 +46,15 @@ export const HomePage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Tienda.gt - Inicio</title>
+        <meta
+          name="description"
+          content="Tienda guatemalteca en donde puedes buscar productos de alta calidad,
+          productos en oferta y los productos más vistos por nuestros clientes. No te lo pierdas!"
+        />
+        <link rel="canonical" href="https://tienda.gt" />
+      </Helmet>
       {randomCategories && offers && products && popular ? (
         <div className="padding-container">
           <Introduction></Introduction>

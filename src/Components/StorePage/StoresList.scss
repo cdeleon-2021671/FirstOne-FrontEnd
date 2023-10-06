@@ -5,24 +5,10 @@
   display: flex;
   flex-direction: column;
   gap: var(--espacio-principal);
-  @media screen and (max-width: 500px) {
-    padding: var(--espacio-secundario);
-  }
   &-content {
     border: 1px solid var(--color-secundario);
     display: grid;
     grid-template-columns: 18em 1fr;
-    @media screen and (min-width: 1500px) {
-      grid-template-columns: 18em 1fr;
-    }
-    @media screen and (max-width: 1120px) {
-      grid-template-columns: 15em 1fr;
-      justify-content: center;
-    }
-    @media screen and (max-width: 600px) {
-      display: flex;
-      flex-direction: column;
-    }
     img {
       width: 100%;
       height: 100%;
@@ -32,17 +18,89 @@
     .container {
       display: grid;
       grid-template-columns: 23vw minmax(10em, 1fr) minmax(10em, 1fr) 7em;
-      @media screen and (min-width: 1500px) {
-        grid-template-columns: 17em 24.6em 24.6em 7.4em;
-      }
-      @media screen and (max-width: 1000px) {
+      &-description,
+      &-option {
+        padding: var(--espacio-secundario);
         display: flex;
         flex-direction: column;
+        label {
+          font-size: 1.4em;
+          font-weight: 900;
+        }
+        a {
+          color: var(--color-primario);
+          transition: all 0.2s ease;
+          &:hover {
+            color: #008000;
+          }
+        }
+        span {
+          padding: 0.2em 0;
+        }
+      }
+      &-links {
+        display: grid;
+        grid-template-rows: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-flow: column;
+        align-items: center;
+        justify-items: center;
+        direction: rtl;
+        background: var(--color-secundario);
+        a {
+          display: flex;
+          justify-content: center;
+          padding: 0.4em;
+          border-left: 1px solid #fff;
+          svg {
+            width: 1.8em;
+            height: 1.8em;
+            color: var(--color-blanco);
+            transition: all 0.2s ease;
+            &:hover {
+              color: var(--color-terciario);
+            }
+          }
+          label {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 1500px) {
+  .all-stores {
+    &-content {
+      grid-template-columns: 18em 1fr;
+      .container {
+        grid-template-columns: 17em 24.6em 24.6em 7.4em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 1120px) {
+  .all-stores {
+    &-content {
+      grid-template-columns: 15em 1fr;
+      justify-content: center;
+    }
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .all-stores {
+    &-content {
+      .container {
+        display: flex;
+        flex-direction: column;
+        width: calc(100vw - 18em - 2px);
         padding: var(--espacio-principal);
-        .all-stores-content-information,
-        .all-stores-content-options {
+        &-description,
+        &-option {
           padding: 0;
-          h2,
           label {
             font-size: 1.3em;
           }
@@ -50,62 +108,91 @@
             padding: 0.2em 0;
           }
         }
-        .links {
+        &-links {
           display: flex;
-          align-items: center;
+          gap: 1em;
+          padding: 0.5em;
           direction: ltr;
-          height: auto;
-          padding-left: 0;
-          svg {
-            box-sizing: content-box;
-            padding: var(--espacio-secundario);
-            width: 1.3em;
-            height: 1.3em;
+          overflow: auto;
+          a {
+            padding: 0;
+            min-width: max-content;
+            label {
+              display: flex;
+              align-items: center;
+              margin-right: 0.5em;
+              color: var(--color-blanco);
+            }
+            svg {
+              box-sizing: content-box;
+              padding: var(--espacio-secundario);
+              width: 1.3em;
+              height: 1.3em;
+            }
           }
         }
       }
-      @media screen and (max-width: 500px) {
-        padding: var(--espacio-secundario);
-      }
     }
-    &-information,
-    &-options {
-      padding: var(--espacio-secundario);
-      display: flex;
-      flex-direction: column;
-      h2,
-      label {
-        font-size: 1.4em;
-        font-weight: 900;
-      }
-      a {
-        color: var(--color-primario);
-        transition: all .2s ease;
-        &:hover{
-          color: #008000
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .all-stores {
+    &-content {
+      .container {
+        &-description, &-option{
+          span{
+            font-size: .9em;
+          }
+        }
+        &-links {
+          &::-webkit-scrollbar{
+            height: 0;
+          }
+          a {
+            label {
+              display: none;
+            }
+          }
         }
       }
-      span {
-        padding: 0.2em 0;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .all-stores {
+    &-content {
+      display: flex;
+      flex-direction: column;
+      .container{
+        width: calc(100vw - 3em - 2px);
+        &-links{
+          a{
+            label{
+              display: flex;
+            }
+          }
+        }
       }
     }
-    .links {
-      padding: 0 var(--espacio-principal);
-      display: grid;
-      grid-template-rows: repeat(3, 1fr);
-      grid-template-columns: repeat(2, 1fr);
-      grid-auto-flow: column;
-      align-items: center;
-      gap: var(--espacio-secundario);
-      direction: rtl;
-      background: var(--color-secundario);
-      svg {
-        width: 2em;
-        height: 2em;
-        color: var(--color-blanco);
-        transition: all .2s ease;
-        &:hover{
-          color: var(--color-terciario);
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .all-stores {
+    padding: var(--espacio-secundario);
+    &-content {
+      padding: 0;
+      .container {
+        padding: var(--espacio-secundario);
+        width: calc(100vw - 2em - 2px);
+        &-links{
+          a{
+            label{
+              display: none;
+            }
+          }
         }
       }
     }

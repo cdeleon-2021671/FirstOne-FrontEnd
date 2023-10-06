@@ -18,26 +18,31 @@ export const StoresList = ({ stores }) => {
               >
                 <img src={urlLogo} alt={name} />
                 <div className="container">
-                  <div className="all-stores-content-information">
-                    <h2>{name}</h2>
+                  <div className="container-description">
+                    <label>{name}</label>
                     <span>{description}</span>
                     <span style={{ color: "#008000" }}>
                       {products} productos
                     </span>
                   </div>
-                  <div className="all-stores-content-options">
+                  <div className="container-option">
                     <label>Opciones de envio</label>
                     {store.shippingTerms.map((item, key) => {
                       if (item.includes("http") || item.includes("www"))
                         return (
-                          <Link key={key} to={item} onClick={(e)=>e.stopPropagation()} target="_blank">
+                          <Link
+                            key={key}
+                            to={item}
+                            onClick={(e) => e.stopPropagation()}
+                            target="_blank"
+                          >
                             Ver más
                           </Link>
                         );
                       else return <span key={key}>{item}</span>;
                     })}
                   </div>
-                  <div className="all-stores-content-options">
+                  <div className="container-option">
                     <label>Opciones de pago</label>
                     {store.paymentOptions.map((item, key) => (
                       <span key={key}>{item}</span>
@@ -63,7 +68,6 @@ const SocialLinks = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
-    "",
     store.tiktok,
   ];
   const getSocialLinks = () => {
@@ -71,9 +75,11 @@ const SocialLinks = ({ store }) => {
     rrss.forEach((item, key) => {
       const icon = socialLinks[key].element;
       const title = socialLinks[key].title;
+      const color = socialLinks[key].color;
       const object = {
         icon: icon,
         title: title == "Phone" ? item : title,
+        bg: color,
         link:
           title == "Whatsapp"
             ? `https://wa.me/${item}`
@@ -93,16 +99,17 @@ const SocialLinks = ({ store }) => {
   return (
     <>
       {social && (
-        <div className="links" onClick={(e)=>e.preventDefault()}>
-          {social.map(({ title, link, icon }, key) => (
+        <div className="container-links" onClick={(e) => e.preventDefault()}>
+          {social.map(({ title, bg, link, icon }, key) => (
             <Link
               key={key}
-              onClick={(e)=>e.stopPropagation()}
+              onClick={(e) => e.stopPropagation()}
               to={link}
               target={link == "" ? "" : "_blank"}
-              style={{ cursor: link == "" && "text" }}
+              style={{ cursor: link == "" && "text", background: bg }}
             >
               {icon}
+              <label>{title}</label>
             </Link>
           ))}
         </div>

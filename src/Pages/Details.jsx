@@ -50,11 +50,12 @@ export const Details = () => {
 
   useEffect(() => {
     getProductById();
+    window.scrollTo({top: 0})
   }, [location]);
 
   return (
     <>
-      {details && details.length != 0 ? (
+      {details && details.length != 0 && similar ? (
         <>
           <Helmet
             script={[

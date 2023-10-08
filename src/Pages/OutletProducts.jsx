@@ -5,7 +5,7 @@ import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
 import axios from "axios";
 import $ from "jquery";
@@ -37,18 +37,13 @@ export const OutletProducts = () => {
   };
 
   const getProductsByStore = async () => {
-    try {
-      const { data } = await axios.get(
-        `${
-          import.meta.env.VITE_URI_API
-        }/product/get-products-by-store/${storeId}`
-      );
-      const { products } = data;
-      setBoxes(products);
-      setOriginal(products);
-    } catch (err) {
-      console.log(err);
-    }
+    const newPopular = []
+    mostViewed.forEach(element => {
+      const {_id} = element.storeId;
+      if(_id == storeId) newPopular.push(element);
+    });
+    setBoxes(newPopular);
+    setOriginal(newPopular);
   };
 
   const getOffersByStore = async () => {
@@ -93,33 +88,37 @@ export const OutletProducts = () => {
   useEffect(() => {
     window.scrollTo({ top: 0 });
     if (category) {
+      const newCategory = category.replace(/[-]+/g, " ");
       getProductsByCategory();
       setTitle(category.replace(/[-]+/g, " "));
       setDescription(
-        `Te mostramos productos relacionados con ${category.replace(
-          /[-]+/g,
-          " "
-        )} que estamos seguros que te encantará. No te lo pierdas!`
+        `Explora nuestra amplia selección de productos en la categoría${newCategory}. 
+        En ${newCategory}, encontrarás una variedad de artículos de alta calidad, cuidadosamente 
+        seleccionados para satisfacer tus necesidades. Descubre productos excepcionales y opciones 
+        emocionantes en nuestra categoría ${newCategory}. No te lo pierdas!`
       );
       setUrl(`${category}`);
-    } else if (location.pathname == `/${store}/products/${storeId}`) {
+    } else if (location.pathname == `/${store}/popular/${storeId}`) {
+      const newStore = store.replace(/[-]+/g, " ");
       getProductsByStore();
       setDescription(
-        `Te mostramos productos relacionados con ${store.replace(
-          /[-]+/g,
-          " "
-        )} que estamos seguros que te encantará. No te lo pierdas!`
+        `Explora los productos excepcionales de ${newStore}. Ofrecemos una selección cuidadosamente 
+        curada de artículos de alta calidad. Desde los más populares hasta productos que no 
+        creeras que existn, encontrarás productos que se ajustan a la oferta única de nuestra tienda. 
+        Encuentra lo que necesitas en Tienda.gt - ${newStore}. No te lo pierdas!`
       );
-      setUrl(`${store}/products/${storeId}`);
+      setUrl(`${store}/popular/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
     } else if (location.pathname == `/${store}/offers/${storeId}`) {
       getOffersByStore();
       setTitle(`Ofertas ${store.replace(/[-]+/g, " ")}`);
+      const newStore = store.replace(/[-]+/g, " ");
       setDescription(
-        `Te mostramos productos relacionados con ${store.replace(
-          /[-]+/g,
-          " "
-        )} que estamos seguros que te encantará. No te lo pierdas!`
+        `Descubre las emocionantes ofertas en Tienda.gt - ${newStore}. En nuestra tienda, te ofrecemos 
+        descuentos irresistibles en una variedad de productos de alta calidad. 
+        Desde los más populares hasta productos que no creeras que existn, encontrarás oportunidades 
+        de ahorro que no querrás perderte. Aprovecha nuestras ofertas en Tienda.gt - ${newStore} hoy mismo.
+        .No te lo pierdas!`
       );
       setUrl(`${store}/offers/${storeId}`);
     } else if (location.pathname == "/all-offers-in-store") {
@@ -131,7 +130,7 @@ export const OutletProducts = () => {
         te encantará. No te lo pierdas!`
       );
       setUrl(`all-offers-in-store`);
-    } else if (location.pathname == "/popular") {
+    } else if (location.pathname == "/all-popular-in-store") {
       setBoxes(Array.from(mostViewed));
       setOriginal(Array.from(mostViewed));
       setTitle(`Populares`);

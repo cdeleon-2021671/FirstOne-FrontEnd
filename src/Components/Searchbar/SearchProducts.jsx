@@ -11,15 +11,8 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,
       distance: 0,
-      threshold: 0.0,
-      keys: [
-        "name",
-        "description",
-        "tags",
-        "stock",
-        "storeId.name",
-        "storeId.description",
-      ],
+      threshold: 0.5,
+      keys: ["name", "tags", "description"],
     });
     const result = Array.from(fuse.search(value));
     const filters = result.map(({ item }) => item);
@@ -27,15 +20,13 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
       setOriginal(original);
     } else setOriginal(filters);
   };
-
+  
   const searchCategories = (value) => {
-    console.log(original);
     const fuse = new Fuse(original, {
-      minMatch: 0.5,
       ignoreLocation: true,
       distance: 0,
       threshold: 0.5,
-      keys: ["product.name", "tag", "product.tags", "product.storeId.name"],
+      keys: ["product.name", "tag", "product.tags"],
     });
     const result = Array.from(fuse.search(value));
     const filters = result.map(({ item }) => item);
@@ -46,7 +37,8 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
 
   const searchStores = (value) => {
     const fuse = new Fuse(original, {
-      distance: 2,
+      ignoreLocation: true,
+      distance: 0,
       threshold: 0.5,
       keys: ["store.name", "store.description"],
     });

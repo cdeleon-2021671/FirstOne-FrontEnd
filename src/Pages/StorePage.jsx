@@ -8,36 +8,33 @@ import { Banner } from "../Components/StorePage/Banner";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
-import axios from "axios";
 
 export const StorePage = () => {
   const [categories, setCategories] = useState(null);
   const [newOffers, setNewOffers] = useState(null);
-  const { tags, offers } = useContext(AuthContext);
-  const [products, setProducts] = useState(null);
+  const { tags, offers, mostViewed, stores } = useContext(AuthContext);
+  const [popular, setPopular] = useState(null);
   const [store, setStore] = useState(null);
   const { storeId } = useParams();
 
-  const getProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        `${
-          import.meta.env.VITE_URI_API
-        }/product/get-products-by-store/${storeId}`
-      );
-      const { products } = data;
-      const newProducts = Array.from(products);
-      if (products.length > 40) newProducts.length = 40;
-      setProducts(newProducts);
-      setStore(newProducts[0].storeId);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  useEffect(() => {
+    const newStore = [];
+    stores.forEach((element) => {
+      const { store } = element;
+      if (store._id == storeId) newStore.push(store);
+    });
+    setStore(newStore[0]);
+  }, [stores]);
 
   useEffect(() => {
-    getProducts();
-  }, []);
+    const newPopular = [];
+    mostViewed.forEach((element) => {
+      const { _id } = element.storeId;
+      if (storeId == _id) newPopular.push(element);
+    });
+    if (newPopular.length > 40) newPopular.length = 40;
+    setPopular(newPopular);
+  }, [mostViewed]);
 
   useEffect(() => {
     const allOffers = [];
@@ -58,7 +55,12 @@ export const StorePage = () => {
 
   return (
     <>
-      {tags && storeId && store && categories && products && newOffers ? (
+      {tags &&
+      store &&
+      store.length !== 0 &&
+      categories &&
+      popular &&
+      newOffers ? (
         <>
           <Helmet>
             <title>Tienda.gt - {store.name}</title>
@@ -82,22 +84,20 @@ export const StorePage = () => {
             itemscope
             itemtype="https://schema.org/Store"
           >
-            {store && store.length !== 0 && (
-              <Introduction {...store}></Introduction>
-            )}
+            <Introduction {...store}></Introduction>
             <Categories
               categories={categories}
               url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}
             ></Categories>
-            <Carrusel products={newOffers} title={"Destacados"}></Carrusel>
+            <Carrusel products={popular} title={"Destacados"}></Carrusel>
             <GoToLink></GoToLink>
             <Carrusel products={newOffers} title={"Ofertas"}></Carrusel>
             <GoToLink
               url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}
             ></GoToLink>
-            <Carrusel products={products} title={"Populares"}></Carrusel>
+            <Carrusel products={popular} title={"Populares"}></Carrusel>
             <GoToLink
-              url={`/${store.name.replace(/[ ]+/g, "-")}/products/${storeId}`}
+              url={`/${store.name.replace(/[ ]+/g, "-")}/popular/${storeId}`}
             ></GoToLink>
             <Banner {...store}></Banner>
           </div>

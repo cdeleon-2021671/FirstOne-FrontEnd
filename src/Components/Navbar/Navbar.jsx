@@ -120,7 +120,7 @@ const menu = [
         />
       </svg>
     ),
-    url: "/popular",
+    url: "/all-popular-in-store",
   },
   {
     id: v4(),

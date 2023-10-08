@@ -37,7 +37,7 @@ export const routes = createBrowserRouter([
       },
       // Todas las mas vistos | Funciona
       {
-        path: "popular",
+        path: "all-popular-in-store",
         element: <OutletProducts />,
       },
       // Todas las ofertas | Funciona
@@ -62,7 +62,7 @@ export const routes = createBrowserRouter([
       },
       // Todos los productos de una tienda | Funciona
       {
-        path: ":store/products/:storeId",
+        path: ":store/popular/:storeId",
         element: <OutletProducts />,
       },
       // Resultados de busqueda | Funciona
@@ -131,7 +131,7 @@ export const socialLinks = [
   },
   {
     title: "Instagram",
-    color: "linear-gradient(45deg, #ff0000, #0000FF)",
+    color: `radial-gradient(circle at 33% 100%, #fed373 4%, #f15245 30%, #d92e7f 62%, #9b36b7 85%, #515ecf)`,
     element: (
       <svg
         shapeRendering="geometricPrecision"
@@ -167,7 +167,7 @@ export const socialLinks = [
   },
   {
     title: "TikTok",
-    color: 'transparent',
+    color: "transparent",
     element: <BsTiktok />,
   },
 ];

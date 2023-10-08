@@ -11,7 +11,6 @@ export const Index = () => {
   const [offers, setOffers] = useState(null);
   const [products, setProducts] = useState(null);
   const [autoComplete, setAutoComplete] = useState(null);
-  const [randomCategories, setRandomCategories] = useState([]);
   const [mostViewed, setMostViewed] = useState(null);
 
   const getStores = async () => {
@@ -32,16 +31,7 @@ export const Index = () => {
         `${import.meta.env.VITE_URI_API}/product/get-products-of-tags`
       );
       const { result } = data;
-      const newCategories = [];
-      while (true) {
-        if (newCategories.length == result.length) break;
-        const random = Math.floor(Math.random() * result.length);
-        const product = result[random];
-        if (newCategories.includes(product) == false)
-          newCategories.push(result[random]);
-      }
       setTags(result);
-      setRandomCategories(newCategories);
     } catch (err) {
       console.log(err);
     }
@@ -115,7 +105,6 @@ export const Index = () => {
             products,
             socialLinks,
             autoComplete,
-            randomCategories,
             mostViewed
           }}
         >

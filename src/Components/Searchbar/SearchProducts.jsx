@@ -10,9 +10,10 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   const searchProducts = (value) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,
+      location: 0,
       distance: 0,
       threshold: 0.5,
-      keys: ["name", "tags", "description"],
+      keys: ["name", "tags"],
     });
     const result = Array.from(fuse.search(value));
     const filters = result.map(({ item }) => item);
@@ -20,7 +21,7 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
       setOriginal(original);
     } else setOriginal(filters);
   };
-  
+
   const searchCategories = (value) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,

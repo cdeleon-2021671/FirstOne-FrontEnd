@@ -37,10 +37,10 @@ export const OutletProducts = () => {
   };
 
   const getProductsByStore = async () => {
-    const newPopular = []
-    mostViewed.forEach(element => {
-      const {_id} = element.storeId;
-      if(_id == storeId) newPopular.push(element);
+    const newPopular = [];
+    mostViewed.forEach((element) => {
+      const { _id } = element.storeId;
+      if (_id == storeId) newPopular.push(element);
     });
     setBoxes(newPopular);
     setOriginal(newPopular);
@@ -210,7 +210,7 @@ const CardProducts = ({ products }) => {
               >
                 <img src={item.image} alt={item.name} className="card-image" />
                 <div className="card-information">
-                  <div className="card-information-product">
+                  <div className="card-information-product" title={item.name}>
                     <h3>{item.name}</h3>
                     <span>...</span>
                   </div>

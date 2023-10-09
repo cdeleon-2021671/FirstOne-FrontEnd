@@ -65,7 +65,7 @@ export const Searchbar = () => {
   const searchAutoComplete = (value) => {
     const fuse = new Fuse(autoComplete, {
       ignoreLocation: true,
-      distance: 2,
+      distance: 0,
       threshold: 0.6,
     });
     const result = Array.from(fuse.search(value));

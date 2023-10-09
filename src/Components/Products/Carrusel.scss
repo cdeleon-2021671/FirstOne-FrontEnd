@@ -47,8 +47,7 @@
               background: #fff;
               padding: 0 0.4em 0 0;
             }
-            pointer-events: none;
-            overflow: auto;
+            overflow: hidden;
             &::-webkit-scrollbar {
               height: 0;
             }

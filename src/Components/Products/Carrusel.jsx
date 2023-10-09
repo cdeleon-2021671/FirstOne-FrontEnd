@@ -91,7 +91,7 @@ export const Carrusel = ({ products, title }) => {
                       className="card-image"
                     />
                     <div className="card-information">
-                      <div className="card-information-product">
+                      <div className="card-information-product" title={item.name}>
                         <h3>{item.name}</h3>
                         <span>...</span>
                       </div>

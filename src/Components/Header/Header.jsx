@@ -3,21 +3,21 @@ import { Searchbar } from "../Searchbar/Searchbar";
 import { Link } from "react-router-dom";
 import "./Header.scss";
 
-export const Header = ({ setView }) => {
+export const Header = () => {
   return (
     <div className="header">
       <h1 className="header-title">
         <Link title="Página Principal">Tienda.gt</Link>
       </h1>
       <Searchbar></Searchbar>
-      <button
+      <Link
         className="header-identify"
         title="Iniciar sesión"
-        onClick={() => setView(true)}
+        to={'/login'}
       >
         <Icon></Icon>
         Únete
-      </button>
+      </Link>
       <label className="header-gt">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"

@@ -25,6 +25,7 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   const searchCategories = (value) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,
+      location: 0,
       distance: 0,
       threshold: 0.5,
       keys: ["product.name", "tag", "product.tags"],
@@ -39,8 +40,9 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   const searchStores = (value) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,
+      location: 0,
       distance: 0,
-      threshold: 0.5,
+      threshold: 0.3,
       keys: ["store.name", "store.description"],
     });
     const result = Array.from(fuse.search(value));

@@ -9,6 +9,8 @@ import { Details } from "../Pages/Details";
 import App from "../App";
 import { BsWhatsapp, BsTiktok, BsMessenger } from "react-icons/bs";
 import { AllStores } from "../Pages/AllStores";
+import { Login } from "./Forms/Login";
+import { Register } from "./Forms/Register";
 
 export const routes = createBrowserRouter([
   {
@@ -19,6 +21,14 @@ export const routes = createBrowserRouter([
       {
         path: "",
         element: <HomePage />,
+      },
+      {
+        path: "login",
+        element: <Login></Login>,
+      },
+      {
+        path: "register",
+        element: <Register></Register>,
       },
       // Detalles de una tienda | Funciona
       {

@@ -7,21 +7,6 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   const [search, setSearch] = useState("");
   const location = useLocation();
 
-  const searchProducts = (value) => {
-    const fuse = new Fuse(original, {
-      ignoreLocation: true,
-      location: 0,
-      distance: 0,
-      threshold: 0.5,
-      keys: ["name", "tags"],
-    });
-    const result = Array.from(fuse.search(value));
-    const filters = result.map(({ item }) => item);
-    if (filters.length == 0) {
-      setOriginal(original);
-    } else setOriginal(filters);
-  };
-
   const searchCategories = (value) => {
     const fuse = new Fuse(original, {
       ignoreLocation: true,
@@ -55,9 +40,7 @@ export const SearchProducts = ({ original, setOriginal, action }) => {
   const handleChange = (e) => {
     const { value } = e.target;
     setSearch(value);
-    if (action == "products") {
-      searchProducts(value);
-    } else if (action == "categories") {
+    if (action == "categories") {
       searchCategories(value);
     } else if (action == "stores") {
       searchStores(value);

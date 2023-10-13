@@ -19,17 +19,16 @@ export const Suggestion = ({ options }) => {
           allTags.push(tag);
       });
     });
-    allTags = Array.from(new Set(allTags));
-    if (allTags.length > 3) {
-      const result = [];
-      while (result.length < 3) {
-        const number = Math.floor(Math.random() * allTags.length);
-        if (result.includes(allTags[number]) == false) {
-          result.push(allTags[number]);
-        }
+    const frequencyMap = {};
+    for (const item of allTags) {
+      if (frequencyMap[item]) {
+        frequencyMap[item]++;
+      } else {
+        frequencyMap[item] = 1;
       }
-      setSuggestions(result);
-    } else setSuggestions(allTags);
+    }
+    const sortedItems = Object.keys(frequencyMap).sort((a, b) => frequencyMap[b] - frequencyMap[a]);
+    setSuggestions(sortedItems.splice(0, 3));
   };
 
   useEffect(() => {

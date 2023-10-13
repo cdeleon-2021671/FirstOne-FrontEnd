@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { SearchProducts } from "../Components/Searchbar/SearchProducts";
 import { Suggestion } from "../Components/Products/Suggestion";
 import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
@@ -166,11 +165,6 @@ export const OutletProducts = () => {
           </Helmet>
           <div className="outlet-products">
             <StoresList stores={storeResult}></StoresList>
-            <SearchProducts
-              original={original}
-              setOriginal={setBoxes}
-              action={"products"}
-            ></SearchProducts>
             <Suggestion options={boxes}></Suggestion>
             <CardProducts products={boxes}></CardProducts>
           </div>

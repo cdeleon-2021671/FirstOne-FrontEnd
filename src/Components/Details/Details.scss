@@ -182,7 +182,7 @@
         font-size: 1.2em;
         min-width: max-content;
       }
-      a {
+      .item {
         border-left: 1px solid #fff;
         padding: var(--espacio-secundario);
         display: flex;
@@ -191,12 +191,6 @@
         font-family: var(--tipo-secundario);
         min-width: max-content;
         transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        &:hover {
-          background: rgba($color: #fff, $alpha: 0.2);
-        }
-        label {
-          pointer-events: none;
-        }
         svg {
           width: 1.2em;
           height: 1.2em;
@@ -428,9 +422,6 @@
       }
       .social-links {
         a {
-          label {
-            display: none;
-          }
           padding: var(--espacio-secundario);
           svg {
             height: 100%;

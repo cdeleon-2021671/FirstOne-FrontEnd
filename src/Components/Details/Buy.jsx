@@ -67,17 +67,27 @@ export const Buy = ({ urlProduct, storeId }) => {
     <div className="social-links">
       <span>Compralo en:</span>
       {social &&
-        social.map(({ title, link, icon, bg }, key) => (
-          <Link
-            key={key}
-            to={link}
-            target={link == "" ? "" : "_blank"}
-            style={{ cursor: link == "" && "text", background: bg}}
-          >
-            {icon}
-            <label>{title}</label>
-          </Link>
-        ))}
+        social.map(({ title, link, icon, bg }, key) => {
+          if (title.includes("+")) {
+            return (
+              <label className="item" key={key} style={{ cursor: "text" }}>
+                {icon}
+                {title}
+              </label>
+            );
+          }
+          return (
+            <Link
+              key={key}
+              to={link}
+              target={link == "" ? "" : "_blank"}
+              className="item"
+              style={{ background: bg }}
+            >
+              {icon}
+            </Link>
+          );
+        })}
     </div>
   );
 };

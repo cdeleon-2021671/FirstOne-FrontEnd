@@ -8,7 +8,7 @@
     height: 0;
   }
   gap: var(--espacio-secundario);
-  padding: var(--espacio-principal) var(--espacio-principal) 0;
+  padding: var(--espacio-principal);
   label,
   a {
     min-width: max-content;
@@ -22,7 +22,6 @@
       font-size: 0.95em;
     }
   }
-  padding-bottom: 1px;
   a {
     padding: 0.3em 1.2em;
     background: var(--color-primario);
@@ -37,6 +36,6 @@
 
 @media screen and (max-width: 500px) {
   .suggestion {
-    padding: var(--espacio-secundario) var(--espacio-secundario) 0;
+    padding: var(--espacio-secundario);
   }
 }

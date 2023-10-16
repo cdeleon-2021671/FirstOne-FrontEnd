@@ -9,8 +9,8 @@ import { Details } from "../Pages/Details";
 import App from "../App";
 import { BsWhatsapp, BsTiktok, BsMessenger } from "react-icons/bs";
 import { AllStores } from "../Pages/AllStores";
-import { Login } from "./Forms/Login";
 import { Register } from "./Forms/Register";
+import { RegisterStore } from "../Pages/RegisterStore";
 
 export const routes = createBrowserRouter([
   {
@@ -23,8 +23,8 @@ export const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "login",
-        element: <Login></Login>,
+        path: "join/trade-online/data",
+        element: <RegisterStore></RegisterStore>,
       },
       {
         path: "register",

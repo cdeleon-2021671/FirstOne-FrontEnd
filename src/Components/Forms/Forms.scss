@@ -4,8 +4,26 @@
   display: none;
 }
 
+#login {
+  position: fixed;
+  align-items: center;
+  z-index: 700;
+  background: #fff;
+  min-height: 100vh;
+  .container-title {
+    position: relative;
+    button {
+      position: absolute;
+      right: 0;
+      top: 0;
+      font-size: 0.9em;
+      cursor: pointer;
+      color: var(--color-secundario);
+    }
+  }
+}
+
 .form {
-  height: 100vh;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -14,7 +32,7 @@
 
 .container {
   padding: var(--espacio-principal) 0;
-  transition: all .3s ease;
+  transition: all 0.3s ease;
   &-btn {
     background-color: var(--color-secundario);
     color: var(--color-blanco);
@@ -34,14 +52,17 @@
     border: 1px solid #d8d8d8;
     padding: 1.5em;
     margin-top: var(--espacio-secundario);
-    transition: all .3s ease;
+    transition: all 0.3s ease;
+    .passwordIncorrect{
+      color: #ff0000;
+    }
     &-title {
       font-size: 1.8em;
       font-family: var(--tipo-texto);
     }
     &-data {
       margin-top: var(--espacio-principal);
-      transition: all .3s ease;
+      transition: all 0.3s ease;
       label {
         font-size: 0.9em;
       }
@@ -53,7 +74,7 @@
         color: var(--color-texto-terciario);
         margin-top: 0.2em;
         padding: 0.4em 0.5em;
-        transition: all .3s ease;
+        transition: all 0.3s ease;
       }
     }
     &-option {

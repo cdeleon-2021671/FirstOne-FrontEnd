@@ -1,0 +1,28 @@
+@import '../../Styles.scss';
+
+.register-form{
+    .form{
+        gap: 1em;
+        .container{
+            .sendCode{
+                color: #008000;
+            }
+            .passwordIncorrect{
+                color: #ff0000;
+            }
+            &.one{
+                width: 25em;
+            }
+            &-form{
+                &-data{
+                    &.one{
+                        margin: 0;
+                    }
+                    input{
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

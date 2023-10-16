@@ -1,0 +1,42 @@
+@import "../../Styles.scss";
+
+.register-store {
+  background: var(--color-primario);
+  display: flex;
+  justify-content: space-between;
+  padding: 1em 2em;
+  &-title {
+    font-size: 2em;
+    font-weight: 900;
+    color: var(--color-blanco);
+  }
+  .content {
+    display: flex;
+    align-items: center;
+    gap: 3em;
+    font-size: 1.5em;
+    .isActive {
+      span {
+        color: #fff;
+      }
+      .number {
+        color: var(--color-primario);
+        padding: 0 0.3em;
+        background: #fff;
+        border-radius: 100%;
+      }
+    }
+    &-option {
+      span {
+        font-size: 0.9em;
+        color: #c0c0c0;
+      }
+      .number {
+        color: var(--color-primario);
+        padding: 0 0.3em;
+        background: #c0c0c0;
+        border-radius: 100%;
+      }
+    }
+  }
+}

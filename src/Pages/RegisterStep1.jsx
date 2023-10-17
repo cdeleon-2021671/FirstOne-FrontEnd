@@ -4,7 +4,7 @@ import { Header } from "../Components/Join/Header";
 import { Helmet } from "react-helmet-async";
 import { Form } from "../Components/Join/Form";
 
-export const RegisterStore = () => {
+export const RegisterStep1 = () => {
   useEffect(() => {
     $(".header").addClass("disable");
     $(".menu").addClass("disable");
@@ -17,15 +17,15 @@ export const RegisterStore = () => {
   return (
     <>
       <Helmet>
-        <title>Tienda.gt - Afiliarse</title>
+        <title>Tienda.gt - Afiliarse Paso 1</title>
         <meta
           name="description"
           content="Aqui puedes unirte a tienda.gt para que podamos
         promocionar tus productos. No te lo pierdas!"
         />
-        <link rel="canonical" href="https://tienda.gt/join/trade-online/data" />
+        <link rel="canonical" href="https://tienda.gt/join/trade-online/step1" />
       </Helmet>
-      <Header></Header>
+      <Header one="isActive"></Header>
       <Form></Form>
     </>
   );

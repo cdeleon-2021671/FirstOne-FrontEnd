@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import "./Form.scss";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Form.scss";
 
 export const Form = () => {
+  const navigate = useNavigate();
   const [sendCode, setSendCode] = useState(false);
   const [isDiferent, setIsDiferent] = useState(false);
   const [message, setMessage] = useState("");
@@ -13,6 +15,7 @@ export const Form = () => {
     email: "",
     password: "",
     confirm: "",
+    rol: "BUSINESSMAN",
   });
 
   const handleChange = (e) => {
@@ -50,7 +53,6 @@ export const Form = () => {
           `${import.meta.env.VITE_URI_API}/user/code`,
           { form, newCode }
         );
-
         new Notify({
           status: "success",
           title: "Verificación",
@@ -69,6 +71,45 @@ export const Form = () => {
       }
     } catch (err) {
       console.log(err);
+      setMessage(`${err.response.data.message}`);
+    }
+  };
+
+  const createAccount = async () => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/user/ecommerce-account`,
+        form
+      );
+      navigate("/join/trade-online/step2");
+      localStorage.setItem("register", data.register);
+      new Notify({
+        status: "success",
+        title: "Excelente!",
+        text: "Cuenta creada satisfactoriamente",
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+    } catch (err) {
+      new Notify({
+        status: "success",
+        title: "Lo siento!",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
     }
   };
 
@@ -83,21 +124,9 @@ export const Form = () => {
           code: code,
           token: token,
         });
-        new Notify({
-          status: "success",
-          title: "Excelente!",
-          text: "EL código es correcto",
-          effect: "fade",
-          speed: 300,
-          showIcon: true,
-          showCloseButton: true,
-          autoclose: true,
-          autotimeout: 3000,
-          type: 1,
-          position: "right top",
-        });
         localStorage.clear();
         setInvalidCode(false);
+        createAccount();
       }
     } catch (err) {
       console.log(err);

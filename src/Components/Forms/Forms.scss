@@ -56,6 +56,11 @@
     .passwordIncorrect{
       color: #ff0000;
     }
+    .content{
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      column-gap: var(--espacio-principal);
+    }
     &-title {
       font-size: 1.8em;
       font-family: var(--tipo-texto);
@@ -63,6 +68,10 @@
     &-data {
       margin-top: var(--espacio-principal);
       transition: all 0.3s ease;
+      .required{
+        right: 0;
+        color: red;
+      }
       label {
         font-size: 0.9em;
       }
@@ -123,12 +132,25 @@
   }
 }
 
+@media screen and (max-width: 630px) {
+  .container {
+    &-form {
+      .content{
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 450px) {
   .container {
     padding: var(--espacio-secundario) 0;
     &-form {
       border: 1px solid #d8d8d8;
       padding: 1em;
+      .content{
+        grid-template-columns: repeat(1, 1fr);
+      }
       &-data {
         margin-top: var(--espacio-secundario);
         input {

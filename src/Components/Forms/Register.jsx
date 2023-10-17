@@ -56,7 +56,7 @@ export const Register = () => {
             </div>
             <Link
               className="container-form-option"
-              to={"/join/trade-online/data"}
+              to={"/join/trade-online/step1"}
             >
               ¿Cuenta para tu tienda?
             </Link>

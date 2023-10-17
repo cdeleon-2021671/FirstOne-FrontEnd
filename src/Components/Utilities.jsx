@@ -10,9 +10,10 @@ import App from "../App";
 import { BsWhatsapp, BsTiktok, BsMessenger } from "react-icons/bs";
 import { AllStores } from "../Pages/AllStores";
 import { Register } from "./Forms/Register";
-import { RegisterStore } from "../Pages/RegisterStore";
+import { RegisterStep1 } from "../Pages/RegisterStep1";
 import { Profile } from "../Pages/Profile";
 import { Info } from "./Profile/Info";
+import { RegisterStep2 } from "../Pages/RegisterStep2";
 
 export const routes = createBrowserRouter([
   {
@@ -25,8 +26,12 @@ export const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "join/trade-online/data",
-        element: <RegisterStore></RegisterStore>,
+        path: "join/trade-online/step1",
+        element: <RegisterStep1></RegisterStep1>,
+      },
+      {
+        path: "join/trade-online/step2",
+        element: <RegisterStep2></RegisterStep2>,
       },
       {
         path: "register",

@@ -35,6 +35,7 @@
 
 @media screen and (min-width: 1500px) {
   .categories {
+    padding: var(--espacio-principal) 0;
     &-item {
       img {
         max-height: 18em;

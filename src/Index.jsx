@@ -6,12 +6,46 @@ import { Animation } from "./Components/Animation/Animation";
 
 export const AuthContext = createContext();
 export const Index = () => {
+  const [isLogged, setIsLogged] = useState(false);
+  const [user, setUser] = useState({});
   const [stores, setStores] = useState(null);
   const [tags, setTags] = useState(null);
   const [offers, setOffers] = useState(null);
   const [products, setProducts] = useState(null);
   const [autoComplete, setAutoComplete] = useState(null);
   const [mostViewed, setMostViewed] = useState(null);
+
+  const getInfo = async (token) => {
+    try {
+      const headers = {
+        "content-types": "aplication/json",
+        Authorization: token,
+      };
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/user/info`,
+        { headers: headers }
+      );
+      setUser({
+        sub: data.user.sub,
+        name: data.user.name,
+        email: data.user.email,
+        stores: data.user.stores,
+        rol: data.user.rol,
+        state: data.user.state,
+      });
+      setIsLogged(true);
+    } catch (err) {
+      console.log(err);
+      localStorage.clear();
+    }
+  };
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      getInfo(token);
+    }
+  }, [isLogged]);
 
   const getStores = async () => {
     try {
@@ -60,7 +94,7 @@ export const Index = () => {
       console.log(err);
     }
   };
-  
+
   const getMostViewed = async () => {
     try {
       const { data } = await axios.get(
@@ -91,7 +125,7 @@ export const Index = () => {
     getOffers();
     getProducts();
     getAutoComplete();
-    getMostViewed()
+    getMostViewed();
   }, []);
 
   return (
@@ -105,7 +139,11 @@ export const Index = () => {
             products,
             socialLinks,
             autoComplete,
-            mostViewed
+            mostViewed,
+            isLogged,
+            setIsLogged,
+            user,
+            setUser,
           }}
         >
           <RouterProvider router={routes} />

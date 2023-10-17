@@ -10,6 +10,7 @@ export const Register = () => {
   useEffect(() => {
     $(".header").addClass("disable");
     $(".menu").addClass("disable");
+    localStorage.clear();
     return () => {
       $(".header").removeClass("disable");
       $(".menu").removeClass("disable");

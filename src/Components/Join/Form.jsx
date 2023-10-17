@@ -79,11 +79,10 @@ export const Form = () => {
       if (code != myCode) setInvalidCode(true);
       else {
         const token = localStorage.getItem("codeExpired");
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_URI_API}/user/validate`,
-          { code: code, token: token }
-        );
-        localStorage.setItem("codeExpired", data.token);
+        await axios.post(`${import.meta.env.VITE_URI_API}/user/validate`, {
+          code: code,
+          token: token,
+        });
         new Notify({
           status: "success",
           title: "Excelente!",
@@ -97,6 +96,7 @@ export const Form = () => {
           type: 1,
           position: "right top",
         });
+        localStorage.clear();
         setInvalidCode(false);
       }
     } catch (err) {

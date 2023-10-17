@@ -20,6 +20,9 @@
   .introduction {
     padding: var(--espacio-principal);
     padding-bottom: 0;
+    @media screen and (min-width: 1550px) {
+      padding: var(--espacio-secundario) 0 0;
+    }
     @media screen and (max-width: 500px) {
       padding: var(--espacio-secundario);
       padding-bottom: 0;

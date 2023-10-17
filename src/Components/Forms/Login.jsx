@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
@@ -7,8 +7,10 @@ import axios from "axios";
 import "./Forms.scss";
 import Notify from "simple-notify";
 import "simple-notify/dist/simple-notify.min.css";
+import { AuthContext } from "../../Index";
 
 export const Login = ({ setView }) => {
+  const { setUser, setIsLogged } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [invalid, setInvalid] = useState(false);
   const [form, setForm] = useState({
@@ -47,7 +49,18 @@ export const Login = ({ setView }) => {
           type: 1,
           position: "right top",
         });
-        // setView(false);
+        const { user } = data;
+        localStorage.setItem("token", data.token);
+        setUser({
+          sub: user._id,
+          name: user.name,
+          email: user.email,
+          stores: user.stores,
+          rol: user.rol,
+          state: user.state,
+        });
+        setIsLogged(true);
+        setView(false);
       }
     } catch (err) {
       console.log(err);

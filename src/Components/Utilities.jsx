@@ -11,6 +11,8 @@ import { BsWhatsapp, BsTiktok, BsMessenger } from "react-icons/bs";
 import { AllStores } from "../Pages/AllStores";
 import { Register } from "./Forms/Register";
 import { RegisterStore } from "../Pages/RegisterStore";
+import { Profile } from "../Pages/Profile";
+import { Info } from "./Profile/Info";
 
 export const routes = createBrowserRouter([
   {
@@ -29,6 +31,16 @@ export const routes = createBrowserRouter([
       {
         path: "register",
         element: <Register></Register>,
+      },
+      {
+        path: "profile",
+        element: <Profile></Profile>,
+        children: [
+          {
+            path: 'info/:user/:userId',
+            element: <Info></Info>
+          }
+        ]
       },
       // Detalles de una tienda | Funciona
       {

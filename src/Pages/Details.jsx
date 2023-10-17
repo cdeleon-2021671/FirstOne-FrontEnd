@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Introduction } from "../Components/Details/Introduction";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { Animation } from "../Components/Animation/Animation";
@@ -8,13 +8,35 @@ import { helmetJsonLdProp } from "react-schemaorg";
 import { Helmet } from "react-helmet-async";
 import { Product } from "schema-dts";
 import axios from "axios";
+import { AuthContext } from "../Index";
 
 export const Details = () => {
+  const { isLogged, user } = useContext(AuthContext);
   const { productId, product, tags, price } = useParams();
   const location = useLocation();
   const [details, setProduct] = useState(null);
   const [offer, setOffer] = useState(null);
   const [similar, setSimilar] = useState(null);
+
+  const addView = async () => {
+    try {
+      if (details) {
+        if (isLogged == false || (isLogged == true && user.rol == "CLIENT")) {
+          const { data } = await axios.post(
+            `${import.meta.env.VITE_URI_API}/conversion/add-view`,
+            { product: details }
+          );
+          console.log(data);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    addView();
+  }, [details]);
 
   const getProductById = async () => {
     try {
@@ -50,7 +72,7 @@ export const Details = () => {
 
   useEffect(() => {
     getProductById();
-    window.scrollTo({top: 0})
+    window.scrollTo({ top: 0 });
   }, [location]);
 
   return (

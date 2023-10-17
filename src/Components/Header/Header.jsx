@@ -1,23 +1,35 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { Searchbar } from "../Searchbar/Searchbar";
+import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
 import "./Header.scss";
 
 export const Header = ({ setView }) => {
+  const { isLogged, user } = useContext(AuthContext);
+  
   return (
     <div className="header">
       <h1 className="header-title">
         <Link title="Página Principal">Tienda.gt</Link>
       </h1>
       <Searchbar></Searchbar>
-      <button
-        className="header-identify"
-        title="Iniciar sesión"
-        onClick={() => setView(true)}
-      >
-        <Icon></Icon>
-        Únete
-      </button>
+      {isLogged ? (
+        <Link
+          to={`/profile/info/${user.name.replace(/[ ]+/g, "-")}/${user.sub}`}
+          className="header-identify"
+        >
+          <Icon></Icon>Perfil
+        </Link>
+      ) : (
+        <button
+          className="header-identify"
+          title="Iniciar sesión"
+          onClick={() => setView(true)}
+        >
+          <Icon></Icon>
+          Únete
+        </button>
+      )}
       <label className="header-gt">
         <img
           src="https://upload.wikimedia.org/wikipedia/commons/e/ec/Flag_of_Guatemala.svg"

@@ -115,7 +115,7 @@ export const Form = () => {
               Registrar cuenta de empresa
             </span>
             <div className="container-form-data">
-              <label htmlFor="name">Nombre completo</label>
+              <label htmlFor="name">Persona encargada</label>
               <input
                 type="text"
                 id="name"

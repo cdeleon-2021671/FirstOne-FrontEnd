@@ -33,6 +33,18 @@
 .container {
   padding: var(--espacio-principal) 0;
   transition: all 0.3s ease;
+  &.step2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0 var(--espacio-principal);
+    gap: var(--espacio-principal);
+    width: 100%;
+    .container-form {
+      flex: 1;
+      min-width: max-content;
+    }
+  }
   &-btn {
     background-color: var(--color-secundario);
     color: var(--color-blanco);
@@ -53,10 +65,10 @@
     padding: 1.5em;
     margin-top: var(--espacio-secundario);
     transition: all 0.3s ease;
-    .passwordIncorrect{
+    .passwordIncorrect {
       color: #ff0000;
     }
-    .content{
+    .content {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       column-gap: var(--espacio-principal);
@@ -68,7 +80,7 @@
     &-data {
       margin-top: var(--espacio-principal);
       transition: all 0.3s ease;
-      .required{
+      .required {
         right: 0;
         color: red;
       }
@@ -132,23 +144,38 @@
   }
 }
 
+@media screen and (max-width: 965px) {
+  .container {
+    &.step2 {
+      padding: 0 var(--espacio-secundario);
+      .container-form {
+        flex: 1;
+        min-width: 100%;
+      }
+    }
+  }
+}
+
 @media screen and (max-width: 630px) {
   .container {
     &-form {
-      .content{
+      .content {
         grid-template-columns: repeat(2, 1fr);
       }
     }
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   .container {
-    padding: var(--espacio-secundario) 0;
+    padding: var(--espacio-secundario);
+    &.newForm {
+      width: 100%;
+    }
     &-form {
       border: 1px solid #d8d8d8;
       padding: 1em;
-      .content{
+      .content {
         grid-template-columns: repeat(1, 1fr);
       }
       &-data {

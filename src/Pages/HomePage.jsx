@@ -12,8 +12,12 @@ import $ from "jquery";
 export const HomePage = () => {
   const { tags, mostViewed, offers } = useContext(AuthContext);
   const [categories, setCategories] = useState(null);
-  const [popular, setPopular] = useState(Array.from(mostViewed));
-  const [newOffers, setNewOffers] = useState(Array.from(offers));
+  const [popular, setPopular] = useState(
+    mostViewed ? Array.from(mostViewed) : null
+  );
+  const [newOffers, setNewOffers] = useState(
+    offers ? Array.from(offers) : null
+  );
 
   const getRandomCategories = () => {
     const newCategories = [];
@@ -29,7 +33,9 @@ export const HomePage = () => {
   };
 
   const resizeWindow = (tags) => {
-    const newCategories = categories ? Array.from(categories) : Array.from(tags);
+    const newCategories = categories
+      ? Array.from(categories)
+      : Array.from(tags);
     const { innerWidth } = window;
     if (innerWidth > 1000) {
       if (newCategories.length > 20) newCategories.length = 20;
@@ -44,8 +50,8 @@ export const HomePage = () => {
   };
 
   const getProducts = () => {
-    if (popular.length > 40) popular.length = 40;
-    if (newOffers.length > 40) newOffers.length = 40;
+    if (popular && popular.length > 40) popular.length = 40;
+    if (newOffers && newOffers.length > 40) newOffers.length = 40;
   };
 
   useEffect(() => {
@@ -79,11 +85,15 @@ export const HomePage = () => {
           <Toolbar></Toolbar>
           <Categories categories={categories}></Categories>
           <Carrusel products={popular} title="Destacados"></Carrusel>
-          <GoToLink url="/"></GoToLink>
+          {popular && popular.length !== 0 && <GoToLink url="/"></GoToLink>}
           <Carrusel products={newOffers} title="Ofertas"></Carrusel>
-          <GoToLink url="/all-offers-in-store"></GoToLink>
+          {newOffers && newOffers.length !== 0 && (
+            <GoToLink url="/all-offers-in-store"></GoToLink>
+          )}
           <Carrusel products={popular} title="Populares"></Carrusel>
-          <GoToLink url="/all-popular-in-store"></GoToLink>
+          {popular && popular.length !== 0 && (
+            <GoToLink url="/all-popular-in-store"></GoToLink>
+          )}
         </div>
       ) : (
         <Animation></Animation>

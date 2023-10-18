@@ -98,7 +98,7 @@ export const Form = () => {
       });
     } catch (err) {
       new Notify({
-        status: "success",
+        status: "error",
         title: "Lo siento!",
         text: `${err.response.data.message}`,
         effect: "fade",
@@ -124,7 +124,7 @@ export const Form = () => {
           code: code,
           token: token,
         });
-        localStorage.clear();
+        localStorage.setItem("codeExpired", "");
         setInvalidCode(false);
         createAccount();
       }

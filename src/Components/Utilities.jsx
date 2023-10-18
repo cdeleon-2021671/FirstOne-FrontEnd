@@ -10,10 +10,12 @@ import App from "../App";
 import { BsWhatsapp, BsTiktok, BsMessenger } from "react-icons/bs";
 import { AllStores } from "../Pages/AllStores";
 import { Register } from "./Forms/Register";
-import { RegisterStep1 } from "../Pages/RegisterStep1";
+import { RegisterStore } from "../Pages/RegisterStore";
 import { Profile } from "../Pages/Profile";
 import { Info } from "./Profile/Info";
-import { RegisterStep2 } from "../Pages/RegisterStep2";
+import { StoreInformation } from "./Join/StoreInformation";
+import { Form } from "./Join/Form";
+import { Tags } from "./Join/Tags";
 
 export const routes = createBrowserRouter([
   {
@@ -26,12 +28,22 @@ export const routes = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "join/trade-online/step1",
-        element: <RegisterStep1></RegisterStep1>,
-      },
-      {
-        path: "join/trade-online/step2",
-        element: <RegisterStep2></RegisterStep2>,
+        path: "join/trade-online",
+        element: <RegisterStore></RegisterStore>,
+        children: [
+          {
+            path: "step1",
+            element: <Form></Form>,
+          },
+          {
+            path: "step2",
+            element: <StoreInformation></StoreInformation>,
+          },
+          {
+            path: "step2/:storeId",
+            element: <Tags></Tags>,
+          },
+        ]
       },
       {
         path: "register",

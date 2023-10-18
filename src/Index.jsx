@@ -37,6 +37,7 @@ export const Index = () => {
     } catch (err) {
       console.log(err);
       localStorage.clear();
+      setIsLogged(false);
     }
   };
 
@@ -44,6 +45,10 @@ export const Index = () => {
     const token = localStorage.getItem("token");
     if (token) {
       getInfo(token);
+    } else {
+      localStorage.clear();
+      setIsLogged(false);
+      setUser({});
     }
   }, [isLogged]);
 

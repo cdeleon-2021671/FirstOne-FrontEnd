@@ -51,7 +51,7 @@ export const Carrusel = ({ products, title }) => {
 
   return (
     <>
-      {products && (
+      {products && products.length !== 0 &&  (
         <div className="products">
           <h2 className="products-title">{title}</h2>
           <div className="products-container">

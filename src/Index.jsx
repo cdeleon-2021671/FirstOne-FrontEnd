@@ -6,7 +6,7 @@ import { Animation } from "./Components/Animation/Animation";
 
 export const AuthContext = createContext();
 export const Index = () => {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(null);
   const [user, setUser] = useState({});
   const [stores, setStores] = useState(null);
   const [tags, setTags] = useState(null);

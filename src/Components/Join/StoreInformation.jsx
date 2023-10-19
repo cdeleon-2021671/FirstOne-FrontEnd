@@ -34,7 +34,7 @@ export const StoreInformation = () => {
       const email = localStorage.getItem("register");
       if (email == "" && isLogged == false) {
         setMessage("Necesitas iniciar sesión");
-      } else if (isLogged && user.rol != "BUSINESSMAN") {
+      } else if (isLogged && user.rol != "COMERCIANTE") {
         setMessage("Tu cuenta no tiene permiso para realizar esta acción");
       } else {
         if (form.xml == "") setMessage("XML es obligatorio");
@@ -88,7 +88,7 @@ export const StoreInformation = () => {
               }
             );
           }
-          navigate(`/join/trade-online/step2/${storeId}`);
+          navigate(`/join/trade-online/step2/tags/${storeId}`);
         }
       }
     } catch (err) {

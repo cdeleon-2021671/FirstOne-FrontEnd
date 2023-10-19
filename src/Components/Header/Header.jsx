@@ -6,14 +6,14 @@ import "./Header.scss";
 
 export const Header = ({ setView }) => {
   const { isLogged, user } = useContext(AuthContext);
-  
+
   return (
     <div className="header">
       <h1 className="header-title">
         <Link title="Página Principal">Tienda.gt</Link>
       </h1>
       <Searchbar></Searchbar>
-      {isLogged ? (
+      {isLogged && user && user.name && user.sub ? (
         <Link
           to={`/profile/info/${user.name.replace(/[ ]+/g, "-")}/${user.sub}`}
           className="header-identify"

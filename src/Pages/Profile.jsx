@@ -18,8 +18,10 @@ export const Profile = () => {
           href={`https://tienda.gt/profile/${user}/${userId}`}
         />
       </Helmet>
-      <Dashboard></Dashboard>
-      <Outlet></Outlet>
+      <div id="profile-container">
+        <Dashboard></Dashboard>
+        <Outlet></Outlet>
+      </div>
     </>
   );
 };

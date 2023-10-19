@@ -15,13 +15,13 @@ export const Form = () => {
     email: "",
     password: "",
     confirm: "",
-    rol: "BUSINESSMAN",
+    rol: "COMERCIANTE",
   });
 
   const handleChange = (e) => {
     setForm({
       ...form,
-      [e.target.name]: e.target.value,
+      [e.target.name]: e.target.value.trim(),
     });
   };
 

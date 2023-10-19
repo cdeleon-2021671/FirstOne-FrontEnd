@@ -1,0 +1,29 @@
+@import "../../Styles.scss";
+
+#profile-container {
+  min-height: 100vh;
+  display: flex;
+}
+
+.dashboard {
+  min-width: 15em;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--color-secundario);
+  &-item {
+    background: var(--color-secundario);
+    color: var(--color-blanco);
+    padding: var(--espacio-principal);
+    border-bottom: 1px solid #fff;
+  }
+}
+.buttons{
+    display: flex;
+    gap: var(--espacio-principal);
+    .edit{
+        background: #ffa500;
+    }
+    .close{
+        background: #ff0000;
+    }
+}

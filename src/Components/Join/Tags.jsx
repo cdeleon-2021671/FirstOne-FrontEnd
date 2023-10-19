@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { googleCategories } from "../../Words";
 import { AiOutlineClose } from "react-icons/ai";
+import { Link, useParams } from "react-router-dom";
 import Fuse from "fuse.js";
-import $ from "jquery";
 import "./Options.scss";
 
 export const Tags = () => {
+  const { storeId } = useParams();
   const [tag, setTag] = useState("");
   const [items, setItems] = useState([]);
 
@@ -17,20 +18,6 @@ export const Tags = () => {
     <div className="register-form">
       <div className="form">
         <div className="container step2">
-          <div className="container-form">
-            <span className="container-form-title">Métodos de pago</span>
-            <div className="container-form-data">
-              <label htmlFor="xml">Método 1:</label>
-              <input type="text" id="xml" name="xml" required />
-            </div>
-          </div>
-          <div className="container-form">
-            <span className="container-form-title">Métodos de envío</span>
-            <div className="container-form-data">
-              <label htmlFor="xml">Método 1:</label>
-              <input type="text" id="xml" name="xml" required />
-            </div>
-          </div>
           <div className="container-form">
             <span className="container-form-title">Etiquetas de la tienda</span>
             <div className="container-form-data">
@@ -49,6 +36,12 @@ export const Tags = () => {
                 setItems={setItems}
                 items={items}
               ></AutoComplete>
+              <Link
+                className="container-btn"
+                to={`/join/trade-online/step2/shipping/${storeId}`}
+              >
+                Continuar
+              </Link>
             </div>
           </div>
         </div>
@@ -65,14 +58,17 @@ const TagsSelected = ({ categories, setCategories }) => {
   };
 
   return (
-    <div className="options-tags" id="tags-container">
-      {categories.length != 0 &&
-        categories.map((item, key) => (
-          <label className="options-tags-option" key={key}>
-            {item.category} <AiOutlineClose onClick={() => removeItem(key)} />
-          </label>
-        ))}
-    </div>
+    <>
+      {categories.length != 0 && (
+        <div className="options-tags" id="tags-container">
+          {categories.map((item, key) => (
+            <label className="options-tags-option" key={key}>
+              {item.category} <AiOutlineClose onClick={() => removeItem(key)} />
+            </label>
+          ))}
+        </div>
+      )}
+    </>
   );
 };
 
@@ -106,6 +102,7 @@ const AutoComplete = ({ search, setItems, items }) => {
       if (filters.length > 10) filters.length = 10;
       setCategories(filters);
       if (search == "") getCategories();
+      if (items.length == 10) setCategories([]);
     }
   }, [search, items]);
 
@@ -123,24 +120,43 @@ const AutoComplete = ({ search, setItems, items }) => {
   }, [googleCategories]);
 
   const addTag = (text, key) => {
-    setItems([...items, text]);
-    const newCategories = Array.from(categories);
-    newCategories.splice(key, 1);
-    setCategories(newCategories);
+    if (items.length < 10) {
+      setItems([...items, text]);
+      const newCategories = Array.from(categories);
+      newCategories.splice(key, 1);
+      setCategories(newCategories);
+    } else {
+      new Notify({
+        status: "error",
+        title: "Lo siento!",
+        text: "Limite de etiquetas alcanzado",
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+    }
   };
 
   return (
-    <div className="options-tags">
-      {categories &&
-        categories.map((item, key) => (
-          <label
-            className="options-tags-autocomplete"
-            key={key}
-            onClick={() => addTag(item, key)}
-          >
-            {item.category}
-          </label>
-        ))}
-    </div>
+    <>
+      {categories && categories.length != 0 && (
+        <div className="options-tags">
+          {categories.map((item, key) => (
+            <label
+              className="options-tags-autocomplete"
+              key={key}
+              onClick={() => addTag(item, key)}
+            >
+              {item.category}
+            </label>
+          ))}
+        </div>
+      )}
+    </>
   );
 };

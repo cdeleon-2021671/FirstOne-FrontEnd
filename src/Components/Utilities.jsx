@@ -16,6 +16,10 @@ import { Info } from "./Profile/Info";
 import { StoreInformation } from "./Join/StoreInformation";
 import { Form } from "./Join/Form";
 import { Tags } from "./Join/Tags";
+import { Stores } from "./Profile/Stores";
+import { Users } from "./Profile/Users";
+import { Payment } from "./Join/Payment";
+import { Shipping } from "./Join/Shipping";
 
 export const routes = createBrowserRouter([
   {
@@ -40,10 +44,18 @@ export const routes = createBrowserRouter([
             element: <StoreInformation></StoreInformation>,
           },
           {
-            path: "step2/:storeId",
+            path: "step2/tags/:storeId",
             element: <Tags></Tags>,
           },
-        ]
+          {
+            path: "step2/payment/:storeId",
+            element: <Payment></Payment>,
+          },
+          {
+            path: "step2/shipping/:storeId",
+            element: <Shipping></Shipping>,
+          },
+        ],
       },
       {
         path: "register",
@@ -54,10 +66,18 @@ export const routes = createBrowserRouter([
         element: <Profile></Profile>,
         children: [
           {
-            path: 'info/:user/:userId',
-            element: <Info></Info>
-          }
-        ]
+            path: "info/:user/:userId",
+            element: <Info></Info>,
+          },
+          {
+            path: "all-stores",
+            element: <Stores></Stores>,
+          },
+          {
+            path: "all-users",
+            element: <Users></Users>,
+          },
+        ],
       },
       // Detalles de una tienda | Funciona
       {

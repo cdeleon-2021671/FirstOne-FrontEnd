@@ -54,9 +54,23 @@ export const HomePage = () => {
     if (newOffers && newOffers.length > 40) newOffers.length = 40;
   };
 
+  const detectAdBlock = async () => {
+    try {
+      const FingerPrint = await import("fingerprintjs2");
+      FingerPrint.get((res) => {
+        const values = res.map((item) => item.value);
+        const id = FingerPrint.x64hash128(values.join(""), 31);
+        console.log(id);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   useEffect(() => {
     getRandomCategories();
     getProducts();
+    detectAdBlock();
     $(window).on("resize", resizeWindow);
     return () => {
       $(window).off("resize");

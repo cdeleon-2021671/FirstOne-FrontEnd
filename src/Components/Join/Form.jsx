@@ -114,7 +114,7 @@ export const Form = () => {
   };
 
   const [invalidCode, setInvalidCode] = useState(false);
-  const [msgInvalid, setMsgInvalid] = useState("");
+  const [msgInvalid, setMsgInvalid] = useState("El código no es válido");
   const validateCode = async () => {
     try {
       if (code != myCode) setInvalidCode(true);

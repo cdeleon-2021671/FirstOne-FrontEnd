@@ -1,17 +1,111 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { googleCategories } from "../../Words";
 import { AiOutlineClose } from "react-icons/ai";
-import { Link, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Fuse from "fuse.js";
 import "./Options.scss";
+import axios from "axios";
+import { AuthContext } from "../../Index";
 
 export const Tags = () => {
+  const { isLogged, user } = useContext(AuthContext);
+  const navigate = useNavigate();
   const { storeId } = useParams();
   const [tag, setTag] = useState("");
   const [items, setItems] = useState([]);
 
   const changeTags = (e) => {
     setTag(e.target.value);
+  };
+
+  const sendTags = async () => {
+    try {
+      if (items.length == 0) {
+        new Notify({
+          status: "error",
+          title: "Incorrecto!",
+          text: "Debes seleccionar al menos una categoría",
+          effect: "fade",
+          speed: 300,
+          showIcon: true,
+          showCloseButton: true,
+          autoclose: true,
+          autotimeout: 3000,
+          type: 1,
+          position: "right top",
+        });
+      } else {
+        const email = localStorage.getItem("register");
+        if (email == "" && isLogged == false) {
+          new Notify({
+            status: "error",
+            title: "Lo siento!",
+            text: "Necesitas iniciar sesión",
+            effect: "fade",
+            speed: 300,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 3000,
+            type: 1,
+            position: "right top",
+          });
+        } else if (isLogged && user.rol != "COMERCIANTE") {
+          new Notify({
+            status: "error",
+            title: "Lo siento!",
+            text: "Tu cuenta no tiene permiso para realizar esta acción",
+            effect: "fade",
+            speed: 300,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 3000,
+            type: 1,
+            position: "right top",
+          });
+        } else {
+          if (email != "") {
+            await axios.post(`${import.meta.env.VITE_URI_API}/user/validate`, {
+              token: email,
+            });
+          }
+          const { data } = await axios.put(
+            `${import.meta.env.VITE_URI_API}/store/update-tags`,
+            { items, storeId }
+          );
+          new Notify({
+            status: "success",
+            title: "Excelente!",
+            text: `${data.message}`,
+            effect: "fade",
+            speed: 300,
+            showIcon: true,
+            showCloseButton: true,
+            autoclose: true,
+            autotimeout: 3000,
+            type: 1,
+            position: "right top",
+          });
+          navigate(`/join/trade-online/step2/shipping/${storeId}`);
+        }
+      }
+    } catch (err) {
+      console.log(err);
+      new Notify({
+        status: "error",
+        title: "Incorrecto!",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+    }
   };
 
   return (
@@ -36,12 +130,13 @@ export const Tags = () => {
                 setItems={setItems}
                 items={items}
               ></AutoComplete>
-              <Link
+              <button
                 className="container-btn"
-                to={`/join/trade-online/step2/shipping/${storeId}`}
+                onClick={sendTags}
+                style={{ cursor: "pointer" }}
               >
                 Continuar
-              </Link>
+              </button>
             </div>
           </div>
         </div>
@@ -120,16 +215,15 @@ const AutoComplete = ({ search, setItems, items }) => {
   }, [googleCategories]);
 
   const addTag = (text, key) => {
-    if (items.length < 10) {
-      setItems([...items, text]);
-      const newCategories = Array.from(categories);
-      newCategories.splice(key, 1);
-      setCategories(newCategories);
-    } else {
+    setItems([...items, text]);
+    const newCategories = Array.from(categories);
+    newCategories.splice(key, 1);
+    setCategories(newCategories);
+    if (items.length == 9)
       new Notify({
         status: "error",
         title: "Lo siento!",
-        text: "Limite de etiquetas alcanzado",
+        text: "Límite de etiquetas alcanzado",
         effect: "fade",
         speed: 300,
         showIcon: true,
@@ -139,7 +233,6 @@ const AutoComplete = ({ search, setItems, items }) => {
         type: 1,
         position: "right top",
       });
-    }
   };
 
   return (

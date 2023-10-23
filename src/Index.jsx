@@ -38,6 +38,7 @@ export const Index = () => {
       console.log(err);
       localStorage.clear();
       setIsLogged(false);
+      window.location.reload();
     }
   };
 

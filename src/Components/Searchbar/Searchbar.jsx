@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { useNavigate, useParams, useLocation } from "react-router-dom";
+import FingerPrint from "@fingerprintjs/fingerprintjs";
 import { AuthContext } from "../../Index";
 import Fuse from "fuse.js";
 import "./Searchbar.scss";
 import $ from "jquery";
+import axios from "axios";
 
 export const Searchbar = () => {
   const { category, search, tags, store } = useParams();
   const navigate = useNavigate();
   const inputRef = useRef();
   const location = useLocation();
-  const { autoComplete } = useContext(AuthContext);
+  const { autoComplete, isLogged, user } = useContext(AuthContext);
   const [options, setOptions] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
   const [searchResults, setSearch] = useState("");
@@ -89,15 +91,35 @@ export const Searchbar = () => {
     setSearching(e.target.value);
   };
 
+  const addEvent = async (url, search) => {
+    try {
+      if (isLogged && user.rol != "CLIENTE") return;
+      const fp = await FingerPrint.load();
+      const { visitorId } = await fp.get();
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/search/add-event`, {
+        url: url,
+        query: search,
+        fingerprint: visitorId,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const goToSearch = (filter) => {
     setSearch(filter);
     setSearching(filter);
     setIndexPosition(0);
-    if (filter == "" || filter == " ") {
-      navigate("/gt/products-results/all");
+    const newFilter = filter.trim().replace(/[ ]+/g, "");
+    if (newFilter == "" || newFilter == " ") {
+      const url = "/gt/products-results/all";
+      navigate(url);
+      addEvent(`https://tienda.gt${url}`, "");
     } else {
-      const newSearch = filter.replace(/[ ]+/g, "-");
-      navigate(`/gt/products-results/${newSearch}`);
+      const newSearch = filter.trim().replace(/[ ]+/g, "-");
+      const url = `/gt/products-results/${newSearch}`;
+      navigate(url);
+      addEvent(`https://tienda.gt${url}`, filter);
     }
   };
 

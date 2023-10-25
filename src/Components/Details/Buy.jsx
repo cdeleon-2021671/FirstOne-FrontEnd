@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import FingerPrint from "@fingerprintjs/fingerprintjs";
 import { AuthContext } from "../../Index";
+import { Link, useLocation } from "react-router-dom";
+import axios from "axios";
 import $ from "jquery";
 
-export const Buy = ({ urlProduct, storeId }) => {
-  const { socialLinks } = useContext(AuthContext);
+export const Buy = (product) => {
+  const {urlProduct, storeId} = product;
+  const { socialLinks, isLogged, user } = useContext(AuthContext);
+  const location = useLocation();
   const [social, setSocial] = useState(null);
   const rrss = [
     urlProduct,
@@ -63,6 +67,24 @@ export const Buy = ({ urlProduct, storeId }) => {
     getSocialLinks();
   }, [urlProduct]);
 
+  const addEvent = async (title) => {
+    try {
+      if (isLogged && user.rol != "CLIENTE") return;
+      const url = `https://tienda.gt${location.pathname}`;
+      const fp = await FingerPrint.load();
+      const { visitorId } = await fp.get();
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/event/add-event`, {
+        url: url,
+        fingerprint: visitorId,
+        product: product,
+        event: "Contact",
+        type: title,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="social-links">
       <span>Compralo en:</span>
@@ -82,6 +104,9 @@ export const Buy = ({ urlProduct, storeId }) => {
               to={link}
               target={link == "" ? "" : "_blank"}
               className="item"
+              onClick={() => {
+                addEvent(title);
+              }}
               style={{ background: bg }}
             >
               {icon}

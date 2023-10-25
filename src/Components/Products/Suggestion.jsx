@@ -1,9 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useLocation, Link, useParams } from "react-router-dom";
+import FingerPrint from "@fingerprintjs/fingerprintjs";
+import { AuthContext } from "../../Index";
 import "./Suggestion.scss";
+import axios from "axios";
 
 export const Suggestion = ({ options }) => {
   const location = useLocation();
+  const { isLogged, user } = useContext(AuthContext);
   const { category, search } = useParams();
   const [suggestions, setSuggestions] = useState(null);
   const [viewSuggestion, setViewSuggestion] = useState(false);
@@ -27,7 +31,9 @@ export const Suggestion = ({ options }) => {
         frequencyMap[item] = 1;
       }
     }
-    const sortedItems = Object.keys(frequencyMap).sort((a, b) => frequencyMap[b] - frequencyMap[a]);
+    const sortedItems = Object.keys(frequencyMap).sort(
+      (a, b) => frequencyMap[b] - frequencyMap[a]
+    );
     setSuggestions(sortedItems.splice(0, 3));
   };
 
@@ -38,6 +44,21 @@ export const Suggestion = ({ options }) => {
     }
   }, [options]);
 
+  const addEvent = async (url, search) => {
+    try {
+      if (isLogged && user.rol != "CLIENTE") return;
+      const fp = await FingerPrint.load();
+      const { visitorId } = await fp.get();
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/search/add-event`, {
+        url: url,
+        query: search,
+        fingerprint: visitorId,
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <>
       {viewSuggestion && (
@@ -46,7 +67,16 @@ export const Suggestion = ({ options }) => {
             <div className="suggestion">
               <label className="suggestion-title">Ver más:</label>
               {suggestions.map((item, key) => (
-                <Link key={key} to={`/${item.replace(/[ ]+/g, "-")}`}>
+                <Link
+                  key={key}
+                  to={`/${item.replace(/[ ]+/g, "-")}`}
+                  onClick={() =>
+                    addEvent(
+                      `https://tienda.gt/${item.replace(/[ ]+/g, "-")}`,
+                      item
+                    )
+                  }
+                >
                   {item}
                 </Link>
               ))}

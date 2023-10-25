@@ -1,0 +1,127 @@
+@import "../../Styles.scss";
+
+.stores {
+  width: 100%;
+  background: #f3f3f3;
+  &-title {
+    font-size: 1.6em;
+    font-weight: 900;
+    text-align: center;
+    padding: 0.3em var(--espacio-secundario);
+    background: #fff;
+    box-shadow: 1px 1px 10px rgba($color: #000, $alpha: 0.2);
+    position: relative;
+    a {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      margin: auto;
+      background: rgb(4, 238, 4);
+      color: #fff;
+      font-size: 0.7em;
+      padding: 0 0.5em;
+      display: flex;
+      align-items: center;
+    }
+  }
+  .all {
+    padding: var(--espacio-principal);
+    display: flex;
+    flex-direction: column;
+    gap: var(--espacio-principal);
+    &-content {
+      padding: var(--espacio-secundario);
+      background: #fff;
+      box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.2),
+        -1px -1px 5px rgba($color: #fff, $alpha: 0.2);
+      &-introduction {
+        display: flex;
+        gap: var(--espacio-principal);
+        .info {
+          img {
+            min-width: 26em;
+          }
+          label {
+            font-weight: 900;
+            text-align: center;
+            font-size: 1.3em;
+          }
+        }
+        .content {
+          display: flex;
+          flex-direction: column;
+          gap: 0.2em;
+          strong {
+            font-weight: bold;
+          }
+          a:hover {
+            color: gray;
+          }
+        }
+      }
+      .container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--espacio-principal);
+        padding: 0;
+        .apart {
+          box-shadow: 1px 1px 5px rgba($color: #000000, $alpha: 0.2),
+            -1px -1px 5px rgba($color: #fff, $alpha: 0.2);
+          display: flex;
+          flex-direction: column;
+          padding: var(--espacio-secundario);
+          background: #f3f3f3;
+          span {
+            font-size: 0.95em;
+          }
+          label {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin-bottom: 0.3em;
+          }
+          a {
+            background: rgb(4, 238, 4);
+            color: #fff;
+            text-align: center;
+            padding: 0.2em 0;
+            margin-top: var(--espacio-secundario);
+          }
+        }
+      }
+      .container-links {
+        display: flex;
+        justify-content: center;
+        padding: var(--espacio-principal);
+        gap: var(--espacio-principal);
+        a {
+          display: flex;
+          align-items: center;
+          padding: var(--espacio-secundario);
+          gap: var(--espacio-secundario);
+          label {
+            cursor: pointer;
+            color: #fff;
+          }
+          svg {
+            width: 1.7em;
+            height: 1.7em;
+            color: #fff;
+          }
+        }
+      }
+      .options {
+        display: flex;
+        gap: var(--espacio-principal);
+        padding: var(--espacio-principal) 0 0;
+        button {
+          color: #fff;
+          cursor: pointer;
+          background: #ff0000;
+          width: 100%;
+          padding: var(--espacio-secundario);
+        }
+      }
+    }
+  }
+}

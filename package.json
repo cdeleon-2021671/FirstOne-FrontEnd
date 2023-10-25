@@ -10,8 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@fingerprintjs/fingerprintjs": "^4.1.0",
     "axios": "^1.4.0",
-    "fingerprintjs2": "^2.1.4",
     "fuse.js": "^6.6.2",
     "jquery": "^3.7.1",
     "react": "^18.2.0",

@@ -16,6 +16,7 @@
       object-fit: contain;
     }
     .container {
+      padding-right: 1em;
       display: grid;
       grid-template-columns: 23vw minmax(10em, 1fr) minmax(10em, 1fr) 7em;
       &-description,
@@ -75,7 +76,7 @@
     &-content {
       grid-template-columns: 18em 1fr;
       .container {
-        grid-template-columns: 17em 24.6em 24.6em 7.4em;
+        grid-template-columns: 17em 24em 24em 7.4em;
       }
     }
   }
@@ -96,7 +97,7 @@
       .container {
         display: flex;
         flex-direction: column;
-        width: calc(100vw - 17em - 2px);
+        width: calc(100vw - 18em - 2px);
         padding: var(--espacio-principal);
         &-description,
         &-option {
@@ -166,7 +167,7 @@
       display: flex;
       flex-direction: column;
       .container{
-        width: calc(100vw - 2em - 2px);
+        width: calc(100vw - 3.05em - 2px);
         &-links{
           a{
             label{
@@ -186,7 +187,8 @@
       padding: 0;
       .container {
         padding: var(--espacio-secundario);
-        width: calc(100vw - 1em - 2px);
+        background: red;
+        width: calc(100vw - 2.05em - 2px);
         &-links{
           a{
             label{

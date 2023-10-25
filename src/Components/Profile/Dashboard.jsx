@@ -18,9 +18,15 @@ export const Dashboard = () => {
       <Link className="dashboard-item" to={`/profile/all-stores`}>
         Tiendas
       </Link>
-      <Link className="dashboard-item" to={`/profile/all-users`}>
-        Usuarios
-      </Link>
+      {user.rol == "COMERCIANTE" ? (
+        <Link className="dashboard-item" to={`/profile/all-users`}>
+          Empleados
+        </Link>
+      ) : user.rol == "MAESTRO" ? (
+        <Link className="dashboard-item" to={`/profile/all-users`}>
+          Usuarios
+        </Link>
+      ) : null}
     </div>
   );
 };

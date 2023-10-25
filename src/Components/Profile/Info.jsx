@@ -42,7 +42,9 @@ export const Info = () => {
             />
           </div>
           <div className="buttons">
-            <button className="container-form-send edit">Editar</button>
+            {user && user.rol == "COMERCIANTE" && (
+              <button className="container-form-send edit">Editar</button>
+            )}
             <button
               className="container-form-send close"
               onClick={() => {

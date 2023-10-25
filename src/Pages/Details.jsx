@@ -4,11 +4,12 @@ import { useLocation, useParams, Link } from "react-router-dom";
 import { Animation } from "../Components/Animation/Animation";
 import { Carrusel } from "../Components/Products/Carrusel";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
+import FingerPrint from "@fingerprintjs/fingerprintjs";
 import { helmetJsonLdProp } from "react-schemaorg";
 import { Helmet } from "react-helmet-async";
 import { Product } from "schema-dts";
-import axios from "axios";
 import { AuthContext } from "../Index";
+import axios from "axios";
 
 export const Details = () => {
   const { isLogged, user } = useContext(AuthContext);
@@ -20,22 +21,50 @@ export const Details = () => {
 
   const addView = async () => {
     try {
-      if (details) {
-        if (isLogged == false || (isLogged == true && user.rol == "CLIENT")) {
-          const { data } = await axios.post(
-            `${import.meta.env.VITE_URI_API}/conversion/add-view`,
-            { product: details }
-          );
-          console.log(data);
+      await axios.put(
+        `${import.meta.env.VITE_URI_API}/product/add-view/${productId}`
+      );
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const addEvent = async (visitorId, url) => {
+    try {
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/event/add-event`, {
+        url: url,
+        fingerprint: visitorId,
+        product: details,
+        event: "Page View",
+        type: "Product",
+      });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const verifyEvent = async () => {
+    try {
+      if (isLogged && user.rol != "CLIENTE") return;
+      const url = `https://tienda.gt${location.pathname}`;
+      const fp = await FingerPrint.load();
+      const { visitorId } = await fp.get();
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
+        {
+          url: url,
+          fingerprint: visitorId,
         }
-      }
+      );
+      addEvent(visitorId, url);
+      if (data.message == "false") addView();
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    addView();
+    verifyEvent();
   }, [details]);
 
   const getProductById = async () => {

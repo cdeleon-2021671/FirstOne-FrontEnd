@@ -1,67 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Suggestion } from "../Components/Products/Suggestion";
 import { Animation } from "../Components/Animation/Animation";
 import { useLocation, useParams, Link } from "react-router-dom";
 import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
 import { Helmet } from "react-helmet-async";
+import { AuthContext } from "../Index";
 import axios from "axios";
 import $ from "jquery";
 
 export const OutletProducts = () => {
   const location = useLocation();
   const { category, store, storeId, search } = useParams();
+  const { products, offers, mostViewed } = useContext(AuthContext);
   const [boxes, setBoxes] = useState(null);
   const [original, setOriginal] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [url, setUrl] = useState(null);
   const [storeResult, setStoreResult] = useState(null);
-  const [offers, setOffers] = useState(null);
-  const [mostViewed, setMostViewed] = useState(null);
-  const [products, setProducts] = useState(null);
-
-  const getOffers = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-offers`
-      );
-      const { allOffers } = data;
-      setOffers(allOffers);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getMostViewed = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-most-viewed`
-      );
-      const { products } = data;
-      setMostViewed(products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-products`
-      );
-      const { allProducts } = data;
-      setProducts(allProducts);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  useEffect(() => {
-    getOffers();
-    getMostViewed();
-    getProducts();
-  });
 
   const getProductsByCategory = async () => {
     try {

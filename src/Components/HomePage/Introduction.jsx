@@ -1,24 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
 import "./Introduction.scss";
-import axios from "axios";
 import $ from "jquery";
 
 export const Introduction = () => {
+  const { stores } = useContext(AuthContext);
   const [imgBanner, setImgBanner] = useState(null);
-  const [stores, setStores] = useState(null);
-
-  const getStores = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/store/get-stores`
-      );
-      const { stores } = data;
-      setStores(stores);
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   const heightContainer = () => {
     const date = new Date();
@@ -57,7 +45,6 @@ export const Introduction = () => {
   };
 
   useEffect(() => {
-    getStores();
     resizeWindow();
     $(window).on("resize", resizeWindow);
     return () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Introduction } from "../Components/HomePage/Introduction";
 import { Categories } from "../Components/Categories/Categories";
 import { Animation } from "../Components/Animation/Animation";
@@ -6,30 +6,30 @@ import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { Carrusel } from "../Components/Products/Carrusel";
 import { Toolbar } from "../Components/HomePage/Toolbar";
 import { Helmet } from "react-helmet-async";
-import axios from "axios";
+import { AuthContext } from "../Index";
 import $ from "jquery";
 
 export const HomePage = () => {
-  const [tags, setTags] = useState(null);
-  const [offers, setOffers] = useState(null);
-  const [mostViewed, setMostViewed] = useState(null);
+  const { tags, mostViewed, offers } = useContext(AuthContext);
   const [categories, setCategories] = useState(null);
-  const [popular, setPopular] = useState(null);
-  const [newOffers, setNewOffers] = useState();
+  const [popular, setPopular] = useState(
+    mostViewed ? Array.from(mostViewed) : null
+  );
+  const [newOffers, setNewOffers] = useState(
+    offers ? Array.from(offers) : null
+  );
 
   const getRandomCategories = () => {
     const newCategories = [];
-    if (tags) {
-      while (true) {
-        if (newCategories.length == tags.length) break;
-        const random = Math.floor(Math.random() * tags.length);
-        const product = tags[random];
-        if (newCategories.includes(product) == false)
-          newCategories.push(tags[random]);
-      }
-      setCategories(newCategories);
-      resizeWindow(newCategories);
+    while (true) {
+      if (newCategories.length == tags.length) break;
+      const random = Math.floor(Math.random() * tags.length);
+      const product = tags[random];
+      if (newCategories.includes(product) == false)
+        newCategories.push(tags[random]);
     }
+    setCategories(newCategories);
+    resizeWindow(newCategories);
   };
 
   const resizeWindow = (tags) => {
@@ -49,56 +49,14 @@ export const HomePage = () => {
     }
   };
 
-  const getCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-products-of-tags`
-      );
-      const { result } = data;
-      setTags(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getOffers = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-offers`
-      );
-      const { allOffers } = data;
-      const newAllOffers = Array.from(allOffers);
-      if (newAllOffers.length > 40) newAllOffers.length = 40;
-      setNewOffers(newAllOffers);
-      setOffers(allOffers);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  const getMostViewed = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-most-viewed`
-      );
-      const { products } = data;
-      const newPopular = Array.from(products);
-      if (newPopular && newPopular.length > 40) newPopular.length = 40;
-      setPopular(newPopular);
-      setMostViewed(products);
-    } catch (err) {
-      console.log(err);
-    }
+  const getProducts = () => {
+    if (popular && popular.length > 40) popular.length = 40;
+    if (newOffers && newOffers.length > 40) newOffers.length = 40;
   };
 
   useEffect(() => {
     getRandomCategories();
-  }, [tags]);
-
-  useEffect(() => {
-    getCategories();
-    getOffers();
-    getMostViewed();
+    getProducts();
     $(window).on("resize", resizeWindow);
     return () => {
       $(window).off("resize");

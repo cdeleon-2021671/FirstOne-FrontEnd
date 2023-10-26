@@ -12,8 +12,7 @@ export const Searchbar = () => {
   const navigate = useNavigate();
   const inputRef = useRef();
   const location = useLocation();
-  const { isLogged, user } = useContext(AuthContext);
-  const [autoComplete, setAutoComplete] = useState(null);
+  const { autoComplete, isLogged, user } = useContext(AuthContext);
   const [options, setOptions] = useState(null);
   const [viewOptions, setViewOptions] = useState(false);
   const [searchResults, setSearch] = useState("");
@@ -21,52 +20,37 @@ export const Searchbar = () => {
   const [indexPosition, setIndexPosition] = useState(0);
 
   useEffect(() => {
-    if (autoComplete) {
-      if (category) {
-        setSearch(category.replace(/[-]+/g, " "));
-        setSearching(category.replace(/[-]+/g, " "));
-        searchAutoComplete(category.replace(/[-]+/g, " "));
-      } else if (search) {
-        setSearch(search.replace(/[-]+/g, " "));
-        setSearching(search.replace(/[-]+/g, " "));
-        searchAutoComplete(search.replace(/[-]+/g, " "));
-      } else if (tags) {
-        const categories = tags.split("-");
-        const filter = categories.filter((item) => item != "Home");
-        setSearch(filter[0]);
-        setSearching(filter[0]);
-        searchAutoComplete(filter[0]);
-      } else if (store) {
-        setSearch(store.replace(/[-]+/g, " "));
-        setSearching(store.replace(/[-]+/g, " "));
-        searchAutoComplete(store.replace(/[-]+/g, " "));
-      } else {
-        setSearch("");
-        setSearching("");
-        const newAutoComplete = Array.from(autoComplete);
-        newAutoComplete.length = 8;
-        setOptions(newAutoComplete);
-      }
+    if (category) {
+      setSearch(category.replace(/[-]+/g, " "));
+      setSearching(category.replace(/[-]+/g, " "));
+      searchAutoComplete(category.replace(/[-]+/g, " "));
+    } else if (search) {
+      setSearch(search.replace(/[-]+/g, " "));
+      setSearching(search.replace(/[-]+/g, " "));
+      searchAutoComplete(search.replace(/[-]+/g, " "));
+    } else if (tags) {
+      const categories = tags.split("-");
+      const filter = categories.filter((item) => item != "Home");
+      setSearch(filter[0]);
+      setSearching(filter[0]);
+      searchAutoComplete(filter[0]);
+    } else if (store) {
+      setSearch(store.replace(/[-]+/g, " "));
+      setSearching(store.replace(/[-]+/g, " "));
+      searchAutoComplete(store.replace(/[-]+/g, " "));
+    } else {
+      setSearch("");
+      setSearching("");
+      const newAutoComplete = Array.from(autoComplete);
+      newAutoComplete.length = 8;
+      setOptions(newAutoComplete);
     }
   }, [location]);
 
-  const getAutoComplete = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-options`
-      );
-      const { result } = data;
-      const newAutoComplete = Array.from(result);
-      newAutoComplete.length = 8;
-      setOptions(newAutoComplete);
-      setAutoComplete(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
   useEffect(() => {
-    getAutoComplete();
+    const newAutoComplete = Array.from(autoComplete);
+    newAutoComplete.length = 8;
+    setOptions(newAutoComplete);
   }, []);
 
   const showOptions = () => {

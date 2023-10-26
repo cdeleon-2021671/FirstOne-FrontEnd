@@ -71,6 +71,8 @@ export const OutletProducts = () => {
     }
   };
 
+  const [isActive, setIsActive] = useState(false);
+
   useEffect(() => {
     setTimeout(() => {
       const container = $(".card-information-product");
@@ -81,10 +83,12 @@ export const OutletProducts = () => {
           span[index].style.display = "none";
         }
       }
+      setIsActive(true);
     }, 500);
   }, [boxes]);
 
   useEffect(() => {
+    setIsActive(false);
     window.scrollTo({ top: 0 });
     if (category) {
       const newCategory = category.replace(/[-]+/g, " ");
@@ -156,7 +160,7 @@ export const OutletProducts = () => {
 
   return (
     <>
-      {boxes && title && description && url ? (
+      {boxes && title && description && url && isActive ? (
         <>
           <Helmet>
             <title>Tienda.gt - {title}</title>

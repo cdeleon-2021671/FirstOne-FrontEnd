@@ -2,8 +2,53 @@ import React, { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
 import "./Stores.scss";
+import axios from "axios";
 
 export const Ecommerce = ({ stores }) => {
+  const { user } = useContext(AuthContext);
+
+  const reladStore = async (xml, storeId) => {
+    try {
+      if (user && user.rol != "COMERCIANTE") return;
+      const headers = {
+        "content-types": "aplication/json",
+        Authorization: localStorage.getItem("token"),
+      };
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/reload/add-store`,
+        { xml, storeId },
+        { headers: headers }
+      );
+      new Notify({
+        status: "success",
+        title: "Verificación",
+        text: `${data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+    } catch (err) {
+      console.log(err);
+      new Notify({
+        status: "error",
+        title: "Lo siento",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+    }
+  };
   return (
     <div className="all">
       {stores &&
@@ -96,6 +141,12 @@ export const Ecommerce = ({ stores }) => {
                 <SocialLinks store={storeId}></SocialLinks>
                 <img src={storeId.banner} alt={storeId.name} />
               </div>
+              <button
+                className="reload"
+                onClick={() => reladStore(storeId.xml, storeId._id)}
+              >
+                Recargar Feed
+              </button>
             </div>
           );
         })}
@@ -112,6 +163,7 @@ const SocialLinks = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
+    store.phone,
     store.tiktok,
   ];
   const getSocialLinks = () => {
@@ -171,6 +223,7 @@ const Links = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
+    store.phone,
     store.tiktok,
   ];
   const getSocialLinks = () => {
@@ -204,7 +257,11 @@ const Links = ({ store }) => {
       {social && (
         <div>
           {social.map(({ title, link }, key) => (
-            <Link key={key} to={link} target={link == "" ? "" : "_blank"}>
+            <Link
+              key={key}
+              to={title != "Teléfono" ? link : ""}
+              target={title == "Teléfono" ? "" : "_blank"}
+            >
               <strong>{title}: </strong>
               {link}
             </Link>

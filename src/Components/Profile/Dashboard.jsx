@@ -5,6 +5,7 @@ import { AuthContext } from "../../Index";
 
 export const Dashboard = () => {
   const { user } = useContext(AuthContext);
+  
   return (
     <div className="dashboard">
       {user && user.name && (

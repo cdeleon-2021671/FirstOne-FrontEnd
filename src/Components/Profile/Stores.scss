@@ -1,7 +1,6 @@
 @import "../../Styles.scss";
 
 .stores {
-  width: 100%;
   background: #f3f3f3;
   &-title {
     font-size: 1.6em;
@@ -55,12 +54,16 @@
           strong {
             font-weight: bold;
           }
+          a{
+            word-break: break-all;
+          }
           a:hover {
             color: gray;
           }
         }
       }
       .container {
+        margin-top: var(--espacio-principal);
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: var(--espacio-principal);
@@ -121,6 +124,14 @@
           width: 100%;
           padding: var(--espacio-secundario);
         }
+      }
+      .reload{
+        color: #fff;
+        width: 100%;
+        background: var(--color-secundario);
+        margin-top: var(--espacio-secundario);
+        padding: var(--espacio-principal);
+        cursor: pointer;
       }
     }
   }

@@ -1,14 +1,29 @@
-import React, { useContext, useState } from "react";
-import { AuthContext } from "../Index";
+import React, { useEffect, useState } from "react";
 import { SearchProducts } from "../Components/Searchbar/SearchProducts";
 import { Animation } from "../Components/Animation/Animation";
 import { StoresList } from "../Components/StorePage/StoresList";
-import { Helmet } from 'react-helmet-async';
+import { Helmet } from "react-helmet-async";
 
 export const AllStores = () => {
-  const { stores } = useContext(AuthContext);
-  const [ecommerce, setEcommerce] = useState(Array.from(stores));
+  const [stores, setStores] = useState(null);
+  const [ecommerce, setEcommerce] = useState(null);
 
+  const getStores = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/store/get-stores`
+      );
+      const { stores } = data;
+      setStores(stores);
+      setEcommerce(stores);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getStores();
+  }, []);
   return (
     <>
       <Helmet>

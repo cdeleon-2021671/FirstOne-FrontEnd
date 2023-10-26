@@ -273,6 +273,7 @@ const SocialLinks = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
+    store.phone,
     store.tiktok,
   ];
   const getSocialLinks = () => {
@@ -331,6 +332,7 @@ const Links = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
+    store.phone,
     store.tiktok,
   ];
   const getSocialLinks = () => {
@@ -341,13 +343,13 @@ const Links = ({ store }) => {
       const color = socialLinks[key].color;
       const object = {
         icon: icon,
-        title: title == "Phone" ? item : title,
+        title: title == "Phone" ? "Teléfono" : title,
         bg: color,
         link:
           title == "Whatsapp"
             ? `https://wa.me/${item}`
             : title == "Phone"
-            ? ""
+            ? item
             : item,
       };
       if (item != "") newSocial.push(object);
@@ -364,7 +366,11 @@ const Links = ({ store }) => {
       {social && (
         <div>
           {social.map(({ title, link }, key) => (
-            <Link key={key} to={link} target={link == "" ? "" : "_blank"}>
+            <Link
+              key={key}
+              to={title == "Teléfono" ? "" : link}
+              target={title == "Teléfono" ? "" : "_blank"}
+            >
               <strong>{title}: </strong>
               {link}
             </Link>

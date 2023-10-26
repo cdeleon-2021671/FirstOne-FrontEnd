@@ -12,10 +12,22 @@ import { AuthContext } from "../Index";
 export const StorePage = () => {
   const [categories, setCategories] = useState(null);
   const [newOffers, setNewOffers] = useState(null);
-  const { tags, offers, mostViewed, stores } = useContext(AuthContext);
+  const { tags, offers, mostViewed, stores, trending } =
+    useContext(AuthContext);
   const [popular, setPopular] = useState(null);
   const [store, setStore] = useState(null);
+  const [lastView, setLastView] = useState(null);
   const { storeId } = useParams();
+
+  useEffect(() => {
+    const newTrending = [];
+    trending.forEach((element) => {
+      const { _id } = element.storeId;
+      if (_id == storeId) newTrending.push(element);
+    });
+    if (newTrending.length > 40) newTrending.length = 40;
+    setLastView(newTrending);
+  }, [trending]);
 
   useEffect(() => {
     const newStore = [];
@@ -89,8 +101,12 @@ export const StorePage = () => {
               categories={categories}
               url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}
             ></Categories>
-            <Carrusel products={popular} title={"Destacados"}></Carrusel>
-            <GoToLink></GoToLink>
+            <Carrusel products={lastView} title={"Trending"}></Carrusel>
+            {lastView && lastView.length != 0 && (
+              <GoToLink
+                url={`/${store.name.replace(/[ ]+/g, "-")}/trending/${storeId}`}
+              ></GoToLink>
+            )}
             <Carrusel products={newOffers} title={"Ofertas"}></Carrusel>
             <GoToLink
               url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}

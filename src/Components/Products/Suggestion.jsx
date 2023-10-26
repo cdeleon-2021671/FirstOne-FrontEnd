@@ -38,9 +38,11 @@ export const Suggestion = ({ options }) => {
   };
 
   useEffect(() => {
-    getAutoComplete();
-    if (location.pathname.includes("/gt/products-results/") || category) {
-      setViewSuggestion(true);
+    if (options && options.length != 0) {
+      getAutoComplete();
+      if (location.pathname.includes("/gt/products-results/") || category) {
+        setViewSuggestion(true);
+      }
     }
   }, [options]);
 

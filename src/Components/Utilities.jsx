@@ -99,6 +99,11 @@ export const routes = createBrowserRouter([
         path: "all-popular-in-store",
         element: <OutletProducts />,
       },
+      // Todas las productos trending | Funciona
+      {
+        path: "trending-48-hours",
+        element: <OutletProducts />,
+      },
       // Todas las ofertas | Funciona
       {
         path: "all-offers-in-store",
@@ -122,6 +127,11 @@ export const routes = createBrowserRouter([
       // Todos los productos de una tienda | Funciona
       {
         path: ":store/popular/:storeId",
+        element: <OutletProducts />,
+      },
+      // Todos los productos trending de una tienda | Funciona
+      {
+        path: ":store/trending/:storeId",
         element: <OutletProducts />,
       },
       // Resultados de busqueda | Funciona

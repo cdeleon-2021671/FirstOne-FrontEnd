@@ -12,7 +12,7 @@ import $ from "jquery";
 export const OutletProducts = () => {
   const location = useLocation();
   const { category, store, storeId, search } = useParams();
-  const { products, offers, mostViewed } = useContext(AuthContext);
+  const { products, offers, mostViewed, trending } = useContext(AuthContext);
   const [boxes, setBoxes] = useState(null);
   const [original, setOriginal] = useState(null);
   const [title, setTitle] = useState(null);
@@ -43,6 +43,17 @@ export const OutletProducts = () => {
     });
     setBoxes(newPopular);
     setOriginal(newPopular);
+  };
+
+  const getTrending = async () => {
+    if (trending) {
+      const products = trending.filter((item) => {
+        const { _id } = item.storeId;
+        if (_id == storeId) return item;
+      });
+      setBoxes(products);
+      setOriginal(products);
+    }
   };
 
   const getOffersByStore = async () => {
@@ -112,6 +123,28 @@ export const OutletProducts = () => {
       );
       setUrl(`${store}/popular/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
+    } else if (location.pathname == `/trending-48-hours`) {
+      setBoxes(Array.from(trending));
+      setOriginal(Array.from(trending));
+      setDescription(
+        `Explora los productos guatemaltecos más vistos en las ultimas 48 horas!
+        Es una selección cuidadosamente curada de artículos de alta calidad.
+        Encuentra lo que necesitas en Tienda.gt - Tranding. No te lo pierdas!`
+      );
+      setUrl(`trending-48-hours`);
+      setTitle(`Tranding`);
+    } else if (location.pathname == `/${store}/trending/${storeId}`) {
+      getTrending();
+      setTitle(`Trending ${store.replace(/[-]+/g, " ")}`);
+      const newStore = store.replace(/[-]+/g, " ");
+      setDescription(
+        `Descubre las productos más vistos en las ultimas 48 horas de la tienda ${newStore}. 
+        En nuestra tienda, te ofrecemos una variedad de productos de alta calidad. 
+        Desde los más populares hasta productos que no creeras que existen, encontrarás oportunidades 
+        de ahorro que no querrás perderte. Aprovecha nuestras ofertas en Tienda.gt - ${newStore} hoy mismo.
+        .No te lo pierdas!`
+      );
+      setUrl(`${store}/trending/${storeId}`);
     } else if (location.pathname == `/${store}/offers/${storeId}`) {
       getOffersByStore();
       setTitle(`Ofertas ${store.replace(/[-]+/g, " ")}`);
@@ -119,7 +152,7 @@ export const OutletProducts = () => {
       setDescription(
         `Descubre las emocionantes ofertas en Tienda.gt - ${newStore}. En nuestra tienda, te ofrecemos 
         descuentos irresistibles en una variedad de productos de alta calidad. 
-        Desde los más populares hasta productos que no creeras que existn, encontrarás oportunidades 
+        Desde los más populares hasta productos que no creeras que existen, encontrarás oportunidades 
         de ahorro que no querrás perderte. Aprovecha nuestras ofertas en Tienda.gt - ${newStore} hoy mismo.
         .No te lo pierdas!`
       );
@@ -183,7 +216,7 @@ export const OutletProducts = () => {
 const CardProducts = ({ products }) => {
   return (
     <>
-      {products && (
+      {products && products.length != 0 && (
         <div className="results">
           {products.map((item) => {
             const newOffer = (item.price * 100) / item.salePrice;

@@ -14,6 +14,7 @@ export const Index = () => {
   const [products, setProducts] = useState(null);
   const [autoComplete, setAutoComplete] = useState(null);
   const [mostViewed, setMostViewed] = useState(null);
+  const [trending, setTranding] = useState(null);
 
   const getInfo = async (token) => {
     try {
@@ -60,6 +61,31 @@ export const Index = () => {
       );
       const { stores } = data;
       setStores(stores);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getTrending = async (results) => {
+    try {
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_URI_API}/product/get-trending`,
+        results
+      );
+      const { result } = data;
+      setTranding(result);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getEvents = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_ANALYSTICS}/event/get-latest-events`
+      );
+      const { result } = data;
+      getTrending(result);
     } catch (err) {
       console.log(err);
     }
@@ -132,6 +158,7 @@ export const Index = () => {
     getProducts();
     getAutoComplete();
     getMostViewed();
+    getEvents();
   }, []);
 
   return (
@@ -150,6 +177,7 @@ export const Index = () => {
             setIsLogged,
             user,
             setUser,
+            trending,
           }}
         >
           <RouterProvider router={routes} />

@@ -10,8 +10,11 @@ import { AuthContext } from "../Index";
 import $ from "jquery";
 
 export const HomePage = () => {
-  const { tags, mostViewed, offers } = useContext(AuthContext);
+  const { tags, mostViewed, offers, trending } = useContext(AuthContext);
   const [categories, setCategories] = useState(null);
+  const [newTrending, setNewTrending] = useState(
+    trending ? Array.from(trending) : null
+  )
   const [popular, setPopular] = useState(
     mostViewed ? Array.from(mostViewed) : null
   );
@@ -52,6 +55,7 @@ export const HomePage = () => {
   const getProducts = () => {
     if (popular && popular.length > 40) popular.length = 40;
     if (newOffers && newOffers.length > 40) newOffers.length = 40;
+    if (newTrending && newTrending.length > 40) newTrending.length = 40;
   };
 
   useEffect(() => {
@@ -84,8 +88,10 @@ export const HomePage = () => {
           <Introduction></Introduction>
           <Toolbar></Toolbar>
           <Categories categories={categories}></Categories>
-          <Carrusel products={popular} title="Destacados"></Carrusel>
-          {popular && popular.length !== 0 && <GoToLink url="/"></GoToLink>}
+          <Carrusel products={newTrending} title="Trending"></Carrusel>
+          {newTrending && newTrending.length !== 0 && (
+            <GoToLink url="/trending-48-hours"></GoToLink>
+          )}
           <Carrusel products={newOffers} title="Ofertas"></Carrusel>
           {newOffers && newOffers.length !== 0 && (
             <GoToLink url="/all-offers-in-store"></GoToLink>

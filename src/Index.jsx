@@ -38,20 +38,16 @@ export const Index = () => {
     } catch (err) {
       console.log(err);
       localStorage.clear();
+      setUser({});
       setIsLogged(false);
+      window.location.href = "/";
       window.location.reload();
     }
   };
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    if (token) {
-      getInfo(token);
-    } else {
-      localStorage.clear();
-      setIsLogged(false);
-      setUser({});
-    }
+    if (token) getInfo(token);
   }, [isLogged]);
 
   const getStores = async () => {

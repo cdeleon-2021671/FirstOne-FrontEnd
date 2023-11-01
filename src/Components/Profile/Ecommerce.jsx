@@ -60,7 +60,7 @@ export const Ecommerce = ({ stores }) => {
                   <label>
                     {storeId.name} - {storeId.state}
                   </label>
-                  <img src={storeId.urlLogo} alt={storeId.name} />
+                  <img src={storeId.urlLogo} alt={`Logo - ${storeId.name}`} />
                 </div>
                 <div className="content">
                   <Link to={storeId.urlLogo} target="_blank">
@@ -139,14 +139,16 @@ export const Ecommerce = ({ stores }) => {
               </div>
               <div>
                 <SocialLinks store={storeId}></SocialLinks>
-                <img src={storeId.banner} alt={storeId.name} />
+                <img src={storeId.banner} alt={`Banner - ${storeId.banner}`} />
               </div>
-              <button
-                className="reload"
-                onClick={() => reladStore(storeId.xml, storeId._id)}
-              >
-                Recargar Feed
-              </button>
+              {storeId.state == "ACTIVA" && (
+                <button
+                  className="reload"
+                  onClick={() => reladStore(storeId.xml, storeId._id)}
+                >
+                  Recargar Feed
+                </button>
+              )}
             </div>
           );
         })}

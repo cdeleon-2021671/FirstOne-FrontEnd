@@ -124,8 +124,8 @@ export const OutletProducts = () => {
       setUrl(`${store}/popular/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
     } else if (location.pathname == `/trending-48-hours`) {
-      setBoxes(Array.from(trending));
-      setOriginal(Array.from(trending));
+      setBoxes(trending ? rray.from(trending) : null);
+      setOriginal(trending ? Array.from(trending) : null);
       setDescription(
         `Explora los productos guatemaltecos más vistos en las ultimas 48 horas!
         Es una selección cuidadosamente curada de artículos de alta calidad.
@@ -189,11 +189,12 @@ export const OutletProducts = () => {
       );
       setUrl(`gt/products-results/${search}`);
     }
+    setIsActive(true);
   }, [location]);
 
   return (
     <>
-      {boxes && title && description && url && isActive ? (
+      {title && description && url && isActive ? (
         <>
           <Helmet>
             <title>Tienda.gt - {title}</title>

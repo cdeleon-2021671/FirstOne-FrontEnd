@@ -3,7 +3,7 @@ import { AuthContext } from "../../Index";
 import { useNavigate } from "react-router-dom";
 
 export const Info = () => {
-  const { user, setUser, setIsLogged, isLogged } = useContext(AuthContext);
+  const { user, setIsLogged } = useContext(AuthContext);
   const navigate = useNavigate();
 
   return (

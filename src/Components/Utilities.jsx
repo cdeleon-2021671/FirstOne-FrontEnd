@@ -20,6 +20,7 @@ import { Stores } from "./Profile/Stores";
 import { Users } from "./Profile/Users";
 import { Payment } from "./Join/Payment";
 import { Shipping } from "./Join/Shipping";
+import { AddUser } from "./Forms/AddUser";
 
 export const routes = createBrowserRouter([
   {
@@ -76,6 +77,10 @@ export const routes = createBrowserRouter([
           {
             path: "all-users",
             element: <Users></Users>,
+          },
+          {
+            path: "register/:type",
+            element: <AddUser></AddUser>,
           },
         ],
       },

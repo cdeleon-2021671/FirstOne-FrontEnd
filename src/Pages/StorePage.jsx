@@ -20,13 +20,15 @@ export const StorePage = () => {
   const { storeId } = useParams();
 
   useEffect(() => {
-    const newTrending = [];
-    trending.forEach((element) => {
-      const { _id } = element.storeId;
-      if (_id == storeId) newTrending.push(element);
-    });
-    if (newTrending.length > 40) newTrending.length = 40;
-    setLastView(newTrending);
+    if (trending) {
+      const newTrending = [];
+      trending.forEach((element) => {
+        const { _id } = element.storeId;
+        if (_id == storeId) newTrending.push(element);
+      });
+      if (newTrending.length > 40) newTrending.length = 40;
+      setLastView(newTrending);
+    }
   }, [trending]);
 
   useEffect(() => {

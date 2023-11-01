@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./Form.scss";
+import { AuthContext } from "../../Index";
 
 export const Form = () => {
+  const { type } = useParams();
   const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
   const [sendCode, setSendCode] = useState(false);
   const [isDiferent, setIsDiferent] = useState(false);
   const [message, setMessage] = useState("");
@@ -30,7 +33,7 @@ export const Form = () => {
       setIsDiferent(true);
       setMessage("Las contraseñas no coinciden");
     } else setIsDiferent(false);
-  }, [form.confirm]);
+  }, [form.confirm, form.password]);
 
   const sendInfo = async () => {
     try {
@@ -74,15 +77,25 @@ export const Form = () => {
       setMessage(`${err.response.data.message}`);
     }
   };
+  
+  const addBoss = async (register) => {
+    try {
+      navigate("/join/trade-online/step2");
+      localStorage.setItem("register", register);
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
   const createAccount = async () => {
     try {
+      let newForm = { ...form };
+      console.log(newForm);
+      if (type) newForm = { ...form, rol: "TRABAJADOR", stores: user.stores };
       const { data } = await axios.post(
-        `${import.meta.env.VITE_URI_API}/user/ecommerce-account`,
-        form
+        `${import.meta.env.VITE_URI_API}/user/create-account`,
+        newForm
       );
-      navigate("/join/trade-online/step2");
-      localStorage.setItem("register", data.register);
       new Notify({
         status: "success",
         title: "Excelente!",
@@ -96,6 +109,8 @@ export const Form = () => {
         type: 1,
         position: "right top",
       });
+      if (!type) addBoss(data.register);
+      else navigate(-1);
     } catch (err) {
       new Notify({
         status: "error",
@@ -141,7 +156,9 @@ export const Form = () => {
         <div className="container">
           <div className="container-form">
             <span className="container-form-title">
-              Registrar cuenta de empresa
+              {type
+                ? "Registrar nuevo trabajador"
+                : "Registrar cuenta de empresa"}
             </span>
             <div className="container-form-data">
               <label htmlFor="name">Persona encargada</label>

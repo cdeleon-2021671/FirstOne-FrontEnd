@@ -28,14 +28,14 @@ export const Stores = () => {
   }, [user]);
 
   return (
-    <div className="stores">
+    <div className="info">
       {user && user.rol == "COMERCIANTE" ? (
-        <div className="stores-title">
+        <div className="info-title">
           <h2>Tiendas en tu cargo</h2>
           <Link to="/join/trade-online/step2">Agregar tienda</Link>
         </div>
       ) : user.rol == "MAESTRO" ? (
-        <div className="stores-title">
+        <div className="info-title">
           <h2>Todas las tiendas</h2>
         </div>
       ) : null}

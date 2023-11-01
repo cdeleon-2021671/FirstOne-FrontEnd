@@ -161,7 +161,7 @@ export const AllEcommerce = () => {
                   <label>
                     {storeId.name} - {storeId.state}
                   </label>
-                  <img src={storeId.urlLogo} alt={storeId.name} />
+                  <img src={storeId.urlLogo} alt={`Logo - ${storeId.name}`} />
                 </div>
                 <div className="content">
                   <Link to={storeId.urlLogo} target="_blank">
@@ -237,7 +237,7 @@ export const AllEcommerce = () => {
               </div>
               <div>
                 <SocialLinks store={storeId}></SocialLinks>
-                <img src={storeId.banner} alt={storeId.name} />
+                <img src={storeId.banner} alt={`Banner - ${storeId.banner}`} />
               </div>
               <div className="options">
                 <button onClick={() => deleteStore(storeId._id)}>

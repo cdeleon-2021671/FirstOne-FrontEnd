@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { v4 } from "uuid";
 import "./Carrusel.scss";
 import $ from "jquery";
+import { CardProducts } from "./CardProducts";
 
 export const Carrusel = ({ products, title }) => {
   const containerRef = useRef(null);
@@ -35,20 +36,6 @@ export const Carrusel = ({ products, title }) => {
     containerRef.current.scrollTo({ left: 0 });
   };
 
-  
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     const container = $(".card-information-product");
-  //     const title = $(".card-information-product h3");
-  //     const span = $(".card-information-product span");
-  //     for (let index = 0; index < container.length; index++) {
-  //       if (title[index].offsetWidth < container[index].offsetWidth) {
-  //         span[index].style.display = "none";
-  //       }
-  //     }
-  //   }, 500);
-  // }, [products]);
-
   return (
     <>
       {products && products.length !== 0 &&  (
@@ -74,52 +61,7 @@ export const Carrusel = ({ products, title }) => {
                   .join("-");
                 const priceUrl = item.price;
                 const id = item._id;
-                return (
-                  <Link
-                    id="item-card"
-                    className="card"
-                    key={item._id}
-                    to={`/${nameUrl.replace(
-                      /[ ]+/g,
-                      "-"
-                    )}/${tagsUrl}/${priceUrl}/${id}`}
-                    onClick={goToDetails}
-                  >
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="card-image"
-                    />
-                    <div className="card-information">
-                      <div className="card-information-product" title={item.name}>
-                        <h3>{item.name}</h3>
-                        <span>...</span>
-                      </div>
-                      <span className="card-information-store">
-                        Vendido por {item.storeId.name}
-                      </span>
-                      <div className="price">
-                        {item.salePrice && (
-                          <span className="price-porcent">{offer.toFixed(0)}%</span>
-                        )}
-                        <div className="price-price">
-                          <span>Q{item.price.toFixed(2).split(".")[0]}.</span>
-                          <span className="little">
-                            {item.price.toFixed(2).split(".")[1]}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="card-information-salePrice">
-                        {item.salePrice && (
-                          <div className="normal">
-                            Precio original: &nbsp;
-                            <span>Q{item.salePrice.toFixed(2)}</span>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </Link>
-                );
+                return <CardProducts item={item} fnAction={goToDetails} key={item._id}></CardProducts>
               })}
             </div>
             <button className={`btnRight ${classRight}`} onClick={moveRight}>

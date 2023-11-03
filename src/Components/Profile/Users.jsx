@@ -2,7 +2,8 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import "./Users.scss";
+import "./Table.scss";
+import './Stores.scss'
 
 const imgDefautl =
   "https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png";
@@ -60,8 +61,8 @@ const CardUser = ({ rol, store }) => {
   }, [rol, store]);
 
   return (
-    <div className="users all">
-      <div className="users-header all-content">
+    <div className="table all">
+      <div className="table-header all-content">
         <label></label>
         <label>Nombre</label>
         <label>Correo</label>
@@ -71,7 +72,7 @@ const CardUser = ({ rol, store }) => {
       {users &&
         users.length != 0 &&
         users.map((item, key) => (
-          <div className="all-content" id="users-content" key={key}>
+          <div className="all-content" id="table-content" key={key}>
             <img src={imgDefautl} alt={item.name} />
             <span>{item.name}</span>
             <span>{item.email}</span>

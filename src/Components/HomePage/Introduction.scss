@@ -12,11 +12,13 @@
     height: 100%;
     width: 50%;
     display: flex;
+    gap: .5em;
     overflow: hidden;
   }
   &-stores {
     height: 100%;
     display: flex;
+    gap: .5em;
     align-items: center;
     top: 0;
     width: max-content;
@@ -47,7 +49,7 @@
         display: block;
         margin-top: 0.5em;
         font-family: var(--tipo-secundario);
-        font-weight: 900;
+        min-width: max-content;
       }
     }
   }
@@ -62,14 +64,6 @@
 @media screen and (max-width: 700px) {
   .home-introduction {
     padding-left: 14vw;
-    &-stores {
-      &-item {
-        span {
-          min-width: max-content;
-          font-weight: normal;
-        }
-      }
-    }
   }
 }
 

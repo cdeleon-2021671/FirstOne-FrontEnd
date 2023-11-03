@@ -1,11 +1,9 @@
-import React, { useContext, useState, useEffect } from "react";
-import { AuthContext } from "../../Index";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./Stores.scss";
 import axios from "axios";
 
 export const Ecommerce = ({ stores }) => {
-  const { user } = useContext(AuthContext);
 
   const reladStore = async (xml, storeId) => {
     try {

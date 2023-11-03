@@ -6,8 +6,8 @@ import { StoresList } from "../Components/StorePage/StoresList";
 import "../Components/Products/Results.scss";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
+import { CardProducts } from "../Components/Products/CardProducts";
 import axios from "axios";
-import $ from "jquery";
 
 export const OutletProducts = () => {
   const location = useLocation();
@@ -186,7 +186,7 @@ export const OutletProducts = () => {
           <div className="outlet-products">
             <StoresList stores={storeResult}></StoresList>
             <Suggestion options={boxes}></Suggestion>
-            <CardProducts products={boxes}></CardProducts>
+            <Products products={boxes}></Products>
           </div>
         </>
       ) : (
@@ -196,70 +196,13 @@ export const OutletProducts = () => {
   );
 };
 
-const CardProducts = ({ products }) => {
+const Products = ({ products }) => {
   return (
     <>
       {products && products.length != 0 && (
         <div className="results">
           {products.map((item) => {
-            const newOffer = (item.price * 100) / item.salePrice;
-            const offer = 100 - newOffer;
-            const nameUrl = item.name.replace(
-              /[-[\]{}()*+?.,;:#@<>\\^$|#"']+/g,
-              " "
-            );
-            const tagsUrl = item.tags
-              .map((element) => element.replace(/[ ]+/g, "-"))
-              .join("-");
-            const priceUrl = item.price;
-            const id = item._id;
-            return (
-              <Link
-                className="card"
-                key={item._id}
-                to={`/${nameUrl.replace(
-                  /[ ]+/g,
-                  "-"
-                )}/${tagsUrl}/${priceUrl}/${id}`}
-              >
-                <img src={item.image} alt={item.name} className="card-image" />
-                <div className="card-information">
-                  <h3 className="card-information-product" title={item.name}>
-                    {item.name}
-                  </h3>
-                  <span className="card-information-store">
-                    Vendido por {item.storeId.name}
-                  </span>
-                  <div className="price">
-                    {item.salePrice && (
-                      <span className="price-porcent">{offer.toFixed(0)}%</span>
-                    )}
-                    <div className="price-price">
-                      <span>
-                        Q
-                        {item.salePrice
-                          ? item.salePrice.toFixed(2).split(".")[0]
-                          : item.price.toFixed(2).split(".")[0]}
-                        .
-                      </span>
-                      <span className="little">
-                        {item.salePrice
-                          ? item.salePrice.toFixed(2).split(".")[1]
-                          : item.price.toFixed(2).split(".")[1]}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="card-information-salePrice">
-                    {item.salePrice && (
-                      <div className="normal">
-                        Precio normal: &nbsp;
-                        <span>Q{item.price.toFixed(2)}</span>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              </Link>
-            );
+            return <CardProducts item={item} key={item._id} />;
           })}
         </div>
       )}

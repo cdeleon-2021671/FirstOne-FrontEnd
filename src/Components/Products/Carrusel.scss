@@ -22,82 +22,6 @@
       &::-webkit-scrollbar {
         height: 0;
       }
-      .card {
-        box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.5),
-          -1px -1px 2px rgba($color: #fff, $alpha: 0.5);
-        background: #fff;
-        &-image {
-          height: 17em;
-          min-width: 17em;
-          object-fit: contain;
-        }
-        &-information {
-          width: 17em;
-          padding: var(--espacio-secundario);
-          &-product {
-            position: relative;
-            display: flex;
-            h3 {
-              min-width: max-content;
-            }
-            span {
-              position: absolute;
-              top: 0;
-              right: 0;
-              background: #fff;
-              padding: 0 0.4em 0 0;
-            }
-            overflow: hidden;
-            &::-webkit-scrollbar {
-              height: 0;
-            }
-          }
-          &-store {
-            color: var(--color-primario);
-            font-size: 0.9em;
-          }
-          .price {
-            display: flex;
-            gap: 0.3em;
-            font-family: var(--tipo-secundario);
-            &-porcent {
-              color: #ff0000;
-              font-size: 1.4em;
-            }
-            &-price {
-              display: flex;
-              span {
-                font-size: 1.4em;
-                &.little {
-                  font-size: 0.9em;
-                  margin-top: 0.1em;
-                }
-              }
-            }
-          }
-          &-salePrice {
-            display: flex;
-            flex-direction: column;
-            .normal {
-              color: rgb(80, 80, 80);
-              font-size: 0.9em;
-              span {
-                position: relative;
-                &::before {
-                  content: "";
-                  position: absolute;
-                  top: 50%;
-                  left: 50%;
-                  transform: translate(-50%, -50%);
-                  height: 1px;
-                  width: 100%;
-                  background: rgb(80, 80, 80);
-                }
-              }
-            }
-          }
-        }
-      }
     }
     button {
       position: absolute;
@@ -129,17 +53,6 @@
   .products {
     &-title {
       padding: var(--espacio-secundario);
-    }
-    &-container {
-      &-content {
-        .card {
-          &-information {
-            &-product {
-              width: 15em;
-            }
-          }
-        }
-      }
     }
   }
 }

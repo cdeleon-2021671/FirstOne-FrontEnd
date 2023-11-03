@@ -17,10 +17,7 @@ export const Introduction = () => {
       if (img && img.length != 0) {
         const { offsetHeight } = img[0];
         if (offsetHeight > 50) {
-          const fnColor = getComputedStyle(document.documentElement);
-          const color = fnColor.getPropertyValue("--color-secundario");
           $(".home-introduction").css("height", offsetHeight);
-          $(".home-introduction").css("background", color);
           clearInterval(getImg);
         } else if (end - start >= 3) {
           $(".home-introduction").css("height", "auto");
@@ -56,7 +53,7 @@ export const Introduction = () => {
     <>
       <div className="home-introduction">
         <img
-          src='./src/assets/Banner - Computadora1.jpg'
+          src={imgBanner}
           alt="Tienda.gt"
           crossOrigin="anonymous"
           className="home-introduction-banner"

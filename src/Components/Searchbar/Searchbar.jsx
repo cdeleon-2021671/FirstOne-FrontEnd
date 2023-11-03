@@ -93,18 +93,18 @@ export const Searchbar = () => {
 
   const addEvent = async (url, search) => {
     try {
-      if (isLogged && user.rol != "CLIENTE") return;
-      const fp = await FingerPrint.load();
-      const { visitorId } = await fp.get();
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_ANALYSTICS}/search/add-event`,
-        {
-          url: url,
-          query: search,
-          fingerprint: visitorId,
-        }
-      );
-      console.log(data);
+      if (isLogged && user.rol == "CLIENTE") {
+        const fp = await FingerPrint.load();
+        const { visitorId } = await fp.get();
+        await axios.post(
+          `${import.meta.env.VITE_ANALYSTICS}/search/add-event`,
+          {
+            url: url,
+            query: search,
+            fingerprint: visitorId,
+          }
+        );
+      }
     } catch (err) {
       console.log(err);
     }

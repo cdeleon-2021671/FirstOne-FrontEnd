@@ -93,7 +93,7 @@ export const Searchbar = () => {
 
   const addEvent = async (url, search) => {
     try {
-      if (isLogged && user.rol == "CLIENTE") {
+      if ((user && user.rol == "CLIENTE") || isLogged == false) {
         const fp = await FingerPrint.load();
         const { visitorId } = await fp.get();
         await axios.post(
@@ -104,7 +104,6 @@ export const Searchbar = () => {
             fingerprint: visitorId,
           }
         );
-        console.log('hola');
       }
     } catch (err) {
       console.log(err);

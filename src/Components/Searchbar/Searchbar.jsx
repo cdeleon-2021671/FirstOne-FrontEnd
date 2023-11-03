@@ -104,6 +104,7 @@ export const Searchbar = () => {
             fingerprint: visitorId,
           }
         );
+        console.log('hola');
       }
     } catch (err) {
       console.log(err);

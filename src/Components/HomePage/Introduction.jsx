@@ -9,25 +9,15 @@ export const Introduction = () => {
   const [imgBanner, setImgBanner] = useState(null);
 
   const heightContainer = () => {
-    const date = new Date();
-    const start = date.getSeconds();
-    const getImg = setInterval(() => {
-      const end = date.getSeconds();
-      const img = $(".home-introduction-banner");
-      if (img && img.length != 0) {
-        const { offsetHeight } = img[0];
-        if (offsetHeight > 50) {
-          $(".home-introduction").css("height", offsetHeight);
-          clearInterval(getImg);
-        } else if (end - start >= 3) {
-          $(".home-introduction").css("height", "auto");
-          clearInterval(getImg);
-        }
-      } else if (end - start >= 3) {
+    const img = $(".home-introduction-banner");
+    if (img && img.length != 0) {
+      const { offsetHeight } = img[0];
+      if (offsetHeight > 50) {
+        $(".home-introduction").css("height", offsetHeight);
+      } else {
         $(".home-introduction").css("height", "auto");
-        clearInterval(getImg);
       }
-    }, 500);
+    }
   };
 
   const resizeWindow = () => {
@@ -38,12 +28,18 @@ export const Introduction = () => {
       img = "https://api.tienda.gt/image/tablet";
     }
     setImgBanner(img);
-    heightContainer();
   };
 
   useEffect(() => {
+    if (imgBanner) heightContainer();
+  }, [imgBanner]);
+
+  useEffect(() => {
     resizeWindow();
-    $(window).on("resize", resizeWindow);
+    $(window).on("resize", () => {
+      resizeWindow();
+      heightContainer();
+    });
     return () => {
       $(window).off("resize");
     };

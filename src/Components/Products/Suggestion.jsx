@@ -48,7 +48,7 @@ export const Suggestion = ({ options }) => {
 
   const addEvent = async (url, search) => {
     try {
-      if (isLogged && user.rol != "CLIENTE") return;
+      if (isLogged && user && user.rol != "CLIENTE") return;
       const fp = await FingerPrint.load();
       const { visitorId } = await fp.get();
       await axios.post(`${import.meta.env.VITE_ANALYSTICS}/search/add-event`, {

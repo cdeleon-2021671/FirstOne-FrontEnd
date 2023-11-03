@@ -6,42 +6,41 @@ import $ from "jquery";
 
 export const Introduction = () => {
   const { stores } = useContext(AuthContext);
-  const [imgBanner, setImgBanner] = useState(null);
+  const computer = "https://api.tienda.gt/image/computer";
+  const tablet = "https://api.tienda.gt/image/phone";
+  const phone = "https://api.tienda.gt/image/tablet";
+  const [banner, setBanner] = useState(computer);
 
   const heightContainer = () => {
     const img = $(".home-introduction-banner");
-    if (img && img.length != 0) {
+    if (img) {
       const { offsetHeight } = img[0];
+      const homeIntroduction = $(".home-introduction")[0];
       if (offsetHeight > 50) {
-        $(".home-introduction").css("height", offsetHeight);
+        homeIntroduction.style.height = offsetHeight + "px";
       } else {
-        $(".home-introduction").css("height", "auto");
+        homeIntroduction.style.height = "auto";
       }
     }
   };
 
-  const resizeWindow = () => {
-    let img = "https://api.tienda.gt/image/computer";
-    if (window.innerWidth <= 500) {
-      img = "https://api.tienda.gt/image/phone";
-    } else if (window.innerWidth <= 700) {
-      img = "https://api.tienda.gt/image/tablet";
-    }
-    setImgBanner(img);
+  const getImage = () => {
+    if (window.innerWidth <= 500) setBanner(phone);
+    else if (window.innerWidth <= 700) setBanner(tablet);
+    else setBanner(computer);
   };
 
   useEffect(() => {
-    if (imgBanner) heightContainer();
-  }, [imgBanner]);
+    heightContainer();
+    getImage();
 
-  useEffect(() => {
-    resizeWindow();
-    $(window).on("resize", () => {
-      resizeWindow();
+    const handleResize = () => {
       heightContainer();
-    });
+      getImage();
+    };
+    $(window).on("resize", handleResize);
     return () => {
-      $(window).off("resize");
+      $(window).off("resize", handleResize);
     };
   }, []);
 
@@ -49,7 +48,7 @@ export const Introduction = () => {
     <>
       <div className="home-introduction">
         <img
-          src={imgBanner}
+          src={banner}
           alt="Tienda.gt"
           crossOrigin="anonymous"
           className="home-introduction-banner"

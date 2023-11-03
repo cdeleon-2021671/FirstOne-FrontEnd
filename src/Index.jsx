@@ -81,7 +81,6 @@ export const Index = () => {
         `${import.meta.env.VITE_ANALYSTICS}/event/get-latest-events`
       );
       const { result } = data;
-      console.log(result);
       getTrending(result);
       return;
     } catch (err) {

@@ -96,11 +96,15 @@ export const Searchbar = () => {
       if (isLogged && user.rol != "CLIENTE") return;
       const fp = await FingerPrint.load();
       const { visitorId } = await fp.get();
-      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/search/add-event`, {
-        url: url,
-        query: search,
-        fingerprint: visitorId,
-      });
+      const { data } = await axios.post(
+        `${import.meta.env.VITE_ANALYSTICS}/search/add-event`,
+        {
+          url: url,
+          query: search,
+          fingerprint: visitorId,
+        }
+      );
+      console.log(data);
     } catch (err) {
       console.log(err);
     }

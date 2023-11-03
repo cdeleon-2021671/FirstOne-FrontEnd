@@ -46,10 +46,11 @@ export const Details = () => {
   const verifyEvent = async () => {
     try {
       if (details) {
-        if (isLogged && user.rol != "CLIENTE") return;
+        if (isLogged && user && user.rol != "CLIENTE") return;
         const url = `https://tienda.gt${location.pathname}`;
         const fp = await FingerPrint.load();
         const { visitorId } = await fp.get();
+        console.log(visitorId);
         const { data } = await axios.post(
           `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
           {

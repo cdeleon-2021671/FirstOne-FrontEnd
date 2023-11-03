@@ -82,7 +82,6 @@ export const Index = () => {
       );
       const { result } = data;
       getTrending(result);
-      return;
     } catch (err) {
       console.log(err);
     }

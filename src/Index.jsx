@@ -69,6 +69,7 @@ export const Index = () => {
         results
       );
       const { result } = data;
+      console.log(result);
       setTranding(result);
     } catch (err) {
       console.log(err);

@@ -36,18 +36,18 @@ export const Carrusel = ({ products, title }) => {
   };
 
   
-  useEffect(() => {
-    setTimeout(() => {
-      const container = $(".card-information-product");
-      const title = $(".card-information-product h3");
-      const span = $(".card-information-product span");
-      for (let index = 0; index < container.length; index++) {
-        if (title[index].offsetWidth < container[index].offsetWidth) {
-          span[index].style.display = "none";
-        }
-      }
-    }, 500);
-  }, [products]);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     const container = $(".card-information-product");
+  //     const title = $(".card-information-product h3");
+  //     const span = $(".card-information-product span");
+  //     for (let index = 0; index < container.length; index++) {
+  //       if (title[index].offsetWidth < container[index].offsetWidth) {
+  //         span[index].style.display = "none";
+  //       }
+  //     }
+  //   }, 500);
+  // }, [products]);
 
   return (
     <>
@@ -100,7 +100,7 @@ export const Carrusel = ({ products, title }) => {
                       </span>
                       <div className="price">
                         {item.salePrice && (
-                          <span className="price-porcent">-{offer}%</span>
+                          <span className="price-porcent">{offer.toFixed(0)}%</span>
                         )}
                         <div className="price-price">
                           <span>Q{item.price.toFixed(2).split(".")[0]}.</span>

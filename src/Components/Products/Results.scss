@@ -29,22 +29,10 @@
       &-information {
         padding: var(--espacio-secundario);
         &-product{
-          position: relative;
-          display: flex;
-          h3{
-            min-width: max-content;
-          }
-          span{
-            position: absolute;
-            top: 0;
-            right: 0;
-            background: #fff;
-            padding: 0 .4em 0 0;
-          }
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
           overflow: hidden;
-          &::-webkit-scrollbar{
-            height: 0;
-          }
         }
         &-store {
           color: var(--color-primario);

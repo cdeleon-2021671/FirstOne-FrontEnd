@@ -82,24 +82,7 @@ export const OutletProducts = () => {
     }
   };
 
-  const [isActive, setIsActive] = useState(false);
-
   useEffect(() => {
-    setTimeout(() => {
-      const container = $(".card-information-product");
-      const title = $(".card-information-product h3");
-      const span = $(".card-information-product span");
-      for (let index = 0; index < container.length; index++) {
-        if (title[index].offsetWidth < container[index].offsetWidth) {
-          span[index].style.display = "none";
-        }
-      }
-      setIsActive(true);
-    }, 500);
-  }, [boxes]);
-
-  useEffect(() => {
-    setIsActive(false);
     window.scrollTo({ top: 0 });
     if (category) {
       const newCategory = category.replace(/[-]+/g, " ");
@@ -189,12 +172,11 @@ export const OutletProducts = () => {
       );
       setUrl(`gt/products-results/${search}`);
     }
-    setIsActive(true);
   }, [location]);
 
   return (
     <>
-      {title && description && url && isActive ? (
+      {title && description && url ? (
         <>
           <Helmet>
             <title>Tienda.gt - {title}</title>
@@ -242,21 +224,28 @@ const CardProducts = ({ products }) => {
               >
                 <img src={item.image} alt={item.name} className="card-image" />
                 <div className="card-information">
-                  <div className="card-information-product" title={item.name}>
-                    <h3>{item.name}</h3>
-                    <span>...</span>
-                  </div>
+                  <h3 className="card-information-product" title={item.name}>
+                    {item.name}
+                  </h3>
                   <span className="card-information-store">
                     Vendido por {item.storeId.name}
                   </span>
                   <div className="price">
                     {item.salePrice && (
-                      <span className="price-porcent">-{offer}%</span>
+                      <span className="price-porcent">{offer.toFixed(0)}%</span>
                     )}
                     <div className="price-price">
-                      <span>Q{item.price.toFixed(2).split(".")[0]}.</span>
+                      <span>
+                        Q
+                        {item.salePrice
+                          ? item.salePrice.toFixed(2).split(".")[0]
+                          : item.price.toFixed(2).split(".")[0]}
+                        .
+                      </span>
                       <span className="little">
-                        {item.price.toFixed(2).split(".")[1]}
+                        {item.salePrice
+                          ? item.salePrice.toFixed(2).split(".")[1]
+                          : item.price.toFixed(2).split(".")[1]}
                       </span>
                     </div>
                   </div>
@@ -264,7 +253,7 @@ const CardProducts = ({ products }) => {
                     {item.salePrice && (
                       <div className="normal">
                         Precio normal: &nbsp;
-                        <span>Q{item.salePrice.toFixed(2)}</span>
+                        <span>Q{item.price.toFixed(2)}</span>
                       </div>
                     )}
                   </div>

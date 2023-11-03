@@ -56,7 +56,7 @@ export const Introduction = () => {
     <>
       <div className="home-introduction">
         <img
-          src={imgBanner}
+          src='./src/assets/Banner - Computadora1.jpg'
           alt="Tienda.gt"
           crossOrigin="anonymous"
           className="home-introduction-banner"

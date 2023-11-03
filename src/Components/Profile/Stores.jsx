@@ -11,7 +11,7 @@ export const Stores = () => {
       {user && user.rol == "COMERCIANTE" ? (
         <div className="info-title">
           <h2>Tiendas en tu cargo</h2>
-          <Link to="/join/trade-online/step2">Agregar tienda</Link>
+          <Link className="info-title-action" to="/join/trade-online/step2">Agregar tienda</Link>
         </div>
       ) : user && user.rol == "TRABAJADOR" ? (
         <div className="info-title">
@@ -77,7 +77,14 @@ const List = () => {
       {allStores &&
         allStores.length != 0 &&
         allStores.map((item, key) => (
-          <Link className="all-content" id="table-content" key={key}>
+          <Link
+            className="all-content"
+            id="table-content"
+            key={key}
+            to={`/profile/store/${item.store.name.replace(/[ ]+/g, "-")}/${
+              item.store._id
+            }`}
+          >
             <img src={item.store.urlLogo} alt={item.store.name} />
             <span>{item.store.name}</span>
             <span>{item.boss.name}</span>

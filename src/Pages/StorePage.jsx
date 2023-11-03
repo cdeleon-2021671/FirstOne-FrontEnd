@@ -8,6 +8,7 @@ import { Banner } from "../Components/StorePage/Banner";
 import { useParams } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { AuthContext } from "../Index";
+import axios from "axios";
 
 export const StorePage = () => {
   const [categories, setCategories] = useState(null);
@@ -18,6 +19,22 @@ export const StorePage = () => {
   const [store, setStore] = useState(null);
   const [lastView, setLastView] = useState(null);
   const { storeId } = useParams();
+
+  const getStoreById = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/store/get-store-by-id/${storeId}`
+      );
+      const { store } = data;
+      setStore(store);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getStoreById();
+  }, [stores]);
 
   useEffect(() => {
     if (trending) {
@@ -30,15 +47,6 @@ export const StorePage = () => {
       setLastView(newTrending);
     }
   }, [trending]);
-
-  useEffect(() => {
-    const newStore = [];
-    stores.forEach((element) => {
-      const { store } = element;
-      if (store._id == storeId) newStore.push(store);
-    });
-    setStore(newStore[0]);
-  }, [stores]);
 
   useEffect(() => {
     const newPopular = [];

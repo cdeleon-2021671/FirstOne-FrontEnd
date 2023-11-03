@@ -16,14 +16,14 @@ export const Users = () => {
       {user && user.rol == "COMERCIANTE" ? (
         <div className="info-title">
           <h2>Todos tus usuarios</h2>
-          <Link to="/profile/register/worker">Agregar Trabajador</Link>
+          <Link className="info-title-action" to="/profile/register/worker">Agregar Trabajador</Link>
         </div>
       ) : (
         user &&
         user.rol == "MAESTRO" && (
           <div className="info-title">
             <h2>Todos los usuarios</h2>
-            <Link to="/profile/register/admin">Agregar Administrador</Link>
+            <Link className="info-title-action" to="/profile/register/admin">Agregar Administrador</Link>
           </div>
         )
       )}

@@ -1,13 +1,34 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { AuthContext } from "../../Index";
 import "./Stores.scss";
 import axios from "axios";
+import { Animation } from "../Animation/Animation";
 
-export const Ecommerce = ({ stores }) => {
+export const Ecommerce = () => {
+  const { storeId } = useParams();
+  const [store, setStore] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  const getStoreById = async () => {
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/store/get-store-by-id/${storeId}`
+      );
+      const { store } = data;
+      setStore(store);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getStoreById();
+  }, []);
 
   const reladStore = async (xml, storeId) => {
     try {
-      if (user && user.rol != "COMERCIANTE") return;
+      setLoading(true);
       const headers = {
         "content-types": "aplication/json",
         Authorization: localStorage.getItem("token"),
@@ -30,6 +51,7 @@ export const Ecommerce = ({ stores }) => {
         type: 1,
         position: "right top",
       });
+      setLoading(false);
     } catch (err) {
       console.log(err);
       new Notify({
@@ -45,112 +67,305 @@ export const Ecommerce = ({ stores }) => {
         type: 1,
         position: "right top",
       });
+      setLoading(false);
     }
   };
   return (
-    <div className="all">
-      {stores &&
-        stores.map(({ storeId }, key) => {
-          return (
-            <div key={key} className="all-content">
-              <div className="all-content-introduction">
-                <div className="info">
-                  <label>
-                    {storeId.name} - {storeId.state}
-                  </label>
-                  <img src={storeId.urlLogo} alt={`Logo - ${storeId.name}`} />
-                </div>
-                <div className="content">
-                  <Link to={storeId.urlLogo} target="_blank">
-                    {" "}
-                    <strong>Logo: </strong>
-                    {storeId.urlLogo}
-                  </Link>
-                  <Link to={storeId.banner} target="_blank">
-                    {" "}
-                    <strong>Banner: </strong>
-                    {storeId.banner}
-                  </Link>
-                  <Link to={storeId.xml} target="_blank">
-                    {" "}
-                    <strong>XML: </strong>
-                    {storeId.xml}
-                  </Link>
-                  <span>
-                    {" "}
-                    <strong>Descripción:</strong> {storeId.description}
-                  </span>
-                  <Links store={storeId}></Links>
-                </div>
-              </div>
-              <div className="container">
-                <div className="apart">
-                  <label>Etiquetas</label>
-                  {storeId.tags.length != 0 ? (
-                    storeId.tags.map((item, key) => (
-                      <span key={key}>{item}</span>
-                    ))
-                  ) : (
-                    <>
-                      <span>No tienes etiquetas</span>
-                      <Link>Agregar etiquetas</Link>
-                    </>
-                  )}
-                </div>
-                <div className="apart">
-                  <label>Opciones de envio</label>
-                  {storeId.shippingTerms.length != 0 ? (
-                    storeId.shippingTerms.map((item, key) => {
-                      if (item.includes("http") || item.includes("www"))
-                        return (
-                          <Link
-                            key={key}
-                            to={item}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                          >
-                            Ver más
-                          </Link>
-                        );
-                      else return <span key={key}>{item}</span>;
-                    })
-                  ) : (
-                    <>
-                      <span>No tienes opciones de envío</span>
-                      <Link>Agregar opciones</Link>
-                    </>
-                  )}
-                </div>
-                <div className="apart">
-                  <label>Opciones de pago</label>
-                  {storeId.paymentOptions.length != 0 ? (
-                    storeId.paymentOptions.map((item, key) => (
-                      <span key={key}>{item}</span>
-                    ))
-                  ) : (
-                    <>
-                      <span>No tienes métodos de pago</span>
-                      <Link>Agregar métodos</Link>
-                    </>
-                  )}
-                </div>
-              </div>
+    <>
+      {loading && <Animation></Animation>}
+      {store && (
+        <div className="info">
+          <div className="info-title">
+            <h2>
+              {store.name} - {store.state}
+            </h2>
+            <button
+              className="info-title-action"
+              to="/join/trade-online/step2"
+              onClick={() => reladStore(store.xml, store._id)}
+            >
+              Recargar feed
+            </button>
+          </div>
+          <div className="all">
+            <div className="all-content">
+              <Introduction store={store}></Introduction>
+              <Methods store={store}></Methods>
               <div>
-                <SocialLinks store={storeId}></SocialLinks>
-                <img src={storeId.banner} alt={`Banner - ${storeId.banner}`} />
+                <SocialLinks store={store}></SocialLinks>
+                <img src={store.banner} alt={`Banner - ${store.banner}`} />
               </div>
-              {storeId.state == "ACTIVA" && (
-                <button
-                  className="reload"
-                  onClick={() => reladStore(storeId.xml, storeId._id)}
-                >
-                  Recargar Feed
-                </button>
-              )}
+              <Options store={store} reloadStore={getStoreById}></Options>
             </div>
-          );
-        })}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};
+
+const Introduction = ({ store }) => {
+  return (
+    <div className="all-content-introduction">
+      <div className="info">
+        <img src={store.urlLogo} alt={`Logo - ${store.name}`} />
+      </div>
+      <div className="content">
+        <Link to={store.urlLogo} target="_blank">
+          {" "}
+          <strong>Logo: </strong>
+          {store.urlLogo}
+        </Link>
+        <Link to={store.banner} target="_blank">
+          {" "}
+          <strong>Banner: </strong>
+          {store.banner}
+        </Link>
+        <Link to={store.xml} target="_blank">
+          {" "}
+          <strong>XML: </strong>
+          {store.xml}
+        </Link>
+        <span>
+          {" "}
+          <strong>Descripción:</strong> {store.description}
+        </span>
+        <Links store={store}></Links>
+      </div>
     </div>
+  );
+};
+
+const Methods = ({ store }) => {
+  const { user } = useContext(AuthContext);
+
+  return (
+    <div className="container">
+      <div className="apart">
+        <label>Etiquetas</label>
+        {store.tags.length != 0 ? (
+          store.tags.map((item, key) => <span key={key}>{item}</span>)
+        ) : (
+          <>
+            <span>No se han agregado etiquetas</span>
+            {(user && user.rol == "COMERCIANTE") ||
+            (user && user.rol == "TRABAJADOR") ? (
+              <Link>Agregar etiquetas</Link>
+            ) : null}
+          </>
+        )}
+      </div>
+      <div className="apart">
+        <label>Opciones de envio</label>
+        {store.shippingTerms.length != 0 ? (
+          store.shippingTerms.map((item, key) => {
+            if (item.includes("http") || item.includes("www"))
+              return (
+                <Link
+                  key={key}
+                  to={item}
+                  onClick={(e) => e.stopPropagation()}
+                  target="_blank"
+                >
+                  Ver más
+                </Link>
+              );
+            else return <span key={key}>{item}</span>;
+          })
+        ) : (
+          <>
+            <span>No se han agregado opciones de envío</span>
+            {(user && user.rol == "COMERCIANTE") ||
+            (user && user.rol == "TRABAJADOR") ? (
+              <Link>Agregar opciones de envío</Link>
+            ) : null}
+          </>
+        )}
+      </div>
+      <div className="apart">
+        <label>Opciones de pago</label>
+        {store.paymentOptions.length != 0 ? (
+          store.paymentOptions.map((item, key) => <span key={key}>{item}</span>)
+        ) : (
+          <>
+            <span>No se han agregado métodos de pago</span>
+            {(user && user.rol == "COMERCIANTE") ||
+            (user && user.rol == "TRABAJADOR") ? (
+              <Link>Agregar métodos</Link>
+            ) : null}
+          </>
+        )}
+      </div>
+    </div>
+  );
+};
+
+const Options = ({ store, reloadStore }) => {
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+
+  const deleteStore = async (id) => {
+    try {
+      setLoading(true);
+      const headers = {
+        "content-types": "aplication/json",
+        Authorization: localStorage.getItem("token"),
+      };
+      await axios.delete(
+        `${import.meta.env.VITE_URI_API}/store/delete-store/${id}`,
+        { headers: headers }
+      );
+      new Notify({
+        status: "success",
+        title: "Excelente",
+        text: "Tienda eliminada satisfacoriamente",
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      navigate(-1);
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      new Notify({
+        status: "error",
+        title: "Lo siento!",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      setLoading(false);
+    }
+  };
+
+  const activeStore = async (id) => {
+    try {
+      setLoading(true);
+      const headers = {
+        "content-types": "aplication/json",
+        Authorization: localStorage.getItem("token"),
+      };
+      await axios.post(
+        `${import.meta.env.VITE_URI_API}/product/add-products`,
+        { storeId: id },
+        { headers: headers }
+      );
+      new Notify({
+        status: "success",
+        title: "Excelente",
+        text: "Tienda activada satisfacoriamente",
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      reloadStore();
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      new Notify({
+        status: "error",
+        title: "Lo siento!",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      setLoading(false);
+    }
+  };
+
+  const inactiveStore = async (id) => {
+    try {
+      setLoading(true);
+      const headers = {
+        "content-type": "aplication/json",
+        Authorization: localStorage.getItem("token"),
+      };
+      await axios.put(
+        `${import.meta.env.VITE_URI_API}/store/inactive-store/${id}`,
+        {},
+        { headers: headers }
+      );
+      new Notify({
+        status: "success",
+        title: "Excelente",
+        text: "Tienda inactivada satisfacoriamente",
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      reloadStore();
+      setLoading(false);
+    } catch (err) {
+      console.log(err);
+      new Notify({
+        status: "error",
+        title: "Lo siento!",
+        text: `${err.response.data.message}`,
+        effect: "fade",
+        speed: 300,
+        showIcon: true,
+        showCloseButton: true,
+        autoclose: true,
+        autotimeout: 3000,
+        type: 1,
+        position: "right top",
+      });
+      setLoading(false);
+    }
+  };
+
+  return (
+    <>
+      {loading && <Animation></Animation>}
+      {(user && user.rol == "MAESTRO") || (user && user.rol == "ADMIN") ? (
+        <div className="options">
+          <button onClick={() => deleteStore(store._id)}>
+            Eliminar Tienda
+          </button>
+          {store.state != "ACTIVA" && (
+            <button
+              style={{ background: "rgb(4, 238, 4)" }}
+              onClick={() => activeStore(store._id)}
+            >
+              Activar Tienda
+            </button>
+          )}
+          {store.state == "ACTIVA" && (
+            <button onClick={() => inactiveStore(store._id)}>
+              Inactivar Tienda
+            </button>
+          )}
+        </div>
+      ) : null}
+    </>
   );
 };
 

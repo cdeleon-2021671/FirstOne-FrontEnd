@@ -21,6 +21,7 @@ import { Users } from "./Profile/Users";
 import { Payment } from "./Join/Payment";
 import { Shipping } from "./Join/Shipping";
 import { AddUser } from "./Forms/AddUser";
+import { Ecommerce } from "./Profile/Ecommerce";
 
 export const routes = createBrowserRouter([
   {
@@ -66,6 +67,10 @@ export const routes = createBrowserRouter([
         path: "profile",
         element: <Profile></Profile>,
         children: [
+          {
+            path: "store/:store/:storeId",
+            element: <Ecommerce></Ecommerce>,
+          },
           {
             path: "info/:user/:userId",
             element: <Info></Info>,

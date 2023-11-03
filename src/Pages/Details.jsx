@@ -47,10 +47,18 @@ export const Details = () => {
     try {
       if (details) {
         if (isLogged && user && user.rol != "CLIENTE") return;
-        const url = `https://tienda.gt${location.pathname}`;
+        const name = details.name.replace(
+          /[-[\]{}()*+?.,;:#@<>\\^$|#"']+/g,
+          " "
+        );
+        const tagsUrl = details.tags
+          .map((element) => element.replace(/[ ]+/g, "-"))
+          .join("-");
+        const priceUrl = details.price;
+        const id = details._id;
+        const url = `https://tienda.gt/${name}/${tags}/${priceUrl}/${id}`;
         const fp = await FingerPrint.load();
         const { visitorId } = await fp.get();
-        console.log(visitorId);
         const { data } = await axios.post(
           `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
           {

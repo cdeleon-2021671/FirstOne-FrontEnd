@@ -38,7 +38,7 @@ export const Carrusel = ({ products, title }) => {
 
   return (
     <>
-      {products && products.length !== 0 &&  (
+      {products && products.length !== 0 && (
         <div className="products">
           <h2 className="products-title">{title}</h2>
           <div className="products-container">
@@ -50,18 +50,13 @@ export const Carrusel = ({ products, title }) => {
             </button>
             <div className="products-container-content" ref={containerRef}>
               {products.map((item) => {
-                const newOffer = (item.price * 100) / item.salePrice;
-                const offer = 100 - newOffer;
-                const nameUrl = item.name.replace(
-                  /[-[\]{}()*+?.,;:#@<>\\^$|#"']+/g,
-                  " "
+                return (
+                  <CardProducts
+                    item={item}
+                    fnAction={goToDetails}
+                    key={item._id}
+                  ></CardProducts>
                 );
-                const tagsUrl = item.tags
-                  .map((element) => element.replace(/[ ]+/g, "-"))
-                  .join("-");
-                const priceUrl = item.price;
-                const id = item._id;
-                return <CardProducts item={item} fnAction={goToDetails} key={item._id}></CardProducts>
               })}
             </div>
             <button className={`btnRight ${classRight}`} onClick={moveRight}>

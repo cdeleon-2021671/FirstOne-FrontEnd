@@ -51,6 +51,7 @@ export const OutletProducts = () => {
         const { _id } = item.storeId;
         if (_id == storeId) return item;
       });
+      console.log(products);
       setBoxes(products);
       setOriginal(products);
     }
@@ -107,7 +108,7 @@ export const OutletProducts = () => {
       setUrl(`${store}/popular/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
     } else if (location.pathname == `/trending-48-hours`) {
-      setBoxes(trending ? rray.from(trending) : null);
+      setBoxes(trending ? Array.from(trending) : null);
       setOriginal(trending ? Array.from(trending) : null);
       setDescription(
         `Explora los productos guatemaltecos más vistos en las ultimas 48 horas!

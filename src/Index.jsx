@@ -77,12 +77,11 @@ export const Index = () => {
 
   const getEvents = async () => {
     try {
-      await axios.get(
-        `${import.meta.env.VITE_ANALYSTICS}/event/get-latest-events`
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_ANALYSTICS}/newEvent/get-latest-events`
       );
-      console.log('eventos bien');
-      // const { result } = data;
-      // getTrending(result);
+      const { result } = data;
+      getTrending(result);
     } catch (err) {
       console.log(err);
     }

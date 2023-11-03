@@ -31,7 +31,7 @@ export const Details = () => {
 
   const addEvent = async (visitorId, url) => {
     try {
-      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/event/add-event`, {
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/newEvent/add-event`, {
         url: url,
         fingerprint: visitorId,
         product: details,
@@ -47,20 +47,11 @@ export const Details = () => {
     try {
       if (details) {
         if (isLogged && user && user.rol != "CLIENTE") return;
-        const name = details.name.replace(
-          /[-[\]{}()*+?.,;:#@<>\\^$|#"']+/g,
-          " "
-        );
-        const tagsUrl = details.tags
-          .map((element) => element.replace(/[ ]+/g, "-"))
-          .join("-");
-        const priceUrl = details.price;
-        const id = details._id;
-        const url = `https://tienda.gt/${name}/${tags}/${priceUrl}/${id}`;
+        const url = `https://tienda.gt${location.pathname}`;
         const fp = await FingerPrint.load();
         const { visitorId } = await fp.get();
         const { data } = await axios.post(
-          `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
+          `${import.meta.env.VITE_ANALYSTICS}/newEvent/verify-event-day`,
           {
             url: url,
             fingerprint: visitorId,

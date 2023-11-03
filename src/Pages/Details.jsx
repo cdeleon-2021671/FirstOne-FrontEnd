@@ -45,19 +45,21 @@ export const Details = () => {
 
   const verifyEvent = async () => {
     try {
-      if (isLogged && user.rol != "CLIENTE") return;
-      const url = `https://tienda.gt${location.pathname}`;
-      const fp = await FingerPrint.load();
-      const { visitorId } = await fp.get();
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
-        {
-          url: url,
-          fingerprint: visitorId,
-        }
-      );
-      addEvent(visitorId, url);
-      if (data.message == "false") addView();
+      if (details) {
+        if (isLogged && user.rol != "CLIENTE") return;
+        const url = `https://tienda.gt${location.pathname}`;
+        const fp = await FingerPrint.load();
+        const { visitorId } = await fp.get();
+        const { data } = await axios.post(
+          `${import.meta.env.VITE_ANALYSTICS}/event/verify-event-day`,
+          {
+            url: url,
+            fingerprint: visitorId,
+          }
+        );
+        addEvent(visitorId, url);
+        if (data.message == "false") addView();
+      }
     } catch (err) {
       console.log(err);
     }

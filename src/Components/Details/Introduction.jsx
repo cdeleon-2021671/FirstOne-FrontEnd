@@ -122,16 +122,27 @@ export const Introduction = ({ product, offer }) => {
               </p>
               <div className="details-content-price">
                 {product.salePrice && (
-                  <span className="porcent">-{offer}%</span>
+                  <span className="porcent">{offer.toFixed(0)}%</span>
                 )}
-                <span>Q{product.price.toFixed(2).split(".")[0]}.</span>
-                <span className="little">
-                  {product.price.toFixed(2).split(".")[1]}
-                </span>
+                {product.salePrice ? (
+                  <>
+                    <span>Q{product.salePrice.toFixed(2).split(".")[0]}.</span>
+                    <span className="little">
+                      {product.salePrice.toFixed(2).split(".")[1]}
+                    </span>
+                  </>
+                ) : (
+                  <>
+                    <span>Q{product.price.toFixed(2).split(".")[0]}.</span>
+                    <span className="little">
+                      {product.price.toFixed(2).split(".")[1]}
+                    </span>
+                  </>
+                )}
               </div>
               {product.salePrice && (
                 <div className="details-content-salePrice">
-                  Precio original: <span>Q{product.salePrice.toFixed(2)}</span>
+                  Precio original: <span>Q{product.price.toFixed(2)}</span>
                 </div>
               )}
               <Options {...product.storeId}></Options>

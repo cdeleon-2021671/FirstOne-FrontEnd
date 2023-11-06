@@ -2,15 +2,15 @@
 
 .header {
   --spacing: 0.3em;
-  --icon-dimensions: 1.4em;
-  background: var(--color-primario);
+  --icon-dimensions: 1.2em;
+  background: var(--color-blanco);
   padding: 0.5em 1em;
   display: flex;
   justify-content: space-between;
   align-items: center;
   transition: all 0.4s ease;
   &-title {
-    color: var(--color-blanco);
+    color: var(--color-secundario);
     display: flex;
     font-size: 1.6em;
     font-weight: bold;
@@ -24,25 +24,11 @@
     display: flex;
     align-items: center;
     gap: var(--spacing);
-    color: var(--color-blanco);
     svg {
       width: var(--icon-dimensions);
       height: var(--icon-dimensions);
     }
-  }
-  &-gt {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing);
-    color: var(--color-blanco);
-    cursor: text;
-    img {
-      width: var(--icon-dimensions);
-      height: var(--icon-dimensions);
-      object-fit: cover;
-      object-position: center;
-      border-radius: 100%;
-    }
+    color: var(--color-secundario);
   }
 }
 
@@ -50,30 +36,21 @@
   .header {
     flex-direction: column;
     justify-content: center;
-    row-gap: .5em;
-    &-gt {
-      position: absolute;
-      top: 0.8em;
-      right: 13vw;
-    }
+    row-gap: 0.5em;
     &-identify {
       position: absolute;
       top: 0.8em;
-      left: 13vw;
+      right: 4vw;
     }
   }
 }
-@media screen and (max-width: 470px) {
-    .header {
-      &-gt {
-        right: 3.5vw;
-      }
-      &-identify {
-        left: 3.5vw;
-      }
-    }
+
+@media screen and (max-width: 450px) {
+  .header {
+    padding: var(--espacio-secundario) 0 0;
   }
-  
+}
+
 @media screen and (max-width: 415px) {
   .header {
     &-title {
@@ -81,15 +58,11 @@
     }
   }
 }
+
 @media screen and (max-width: 375px) {
   .header {
-    padding: 0.5em 0.5em;
-    &-gt {
-      right: 2vw;
-      font-size: 0.9em;
-    }
     &-identify {
-      left: 2vw;
+      right: 3vw;
       font-size: 0.9em;
     }
   }

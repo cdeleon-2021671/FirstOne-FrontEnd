@@ -5,12 +5,16 @@
   background: var(--color-primario);
   color: var(--color-blanco);
   display: flex;
-  justify-content: center;
-  gap: var(--espacio-principal);
+  justify-content: space-between;
+  margin-bottom: var(--espacio-principal);
+  &-options {
+    display: flex;
+    gap: var(--espacio-principal);
+  }
   &-item {
     display: flex;
     align-items: center;
-    gap: var(--espacio-secundario);
+    gap: 0.1em;
     font-family: var(--tipo-secundario);
     min-width: max-content;
     svg {
@@ -22,6 +26,7 @@
 @media screen and (min-width: 1500px) {
   .toolbar {
     margin-top: var(--espacio-principal);
+    margin-bottom: var(--espacio-principal);
   }
 }
 
@@ -30,11 +35,11 @@
     padding: var(--espacio-secundario);
     overflow: auto;
     justify-content: left;
+    gap: var(--espacio-principal);
     &::-webkit-scrollbar {
       height: 0;
     }
     &-item {
-      gap: 0.3em;
       font-weight: normal;
       svg {
         width: 1.3em;
@@ -45,9 +50,13 @@
 
 @media screen and (max-width: 500px) {
   .toolbar {
+    gap: var(--espacio-secundario);
+    margin-bottom: var(--espacio-secundario);
+    &-options {
+      gap: var(--espacio-secundario);
+    }
     &-item {
       font-size: 15px;
-      gap: 0.3em;
       font-weight: normal;
       svg {
         width: 1.3em;

@@ -4,7 +4,9 @@
     background-position: center;
     background-size: cover;
     .goToLink{
-      background: none;
+      a{
+        background-color: #000;
+      }
     }
     div {
       padding: 0;
@@ -12,7 +14,6 @@
     }
     @media screen and (min-width: 1500px) {
       height: 15em;
-      background-size: contain;
     }
     @media screen and (max-width: 400px) {
       height: 5em;

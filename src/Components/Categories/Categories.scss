@@ -1,7 +1,7 @@
 @import "../../Styles.scss";
 
 .categories {
-  padding: var(--espacio-principal);
+  padding: 0 var(--espacio-principal) var(--espacio-principal);
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--espacio-secundario);
@@ -35,7 +35,7 @@
 
 @media screen and (min-width: 1500px) {
   .categories {
-    padding: var(--espacio-principal) 0;
+    padding: 0 0 var(--espacio-principal);
     &-item {
       img {
         max-height: 18em;
@@ -84,7 +84,7 @@
 @media screen and (max-width: 500px) {
   .categories {
     grid-template-columns: repeat(2, 1fr);
-    padding: var(--espacio-secundario);
+    padding: 0 var(--espacio-secundario) var(--espacio-secundario);
     &-item {
       img {
         height: 47.4vw;

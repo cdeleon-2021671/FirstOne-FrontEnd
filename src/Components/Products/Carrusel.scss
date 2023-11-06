@@ -3,15 +3,14 @@
 .products {
   &-title {
     font-size: 1.6em;
-    padding: var(--espacio-principal);
-    background: var(--color-primario);
-    color: var(--color-blanco);
+    padding-left: 16px;
+    color: var(--color-secundario);
   }
   &-container {
     display: flex;
     align-items: center;
-    background: var(--color-terciario);
     position: relative;
+    padding: 0 var(--espacio-principal);
     &-content {
       padding: var(--espacio-principal) 0;
       display: flex;
@@ -26,11 +25,13 @@
     button {
       position: absolute;
       cursor: pointer;
-      background: #fff;
+      background: var(--color-secundario);
+      color: #fff;
       border-radius: 100%;
       transition: all 0.3s ease;
       box-shadow: 1px 1px 2px rgba($color: #000000, $alpha: 0.4),
         -1px -1px 2px rgba($color: #fff, $alpha: 0.4);
+      z-index: 1000;
       &.btnRight {
         right: var(--espacio-principal);
       }
@@ -39,6 +40,7 @@
       }
       &.inactive {
         background: var(--color-terciario);
+        color: var(--color-text-terciario);
         box-shadow: none;
       }
       svg {
@@ -49,10 +51,34 @@
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (min-width: 1500px) {
+  .products {
+    &-title,
+    &-container {
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (min-width: 1300px) {
   .products {
     &-title {
-      padding: var(--espacio-secundario);
+      font-size: 2em;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .products {
+    &-title {
+      padding-left: 8px;
+    }
+    &-container {
+      padding: 0 8px;
+      &-content {
+        padding: 8px 0;
+        gap: 8px;
+      }
     }
   }
 }

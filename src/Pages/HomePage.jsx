@@ -61,7 +61,7 @@ export const HomePage = () => {
   useEffect(() => {
     getRandomCategories();
     getProducts();
-    $(window).on("resize", resizeWindow);
+    // $(window).on("resize", resizeWindow);
     return () => {
       $(window).off("resize");
     };

@@ -3,7 +3,7 @@ import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Table.scss";
-import './Stores.scss'
+import "./Stores.scss";
 
 const imgDefautl =
   "https://www.researchgate.net/profile/Maria-Monreal/publication/315108532/figure/fig1/AS:472492935520261@1489662502634/Figura-2-Avatar-que-aparece-por-defecto-en-Facebook.png";
@@ -16,14 +16,18 @@ export const Users = () => {
       {user && user.rol == "COMERCIANTE" ? (
         <div className="info-title">
           <h2>Todos tus usuarios</h2>
-          <Link className="info-title-action" to="/profile/register/worker">Agregar Trabajador</Link>
+          <Link className="info-title-action" to="/profile/register/worker">
+            Agregar Trabajador
+          </Link>
         </div>
       ) : (
         user &&
         user.rol == "MAESTRO" && (
           <div className="info-title">
             <h2>Todos los usuarios</h2>
-            <Link className="info-title-action" to="/profile/register/admin">Agregar Administrador</Link>
+            <Link className="info-title-action" to="/profile/register/admin">
+              Agregar Administrador
+            </Link>
           </div>
         )
       )}
@@ -52,7 +56,7 @@ const CardUser = ({ rol, store }) => {
     const url =
       rol == "MAESTRO" || rol == "ADMIN"
         ? "get-all-users"
-        : `get-all-workers/${store.storeId}`;
+        : `get-all-workers/${store ? store.storeId : ""}`;
     const headers = {
       "content-types": "aplication/json",
       Authorization: localStorage.getItem("token"),

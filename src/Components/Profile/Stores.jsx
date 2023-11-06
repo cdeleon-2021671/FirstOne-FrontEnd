@@ -63,7 +63,7 @@ const List = () => {
 
   useEffect(() => {
     getStores();
-  }, []);
+  }, [user]);
 
   return (
     <div className="table all">

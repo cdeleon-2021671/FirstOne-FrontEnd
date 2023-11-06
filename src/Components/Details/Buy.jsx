@@ -6,7 +6,7 @@ import axios from "axios";
 import $ from "jquery";
 
 export const Buy = (product) => {
-  const {urlProduct, storeId} = product;
+  const { urlProduct, storeId } = product;
   const { socialLinks, isLogged, user } = useContext(AuthContext);
   const location = useLocation();
   const [social, setSocial] = useState(null);
@@ -23,19 +23,15 @@ export const Buy = (product) => {
   const getSocialLinks = () => {
     const newSocial = [];
     rrss.forEach((item, key) => {
+      console.log(item);
       const icon = socialLinks[key].element;
       const title = socialLinks[key].title;
       const bg = socialLinks[key].color;
       const object = {
         icon: icon,
-        bg: bg,
-        title: title == "Phone" ? item : title,
-        link:
-          title == "Whatsapp"
-            ? `https://wa.me/${item}`
-            : title == "Phone"
-            ? ""
-            : item,
+        bg: title == "TikTok" ? "#000" : bg,
+        title: title,
+        link: title == "Whatsapp" ? `https://wa.me/${item}` : item,
       };
       if (item != "") newSocial.push(object);
     });
@@ -88,31 +84,39 @@ export const Buy = (product) => {
   return (
     <div className="social-links">
       <span>Compralo en:</span>
-      {social &&
-        social.map(({ title, link, icon, bg }, key) => {
-          if (title.includes("+")) {
+      <div className="social-links-icons">
+        {social &&
+          social.map(({ title, link, icon, bg }, key) => {
+            console.log(link);
+            if (title.includes("Phone")) {
+              return (
+                <label
+                  className="item"
+                  key={key}
+                  style={{ cursor: "pointer", background: "#000" }}
+                  title="Teléfono"
+                >
+                  {icon}
+                </label>
+              );
+            }
             return (
-              <label className="item" key={key} style={{ cursor: "text" }}>
+              <Link
+                key={key}
+                to={link}
+                target={link == "" ? "" : "_blank"}
+                title={title}
+                className="item"
+                onClick={() => {
+                  addEvent(title);
+                }}
+                style={{ background: bg }}
+              >
                 {icon}
-                {title}
-              </label>
+              </Link>
             );
-          }
-          return (
-            <Link
-              key={key}
-              to={link}
-              target={link == "" ? "" : "_blank"}
-              className="item"
-              onClick={() => {
-                addEvent(title);
-              }}
-              style={{ background: bg }}
-            >
-              {icon}
-            </Link>
-          );
-        })}
+          })}
+      </div>
     </div>
   );
 };

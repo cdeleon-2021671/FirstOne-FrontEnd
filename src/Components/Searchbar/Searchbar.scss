@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   justify-content: right;
-  width: calc(100% - 2em - 0.6em - 110px - 121.19px - 48.19px);
+  width: 100%;
   min-width: 12em;
   &-options {
     position: absolute;
@@ -34,6 +34,7 @@
         width: 100%;
         background: var(--color-terciario);
         color: var(--color-texto-terciario);
+        border: none;
         transition: none;
         label,
         input {
@@ -47,8 +48,9 @@
     }
   }
   &-content {
+    border: 1px solid #000;
     background: #fff;
-    border-radius: .2em;
+    border-radius: 0.2em;
     width: 18em;
     display: flex;
     height: 2.5em;
@@ -70,6 +72,10 @@
     label {
       padding: 0.2em;
       display: flex;
+      align-items: center;
+      svg {
+        height: 90%;
+      }
     }
   }
 }
@@ -81,57 +87,51 @@
     &-options {
       justify-content: center;
       &-container {
-        width: 80%;
+        width: 100%;
         animation: none;
       }
     }
     &-content {
       border-radius: 0.3em;
-      width: 80%;
+      width: 100%;
       display: flex;
       height: 2.5em;
       transition: all 0.4s ease;
-      &.view {
-        width: 80%;
-        border-radius: 0;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 470px) {
-  .searchbar {
-    &-options {
-      &-container {
-        width: 100%;
-      }
-    }
-    &-content {
-      border-radius: 0.3em;
-      width: 100%;
       transition: all 0.4s ease;
       .closeInput {
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 2em;
+        max-width: 2em;
         height: 100%;
         svg {
           width: 0;
           height: 0;
-          transition: all .2s ease;
+          transition: all 0.2s ease;
         }
       }
       &.view {
         width: 100%;
+        background: red;
         border-radius: 0;
         .closeInput {
           svg {
-            width: 2em;
-            height: 2em;
+            width: 1.3em;
+            height: 1.3em;
           }
         }
       }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .searchbar {
+    &-content {
+      border-radius: 0;
+      border: 1px solid var(--color-terciario);
+      border-left: none;
+      border-right: none;
     }
   }
 }

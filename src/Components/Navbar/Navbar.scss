@@ -1,12 +1,15 @@
 @import "../../Styles.scss";
 
 .menu {
-  background: var(--color-primario);
-  color: var(--color-blanco);
+  background: var(--color-blanco);
+  color: var(--color-secundario);
+  box-shadow: 1px 1px 2px #808080, -1px -1px 2px #fff;
   display: flex;
   padding: 0 1em;
   gap: 1em;
   overflow: auto;
+  position: relative;
+  z-index: 100;
   &::-webkit-scrollbar {
     height: 0;
   }
@@ -24,7 +27,7 @@
     }
     &::before {
       content: "";
-      background: rgba($color: #fff, $alpha: 0.1);
+      background: rgba($color: #808080, $alpha: 0.1);
       position: absolute;
       top: 50%;
       left: 50%;

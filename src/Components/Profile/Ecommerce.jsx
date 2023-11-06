@@ -387,7 +387,9 @@ const SocialLinks = ({ store }) => {
       const icon = socialLinks[key].element;
       const title = socialLinks[key].title;
       const color =
-        title == "Tienda" || title == "Phone" ? "#000" : socialLinks[key].color;
+        title == "Tienda" || title == "Phone" || title == "TikTok"
+          ? "#000"
+          : socialLinks[key].color;
       const object = {
         icon: icon,
         title: title == "Phone" ? item : title,
@@ -416,8 +418,9 @@ const SocialLinks = ({ store }) => {
             <Link
               key={key}
               to={link}
+              title={title ? "Phone" : title}
               target={link == "" ? "" : "_blank"}
-              style={{ cursor: link == "" && "text", background: bg }}
+              style={{ background: bg }}
             >
               {icon}
               <label>{title}</label>

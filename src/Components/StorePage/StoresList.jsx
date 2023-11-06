@@ -68,6 +68,7 @@ const SocialLinks = ({ store }) => {
     store.messenger,
     store.facebook,
     store.instagram,
+    store.phone,
     store.tiktok,
   ];
   const getSocialLinks = () => {

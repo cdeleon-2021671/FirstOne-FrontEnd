@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import "./CardProducts.scss";
 
 export const CardProducts = ({ item, fnAction }) => {
-  const newOffer = (item.price * 100) / item.salePrice;
-  const offer = 100 - newOffer;
+  const newOffer = (item.salePrice * 100) / item.price;
+  const offer = -100 + newOffer;
   const nameUrl = item.name.replace(/[-[\]{}()*+?.,;:#@<>\\^$|#"']+/g, " ");
   const tagsUrl = item.tags
     .map((element) => element.replace(/[ ]+/g, "-"))
@@ -20,7 +20,12 @@ export const CardProducts = ({ item, fnAction }) => {
       to={`/${nameUrl.replace(/[ ]+/g, "-")}/${tagsUrl}/${priceUrl}/${id}`}
       onClick={fnAction}
     >
-      <img src={item.image} alt={item.name} className="card-image" />
+      <div
+        className="image-container"
+        style={{ backgroundImage: `url(${item.image})` }}
+      >
+        <img src={item.image} alt={item.name} className="card-image" />
+      </div>
       <div className="card-information">
         <h3 className="card-information-product" title={item.name}>
           {item.name}

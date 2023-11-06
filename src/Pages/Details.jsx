@@ -31,13 +31,16 @@ export const Details = () => {
 
   const addEvent = async (visitorId, url) => {
     try {
-      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/newEvent/add-event`, {
-        url: url,
-        fingerprint: visitorId,
-        product: details,
-        event: "Page View",
-        type: "Product",
-      });
+      await axios.post(
+        `${import.meta.env.VITE_ANALYSTICS}/newEvent/add-event`,
+        {
+          url: url,
+          fingerprint: visitorId,
+          product: details,
+          event: "Page View",
+          type: "Product",
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -76,8 +79,8 @@ export const Details = () => {
       );
       const { product, category } = data;
       if (product.salePrice) {
-        const newOffer = (product.price * 100) / product.salePrice;
-        setOffer(100 - newOffer);
+        const newOffer = (product.salePrice * 100) / product.price;
+        setOffer(-100 + newOffer);
       }
       setProduct(product);
       getSimilarProducts(product);

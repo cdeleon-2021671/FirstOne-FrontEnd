@@ -6,6 +6,7 @@ import Fuse from "fuse.js";
 import "./Options.scss";
 import axios from "axios";
 import { AuthContext } from "../../Index";
+import { Animation } from "../Animation/Animation";
 
 export const Tags = () => {
   const { isLogged, user } = useContext(AuthContext);
@@ -13,6 +14,7 @@ export const Tags = () => {
   const { storeId } = useParams();
   const [tag, setTag] = useState("");
   const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const changeTags = (e) => {
     setTag(e.target.value);
@@ -20,6 +22,7 @@ export const Tags = () => {
 
   const sendTags = async () => {
     try {
+      setLoading(true);
       if (items.length == 0) {
         new Notify({
           status: "error",
@@ -90,8 +93,10 @@ export const Tags = () => {
           navigate(`/join/trade-online/step2/shipping/${storeId}`);
         }
       }
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       new Notify({
         status: "error",
         title: "Incorrecto!",
@@ -109,39 +114,44 @@ export const Tags = () => {
   };
 
   return (
-    <div className="register-form">
-      <div className="form">
-        <div className="container step2">
-          <div className="container-form">
-            <span className="container-form-title">Etiquetas de la tienda</span>
-            <div className="container-form-data">
-              <input
-                type="text"
-                placeholder="Tu categoría"
-                onChange={changeTags}
-                value={tag}
-              />
-              <TagsSelected
-                categories={items}
-                setCategories={setItems}
-              ></TagsSelected>
-              <AutoComplete
-                search={tag}
-                setItems={setItems}
-                items={items}
-              ></AutoComplete>
-              <button
-                className="container-btn"
-                onClick={sendTags}
-                style={{ cursor: "pointer" }}
-              >
-                Continuar
-              </button>
+    <>
+      {loading && <Animation></Animation>}
+      <div className="register-form">
+        <div className="form">
+          <div className="container step2">
+            <div className="container-form">
+              <span className="container-form-title">
+                Etiquetas de la tienda
+              </span>
+              <div className="container-form-data">
+                <input
+                  type="text"
+                  placeholder="Tu categoría"
+                  onChange={changeTags}
+                  value={tag}
+                />
+                <TagsSelected
+                  categories={items}
+                  setCategories={setItems}
+                ></TagsSelected>
+                <AutoComplete
+                  search={tag}
+                  setItems={setItems}
+                  items={items}
+                ></AutoComplete>
+                <button
+                  className="container-btn"
+                  onClick={sendTags}
+                  style={{ cursor: "pointer" }}
+                >
+                  Continuar
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

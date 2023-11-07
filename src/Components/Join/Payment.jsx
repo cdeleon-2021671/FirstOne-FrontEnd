@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Index";
 import axios from "axios";
+import { Animation } from "../Animation/Animation";
 
 export const Payment = () => {
   const { isLogged, user } = useContext(AuthContext);
@@ -10,6 +11,7 @@ export const Payment = () => {
   const [payments, setPayments] = useState({ method1: "" });
   const [methods, setMethods] = useState({ method1: "" });
   const [boxes, setBoxes] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setMethods({
@@ -43,6 +45,7 @@ export const Payment = () => {
 
   const sendMethods = async () => {
     try {
+      setLoading(true);
       const email = localStorage.getItem("register");
       if (email == "" && isLogged == false) {
         new Notify({
@@ -96,7 +99,9 @@ export const Payment = () => {
           position: "right top",
         });
       }
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       new Notify({
         status: "error",
@@ -115,36 +120,39 @@ export const Payment = () => {
   };
 
   return (
-    <div className="register-form">
-      <div className="form">
-        <div className="container step2">
-          <div className="container-form">
-            <span className="container-form-title">Métodos de pago</span>
-            {boxes &&
-              boxes.map((item, key) => {
-                return (
-                  <div className="container-form-data" key={key}>
-                    <label htmlFor={item}>Método {key + 1}</label>
-                    <input
-                      type="text"
-                      id={`method${key + 1}`}
-                      name={item}
-                      onChange={handleChange}
-                      value={payments[item]}
-                    />
-                  </div>
-                );
-              })}
-            <button
-              className="container-btn"
-              style={{ cursor: "pointer" }}
-              onClick={sendMethods}
-            >
-              Continuar
-            </button>
+    <>
+      {loading && <Animation></Animation>}
+      <div className="register-form">
+        <div className="form">
+          <div className="container step2">
+            <div className="container-form">
+              <span className="container-form-title">Métodos de pago</span>
+              {boxes &&
+                boxes.map((item, key) => {
+                  return (
+                    <div className="container-form-data" key={key}>
+                      <label htmlFor={item}>Método {key + 1}</label>
+                      <input
+                        type="text"
+                        id={`method${key + 1}`}
+                        name={item}
+                        onChange={handleChange}
+                        value={payments[item]}
+                      />
+                    </div>
+                  );
+                })}
+              <button
+                className="container-btn"
+                style={{ cursor: "pointer" }}
+                onClick={sendMethods}
+              >
+                Continuar
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

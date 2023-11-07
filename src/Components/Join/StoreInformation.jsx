@@ -2,11 +2,13 @@ import React, { useContext, useState } from "react";
 import { AuthContext } from "../../Index";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Animation } from "../Animation/Animation";
 
 export const StoreInformation = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const { isLogged, user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     xml: "",
     urlStore: "",
@@ -31,6 +33,7 @@ export const StoreInformation = () => {
 
   const sendForm = async (e) => {
     try {
+      setLoading(true);
       const email = localStorage.getItem("register");
       if (email == "" && isLogged == false) {
         setMessage("Necesitas iniciar sesión");
@@ -91,167 +94,172 @@ export const StoreInformation = () => {
           navigate(`/join/trade-online/step2/tags/${storeId}`);
         }
       }
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       setMessage(`${err.response.data.message}`);
     }
   };
 
   return (
-    <div className="register-form">
-      <div className="form">
-        <div className="container newForm">
-          <div className="container-form">
-            <span className="container-form-title">
-              Información de la tienda
-            </span>
-            <div className="content">
-              <div className="container-form-data">
-                <label htmlFor="xml">
-                  XML de la tienda
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="xml"
-                  name="xml"
-                  required
-                  onChange={handleChange}
-                />
+    <>
+      {loading && <Animation></Animation>}
+      <div className="register-form">
+        <div className="form">
+          <div className="container newForm">
+            <div className="container-form">
+              <span className="container-form-title">
+                Información de la tienda
+              </span>
+              <div className="content">
+                <div className="container-form-data">
+                  <label htmlFor="xml">
+                    XML de la tienda
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="xml"
+                    name="xml"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="urlStore">
+                    URL de la tienda
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="urlStore"
+                    name="urlStore"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="urlLogo">
+                    URL del logo
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="urlLogo"
+                    name="urlLogo"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="banner1">
+                    URL del banner
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="banner1"
+                    name="banner"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="name">
+                    Nombre de la tienda
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="description">
+                    Descripción de la tienda
+                    <span className="required">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    id="description"
+                    name="description"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="phone">Teléfono de la tienda</label>
+                  <input
+                    type="text"
+                    id="phone"
+                    name="phone"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="whatsapp">Whatsapp de la tienda</label>
+                  <input
+                    type="text"
+                    id="whatsapp"
+                    name="whatsapp"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="facebook">Facebook de la tienda</label>
+                  <input
+                    type="text"
+                    id="facebook"
+                    name="facebook"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="instagram">Instagram de la tienda</label>
+                  <input
+                    type="text"
+                    id="instagram"
+                    name="instagram"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="tiktok">Tiktok de la tienda</label>
+                  <input
+                    type="text"
+                    id="tiktok"
+                    name="tiktok"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="messenger">Messenger de la tienda</label>
+                  <input
+                    type="text"
+                    id="messenger"
+                    name="messenger"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-              <div className="container-form-data">
-                <label htmlFor="urlStore">
-                  URL de la tienda
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="urlStore"
-                  name="urlStore"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="urlLogo">
-                  URL del logo
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="urlLogo"
-                  name="urlLogo"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="banner1">
-                  URL del banner
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="banner1"
-                  name="banner"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="name">
-                  Nombre de la tienda
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="description">
-                  Descripción de la tienda
-                  <span className="required">*</span>
-                </label>
-                <input
-                  type="text"
-                  id="description"
-                  name="description"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="phone">Teléfono de la tienda</label>
-                <input
-                  type="text"
-                  id="phone"
-                  name="phone"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="whatsapp">Whatsapp de la tienda</label>
-                <input
-                  type="text"
-                  id="whatsapp"
-                  name="whatsapp"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="facebook">Facebook de la tienda</label>
-                <input
-                  type="text"
-                  id="facebook"
-                  name="facebook"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="instagram">Instagram de la tienda</label>
-                <input
-                  type="text"
-                  id="instagram"
-                  name="instagram"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="tiktok">Tiktok de la tienda</label>
-                <input
-                  type="text"
-                  id="tiktok"
-                  name="tiktok"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="messenger">Messenger de la tienda</label>
-                <input
-                  type="text"
-                  id="messenger"
-                  name="messenger"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
+              <span className="passwordIncorrect">{message}</span>
+              <button className="container-form-send" onClick={sendForm}>
+                Continuar
+              </button>
             </div>
-            <span className="passwordIncorrect">{message}</span>
-            <button className="container-form-send" onClick={sendForm}>
-              Continuar
-            </button>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

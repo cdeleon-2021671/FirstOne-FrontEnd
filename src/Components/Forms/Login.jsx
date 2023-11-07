@@ -8,11 +8,13 @@ import "./Forms.scss";
 import Notify from "simple-notify";
 import "simple-notify/dist/simple-notify.min.css";
 import { AuthContext } from "../../Index";
+import { Animation } from "../Animation/Animation";
 
 export const Login = ({ setView }) => {
   const { setUser, setIsLogged } = useContext(AuthContext);
   const [error, setError] = useState("");
   const [invalid, setInvalid] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -31,6 +33,7 @@ export const Login = ({ setView }) => {
       if (form.email == "") setError("Correo no válido");
       else if (form.password == "") setError("Contraseña no válida");
       else {
+        setLoading(true);
         setInvalid(false);
         const { data } = await axios.post(
           `${import.meta.env.VITE_URI_API}/user/login`,
@@ -62,63 +65,68 @@ export const Login = ({ setView }) => {
         setIsLogged(true);
         setView(false);
       }
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setInvalid(true);
       setError(`${err.response.data.message}`);
     }
   };
 
   return (
-    <div className="form" id="login">
-      <div className="container">
-        <div className="container-title">
-          <Link to={"/"} title="Inicio">
-            Tienda.gt
+    <>
+      {loading && <Animation></Animation>}
+      <div className="form" id="login">
+        <div className="container">
+          <div className="container-title">
+            <Link to={"/"} title="Inicio">
+              Tienda.gt
+            </Link>
+            <button onClick={() => setView(false)}>
+              <AiOutlineClose></AiOutlineClose>
+            </button>
+          </div>
+          <div className="container-form">
+            <span className="container-form-title">Iniciar sesión</span>
+            <div className="container-form-data">
+              <label htmlFor="email">Correo electrónico</label>
+              <input
+                type="text"
+                id="email"
+                name="email"
+                onChange={handleChange}
+              />
+            </div>
+            <div className="container-form-data">
+              <label htmlFor="pass">Contraseña</label>
+              <input
+                type="password"
+                id="pass"
+                name="password"
+                onChange={handleChange}
+              />
+            </div>
+            {invalid && <span className="passwordIncorrect">{error}</span>}
+            <button className="container-form-send" onClick={sendForm}>
+              Continuar
+            </button>
+            <div className="container-form-divider">
+              <hr />
+              <span>Iniciar con redes sociales</span>
+            </div>
+            <Icons></Icons>
+          </div>
+          <Link
+            className="container-btn"
+            to={"/register"}
+            onClick={() => setView(false)}
+          >
+            Crear cuenta
           </Link>
-          <button onClick={() => setView(false)}>
-            <AiOutlineClose></AiOutlineClose>
-          </button>
         </div>
-        <div className="container-form">
-          <span className="container-form-title">Iniciar sesión</span>
-          <div className="container-form-data">
-            <label htmlFor="email">Correo electrónico</label>
-            <input
-              type="text"
-              id="email"
-              name="email"
-              onChange={handleChange}
-            />
-          </div>
-          <div className="container-form-data">
-            <label htmlFor="pass">Contraseña</label>
-            <input
-              type="password"
-              id="pass"
-              name="password"
-              onChange={handleChange}
-            />
-          </div>
-          {invalid && <span className="passwordIncorrect">{error}</span>}
-          <button className="container-form-send" onClick={sendForm}>
-            Continuar
-          </button>
-          <div className="container-form-divider">
-            <hr />
-            <span>Iniciar con redes sociales</span>
-          </div>
-          <Icons></Icons>
-        </div>
-        <Link
-          className="container-btn"
-          to={"/register"}
-          onClick={() => setView(false)}
-        >
-          Crear cuenta
-        </Link>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -79,13 +79,15 @@ export const Ecommerce = () => {
             <h2>
               {store.name} - {store.state}
             </h2>
-            <button
-              className="info-title-action"
-              to="/join/trade-online/step2"
-              onClick={() => reladStore(store.xml, store._id)}
-            >
-              Recargar feed
-            </button>
+            {store.state == "ACTIVA" && (
+              <button
+                className="info-title-action"
+                to="/join/trade-online/step2"
+                onClick={() => reladStore(store.xml, store._id)}
+              >
+                Recargar feed
+              </button>
+            )}
           </div>
           <div className="all">
             <div className="all-content">

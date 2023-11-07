@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "./Form.scss";
 import { AuthContext } from "../../Index";
+import { Animation } from "../Animation/Animation";
 
 export const Form = () => {
   const { type } = useParams();
@@ -13,6 +14,7 @@ export const Form = () => {
   const [message, setMessage] = useState("");
   const [code, setCode] = useState("");
   const [myCode, setMyCode] = useState("");
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -39,6 +41,7 @@ export const Form = () => {
     try {
       setMessage("");
       setIsDiferent(true);
+      setLoading(true);
       if (form.name == "") setMessage("El nombre no puede estar vacío");
       else if (form.email == "") setMessage("El correo es obligatorio");
       else if (isDiferent) setMessage("Las contraseñas deben coincidir");
@@ -72,12 +75,14 @@ export const Form = () => {
         localStorage.setItem("codeExpired", data.token);
         setSendCode(true);
       }
+      setLoading(false);
     } catch (err) {
+      setLoading(false);
       console.log(err);
       setMessage(`${err.response.data.message}`);
     }
   };
-  
+
   const addBoss = async (register) => {
     try {
       navigate("/join/trade-online/step2");
@@ -87,11 +92,28 @@ export const Form = () => {
     }
   };
 
+  const getInfo = async()=>{
+    try {
+      const { data } = await axios.get(
+        `${import.meta.env.VITE_URI_API}/user/get-user-by-id/${user.sub}`
+      );
+      return {
+        ...form,
+        rol: "TRABAJADOR",
+        boss: user.sub,
+        stores: data.user.stores,
+      };
+    } catch (err) {
+      console.log(err);
+      setLoading(false);
+    }
+  }
+
   const createAccount = async () => {
     try {
+      setLoading(true);
       let newForm = { ...form };
-      console.log(newForm);
-      if (type) newForm = { ...form, rol: "TRABAJADOR", stores: user.stores };
+      if (type) newForm = await getInfo();
       const { data } = await axios.post(
         `${import.meta.env.VITE_URI_API}/user/create-account`,
         newForm
@@ -109,9 +131,11 @@ export const Form = () => {
         type: 1,
         position: "right top",
       });
+      setLoading(false);
       if (!type) addBoss(data.register);
       else navigate(-1);
     } catch (err) {
+      setLoading(false);
       new Notify({
         status: "error",
         title: "Lo siento!",
@@ -132,6 +156,7 @@ export const Form = () => {
   const [msgInvalid, setMsgInvalid] = useState("El código no es válido");
   const validateCode = async () => {
     try {
+      setLoading(true);
       if (code != myCode) setInvalidCode(true);
       else {
         const token = localStorage.getItem("codeExpired");
@@ -143,87 +168,97 @@ export const Form = () => {
         setInvalidCode(false);
         createAccount();
       }
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       setInvalidCode(true);
       setMsgInvalid("El código ha expirado");
     }
   };
 
   return (
-    <div className="register-form">
-      <div className="form">
-        <div className="container">
-          <div className="container-form">
-            <span className="container-form-title">
-              {type
-                ? "Registrar nuevo trabajador"
-                : "Registrar cuenta de empresa"}
-            </span>
-            <div className="container-form-data">
-              <label htmlFor="name">Persona encargada</label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                required
-                onChange={handleChange}
-              />
+    <>
+      {loading && <Animation></Animation>}
+      <div className="register-form">
+        <div className="form">
+          <div className="container">
+            <div className="container-form">
+              <span className="container-form-title">
+                {type
+                  ? "Registrar nuevo trabajador"
+                  : "Registrar cuenta de empresa"}
+              </span>
+              <div className="container-form-data">
+                <label htmlFor="name">Persona encargada</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="email">Correo electrónico</label>
+                <input
+                  type="text"
+                  id="email"
+                  name="email"
+                  required
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="pass">Contraseña</label>
+                <input
+                  type="password"
+                  id="pass"
+                  name="password"
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="confirm">Confirmar Contraseña</label>
+                <input
+                  type="password"
+                  id="confirm"
+                  name="confirm"
+                  onChange={handleChange}
+                />
+              </div>
+              {isDiferent && (
+                <span className="passwordIncorrect">{message}</span>
+              )}
+              <button className="container-form-send" onClick={sendInfo}>
+                Continuar
+              </button>
+              {sendCode && (
+                <>
+                  <div className="container-form-data">
+                    <label htmlFor="code">Codigo de confirmacion</label>
+                    <input
+                      type="text"
+                      id="code"
+                      required
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                  </div>
+                  {invalidCode && (
+                    <span className="passwordIncorrect">{msgInvalid}</span>
+                  )}
+                  <button
+                    className="container-form-send"
+                    onClick={validateCode}
+                  >
+                    Confirmar
+                  </button>
+                </>
+              )}
             </div>
-            <div className="container-form-data">
-              <label htmlFor="email">Correo electrónico</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                required
-                onChange={handleChange}
-              />
-            </div>
-            <div className="container-form-data">
-              <label htmlFor="pass">Contraseña</label>
-              <input
-                type="password"
-                id="pass"
-                name="password"
-                onChange={handleChange}
-              />
-            </div>
-            <div className="container-form-data">
-              <label htmlFor="confirm">Confirmar Contraseña</label>
-              <input
-                type="password"
-                id="confirm"
-                name="confirm"
-                onChange={handleChange}
-              />
-            </div>
-            {isDiferent && <span className="passwordIncorrect">{message}</span>}
-            <button className="container-form-send" onClick={sendInfo}>
-              Continuar
-            </button>
-            {sendCode && (
-              <>
-                <div className="container-form-data">
-                  <label htmlFor="code">Codigo de confirmacion</label>
-                  <input
-                    type="text"
-                    id="code"
-                    required
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                </div>
-                {invalidCode && (
-                  <span className="passwordIncorrect">{msgInvalid}</span>
-                )}
-                <button className="container-form-send" onClick={validateCode}>
-                  Confirmar
-                </button>
-              </>
-            )}
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };

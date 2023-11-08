@@ -25,10 +25,13 @@
       color: #fff;
       width: 100%;
       bottom: 0;
+      overflow: hidden;
       padding: var(--espacio-principal) var(--espacio-secundario);
       position: absolute;
       transition: all 0.3s ease;
       text-align: center;
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
   }
 }
@@ -52,7 +55,6 @@
         height: 23.5vw;
       }
       label {
-        padding: var(--espacio-secundario);
         font-size: 0.9em;
       }
     }
@@ -98,6 +100,16 @@
     &-item {
       img {
         height: 47vw;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 380px) {
+  .categories {
+    &-item {
+      label{
+        padding: var(--espacio-secundario);
       }
     }
   }

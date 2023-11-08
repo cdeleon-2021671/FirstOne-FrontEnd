@@ -8,13 +8,16 @@ export const Categories = ({ categories, url = "" }) => {
       {categories && categories.length !== 0 && (
         <div className="categories">
           {categories.map(({ tag, product }, key) => (
-            <Link key={key} className="categories-item" to={`/${tag.replace(/[ ]+/g, '-')}${url}`}>
+            <Link
+              key={key}
+              className="categories-item"
+              title={tag}
+              to={`/${tag.replace(/[ ]+/g, "-")}${url}`}
+            >
               <div>
                 <img src={product.image} alt={tag} />
               </div>
-              <label>
-                {tag} | {product.storeId.name}
-              </label>
+              <label>{tag}</label>
             </Link>
           ))}
         </div>

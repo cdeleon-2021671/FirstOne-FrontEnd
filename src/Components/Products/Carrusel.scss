@@ -41,7 +41,7 @@
       &.inactive {
         background: var(--color-terciario);
         color: var(--color-text-terciario);
-        box-shadow: none;
+        opacity: .4;
       }
       svg {
         width: 2.3em;

@@ -29,7 +29,7 @@ export const Buy = (product) => {
       const bg = socialLinks[key].color;
       const object = {
         icon: icon,
-        bg: title == "TikTok" ? "#000" : bg,
+        bg: title == "TikTok" || title == 'Tienda'? "#000" : bg,
         title: title,
         link: title == "Whatsapp" ? `https://wa.me/${item}` : item,
       };

@@ -14,10 +14,9 @@
     width: 17em;
     padding: var(--espacio-secundario);
     &-product {
-      display: -webkit-box;
-      -webkit-line-clamp: 1;
-      -webkit-box-orient: vertical;
       overflow: hidden;
+      white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+      text-overflow: ellipsis;
       &::-webkit-scrollbar {
         height: 0;
       }

@@ -23,7 +23,6 @@ export const Buy = (product) => {
   const getSocialLinks = () => {
     const newSocial = [];
     rrss.forEach((item, key) => {
-      console.log(item);
       const icon = socialLinks[key].element;
       const title = socialLinks[key].title;
       const bg = socialLinks[key].color;

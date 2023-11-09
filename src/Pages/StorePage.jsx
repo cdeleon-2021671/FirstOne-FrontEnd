@@ -103,8 +103,6 @@ export const StorePage = () => {
           </Helmet>
           <div
             id="store-page-container"
-            itemscope
-            itemtype="https://schema.org/Store"
           >
             <Introduction {...store}></Introduction>
             <Categories

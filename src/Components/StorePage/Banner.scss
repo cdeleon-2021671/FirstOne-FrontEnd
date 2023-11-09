@@ -1,28 +1,30 @@
 #banner {
+  @media screen and (min-width: 1000px) {
     margin-top: 50px;
-    height: 20vw;
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-    .goToLink{
-      a{
-        background-color: #000;
-      }
+  }
+  height: 20vw;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  .goToLink {
+    a {
+      background-color: #000;
     }
-    div {
-      padding: 0;
-      height: 100%;
-    }
-    @media screen and (min-width: 1500px) {
-      height: 15em;
-    }
-    @media screen and (max-width: 400px) {
-      height: 5em;
-      .goToLink{
-        a{
-          width: 100%;
-          padding: .3em 0;
-        }
+  }
+  div {
+    padding: 0;
+    height: 100%;
+  }
+  @media screen and (min-width: 1500px) {
+    height: 15em;
+  }
+  @media screen and (max-width: 400px) {
+    height: 5em;
+    .goToLink {
+      a {
+        width: 100%;
+        padding: 0.3em 0;
       }
     }
   }
+}

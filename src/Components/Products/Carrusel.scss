@@ -1,13 +1,15 @@
 @import "../../Styles.scss";
 
 .products {
-  margin-top: 50px;
-  margin-bottom: 20px;
+  @media screen and (min-width: 1000px) {
+    margin-top: 50px;
+    margin-bottom: 20px;
+  }
   &-title {
     font-size: 1.6em;
     padding-left: 16px;
     color: var(--color-secundario);
-    span{
+    span {
       border-bottom: 3px solid #000;
     }
   }
@@ -45,7 +47,7 @@
       &.inactive {
         background: var(--color-terciario);
         color: var(--color-text-terciario);
-        opacity: .4;
+        opacity: 0.4;
       }
       svg {
         width: 2.3em;

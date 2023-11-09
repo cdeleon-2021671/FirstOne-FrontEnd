@@ -30,17 +30,21 @@ export const Introduction = () => {
     else setBanner(computer);
   };
 
-  useEffect(() => {
-    heightContainer();
-    getImage();
-
-    const handleResize = () => {
+  const getHeight = () => {
+    let flag = 1;
+    const gettingHeight = setInterval(() => {
       heightContainer();
-      getImage();
-    };
-    $(window).on("resize", handleResize);
+      if (flag == 3) clearInterval(gettingHeight);
+      else flag++;
+    }, 700);
+  };
+
+  useEffect(() => {
+    getImage();
+    getHeight();
+    $(window).on("resize", getHeight);
     return () => {
-      $(window).off("resize", handleResize);
+      $(window).off("resize");
     };
   }, []);
 
@@ -53,55 +57,7 @@ export const Introduction = () => {
           crossOrigin="anonymous"
           className="home-introduction-banner"
         />
-        {stores && stores.length != 0 && (
-          <>
-            <div className="container-animation">
-              {stores.length == 1 ? (
-                <>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                </>
-              ) : stores.length <= 3 ? (
-                <>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                  <Items stores={stores}></Items>
-                </>
-              ) : (
-                stores.length >= 4 && (
-                  <>
-                    <Items stores={stores}></Items>
-                    <Items stores={stores}></Items>
-                  </>
-                )
-              )}
-            </div>
-          </>
-        )}
       </div>
     </>
-  );
-};
-
-const Items = ({ stores }) => {
-  return (
-    <div className="home-introduction-stores">
-      {stores.map(({ store }, key) => {
-        const { name, urlLogo, _id } = store;
-        return (
-          <Link
-            className={`home-introduction-stores-item`}
-            to={`/${name.replace(/[ ]+/g, "-")}/${_id}`}
-            key={key}
-          >
-            <img src={urlLogo} alt={name} title={name} />
-            <span>{name}</span>
-          </Link>
-        );
-      })}
-    </div>
   );
 };

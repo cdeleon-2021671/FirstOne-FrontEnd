@@ -4,6 +4,7 @@
   width: 100%;
   min-height: calc(100vh - 6em);
   .all-stores {
+    margin-top: 1em;
     padding-bottom: 0;
   }
   .results {
@@ -31,6 +32,7 @@
     }
   }
 }
+
 @media screen and (min-width: 1300px) {
   .outlet-products {
     .results {
@@ -75,6 +77,10 @@
 
 @media screen and (max-width: 970px) {
   .outlet-products {
+    .all-stores{
+      margin-top: var(--espacio-secundario);
+      padding: 0 var(--espacio-secundario);
+    }
     .results {
       grid-template-columns: repeat(4, minmax(11em, 1fr));
       gap: var(--espacio-secundario);

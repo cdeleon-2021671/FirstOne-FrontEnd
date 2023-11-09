@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Introduction } from "../Components/HomePage/Introduction";
 import { Categories } from "../Components/Categories/Categories";
-import { Animation } from "../Components/Animation/Animation";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { Carrusel } from "../Components/Products/Carrusel";
 import { Toolbar } from "../Components/HomePage/Toolbar";
@@ -12,15 +11,10 @@ import $ from "jquery";
 export const HomePage = () => {
   const { tags, mostViewed, offers, trending } = useContext(AuthContext);
   const [categories, setCategories] = useState(null);
-  const [newTrending, setNewTrending] = useState(
-    trending ? Array.from(trending) : null
-  )
-  const [popular, setPopular] = useState(
-    mostViewed ? Array.from(mostViewed) : null
-  );
-  const [newOffers, setNewOffers] = useState(
-    offers ? Array.from(offers) : null
-  );
+  const [randomCategries, setRandomCategories] = useState(null);
+  const [newTrending, setNewTrending] = useState(null);
+  const [popular, setPopular] = useState(null);
+  const [newOffers, setNewOffers] = useState(null);
 
   const getRandomCategories = () => {
     const newCategories = [];
@@ -32,40 +26,60 @@ export const HomePage = () => {
         newCategories.push(tags[random]);
     }
     setCategories(newCategories);
+    setRandomCategories(newCategories);
     resizeWindow(newCategories);
   };
 
-  const resizeWindow = (tags) => {
-    const newCategories = categories
-      ? Array.from(categories)
-      : Array.from(tags);
-    const { innerWidth } = window;
-    if (innerWidth > 1000) {
-      if (newCategories.length > 20) newCategories.length = 20;
-      setCategories(newCategories);
-    } else if (innerWidth > 730) {
-      if (newCategories.length > 16) newCategories.length = 16;
-      setCategories(newCategories);
-    } else {
-      if (newCategories.length > 12) newCategories.length = 12;
+  const resizeWindow = (array) => {
+    if (array && array.length != 0) {
+      let newCategories = Array.from(array);
+      const { innerWidth } = window;
+      if (innerWidth > 1000) {
+        if (newCategories.length > 20) newCategories.length = 20;
+      } else if (innerWidth > 730) {
+        if (newCategories.length > 16) newCategories.length = 16;
+      } else {
+        if (newCategories.length > 12) newCategories.length = 12;
+      }
       setCategories(newCategories);
     }
   };
 
-  const getProducts = () => {
-    if (popular && popular.length > 40) popular.length = 40;
-    if (newOffers && newOffers.length > 40) newOffers.length = 40;
-    if (newTrending && newTrending.length > 40) newTrending.length = 40;
-  };
+  useEffect(() => {
+    if (tags) {
+      getRandomCategories();
+      $(window).on("resize", () => {
+        resizeWindow(randomCategries);
+      });
+      return () => {
+        $(window).off("resize");
+      };
+    }
+  }, [tags]);
 
   useEffect(() => {
-    getRandomCategories();
-    getProducts();
-    // $(window).on("resize", resizeWindow);
-    return () => {
-      $(window).off("resize");
-    };
-  }, []);
+    if (mostViewed) {
+      const array = Array.from(mostViewed);
+      if (array && array.length > 40) array.length = 40;
+      setPopular(array);
+    }
+  }, [mostViewed]);
+
+  useEffect(() => {
+    if (offers) {
+      const array = Array.from(offers);
+      if (array && array.length > 40) array.length = 40;
+      setNewOffers(array);
+    }
+  }, [offers]);
+
+  useEffect(() => {
+    if (trending) {
+      const array = Array.from(trending);
+      if (array && array.length > 40) array.length = 40;
+      setNewTrending(array);
+    }
+  }, [trending]);
 
   return (
     <>
@@ -83,27 +97,23 @@ export const HomePage = () => {
         />
         <link rel="canonical" href="https://tienda.gt" />
       </Helmet>
-      {categories && offers && mostViewed && popular ? (
-        <div className="padding-container">
-          <Introduction></Introduction>
-          <Toolbar></Toolbar>
-          <Categories categories={categories}></Categories>
-          <Carrusel products={newTrending} title="Trending"></Carrusel>
-          {newTrending && newTrending.length !== 0 && (
-            <GoToLink url="/trending-48-hours"></GoToLink>
-          )}
-          <Carrusel products={newOffers} title="Ofertas"></Carrusel>
-          {newOffers && newOffers.length !== 0 && (
-            <GoToLink url="/all-offers-in-store"></GoToLink>
-          )}
-          <Carrusel products={popular} title="Populares"></Carrusel>
-          {popular && popular.length !== 0 && (
-            <GoToLink url="/all-popular-in-store"></GoToLink>
-          )}
-        </div>
-      ) : (
-        <Animation></Animation>
-      )}
+      <div className="padding-container">
+        <Introduction></Introduction>
+        <Toolbar></Toolbar>
+        <Categories categories={categories}></Categories>
+        <Carrusel products={newTrending} title="🔥 Trending"></Carrusel>
+        {newTrending && newTrending.length !== 0 && (
+          <GoToLink url="/trending-48-hours"></GoToLink>
+        )}
+        <Carrusel products={newOffers} title="Ofertas"></Carrusel>
+        {newOffers && newOffers.length !== 0 && (
+          <GoToLink url="/all-offers-in-store"></GoToLink>
+        )}
+        <Carrusel products={popular} title="Populares"></Carrusel>
+        {popular && popular.length !== 0 && (
+          <GoToLink url="/all-popular-in-store"></GoToLink>
+        )}
+      </div>
     </>
   );
 };

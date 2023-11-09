@@ -26,8 +26,8 @@ export const Carrusel = ({ products, title }) => {
     const { scrollWidth } = container;
     const { clientWidth } = container;
     const scrollRight = scrollWidth - clientWidth - scrollLeft;
-    container.scrollLeft += widthItem;
-    if (scrollRight <= widthItem) $(`.${classRight}`).addClass("inactive");
+    container.scrollLeft += widthItem * 2;
+    if (scrollRight <= widthItem * 2) $(`.${classRight}`).addClass("inactive");
     $(`.${classLeft}`).removeClass("inactive");
   };
 
@@ -40,7 +40,9 @@ export const Carrusel = ({ products, title }) => {
     <>
       {products && products.length !== 0 && (
         <div className="products">
-          <h2 className="products-title">{title}</h2>
+          <h2 className="products-title">
+            <span>{title}</span>
+          </h2>
           <div className="products-container">
             <button
               className={`btnLeft ${classLeft} inactive`}

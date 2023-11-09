@@ -19,6 +19,7 @@ export const CardProducts = ({ item, fnAction }) => {
       key={item._id}
       to={`/${nameUrl.replace(/[ ]+/g, "-")}/${tagsUrl}/${priceUrl}/${id}`}
       onClick={fnAction}
+      title={item.name}
     >
       <div
         className="image-container"
@@ -27,9 +28,7 @@ export const CardProducts = ({ item, fnAction }) => {
         <img src={item.image} alt={item.name} className="card-image" />
       </div>
       <div className="card-information">
-        <h3 className="card-information-product" title={item.name}>
-          {item.name}
-        </h3>
+        <h3 className="card-information-product">{item.name}</h3>
         <span className="card-information-store">
           Vendido por {item.storeId.name}
         </span>

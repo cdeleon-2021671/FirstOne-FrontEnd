@@ -5,7 +5,7 @@ import { AuthContext } from "../../Index";
 import "./Suggestion.scss";
 import axios from "axios";
 
-export const Suggestion = ({ options }) => {
+export const Suggestion = ({ options, title, valid }) => {
   const location = useLocation();
   const { isLogged, user } = useContext(AuthContext);
   const { category, search } = useParams();
@@ -63,8 +63,15 @@ export const Suggestion = ({ options }) => {
 
   return (
     <>
-      {viewSuggestion && (
-        <>
+      {viewSuggestion && title != "No" && (
+        <div className="suggestion-container">
+          <h2 className="title">
+            {valid == 0 ? `No se encontraron resultados, pero quizá te guste:` : title != "" ? (
+              <>Resultados para: {title.replace(/[-]+/g, " ")}</>
+            ) : (
+              "Todos los resultados"
+            )}
+          </h2>
           {suggestions && suggestions.length !== 0 && (
             <div className="suggestion">
               <label className="suggestion-title">Ver más:</label>
@@ -84,7 +91,7 @@ export const Suggestion = ({ options }) => {
               ))}
             </div>
           )}
-        </>
+        </div>
       )}
     </>
   );

@@ -111,7 +111,7 @@ export const StorePage = () => {
               categories={categories}
               url={`/${store.name.replace(/[ ]+/g, "-")}/${store._id}`}
             ></Categories>
-            <Carrusel products={lastView} title={"Trending"}></Carrusel>
+            <Carrusel products={lastView} title={"🔥 Trending"}></Carrusel>
             {lastView && lastView.length != 0 && (
               <GoToLink
                 url={`/${store.name.replace(/[ ]+/g, "-")}/trending/${storeId}`}

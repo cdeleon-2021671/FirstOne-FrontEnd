@@ -74,6 +74,8 @@
 
 @media screen and (min-width: 1500px) {
   .all-stores {
+    padding: 0;
+    padding-bottom: 1em;
     &-content {
       grid-template-columns: 18em 1fr;
       .container {

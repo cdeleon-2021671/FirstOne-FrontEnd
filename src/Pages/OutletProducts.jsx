@@ -14,11 +14,12 @@ export const OutletProducts = () => {
   const { category, store, storeId, search } = useParams();
   const { products, offers, mostViewed, trending } = useContext(AuthContext);
   const [boxes, setBoxes] = useState(null);
-  const [original, setOriginal] = useState(null);
   const [title, setTitle] = useState(null);
   const [description, setDescription] = useState(null);
   const [url, setUrl] = useState(null);
   const [storeResult, setStoreResult] = useState(null);
+  const [header, setHeader] = useState("");
+  const [valid, setIsValid] = useState("");
 
   const getProductsByCategory = async () => {
     try {
@@ -29,7 +30,6 @@ export const OutletProducts = () => {
       );
       const { products } = data;
       setBoxes(products);
-      setOriginal(products);
     } catch (err) {
       console.log(err);
     }
@@ -42,7 +42,6 @@ export const OutletProducts = () => {
       if (_id == storeId) newPopular.push(element);
     });
     setBoxes(newPopular);
-    setOriginal(newPopular);
   };
 
   const getTrending = async () => {
@@ -53,7 +52,6 @@ export const OutletProducts = () => {
       });
       console.log(products);
       setBoxes(products);
-      setOriginal(products);
     }
   };
 
@@ -64,7 +62,6 @@ export const OutletProducts = () => {
         if (_id == storeId) return item;
       });
       setBoxes(products);
-      setOriginal(products);
     }
   };
 
@@ -74,10 +71,10 @@ export const OutletProducts = () => {
         `${import.meta.env.VITE_URI_API}/product/search-products`,
         { search: search }
       );
-      const { result, stores } = data;
+      const { result, stores, valid } = data;
       setBoxes(result);
-      setOriginal(result);
       setStoreResult(stores);
+      setIsValid(valid);
     } catch (err) {
       console.log(err);
     }
@@ -96,6 +93,7 @@ export const OutletProducts = () => {
         emocionantes en nuestra categoría ${newCategory}. No te lo pierdas!`
       );
       setUrl(`${category}`);
+      setHeader(category);
     } else if (location.pathname == `/${store}/popular/${storeId}`) {
       const newStore = store.replace(/[-]+/g, " ");
       getProductsByStore();
@@ -107,9 +105,9 @@ export const OutletProducts = () => {
       );
       setUrl(`${store}/popular/${storeId}`);
       setTitle(`Productos ${store.replace(/[-]+/g, " ")}`);
+      setHeader("No");
     } else if (location.pathname == `/trending-48-hours`) {
       setBoxes(trending ? Array.from(trending) : null);
-      setOriginal(trending ? Array.from(trending) : null);
       setDescription(
         `Explora los productos guatemaltecos más vistos en las ultimas 48 horas!
         Es una selección cuidadosamente curada de artículos de alta calidad.
@@ -117,6 +115,7 @@ export const OutletProducts = () => {
       );
       setUrl(`trending-48-hours`);
       setTitle(`Tranding`);
+      setHeader("No");
     } else if (location.pathname == `/${store}/trending/${storeId}`) {
       getTrending();
       setTitle(`Trending ${store.replace(/[-]+/g, " ")}`);
@@ -129,6 +128,7 @@ export const OutletProducts = () => {
         .No te lo pierdas!`
       );
       setUrl(`${store}/trending/${storeId}`);
+      setHeader("No");
     } else if (location.pathname == `/${store}/offers/${storeId}`) {
       getOffersByStore();
       setTitle(`Ofertas ${store.replace(/[-]+/g, " ")}`);
@@ -141,30 +141,32 @@ export const OutletProducts = () => {
         .No te lo pierdas!`
       );
       setUrl(`${store}/offers/${storeId}`);
+      setHeader("No");
     } else if (location.pathname == "/all-offers-in-store") {
       setBoxes(Array.from(offers));
-      setOriginal(Array.from(offers));
       setTitle(`Ofertas`);
       setDescription(
         `Te mostramos todos nuestros productos en oferta de alta calidad que estamos seguros que 
         te encantará. No te lo pierdas!`
       );
       setUrl(`all-offers-in-store`);
+      setHeader("No");
     } else if (location.pathname == "/all-popular-in-store") {
       setBoxes(Array.from(mostViewed));
-      setOriginal(Array.from(mostViewed));
       setTitle(`Populares`);
       setDescription(
         `Te mostramos los productos más vistos de alta calidad que estamos seguros que 
         te encantará. No te lo pierdas!`
       );
       setUrl(`popular`);
+      setHeader("No");
     } else if (search) {
       if (search == "all") {
         setBoxes(Array.from(products));
-        setOriginal(Array.from(products));
+        setHeader("");
       } else {
         getSearching();
+        setHeader(search);
       }
       setTitle(`Resultados`);
       setDescription(
@@ -186,7 +188,11 @@ export const OutletProducts = () => {
           </Helmet>
           <div className="outlet-products">
             <StoresList stores={storeResult}></StoresList>
-            <Suggestion options={boxes}></Suggestion>
+            <Suggestion
+              options={boxes}
+              title={header}
+              valid={valid}
+            ></Suggestion>
             <Products products={boxes}></Products>
           </div>
         </>
@@ -202,8 +208,8 @@ const Products = ({ products }) => {
     <>
       {products && products.length != 0 && (
         <div className="results">
-          {products.map((item) => {
-            return <CardProducts item={item} key={item._id} />;
+          {products.map((item, key) => {
+            return <CardProducts item={item} key={key} />;
           })}
         </div>
       )}

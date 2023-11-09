@@ -1,5 +1,22 @@
 @import "../../Styles.scss";
 
+.suggestion-container {
+  background: var(--color-terciario);
+  margin: var(--espacio-principal);
+  margin-bottom: 0;
+  @media screen and (min-width: 1500px) {
+    margin: var(--espacio-principal) 0 0;
+  }
+  @media screen and (max-width: 970px) {
+    margin: var(--espacio-secundario);
+    margin-bottom: 0;
+  }
+  .title {
+    padding: 16px;
+    font-size: 1.3em;
+  }
+}
+
 .suggestion {
   display: flex;
   align-items: center;
@@ -9,6 +26,7 @@
   }
   gap: var(--espacio-secundario);
   padding: var(--espacio-principal);
+  padding-top: 0;
   label,
   a {
     min-width: max-content;
@@ -24,18 +42,22 @@
   }
   a {
     padding: 0.3em 1.2em;
-    background: var(--color-primario);
+    background: var(--color-secundario);
     color: var(--color-blanco);
     cursor: pointer;
     transition: all 0.2s ease;
-    &:hover {
-      outline: 1px solid var(--color-secundario);
-    }
   }
 }
 
 @media screen and (max-width: 500px) {
+  .suggestion-container {
+    .title {
+      padding: 8px;
+      font-size: 20px;
+    }
+  }
   .suggestion {
     padding: var(--espacio-secundario);
+    padding-top: 0;
   }
 }

@@ -1,16 +1,20 @@
 @import "../../Styles.scss";
 
 .products {
+  margin-top: 50px;
+  margin-bottom: 20px;
   &-title {
     font-size: 1.6em;
     padding-left: 16px;
     color: var(--color-secundario);
+    span{
+      border-bottom: 3px solid #000;
+    }
   }
   &-container {
     display: flex;
     align-items: center;
     position: relative;
-    padding: 0 var(--espacio-principal);
     &-content {
       padding: var(--espacio-principal) 0;
       display: flex;
@@ -72,13 +76,6 @@
   .products {
     &-title {
       padding-left: 8px;
-    }
-    &-container {
-      padding: 0 8px;
-      &-content {
-        padding: 8px 0;
-        gap: 8px;
-      }
     }
   }
 }

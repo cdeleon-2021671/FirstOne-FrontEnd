@@ -8,7 +8,7 @@ import { Animation } from "../Animation/Animation";
 export const Form = () => {
   const { type } = useParams();
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  const { user, isLogged, setIsLogged } = useContext(AuthContext);
   const [sendCode, setSendCode] = useState(false);
   const [isDiferent, setIsDiferent] = useState(false);
   const [message, setMessage] = useState("");
@@ -39,11 +39,12 @@ export const Form = () => {
 
   const sendInfo = async () => {
     try {
+      const email = form.email.replace(/[ ]+/g, "");
       setMessage("");
       setIsDiferent(true);
       setLoading(true);
       if (form.name == "") setMessage("El nombre no puede estar vacío");
-      else if (form.email == "") setMessage("El correo es obligatorio");
+      else if (email == "") setMessage("El correo es obligatorio");
       else if (isDiferent) setMessage("Las contraseñas deben coincidir");
       else if (form.password.length < 8)
         setMessage("La contraseña debe contener al menos 8 dígitos");
@@ -86,13 +87,13 @@ export const Form = () => {
   const addBoss = async (register) => {
     try {
       navigate("/join/trade-online/step2");
-      localStorage.setItem("register", register);
+      localStorage.setItem("token", register);
     } catch (err) {
       console.log(err);
     }
   };
 
-  const getInfo = async()=>{
+  const getInfo = async () => {
     try {
       const { data } = await axios.get(
         `${import.meta.env.VITE_URI_API}/user/get-user-by-id/${user.sub}`
@@ -107,7 +108,7 @@ export const Form = () => {
       console.log(err);
       setLoading(false);
     }
-  }
+  };
 
   const createAccount = async () => {
     try {
@@ -132,7 +133,7 @@ export const Form = () => {
         position: "right top",
       });
       setLoading(false);
-      if (!type) addBoss(data.register);
+      if (!type) addBoss(data.token);
       else navigate(-1);
     } catch (err) {
       setLoading(false);
@@ -180,85 +181,87 @@ export const Form = () => {
   return (
     <>
       {loading && <Animation></Animation>}
-      <div className="register-form">
-        <div className="form">
-          <div className="container">
-            <div className="container-form">
-              <span className="container-form-title">
-                {type
-                  ? "Registrar nuevo trabajador"
-                  : "Registrar cuenta de empresa"}
-              </span>
-              <div className="container-form-data">
-                <label htmlFor="name">Persona encargada</label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  required
-                  onChange={handleChange}
-                />
+      {!isLogged && !type && (
+        <div className="register-form">
+          <div className="form">
+            <div className="container">
+              <div className="container-form">
+                <span className="container-form-title">
+                  {type
+                    ? "Registrar nuevo trabajador"
+                    : "Registrar cuenta de empresa"}
+                </span>
+                <div className="container-form-data">
+                  <label htmlFor="name">Persona encargada</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="email">Correo electrónico</label>
+                  <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    required
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="pass">Contraseña</label>
+                  <input
+                    type="password"
+                    id="pass"
+                    name="password"
+                    onChange={handleChange}
+                  />
+                </div>
+                <div className="container-form-data">
+                  <label htmlFor="confirm">Confirmar Contraseña</label>
+                  <input
+                    type="password"
+                    id="confirm"
+                    name="confirm"
+                    onChange={handleChange}
+                  />
+                </div>
+                {isDiferent && (
+                  <span className="passwordIncorrect">{message}</span>
+                )}
+                <button className="container-form-send" onClick={sendInfo}>
+                  Continuar
+                </button>
+                {sendCode && (
+                  <>
+                    <div className="container-form-data">
+                      <label htmlFor="code">Codigo de confirmacion</label>
+                      <input
+                        type="text"
+                        id="code"
+                        required
+                        onChange={(e) => setCode(e.target.value)}
+                      />
+                    </div>
+                    {invalidCode && (
+                      <span className="passwordIncorrect">{msgInvalid}</span>
+                    )}
+                    <button
+                      className="container-form-send"
+                      onClick={validateCode}
+                    >
+                      Confirmar
+                    </button>
+                  </>
+                )}
               </div>
-              <div className="container-form-data">
-                <label htmlFor="email">Correo electrónico</label>
-                <input
-                  type="text"
-                  id="email"
-                  name="email"
-                  required
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="pass">Contraseña</label>
-                <input
-                  type="password"
-                  id="pass"
-                  name="password"
-                  onChange={handleChange}
-                />
-              </div>
-              <div className="container-form-data">
-                <label htmlFor="confirm">Confirmar Contraseña</label>
-                <input
-                  type="password"
-                  id="confirm"
-                  name="confirm"
-                  onChange={handleChange}
-                />
-              </div>
-              {isDiferent && (
-                <span className="passwordIncorrect">{message}</span>
-              )}
-              <button className="container-form-send" onClick={sendInfo}>
-                Continuar
-              </button>
-              {sendCode && (
-                <>
-                  <div className="container-form-data">
-                    <label htmlFor="code">Codigo de confirmacion</label>
-                    <input
-                      type="text"
-                      id="code"
-                      required
-                      onChange={(e) => setCode(e.target.value)}
-                    />
-                  </div>
-                  {invalidCode && (
-                    <span className="passwordIncorrect">{msgInvalid}</span>
-                  )}
-                  <button
-                    className="container-form-send"
-                    onClick={validateCode}
-                  >
-                    Confirmar
-                  </button>
-                </>
-              )}
             </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

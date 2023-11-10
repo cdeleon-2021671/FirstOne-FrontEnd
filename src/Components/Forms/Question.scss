@@ -1,0 +1,20 @@
+.question{
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: repeat(2, 30em);
+    gap: 1em;
+    &-item{
+        justify-content: center;
+        align-items: center;
+        justify-content: center;
+        background: var(--color-terciario);
+        box-shadow: 1px 1px 2px #000, -1px -1px 2px #fff;
+        text-align: center;
+        padding: 3em;
+        font-size: 1.5em;
+    }
+    @media screen and (max-width: 1000px) {
+        display: flex;
+        flex-direction: column;
+    }
+}

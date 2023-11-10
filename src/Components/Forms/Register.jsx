@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaFacebookF, FaInstagram } from "react-icons/fa";
 import { BiLogoGmail } from "react-icons/bi";
@@ -7,9 +7,11 @@ import "./Forms.scss";
 import axios from "axios";
 import { Helmet } from "react-helmet-async";
 import { useParams } from "react-router-dom";
+import { AuthContext } from "../../Index";
 
 export const Register = () => {
   const { type } = useParams();
+  const { isLogged } = useContext(AuthContext);
   const [message, setMessage] = useState("");
   const [isDiferent, setIsDiferent] = useState(false);
   const [sendCode, setSendCode] = useState(false);
@@ -36,18 +38,6 @@ export const Register = () => {
       setMessage("Las contraseñas no coinciden");
     } else setIsDiferent(false);
   }, [form.confirm, form.password]);
-
-  useEffect(() => {
-    if (!type) {
-      $(".header").addClass("disable");
-      $(".menu").addClass("disable");
-      localStorage.clear();
-      return () => {
-        $(".header").removeClass("disable");
-        $(".menu").removeClass("disable");
-      };
-    }
-  }, []);
 
   const sendInfo = async () => {
     try {
@@ -178,96 +168,95 @@ export const Register = () => {
           <link rel="canonical" href="https://tienda.gt/register" />
         </Helmet>
       )}
-      <div className="form">
-        <div className="container">
-          {!type && (
-            <div className="container-title">
-              <Link to={"/"} title="Inicio">
-                Tienda.gt
-              </Link>
-            </div>
-          )}
-          <div className="container-form">
-            <span className="container-form-title">Crear cuenta</span>
-            <div className="container-form-data">
-              <label htmlFor="name">Nombre completo</label>
-              <input
-                type="text"
-                id="name"
-                onChange={handleChange}
-                name="name"
-              />
-            </div>
-            <div className="container-form-data">
-              <label htmlFor="email">Correo electrónico</label>
-              <input
-                type="text"
-                id="email"
-                onChange={handleChange}
-                name="email"
-              />
-            </div>
-            <div className="container-form-data">
-              <label htmlFor="pass">Contraseña</label>
-              <input
-                type="password"
-                id="pass"
-                onChange={handleChange}
-                name="password"
-              />
-            </div>
-            <div className="container-form-data">
-              <label htmlFor="confirm">Confirmar contraseña</label>
-              <input
-                type="password"
-                id="confirm"
-                onChange={handleChange}
-                name="confirm"
-              />
-            </div>
+      {!isLogged && !type && (
+        <div className="form">
+          <div className="container">
             {!type && (
-              <Link
-                className="container-form-option"
-                to={"/join/trade-online/step1"}
-              >
-                ¿Cuenta para tu tienda?
-              </Link>
+              <div className="container-title">
+                <Link to={"/"} title="Inicio">
+                  Tienda.gt
+                </Link>
+              </div>
             )}
-            {isDiferent && <span className="passwordIncorrect">{message}</span>}
-            <button className="container-form-send" onClick={sendInfo}>
-              Continuar
-            </button>
-            {!type && (
-              <>
-                <div className="container-form-divider">
-                  <hr />
-                  <span>Crear con redes sociales</span>
-                </div>
-                <Icons></Icons>
-              </>
-            )}
-            {sendCode && (
-              <>
-                <div className="container-form-data">
-                  <label htmlFor="code">Codigo de confirmacion</label>
-                  <input
-                    type="text"
-                    id="code"
-                    required
-                    onChange={(e) => setCode(e.target.value)}
-                  />
-                </div>
-                {invalidCode && (
-                  <span className="passwordIncorrect">{msgInvalid}</span>
-                )}
-                <button className="container-form-send" onClick={validateCode}>
-                  Confirmar
-                </button>
-              </>
-            )}
+            <div className="container-form">
+              <span className="container-form-title">Crear cuenta</span>
+              <div className="container-form-data">
+                <label htmlFor="name">Nombre completo</label>
+                <input
+                  type="text"
+                  id="name"
+                  onChange={handleChange}
+                  name="name"
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="email">Correo electrónico</label>
+                <input
+                  type="text"
+                  id="email"
+                  onChange={handleChange}
+                  name="email"
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="pass">Contraseña</label>
+                <input
+                  type="password"
+                  id="pass"
+                  onChange={handleChange}
+                  name="password"
+                />
+              </div>
+              <div className="container-form-data">
+                <label htmlFor="confirm">Confirmar contraseña</label>
+                <input
+                  type="password"
+                  id="confirm"
+                  onChange={handleChange}
+                  name="confirm"
+                />
+              </div>
+              {isDiferent && (
+                <span className="passwordIncorrect">{message}</span>
+              )}
+              <button className="container-form-send" onClick={sendInfo}>
+                Continuar
+              </button>
+              {!type && (
+                <>
+                  <div className="container-form-divider">
+                    <hr />
+                    <span>Crear con redes sociales</span>
+                  </div>
+                  <Icons></Icons>
+                </>
+              )}
+              {sendCode && (
+                <>
+                  <div className="container-form-data">
+                    <label htmlFor="code">Codigo de confirmacion</label>
+                    <input
+                      type="text"
+                      id="code"
+                      required
+                      onChange={(e) => setCode(e.target.value)}
+                    />
+                  </div>
+                  {invalidCode && (
+                    <span className="passwordIncorrect">{msgInvalid}</span>
+                  )}
+                  <button
+                    className="container-form-send"
+                    onClick={validateCode}
+                  >
+                    Confirmar
+                  </button>
+                </>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

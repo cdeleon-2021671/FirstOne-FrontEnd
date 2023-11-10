@@ -2,10 +2,10 @@ import React, { useContext } from "react";
 import { Searchbar } from "../Searchbar/Searchbar";
 import { AuthContext } from "../../Index";
 import { Link } from "react-router-dom";
-import {FaUser} from 'react-icons/fa'
+import { FaUserCircle, FaUserPlus } from "react-icons/fa";
 import "./Header.scss";
 
-export const Header = ({ setView }) => {
+export const Header = () => {
   const { isLogged, user } = useContext(AuthContext);
 
   return (
@@ -14,22 +14,19 @@ export const Header = ({ setView }) => {
         <Link title="Página Principal">Tienda.gt</Link>
       </h1>
       <Searchbar></Searchbar>
-      {isLogged && user && user.name && user.sub ? (
-        <Link
-          to={`/profile/info/${user.name.replace(/[ ]+/g, "-")}/${user.sub}`}
-          className="header-identify"
-        >
-          <FaUser></FaUser>Perfil
+      <Link
+        className="header-identify"
+        title={isLogged ? "Perfil" : "Iniciar sesión"}
+        to={isLogged ? `/profile/info/${user.email}/${user.sub}` : "/form/login"}
+      >
+        <FaUserCircle></FaUserCircle>
+        Mí cuenta
+      </Link>
+      {!isLogged && (
+        <Link className="header-identify" title="Regístrate" to={'/form/type'}>
+          <FaUserPlus></FaUserPlus>
+          Regístrate
         </Link>
-      ) : (
-        <button
-          className="header-identify"
-          title="Iniciar sesión"
-          onClick={() => setView(true)}
-        >
-          <FaUser></FaUser>
-          Únete
-        </button>
       )}
     </div>
   );

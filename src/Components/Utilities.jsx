@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter } from "react-router-dom";
+import { Outlet, createBrowserRouter } from "react-router-dom";
 import { NotFoundPage } from "../Pages/NotFoundPage/NotFoundPage";
 import { HomePage } from "../Pages/HomePage";
 import { StorePage } from "../Pages/StorePage";
@@ -30,6 +30,8 @@ import {
   FaShoppingCart,
   FaPhoneAlt,
 } from "react-icons/fa";
+import { Login } from "./Forms/Login";
+import { Question } from "./Forms/Question";
 
 export const routes = createBrowserRouter([
   {
@@ -68,8 +70,22 @@ export const routes = createBrowserRouter([
         ],
       },
       {
-        path: "register",
-        element: <Register></Register>,
+        path: "form",
+        element: <Outlet></Outlet>,
+        children: [
+          {
+            path: "login",
+            element: <Login></Login>,
+          },
+          {
+            path: "type",
+            element: <Question></Question>,
+          },
+          {
+            path: "register",
+            element: <Register></Register>,
+          }
+        ]
       },
       {
         path: "profile",

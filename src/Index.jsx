@@ -31,16 +31,15 @@ export const Index = () => {
         name: data.user.name,
         email: data.user.email,
         stores: data.user.stores,
-        rol: data.user.rol,
-        state: data.user.state,
+        rol: data.user.rol
       });
       setIsLogged(true);
     } catch (err) {
       console.log(err);
       localStorage.clear();
+      window.location.href = "/";
       setUser({});
       setIsLogged(false);
-      window.location.href = "/";
       window.location.reload();
     }
   };
@@ -48,6 +47,10 @@ export const Index = () => {
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) getInfo(token);
+    else {
+      localStorage.clear();
+      setUser({});
+    }
   }, [isLogged]);
 
   const getStores = async () => {

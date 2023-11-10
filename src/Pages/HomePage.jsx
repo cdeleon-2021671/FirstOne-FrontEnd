@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Introduction } from "../Components/HomePage/Introduction";
 import { Categories } from "../Components/Categories/Categories";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
 import { Carrusel } from "../Components/Products/Carrusel";
@@ -16,20 +15,6 @@ export const HomePage = () => {
   const [popular, setPopular] = useState(null);
   const [newOffers, setNewOffers] = useState(null);
 
-  const getRandomCategories = () => {
-    const newCategories = [];
-    while (true) {
-      if (newCategories.length == tags.length) break;
-      const random = Math.floor(Math.random() * tags.length);
-      const product = tags[random];
-      if (newCategories.includes(product) == false)
-        newCategories.push(tags[random]);
-    }
-    setCategories(newCategories);
-    setRandomCategories(newCategories);
-    resizeWindow(newCategories);
-  };
-
   const resizeWindow = (array) => {
     if (array && array.length != 0) {
       let newCategories = Array.from(array);
@@ -45,17 +30,32 @@ export const HomePage = () => {
     }
   };
 
-  useEffect(() => {
-    if (tags) {
-      getRandomCategories();
-      $(window).on("resize", () => {
-        resizeWindow(randomCategries);
-      });
-      return () => {
-        $(window).off("resize");
-      };
+  const getRandomCategories = () => {
+    const newCategories = [];
+    while (true) {
+      if (newCategories.length == tags.length) break;
+      const random = Math.floor(Math.random() * tags.length);
+      const product = tags[random];
+      if (newCategories.includes(product) == false)
+        newCategories.push(tags[random]);
     }
+    setCategories(newCategories);
+    setRandomCategories(newCategories);
+  };
+
+  useEffect(() => {
+    if (tags) getRandomCategories();
   }, [tags]);
+
+  useEffect(() => {
+    resizeWindow(randomCategries);
+    $(window).on("resize", () => {
+      resizeWindow(randomCategries);
+    });
+    return () => {
+      $(window).off("resize");
+    };
+  }, [randomCategries]);
 
   useEffect(() => {
     if (mostViewed) {
@@ -98,7 +98,6 @@ export const HomePage = () => {
         <link rel="canonical" href="https://tienda.gt" />
       </Helmet>
       <div className="padding-container">
-        <Introduction></Introduction>
         <Toolbar></Toolbar>
         <Categories categories={categories}></Categories>
         <Carrusel products={newTrending} title="🔥 Trending"></Carrusel>

@@ -4,12 +4,19 @@
   @media screen and (min-width: 1000px) {
     margin-top: 50px;
     margin-bottom: 20px;
+    &-title {
+      span {
+        padding-right: 65px;
+      }
+    }
   }
   &-title {
     font-size: 1.6em;
     padding-left: 16px;
+    padding-bottom: 8px;
     color: var(--color-secundario);
     span {
+      padding-bottom: 5px;
       border-bottom: 3px solid #000;
     }
   }
@@ -59,9 +66,8 @@
 
 @media screen and (min-width: 1500px) {
   .products {
-    &-title,
-    &-container {
-      padding: 0;
+    &-title {
+      padding-left: 0;
     }
   }
 }

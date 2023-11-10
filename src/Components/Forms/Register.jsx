@@ -84,8 +84,8 @@ export const Register = () => {
 
   const addClient = async (register) => {
     try {
-      navigate("/join/trade-online/step2");
-      localStorage.setItem("register", register);
+      // navigate("/join/trade-online/step2");
+      // localStorage.setItem("register", register);
     } catch (err) {
       console.log(err);
     }
@@ -168,7 +168,7 @@ export const Register = () => {
           <link rel="canonical" href="https://tienda.gt/register" />
         </Helmet>
       )}
-      {!isLogged && !type && (
+      {!isLogged || type ? (
         <div className="form">
           <div className="container">
             {!type && (
@@ -256,7 +256,7 @@ export const Register = () => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

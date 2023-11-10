@@ -1,13 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Index";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Animation } from "../Animation/Animation";
+import { Editor } from "@tinymce/tinymce-react";
+import { Tags } from "./Tags";
 
 export const StoreInformation = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
-  const { isLogged, user } = useContext(AuthContext);
+  const { isLogged, setIsLogged, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     xml: "",
@@ -22,18 +24,17 @@ export const StoreInformation = () => {
     instagram: "",
     tiktok: "",
     messenger: "",
+    shippingTerms: [],
+    paymentOptions: [],
+    tags: [],
   });
-
-  const handleChange = (e) => {
-    setForm({
-      ...form,
-      [e.target.name]: e.target.value,
-    });
-  };
 
   const sendForm = async (e) => {
     try {
       setLoading(true);
+      if (!isLogged) {
+        setMessage("Tu cuenta no tiene permiso para realizar esta acción");
+      }
       if (isLogged && user.rol != "COMERCIANTE") {
         setMessage("Tu cuenta no tiene permiso para realizar esta acción");
       } else {
@@ -76,7 +77,8 @@ export const StoreInformation = () => {
               register: localStorage.getItem("token"),
             }
           );
-          navigate(`/join/trade-online/step2/tags/${storeId}`);
+          setIsLogged(true);
+          navigate("/profile/all-stores");
         }
       }
       setLoading(false);
@@ -90,313 +92,372 @@ export const StoreInformation = () => {
   return (
     <>
       {loading && <Animation></Animation>}
-      {localStorage.getItem("token") && (
+      {isLogged && (
         <div className="register-form">
           <div className="form">
             <div className="container newForm">
-              <div className="container-form">
-                <span className="container-form-title">
-                  Información de la tienda
-                </span>
-                <div className="content">
-                  <div className="container-form-data">
-                    <label htmlFor="xml">
-                      XML de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="xml"
-                      name="xml"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="urlStore">
-                      URL de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="urlStore"
-                      name="urlStore"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="urlLogo">
-                      URL del logo
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="urlLogo"
-                      name="urlLogo"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="banner1">
-                      URL del banner
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="banner1"
-                      name="banner"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="name">
-                      Nombre de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="phone">Teléfono de la tienda</label>
-                    <input
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="whatsapp">Whatsapp de la tienda</label>
-                    <input
-                      type="text"
-                      id="whatsapp"
-                      name="whatsapp"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="facebook">Facebook de la tienda</label>
-                    <input
-                      type="text"
-                      id="facebook"
-                      name="facebook"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="instagram">Instagram de la tienda</label>
-                    <input
-                      type="text"
-                      id="instagram"
-                      name="instagram"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="tiktok">Tiktok de la tienda</label>
-                    <input
-                      type="text"
-                      id="tiktok"
-                      name="tiktok"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="messenger">Messenger de la tienda</label>
-                    <input
-                      type="text"
-                      id="messenger"
-                      name="messenger"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="description">
-                      Observaciones
-                    </label>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <span className="passwordIncorrect">{message}</span>
-                <button className="container-form-send" onClick={sendForm}>
-                  Continuar
-                </button>
-              </div>
-
-
-
-              <div className="container-form">
-                <span className="container-form-title">
-                  Información de la tienda
-                </span>
-                <div className="content">
-                  <div className="container-form-data">
-                    <label htmlFor="xml">
-                      XML de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="xml"
-                      name="xml"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="urlStore">
-                      URL de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="urlStore"
-                      name="urlStore"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="urlLogo">
-                      URL del logo
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="urlLogo"
-                      name="urlLogo"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="banner1">
-                      URL del banner
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="banner1"
-                      name="banner"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="name">
-                      Nombre de la tienda
-                      <span className="required">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="phone">Teléfono de la tienda</label>
-                    <input
-                      type="text"
-                      id="phone"
-                      name="phone"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="whatsapp">Whatsapp de la tienda</label>
-                    <input
-                      type="text"
-                      id="whatsapp"
-                      name="whatsapp"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="facebook">Facebook de la tienda</label>
-                    <input
-                      type="text"
-                      id="facebook"
-                      name="facebook"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="instagram">Instagram de la tienda</label>
-                    <input
-                      type="text"
-                      id="instagram"
-                      name="instagram"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="tiktok">Tiktok de la tienda</label>
-                    <input
-                      type="text"
-                      id="tiktok"
-                      name="tiktok"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="messenger">Messenger de la tienda</label>
-                    <input
-                      type="text"
-                      id="messenger"
-                      name="messenger"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                  <div className="container-form-data">
-                    <label htmlFor="description">
-                      Observaciones
-                    </label>
-                    <input
-                      type="text"
-                      id="description"
-                      name="description"
-                      required
-                      onChange={handleChange}
-                    />
-                  </div>
-                </div>
-                <span className="passwordIncorrect">{message}</span>
-                <button className="container-form-send" onClick={sendForm}>
-                  Continuar
-                </button>
-              </div>
+              <Information setForm={setForm} form={form}></Information>
+              <Description setForm={setForm} form={form}></Description>
+              <ShippingTerms setForm={setForm} form={form}></ShippingTerms>
+              <PaymentOptions setForm={setForm} form={form}></PaymentOptions>
+              <Tags setForm={setForm} form={form}></Tags>
+              <span className="passwordIncorrect">{message}</span>
+              <button className="container-btn" onClick={sendForm}>
+                Enviar
+              </button>
             </div>
           </div>
         </div>
       )}
     </>
+  );
+};
+
+const Data = ({ title, name, req, form, setForm }) => {
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  return (
+    <div className="container-form-data">
+      <label htmlFor={name}>
+        {title}
+        {req && <span className="required">*</span>}
+      </label>
+      <input type="text" id={name} name={name} onChange={handleChange} />
+    </div>
+  );
+};
+
+const Information = ({ setForm, form }) => {
+  return (
+    <div className="container-form">
+      <span className="container-form-title">Información de la tienda</span>
+      <div className="content">
+        <Data
+          title={"XML de la tienda"}
+          name={"xml"}
+          req={true}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"URL de la tienda"}
+          name={"urlStore"}
+          req={true}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"URL del logo"}
+          name={"urlLogo"}
+          req={true}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"URL del banner"}
+          name={"banner"}
+          req={true}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Nombre de la tienda"}
+          name={"name"}
+          req={true}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Teléfono de la tienda"}
+          name={"phone"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Whatsapp de la tienda"}
+          name={"whatsapp"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Facebook de la tienda"}
+          name={"facebook"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Instagram de la tienda"}
+          name={"instagram"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Tiktok de la tienda"}
+          name={"tiktok"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+        <Data
+          title={"Messenger de la tienda"}
+          name={"messenger"}
+          form={form}
+          setForm={setForm}
+        ></Data>
+      </div>
+    </div>
+  );
+};
+
+const Description = ({ form, setForm }) => {
+  const editorRef = useRef(null);
+
+  const handleChange = () => {
+    if (editorRef.current) {
+      setForm({
+        ...form,
+        description: editorRef.current.getContent(),
+      });
+    }
+  };
+
+  return (
+    <div className="container-form">
+      <span className="container-form-title">Descripción de la tienda</span>
+      <Editor
+        apiKey="zvxwf6llqq2c558yqoy29godx3b6jx7xjquuznib0jbe5nhb"
+        onInit={(evt, editor) => (editorRef.current = editor)}
+        onChange={handleChange}
+        init={{
+          height: 200,
+          max_height: 400,
+          menubar: true,
+          plugins: [
+            // "advlist",
+            // "autolink",
+            // "lists",
+            // "link",
+            // "image",
+            // "charmap",
+            // "preview",
+            // "anchor",
+            // "searchreplace",
+            // "visualblocks",
+            // "code",
+            // "fullscreen",
+            // "insertdatetime",
+            // "media",
+            // "code",
+          ],
+          toolbar:
+            "undo redo | " +
+            "bold italic forecolor" +
+            "numlist | " +
+            "removeformat",
+        }}
+      />
+    </div>
+  );
+};
+
+const ShippingTerms = ({ setForm, form }) => {
+  const [typing, setTyping] = useState(true);
+  const [shipping, setShipping] = useState({
+    cobertura: "",
+    shippingNormal: "",
+    saleOff: "",
+    observaciones: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setShipping({
+      ...shipping,
+      [name]: value,
+    });
+  };
+
+  const getShipping = () => {
+    const keys = Object.keys(shipping);
+    const array = [];
+    for (const key of keys) {
+      let text = shipping[key];
+      if (key == "saleOff" && typing == true) continue;
+      else if (key == "saleOff")
+        text = `Envío gratis a partir de Q${parseFloat(text).toFixed(2)}`;
+      else if (text.replace(/[ ]+/g, "") == "") continue;
+      else if (key == "shippingNormal")
+        text = `Costo de envío a Q${parseFloat(text).toFixed(2)}`;
+      array.push(text);
+    }
+    setForm({
+      ...form,
+      shippingTerms: array,
+    });
+  };
+
+  useEffect(() => {
+    getShipping();
+  }, [shipping, typing]);
+
+  const verifyKey = (e)=>{
+    if(e.keyCode == 189 || e.keyCode == 187) e.preventDefault();
+  }
+
+  const checkedOff = (e) => {
+    setTyping(!e.target.checked);
+  };
+
+  return (
+    <div className="container-form">
+      <span className="container-form-title">Términos de envío</span>
+      <div className="container-form-data">
+        <label htmlFor="cobertura">Cobertura</label>
+        <select className="cobertura" name="cobertura" onChange={handleChange}>
+          <option>Envíos a toda Guatemala</option>
+          <option>Envíos unicamente a ciudad de Guatemala</option>
+          <option>Envíos unicamente en la localidad</option>
+        </select>
+      </div>
+      <div className="container-form-data">
+        <label htmlFor="shippingNormal">Costo normal de envío</label>
+        <input
+          type="number"
+          id="shippingNormal"
+          name="shippingNormal"
+          onChange={handleChange}
+          onKeyDown={verifyKey}
+          min={0}
+        />
+      </div>
+      <div className="shippingOff">
+        <div className="container-form-data">
+          <label htmlFor="shippingOff">Envío gratis </label>
+          <input
+            type="checkbox"
+            id="shippingOff"
+            name="shippingOff"
+            onClick={checkedOff}
+          />
+        </div>
+        <div className="container-form-data">
+          <label htmlFor="saleOff">Envío gratis a partir de </label>
+          <input
+            type="number"
+            min={0}
+            id="saleOff"
+            name="saleOff"
+            onChange={handleChange}
+            onKeyDown={verifyKey}
+            disabled={typing}
+          />
+        </div>
+      </div>
+      <div className="container-form-data">
+        <label htmlFor="observaciones">Observaciones</label>
+        <input
+          type="text"
+          id="observaciones"
+          name="observaciones"
+          onChange={handleChange}
+        />
+      </div>
+    </div>
+  );
+};
+
+const PaymentOptions = ({ form, setForm }) => {
+  const [payment, setPayment] = useState({
+    one: false,
+    two: false,
+    three: false,
+    for: false,
+  });
+
+  const handleChange = (e) => {
+    const { name } = e.target;
+    setPayment({
+      ...payment,
+      [name]: !payment[name],
+    });
+  };
+
+  useEffect(() => {
+    const keys = Object.keys(payment);
+    const options = {
+      one: "Pago contra entrega",
+      two: "Depósito",
+      three: "Tarjetas de crédito o débito",
+      for: "Cuotas",
+    };
+    const array = [];
+    for (const key of keys) {
+      const value = payment[key];
+      let text = options[key];
+      if (value == false) continue;
+      array.push(text);
+    }
+    setForm({
+      ...form,
+      paymentOptions: array,
+    });
+  }, [payment]);
+
+  return (
+    <div className="container-form">
+      <span className="container-form-title">Métodos de pago</span>
+      <div className="shippingOff">
+        <div className="container-form-data">
+          <label htmlFor="one">Pago contra entrega</label>
+          <input
+            type="checkbox"
+            id="one"
+            name="one"
+            checked={payment.one}
+            onClick={handleChange}
+          />
+        </div>
+      </div>
+      <div className="shippingOff">
+        <div className="container-form-data">
+          <label htmlFor="two">Depósito</label>
+          <input
+            type="checkbox"
+            id="two"
+            name="two"
+            checked={payment.two}
+            onClick={handleChange}
+          />
+        </div>
+      </div>
+      <div className="shippingOff">
+        <div className="container-form-data">
+          <label htmlFor="three">Tarjetas de crédito o débito</label>
+          <input
+            type="checkbox"
+            id="three"
+            name="three"
+            checked={payment.three}
+            onClick={handleChange}
+          />
+        </div>
+      </div>
+      <div className="shippingOff">
+        <div className="container-form-data">
+          <label htmlFor="for">Cuotas</label>
+          <input
+            type="checkbox"
+            id="for"
+            name="for"
+            checked={payment.for}
+            onClick={handleChange}
+          />
+        </div>
+      </div>
+    </div>
   );
 };

@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { AuthContext } from "../../Index";
-import "./Stores.scss";
-import axios from "axios";
 import { Animation } from "../Animation/Animation";
+import ReactHtmlParser from "react-html-parser";
+import { AuthContext } from "../../Index";
+import axios from "axios";
+import "./Stores.scss";
 
 export const Ecommerce = () => {
   const { storeId } = useParams();
@@ -115,22 +116,23 @@ const Introduction = ({ store }) => {
       <div className="content">
         <Link to={store.urlLogo} target="_blank">
           {" "}
-          <strong>Logo: </strong>
+          <strong>Logo:&nbsp;</strong>
           {store.urlLogo}
         </Link>
         <Link to={store.banner} target="_blank">
           {" "}
-          <strong>Banner: </strong>
+          <strong>Banner:&nbsp;</strong>
           {store.banner}
         </Link>
         <Link to={store.xml} target="_blank">
           {" "}
-          <strong>XML: </strong>
+          <strong>XML:&nbsp;</strong>
           {store.xml}
         </Link>
         <span>
           {" "}
-          <strong>Descripción:</strong> {store.description}
+          <strong>Descripción:&nbsp;</strong>
+          {ReactHtmlParser(store.description)}
         </span>
         <Links store={store}></Links>
       </div>
@@ -139,8 +141,6 @@ const Introduction = ({ store }) => {
 };
 
 const Methods = ({ store }) => {
-  const { user } = useContext(AuthContext);
-
   return (
     <div className="container">
       <div className="apart">
@@ -150,10 +150,6 @@ const Methods = ({ store }) => {
         ) : (
           <>
             <span>No se han agregado etiquetas</span>
-            {(user && user.rol == "COMERCIANTE") ||
-            (user && user.rol == "TRABAJADOR") ? (
-              <Link>Agregar etiquetas</Link>
-            ) : null}
           </>
         )}
       </div>
@@ -177,10 +173,6 @@ const Methods = ({ store }) => {
         ) : (
           <>
             <span>No se han agregado opciones de envío</span>
-            {(user && user.rol == "COMERCIANTE") ||
-            (user && user.rol == "TRABAJADOR") ? (
-              <Link>Agregar opciones de envío</Link>
-            ) : null}
           </>
         )}
       </div>
@@ -191,10 +183,6 @@ const Methods = ({ store }) => {
         ) : (
           <>
             <span>No se han agregado métodos de pago</span>
-            {(user && user.rol == "COMERCIANTE") ||
-            (user && user.rol == "TRABAJADOR") ? (
-              <Link>Agregar métodos</Link>
-            ) : null}
           </>
         )}
       </div>
@@ -482,7 +470,7 @@ const Links = ({ store }) => {
               to={title != "Teléfono" ? link : ""}
               target={title == "Teléfono" ? "" : "_blank"}
             >
-              <strong>{title}: </strong>
+              <strong>{title}:&nbsp;</strong>
               {link}
             </Link>
           ))}

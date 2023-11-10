@@ -28,7 +28,7 @@ export const Stores = () => {
       {myUser && myUser.rol == "COMERCIANTE" ? (
         <div className="info-title">
           <h2>Tiendas en tu cargo</h2>
-          <Link className="info-title-action" to="/join/trade-online/step2">
+          <Link className="info-title-action" to="/join/trade-online/step2/information">
             Agregar tienda
           </Link>
         </div>

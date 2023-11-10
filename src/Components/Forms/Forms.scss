@@ -27,10 +27,6 @@
     padding: 0.4em 0;
     text-align: center;
   }
-  &.newForm{
-    display: flex;
-    gap: 1em;
-  }
   &-title {
     font-size: 2em;
     font-weight: 900;
@@ -46,9 +42,25 @@
     .passwordIncorrect {
       color: #ff0000;
     }
+    .shippingOff {
+      display: flex;
+      gap: 1em;
+      .container-form-data {
+        width: 100%;
+        &:first-child {
+          display: flex;
+          align-items: center;
+          max-width: min-content;
+          gap: 0.5em;
+          label {
+            min-width: max-content;
+          }
+        }
+      }
+    }
     .content {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(4, 1fr);
       column-gap: var(--espacio-principal);
     }
     &-title {
@@ -65,7 +77,8 @@
       label {
         font-size: 0.9em;
       }
-      input {
+      input,
+      select {
         width: 20em;
         outline: none;
         border: none;
@@ -74,6 +87,12 @@
         margin-top: 0.2em;
         padding: 0.4em 0.5em;
         transition: all 0.3s ease;
+      }
+      .cobertura {
+        width: 100%;
+        option {
+          width: 100%;
+        }
       }
     }
     &-option {
@@ -134,9 +153,9 @@
 
 @media screen and (max-width: 630px) {
   .container {
-    &.step2{
+    &.step2 {
       padding-top: 0;
-      .container-form{
+      .container-form {
         width: 90vw;
       }
     }

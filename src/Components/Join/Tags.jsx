@@ -1,154 +1,45 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { googleCategories } from "../../Words";
 import { AiOutlineClose } from "react-icons/ai";
-import { useParams, useNavigate } from "react-router-dom";
 import Fuse from "fuse.js";
 import "./Options.scss";
-import axios from "axios";
-import { AuthContext } from "../../Index";
-import { Animation } from "../Animation/Animation";
 
-export const Tags = () => {
-  const { isLogged, user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const { storeId } = useParams();
+export const Tags = ({ form, setForm }) => {
   const [tag, setTag] = useState("");
   const [items, setItems] = useState([]);
-  const [loading, setLoading] = useState(false);
 
   const changeTags = (e) => {
     setTag(e.target.value);
   };
 
-  const sendTags = async () => {
-    try {
-      setLoading(true);
-      if (items.length == 0) {
-        new Notify({
-          status: "error",
-          title: "Incorrecto!",
-          text: "Debes seleccionar al menos una categoría",
-          effect: "fade",
-          speed: 300,
-          showIcon: true,
-          showCloseButton: true,
-          autoclose: true,
-          autotimeout: 3000,
-          type: 1,
-          position: "right top",
-        });
-      } else {
-        const email = localStorage.getItem("register");
-        if (email == "" && isLogged == false) {
-          new Notify({
-            status: "error",
-            title: "Lo siento!",
-            text: "Necesitas iniciar sesión",
-            effect: "fade",
-            speed: 300,
-            showIcon: true,
-            showCloseButton: true,
-            autoclose: true,
-            autotimeout: 3000,
-            type: 1,
-            position: "right top",
-          });
-        } else if (isLogged && user.rol != "COMERCIANTE") {
-          new Notify({
-            status: "error",
-            title: "Lo siento!",
-            text: "Tu cuenta no tiene permiso para realizar esta acción",
-            effect: "fade",
-            speed: 300,
-            showIcon: true,
-            showCloseButton: true,
-            autoclose: true,
-            autotimeout: 3000,
-            type: 1,
-            position: "right top",
-          });
-        } else {
-          if (email != "") {
-            await axios.post(`${import.meta.env.VITE_URI_API}/user/validate`, {
-              token: email,
-            });
-          }
-          const { data } = await axios.put(
-            `${import.meta.env.VITE_URI_API}/store/update-tags`,
-            { items, storeId }
-          );
-          new Notify({
-            status: "success",
-            title: "Excelente!",
-            text: `${data.message}`,
-            effect: "fade",
-            speed: 300,
-            showIcon: true,
-            showCloseButton: true,
-            autoclose: true,
-            autotimeout: 3000,
-            type: 1,
-            position: "right top",
-          });
-          navigate(`/join/trade-online/step2/shipping/${storeId}`);
-        }
-      }
-      setLoading(false);
-    } catch (err) {
-      console.log(err);
-      setLoading(false);
-      new Notify({
-        status: "error",
-        title: "Incorrecto!",
-        text: `${err.response.data.message}`,
-        effect: "fade",
-        speed: 300,
-        showIcon: true,
-        showCloseButton: true,
-        autoclose: true,
-        autotimeout: 3000,
-        type: 1,
-        position: "right top",
-      });
-    }
-  };
+  useEffect(() => {
+    const array = items.map((item) => item.category);
+    setForm({
+      ...form,
+      tags: array,
+    });
+  }, [items]);
 
   return (
     <>
-      {loading && <Animation></Animation>}
-      <div className="register-form">
-        <div className="form">
-          <div className="container step2">
-            <div className="container-form">
-              <span className="container-form-title">
-                Etiquetas de la tienda
-              </span>
-              <div className="container-form-data">
-                <input
-                  type="text"
-                  placeholder="Tu categoría"
-                  onChange={changeTags}
-                  value={tag}
-                />
-                <TagsSelected
-                  categories={items}
-                  setCategories={setItems}
-                ></TagsSelected>
-                <AutoComplete
-                  search={tag}
-                  setItems={setItems}
-                  items={items}
-                ></AutoComplete>
-                <button
-                  className="container-btn"
-                  onClick={sendTags}
-                  style={{ cursor: "pointer" }}
-                >
-                  Continuar
-                </button>
-              </div>
-            </div>
-          </div>
+      <div className="container-form">
+        <span className="container-form-title">Etiquetas de la tienda</span>
+        <div className="container-form-data">
+          <input
+            type="text"
+            placeholder="Tu categoría"
+            onChange={changeTags}
+            value={tag}
+          />
+          <TagsSelected
+            categories={items}
+            setCategories={setItems}
+          ></TagsSelected>
+          <AutoComplete
+            search={tag}
+            setItems={setItems}
+            items={items}
+          ></AutoComplete>
         </div>
       </div>
     </>

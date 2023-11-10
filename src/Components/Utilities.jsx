@@ -14,11 +14,8 @@ import { Profile } from "../Pages/Profile";
 import { Info } from "./Profile/Info";
 import { StoreInformation } from "./Join/StoreInformation";
 import { Form } from "./Join/Form";
-import { Tags } from "./Join/Tags";
 import { Stores } from "./Profile/Stores";
 import { Users } from "./Profile/Users";
-import { Payment } from "./Join/Payment";
-import { Shipping } from "./Join/Shipping";
 import { AddUser } from "./Forms/AddUser";
 import { Ecommerce } from "./Profile/Ecommerce";
 import {
@@ -52,20 +49,8 @@ export const routes = createBrowserRouter([
             element: <Form></Form>,
           },
           {
-            path: "step2",
+            path: "step2/information",
             element: <StoreInformation></StoreInformation>,
-          },
-          {
-            path: "step2/tags/:storeId",
-            element: <Tags></Tags>,
-          },
-          {
-            path: "step2/payment/:storeId",
-            element: <Payment></Payment>,
-          },
-          {
-            path: "step2/shipping/:storeId",
-            element: <Shipping></Shipping>,
           },
         ],
       },

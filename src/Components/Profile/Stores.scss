@@ -54,7 +54,8 @@
           strong {
             font-weight: bold;
           }
-          a{
+          a, span{
+            display: flex;
             word-break: break-all;
           }
           a:hover {

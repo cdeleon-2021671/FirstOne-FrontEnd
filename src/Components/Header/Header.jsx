@@ -14,20 +14,28 @@ export const Header = () => {
         <Link title="Página Principal">Tienda.gt</Link>
       </h1>
       <Searchbar></Searchbar>
-      <Link
-        className="header-identify"
-        title={isLogged ? "Perfil" : "Iniciar sesión"}
-        to={isLogged ? `/profile/info/${user.email}/${user.sub}` : "/form/login"}
-      >
-        <FaUserCircle></FaUserCircle>
-        Mí cuenta
-      </Link>
-      {!isLogged && (
-        <Link className="header-identify" title="Regístrate" to={'/form/type'}>
-          <FaUserPlus></FaUserPlus>
-          Regístrate
+      <div className="btnOptions">
+        <Link
+          className="header-identify"
+          title={isLogged ? "Perfil" : "Iniciar sesión"}
+          to={
+            isLogged ? `/profile/info/${user.email}/${user.sub}` : "/form/login"
+          }
+        >
+          <FaUserCircle></FaUserCircle>
+          Mí cuenta
         </Link>
-      )}
+        {!isLogged && (
+          <Link
+            className="header-identify twoOption"
+            title="Regístrate"
+            to={"/form/type"}
+          >
+            <FaUserPlus></FaUserPlus>
+            Regístrate
+          </Link>
+        )}
+      </div>
     </div>
   );
 };

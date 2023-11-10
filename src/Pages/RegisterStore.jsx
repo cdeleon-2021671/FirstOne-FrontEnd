@@ -1,7 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import { Header } from "../Components/Join/Header";
 import { Helmet } from "react-helmet-async";
 import { Outlet } from "react-router-dom";
+import { AuthContext } from "../Index";
 
 export const RegisterStore = () => {
 

@@ -1,10 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Helmet } from "react-helmet-async";
 import { Outlet, useParams } from "react-router-dom";
 import { Dashboard } from "../Components/Profile/Dashboard";
+import { AuthContext } from "../Index";
 
 export const Profile = () => {
   const { user, userId } = useParams();
+  const { isLogged } = useContext(AuthContext);
+
   return (
     <>
       <Helmet>
@@ -18,10 +21,12 @@ export const Profile = () => {
           href={`https://tienda.gt/profile/${user}/${userId}`}
         />
       </Helmet>
-      <div id="profile-container">
-        <Dashboard></Dashboard>
-        <Outlet></Outlet>
-      </div>
+      {isLogged && (
+        <div id="profile-container">
+          <Dashboard></Dashboard>
+          <Outlet></Outlet>
+        </div>
+      )}
     </>
   );
 };

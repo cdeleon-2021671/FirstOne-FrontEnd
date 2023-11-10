@@ -86,8 +86,9 @@ export const Form = () => {
 
   const addBoss = async (register) => {
     try {
-      navigate("/join/trade-online/step2");
       localStorage.setItem("token", register);
+      setIsLogged(true);
+      navigate("/join/trade-online/step2/information");
     } catch (err) {
       console.log(err);
     }
@@ -181,7 +182,7 @@ export const Form = () => {
   return (
     <>
       {loading && <Animation></Animation>}
-      {!isLogged && !type && (
+      {!isLogged || type ? (
         <div className="register-form">
           <div className="form">
             <div className="container">
@@ -261,7 +262,7 @@ export const Form = () => {
             </div>
           </div>
         </div>
-      )}
+      ) : null}
     </>
   );
 };

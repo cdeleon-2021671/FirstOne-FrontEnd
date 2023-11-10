@@ -7,7 +7,7 @@ export const Banner = ({ banner, urlStore }) => {
     <>
       {banner && (
         <div
-          id="banner"
+          id="banner1"
           style={{
             backgroundImage: `url(${banner})`,
           }}

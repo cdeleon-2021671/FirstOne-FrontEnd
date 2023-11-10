@@ -1,5 +1,6 @@
 import React from "react";
 import "./Introduction.scss";
+import ReactHtmlParser from "react-html-parser";
 
 export const Introduction = ({ name, urlLogo, description }) => {
   return (
@@ -7,7 +8,7 @@ export const Introduction = ({ name, urlLogo, description }) => {
       <div style={{ backgroundImage: `url(${urlLogo})` }}></div>
       <div className="introduction">
         <h2>{name}</h2>
-        <p>{description}</p>
+        {ReactHtmlParser(description)}
       </div>
     </div>
   );

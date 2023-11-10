@@ -18,6 +18,10 @@
   display: flex;
   gap: var(--espacio-principal);
   transition: all 0.4s ease;
+  .btnOptions{
+    display: flex;
+    gap: 1em;
+  }
   &-identify {
     cursor: pointer;
     border-radius: 0.3em;
@@ -33,15 +37,18 @@
   }
 }
 
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 650px) {
   .header {
     flex-direction: column;
     justify-content: center;
     row-gap: 0.5em;
-    &-identify {
+    .btnOptions{
+      width: 100%;
+      justify-content: space-between;
+      direction: rtl;
       position: absolute;
-      top: 0.8em;
-      right: 4vw;
+      top: .8em;
+      padding: 0 1em;
     }
   }
 }
@@ -49,6 +56,10 @@
 @media screen and (max-width: 450px) {
   .header {
     padding: var(--espacio-secundario) 0 0;
+    .btnOptions{
+      top: .9em;
+      padding: 0 .5em;
+    }
   }
 }
 

@@ -26,9 +26,8 @@ function App() {
       )}
       {location.pathname == "/" && (
         <img
-          src={`../../src/Assets/Logo-Tienda.gt.svg`}
+          src={`./src/Assets/Banner-Tienda.gt.svg`}
           alt="Tienda.gt"
-          crossOrigin="anonymous"
         />
       )}
       <div className="max-page-container">

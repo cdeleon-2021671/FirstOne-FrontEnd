@@ -23,7 +23,7 @@ export const Header = () => {
           }
         >
           <FaUserCircle></FaUserCircle>
-          Mí cuenta
+          Mi cuenta
         </Link>
         {!isLogged && (
           <Link

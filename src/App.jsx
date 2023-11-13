@@ -26,7 +26,7 @@ function App() {
       )}
       {location.pathname == "/" && (
         <img
-          src={`https://api.tienda.gt/image/phone`}
+          src={`./src/Assets/Logo-Tienda.gt.svg`}
           alt="Tienda.gt"
           crossOrigin="anonymous"
         />

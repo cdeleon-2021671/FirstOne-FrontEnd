@@ -152,7 +152,9 @@ export const Introduction = ({ product, offer }) => {
               {viewStore == false && (
                 <div className="details-content-responsiveStore">
                   <h2>{product.storeId.name}</h2>
-                  <p>{product.storeId.description}</p>
+                  <p className="text">
+                    {ReactHtmlParser(product.storeId.description)}
+                  </p>
                 </div>
               )}
             </div>

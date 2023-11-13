@@ -10,10 +10,10 @@ function App() {
   const [view, setView] = useState(true);
 
   useEffect(() => {
-    const {pathname} = location;
-    if(pathname.includes('form')) setView(false);
-    else if(pathname.includes('join')) setView(false);
-    else  setView(true);
+    const { pathname } = location;
+    if (pathname.includes("form")) setView(false);
+    else if (pathname.includes("join")) setView(false);
+    else setView(true);
   }, [location]);
 
   return (
@@ -25,10 +25,7 @@ function App() {
         </>
       )}
       {location.pathname == "/" && (
-        <img
-          src={`./src/Assets/Banner-Tienda.gt.svg`}
-          alt="Tienda.gt"
-        />
+        <img src={`/assets/Banner-Tienda.gt.svg`} alt="Tienda.gt" />
       )}
       <div className="max-page-container">
         <div className="max-page-container-content">

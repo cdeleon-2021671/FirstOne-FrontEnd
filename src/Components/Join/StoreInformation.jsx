@@ -24,7 +24,7 @@ export const StoreInformation = () => {
     instagram: "",
     tiktok: "",
     messenger: "",
-    shippingTerms: [],
+    shippingTerms: ['Envíos a toda Guatemala'],
     paymentOptions: [],
     tags: [],
   });
@@ -102,7 +102,9 @@ export const StoreInformation = () => {
               <PaymentOptions setForm={setForm} form={form}></PaymentOptions>
               <Tags setForm={setForm} form={form}></Tags>
               <span className="passwordIncorrect">{message}</span>
-              <button className="container-btn" onClick={sendForm}>
+              <button className="container-btn" onClick={()=>{
+                console.log(form);
+              }}>
                 Enviar
               </button>
             </div>
@@ -392,7 +394,7 @@ const PaymentOptions = ({ form, setForm }) => {
       one: "Pago contra entrega",
       two: "Depósito",
       three: "Tarjetas de crédito o débito",
-      for: "Cuotas",
+      for: "Pago en cuotas",
     };
     const array = [];
     for (const key of keys) {
@@ -418,6 +420,7 @@ const PaymentOptions = ({ form, setForm }) => {
             id="one"
             name="one"
             checked={payment.one}
+            readOnly
             onClick={handleChange}
           />
         </div>
@@ -430,6 +433,7 @@ const PaymentOptions = ({ form, setForm }) => {
             id="two"
             name="two"
             checked={payment.two}
+            readOnly
             onClick={handleChange}
           />
         </div>
@@ -442,6 +446,7 @@ const PaymentOptions = ({ form, setForm }) => {
             id="three"
             name="three"
             checked={payment.three}
+            readOnly
             onClick={handleChange}
           />
         </div>
@@ -454,6 +459,7 @@ const PaymentOptions = ({ form, setForm }) => {
             id="for"
             name="for"
             checked={payment.for}
+            readOnly
             onClick={handleChange}
           />
         </div>

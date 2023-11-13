@@ -1,47 +1,73 @@
 #store-introduction {
   padding-bottom: 0;
-  div:first-child {
-    height: 35vw;
-    background-position: center;
-    background-attachment: local;
-    @media screen and (min-width: 1550px) {
-      height: 30em;
-    }
-    @media screen and (max-width: 775px) {
-      height: 45vw;
-    }
-    @media screen and (max-width: 650px) {
-      height: 55vw;
-    }
-    @media screen and (max-width: 500px) {
-      height: 70vw;
-    }
+  display: flex;
+  padding: var(--espacio-principal);
+  img{
+    width: 15em;
   }
   .introduction {
-    padding: var(--espacio-principal);
-    @media screen and (min-width: 1550px) {
-      padding: var(--espacio-secundario) 0 var(--espacio-secundario);
-    }
-    @media screen and (max-width: 500px) {
-      padding: var(--espacio-secundario);
-    }
+    width: 30em;
+    padding-left: 1em;
     h2 {
-      font-family: Verdana, Geneva, Tahoma, sans-serif;
       font-size: 1.6em;
       font-weight: bold;
-      @media screen and (max-width: 415px) {
-        font-size: 1.5em;
+    }
+    .description {
+      font-size: 1.2em;
+      margin-top: var(--espacio-secundario);
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  #store-introduction {
+    .introduction {
+      width: 100%;
+    }
+  }
+}
+
+@media screen and (max-width: 800px) {
+  #store-introduction {
+    .introduction {
+      .description {
+        font-size: 1.05em;
       }
     }
-    p {
-      font-family: Roboto;
-      font-size: 1.3em;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #store-introduction{
+    flex-direction: column;
+    img{
+      width: 100%;
+    }
+    .introduction{
+      margin-top: var(--espacio-principal);
+      width: 100%;
+      padding: 0;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  #store-introduction {
+    padding: var(--espacio-secundario);
+    .introduction {
       margin-top: var(--espacio-secundario);
-      @media screen and (max-width: 800px) {
-        font-size: 1em;
-      }
-      @media screen and (max-width: 500px) {
+      .description {
         font-size: 0.9em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 415px) {
+  #store-introduction {
+    .introduction {
+      h2 {
+        font-size: 1.5em;
       }
     }
   }

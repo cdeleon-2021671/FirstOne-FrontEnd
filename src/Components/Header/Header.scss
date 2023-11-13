@@ -53,13 +53,19 @@
   }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 500px) {
   .header {
-    padding: var(--espacio-secundario) 0 0;
+    padding: var(--espacio-secundario);
     .btnOptions{
       top: .9em;
       padding: 0 .5em;
     }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .header {
+    padding: var(--espacio-secundario) 0 0;
   }
 }
 

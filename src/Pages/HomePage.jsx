@@ -104,11 +104,11 @@ export const HomePage = () => {
         {newTrending && newTrending.length !== 0 && (
           <GoToLink url="/trending-48-hours"></GoToLink>
         )}
-        <Carrusel products={newOffers} title="Ofertas"></Carrusel>
+        <Carrusel products={newOffers} title="🏷️ Ofertas"></Carrusel>
         {newOffers && newOffers.length !== 0 && (
           <GoToLink url="/all-offers-in-store"></GoToLink>
         )}
-        <Carrusel products={popular} title="Populares"></Carrusel>
+        <Carrusel products={popular} title="⭐ Populares"></Carrusel>
         {popular && popular.length !== 0 && (
           <GoToLink url="/all-popular-in-store"></GoToLink>
         )}

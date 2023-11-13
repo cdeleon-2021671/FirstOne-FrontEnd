@@ -115,11 +115,11 @@ export const StorePage = () => {
                 url={`/${store.name.replace(/[ ]+/g, "-")}/trending/${storeId}`}
               ></GoToLink>
             )}
-            <Carrusel products={newOffers} title={"Ofertas"}></Carrusel>
+            <Carrusel products={newOffers} title={"🏷️ Ofertas"}></Carrusel>
             <GoToLink
               url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}
             ></GoToLink>
-            <Carrusel products={popular} title={"Populares"}></Carrusel>
+            <Carrusel products={popular} title={"⭐ Populares"}></Carrusel>
             <GoToLink
               url={`/${store.name.replace(/[ ]+/g, "-")}/popular/${storeId}`}
             ></GoToLink>

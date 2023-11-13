@@ -17,7 +17,11 @@ export const Categories = ({ categories, url = "" }) => {
               <div>
                 <img src={product.image} alt={tag} />
               </div>
-              <label>{tag}</label>
+              <label>
+                <span>
+                  {tag} | {product.storeId.name}
+                </span>
+              </label>
             </Link>
           ))}
         </div>

@@ -1,6 +1,10 @@
-import React, { useState, useContext, useEffect } from "react";
-import { AuthContext } from "../../Index";
+import React, { useState, useEffect } from "react";
+import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
+import { TbTruckDelivery } from "react-icons/tb";
+import { RiLuggageDepositLine } from "react-icons/ri";
+import { FaRegCreditCard } from "react-icons/fa";
+import { BsCashCoin } from "react-icons/bs";
 import "./StoresList.scss";
 
 export const StoresList = ({ stores }) => {
@@ -8,48 +12,21 @@ export const StoresList = ({ stores }) => {
     <>
       {stores && stores.length !== 0 && (
         <div className="all-stores">
-          {stores.map(({ store, products }, key) => {
-            const { urlLogo, name, description, _id } = store;
+          {stores.map((store, key) => {
+            const { urlLogo, name, _id } = store.store;
             return (
               <Link
                 to={`/${name.replace(/[ ]+/g, "-")}/${_id}`}
                 className="all-stores-content"
                 key={key}
               >
-                <img src={urlLogo} alt={name} />
-                <div className="container">
-                  <div className="container-description">
-                    <label>{name}</label>
-                    <span>{description}</span>
-                    <span style={{ color: "#008000" }}>
-                      {products} productos
-                    </span>
-                  </div>
-                  <div className="container-option">
-                    <label>Opciones de envio</label>
-                    {store.shippingTerms.map((item, key) => {
-                      if (item.includes("http") || item.includes("www"))
-                        return (
-                          <Link
-                            key={key}
-                            to={item}
-                            onClick={(e) => e.stopPropagation()}
-                            target="_blank"
-                          >
-                            Ver más
-                          </Link>
-                        );
-                      else return <span key={key}>{item}</span>;
-                    })}
-                  </div>
-                  <div className="container-option">
-                    <label>Opciones de pago</label>
-                    {store.paymentOptions.map((item, key) => (
-                      <span key={key}>{item}</span>
-                    ))}
-                  </div>
-                  <SocialLinks store={store}></SocialLinks>
-                </div>
+                <img
+                  src={urlLogo}
+                  alt={name}
+                  className="all-stores-content-logo"
+                />
+                <StoreIntroduction {...store.store} />
+                <StoreProducts products={store.products} />
               </Link>
             );
           })}
@@ -59,62 +36,84 @@ export const StoresList = ({ stores }) => {
   );
 };
 
-const SocialLinks = ({ store }) => {
-  const { socialLinks } = useContext(AuthContext);
-  const [social, setSocial] = useState(null);
-  const rrss = [
-    store.urlStore,
-    store.whatsapp,
-    store.messenger,
-    store.facebook,
-    store.instagram,
-    store.phone,
-    store.tiktok,
-  ];
-  const getSocialLinks = () => {
-    const newSocial = [];
-    rrss.forEach((item, key) => {
-      const icon = socialLinks[key].element;
-      const title = socialLinks[key].title;
-      const color = socialLinks[key].color;
-      const object = {
-        icon: icon,
-        title: title == "Phone" ? item : title,
-        bg: color,
-        link:
-          title == "Whatsapp"
-            ? `https://wa.me/${item}`
-            : title == "Phone"
-            ? ""
-            : item,
-      };
-      if (item != "") newSocial.push(object);
-    });
-    setSocial(newSocial);
+const StoreIntroduction = ({
+  name,
+  description,
+  shippingTerms,
+  paymentOptions,
+}) => {
+  const options = {
+    "Pago contra entrega": <TbTruckDelivery />,
+    Depósito: <RiLuggageDepositLine />,
+    "Tarjetas de crédito o débito": <FaRegCreditCard />,
+    "Pago en cuotas": <BsCashCoin />,
   };
-
-  useEffect(() => {
-    getSocialLinks();
-  }, [store]);
-
   return (
-    <>
-      {social && (
-        <div className="container-links" onClick={(e) => e.preventDefault()}>
-          {social.map(({ title, bg, link, icon }, key) => (
-            <Link
-              key={key}
-              onClick={(e) => e.stopPropagation()}
-              to={link}
-              target={link == "" ? "" : "_blank"}
-              style={{ cursor: link == "" && "text", background: bg }}
-            >
-              {icon}
-              <label>{title}</label>
-            </Link>
-          ))}
+    <div className="container">
+      <div className="container-item">
+        <label className="title">{name}</label>
+        <span className="text">{ReactHtmlParser(description)}</span>
+      </div>
+      {shippingTerms && shippingTerms.length != 0 && (
+        <div className="container-item">
+          <label className="title">Formas de envío</label>
+          {shippingTerms.map((item, key) => {
+            return (
+              <span key={key} className="text">
+                {item}
+              </span>
+            );
+          })}
         </div>
       )}
-    </>
+      {paymentOptions && paymentOptions.length != 0 && (
+        <div className="container-item">
+          <label className="title">Métodos de pago</label>
+          {paymentOptions.map((item, key) => {
+            return (
+              <span key={key} className="text">
+                {options[item]}
+                {item}
+              </span>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+};
+
+const StoreProducts = ({ products }) => {
+  const [allProducts, setAllProducts] = useState(null);
+
+  useEffect(() => {
+    if (products) {
+      const newProducts = Array.from(products);
+      if (products.length > 10) newProducts.length = 10;
+      setAllProducts(newProducts);
+    }
+  }, [products]);
+
+  return (
+    <div className="store-products">
+      {allProducts &&
+        allProducts.length !== 0 &&
+        allProducts.map((item, key) => {
+          return (
+            <div
+              key={key}
+              className="store-products-item"
+              style={{ backgroundImage: `url(${item.image})` }}
+            >
+              <img
+                src={item.image}
+                alt={item.name}
+                className="store-products-item-image"
+              />
+              <span className="store-products-item-title">{item.name}</span>
+            </div>
+          );
+        })}
+    </div>
   );
 };

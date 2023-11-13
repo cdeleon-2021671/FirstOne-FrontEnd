@@ -86,7 +86,6 @@ export const Buy = (product) => {
       <div className="social-links-icons">
         {social &&
           social.map(({ title, link, icon, bg }, key) => {
-            console.log(link);
             if (title.includes("Phone")) {
               return (
                 <label

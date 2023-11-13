@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ReactHtmlParser from "react-html-parser";
 import { Link } from "react-router-dom";
 import { Options } from "./Options";
 import { Buy } from "./Buy";
@@ -45,6 +46,7 @@ export const Introduction = ({ product, offer }) => {
 
   useEffect(() => {
     $(".details-content-description").removeClass("isActive");
+    $(".details-content-description").removeClass("viewButton");
     setBtnText("Ver más");
     getDescription();
   }, [product]);
@@ -106,7 +108,7 @@ export const Introduction = ({ product, offer }) => {
                       src={product.storeId.urlLogo}
                       alt={product.storeId.name}
                     />
-                    <span>{product.storeId.description}</span>
+                    <span>{ReactHtmlParser(product.storeId.description)}</span>
                     <Link to={product.storeId.urlStore} target="_blank">
                       Visitar tienda oficial
                     </Link>

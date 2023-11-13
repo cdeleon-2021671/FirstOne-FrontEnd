@@ -4,13 +4,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Animation } from "../Animation/Animation";
 import { Editor } from "@tinymce/tinymce-react";
+import { Message } from "../Modals/Message";
 import { Tags } from "./Tags";
+import $ from "jquery";
 
 export const StoreInformation = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const { isLogged, setIsLogged, user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const [view, setView] = useState(false);
   const [form, setForm] = useState({
     xml: "",
     urlStore: "",
@@ -24,7 +27,7 @@ export const StoreInformation = () => {
     instagram: "",
     tiktok: "",
     messenger: "",
-    shippingTerms: ['Envíos a toda Guatemala'],
+    shippingTerms: ["Envíos a toda Guatemala"],
     paymentOptions: [],
     tags: [],
   });
@@ -77,8 +80,7 @@ export const StoreInformation = () => {
               register: localStorage.getItem("token"),
             }
           );
-          setIsLogged(true);
-          navigate("/profile/all-stores");
+          showView();
         }
       }
       setLoading(false);
@@ -89,9 +91,31 @@ export const StoreInformation = () => {
     }
   };
 
+  const showView = () => {
+    $("body").css("overflow", "hidden");
+    setView(true);
+  };
+  const hiddenView = () => {
+    $("body").css("overflow", "auto");
+    setView(false);
+    navigate("/profile/all-stores");
+  };
+
   return (
     <>
       {loading && <Animation></Animation>}
+      {view && (
+        <Message
+          title={"Hola!"}
+          content={`Gracias por sumarte a nuestra app. Estamos súper emocionados de poder 
+          compartir tus geniales productos con nuestra gente. Tu tienda ya es parte de esta 
+          gran familia y estamos seguros de que esta aventura nos va a beneficiar a todos.
+          Se nota que le pones corazón y calidad a cada cosa que haces, y estamos listos para 
+          mostrárselo al mundo entero. Un millón de gracias por embarcarte en este viaje digital 
+          con nosotros. ¡Vamos a lograr cosas increíbles juntos!`}
+          action={hiddenView}
+        ></Message>
+      )}
       {isLogged && (
         <div className="register-form">
           <div className="form">
@@ -102,9 +126,7 @@ export const StoreInformation = () => {
               <PaymentOptions setForm={setForm} form={form}></PaymentOptions>
               <Tags setForm={setForm} form={form}></Tags>
               <span className="passwordIncorrect">{message}</span>
-              <button className="container-btn" onClick={()=>{
-                console.log(form);
-              }}>
+              <button className="container-btn" onClick={sendForm}>
                 Enviar
               </button>
             </div>
@@ -269,7 +291,7 @@ const Description = ({ form, setForm }) => {
 const ShippingTerms = ({ setForm, form }) => {
   const [typing, setTyping] = useState(true);
   const [shipping, setShipping] = useState({
-    cobertura: "",
+    cobertura: "Envíos a toda Guatemala",
     shippingNormal: "",
     saleOff: "",
     observaciones: "",
@@ -306,9 +328,9 @@ const ShippingTerms = ({ setForm, form }) => {
     getShipping();
   }, [shipping, typing]);
 
-  const verifyKey = (e)=>{
-    if(e.keyCode == 189 || e.keyCode == 187) e.preventDefault();
-  }
+  const verifyKey = (e) => {
+    if (e.keyCode == 189 || e.keyCode == 187) e.preventDefault();
+  };
 
   const checkedOff = (e) => {
     setTyping(!e.target.checked);
@@ -319,7 +341,12 @@ const ShippingTerms = ({ setForm, form }) => {
       <span className="container-form-title">Términos de envío</span>
       <div className="container-form-data">
         <label htmlFor="cobertura">Cobertura</label>
-        <select className="cobertura" name="cobertura" onChange={handleChange}>
+        <select
+          className="cobertura"
+          name="cobertura"
+          value={shipping.cobertura}
+          onChange={handleChange}
+        >
           <option>Envíos a toda Guatemala</option>
           <option>Envíos unicamente a ciudad de Guatemala</option>
           <option>Envíos unicamente en la localidad</option>

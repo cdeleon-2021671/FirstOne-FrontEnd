@@ -18,6 +18,7 @@ export const Details = () => {
   const [details, setProduct] = useState(null);
   const [offer, setOffer] = useState(null);
   const [similar, setSimilar] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const addView = async () => {
     try {
@@ -74,6 +75,7 @@ export const Details = () => {
 
   const getProductById = async () => {
     try {
+      setLoading(true);
       const { data } = await axios.get(
         `${import.meta.env.VITE_URI_API}/product/get-product-by-id/${productId}`
       );
@@ -84,8 +86,10 @@ export const Details = () => {
       }
       setProduct(product);
       getSimilarProducts(product);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
     }
   };
 
@@ -142,9 +146,10 @@ export const Details = () => {
               href={`https://tienda.gt/${product}/${tags}/${price}/${productId}`}
             />
           </Helmet>
+          {loading && <Animation></Animation>}
           <Introduction product={details} offer={offer}></Introduction>
           <Carrusel
-            title={"También te podría interesar"}
+            title={"👀 También te podría interesar"}
             products={similar}
           ></Carrusel>
           <GoToLink

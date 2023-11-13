@@ -66,7 +66,7 @@ export const Suggestion = ({ options, title, valid }) => {
       {viewSuggestion && title != "No" && (
         <div className="suggestion-container">
           <h2 className="title">
-            {valid == 0 ? `No se encontraron resultados, pero quizá te guste:` : title != "" ? (
+            {valid == 0 && location.pathname.includes('products-results') ? `No se encontraron resultados, pero quizá te guste:` : title != "" ? (
               <>Resultados para: {title.replace(/[-]+/g, " ")}</>
             ) : (
               "Todos los resultados"

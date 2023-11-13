@@ -28,7 +28,7 @@ export const Navbar = () => {
   }, [location]);
 
   return (
-    <div className="menu">
+    <div className="menu" id="navbar">
       {menu.map(({ id, title, icon, url }) => (
         <Link
           key={id}

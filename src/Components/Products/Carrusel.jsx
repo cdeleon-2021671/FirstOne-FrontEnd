@@ -43,7 +43,7 @@ export const Carrusel = ({ products, title }) => {
           <h2 className="products-title">
             <span>{title}</span>
           </h2>
-          <div className="products-container">
+          <div className="products-container key-container-products">
             <button
               className={`btnLeft ${classLeft} inactive`}
               onClick={moveLeft}

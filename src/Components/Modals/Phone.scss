@@ -1,0 +1,131 @@
+.phone {
+  background: rgba($color: #000, $alpha: 0.2);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  &-container {
+    background: #fff;
+    border-radius: 16px;
+    padding: 32px;
+    width: 80vw;
+    opacity: 0;
+    animation: showModal1 .3s forwards ease-in-out;
+    @keyframes showModal1 {
+      to{
+        opacity: 1;
+      }
+    }
+    &-title {
+      font-family: Verdana, Geneva, Tahoma, sans-serif;
+      font-weight: 900;
+      font-size: 1.5em;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #808080;
+      text-align: center;
+      transition: all 2s ease;
+    }
+    &-content {
+      margin: 2em 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-align: center;
+      height: calc(100% - 6em);
+      font-size: 2.5em;
+      transition: all 2s ease;
+    }
+    &-text {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 2em 0;
+      height: calc(100% - 9em);
+      font-size: 1.3em;
+      text-align: center;
+      transition: all 2s ease;
+    }
+    &-close {
+      display: flex;
+      justify-content: center;
+      padding-top: 12px;
+      border-top: 1px solid #808080;
+      button {
+        cursor: pointer;
+        color: #fff;
+        background: var(--color-primario);
+        padding: 3% 15%;
+        border-radius: 0.5em;
+        transition: all 2s ease;
+      }
+      transition: all 2s ease;
+    }
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .phone {
+    &-container {
+      width: 40em;
+      height: 30em;
+      &-text {
+        font-size: 1.4em;
+        height: calc(100% - 205px);
+      }
+      &-content {
+        height: calc(100% - 300px);
+        font-size: 3em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .phone {
+    &-container {
+      width: 85vw;
+      padding: 1em;
+      &-text {
+        height: auto;
+        margin: 0.5em 0;
+      }
+      &-content {
+        height: 4em;
+        margin: 0.5em 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .phone {
+    &-container {
+      width: 85vw;
+      height: auto;
+      padding: 1em;
+      &-text {
+        font-size: 1.1em;
+      }
+      &-content {
+        font-size: 2em;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .phone {
+    &-container {
+      width: 90vw;
+      &-title {
+        font-size: 1.3em;
+      }
+    }
+  }
+}

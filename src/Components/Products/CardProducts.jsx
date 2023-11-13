@@ -25,7 +25,7 @@ export const CardProducts = ({ item, fnAction }) => {
         className="image-container"
         style={{ backgroundImage: `url(${item.image})` }}
       >
-        <img src={item.image} alt={item.name} className="card-image" />
+        <img src={item.image} alt={item.name} className="card-image key-card-image"/>
       </div>
       <div className="card-information">
         <h3 className="card-information-product">{item.name}</h3>

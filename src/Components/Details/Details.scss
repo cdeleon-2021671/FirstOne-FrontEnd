@@ -67,14 +67,14 @@
     &-description {
       font-size: 1.3em;
       font-family: var(--tipo-texto);
-      max-height: 6em;
+      max-height: 11em;
       margin: 8px 0;
       position: relative;
       transition: all 0.5s ease;
       overflow: hidden;
       &.viewButton {
-        max-height: 7em;
-        height: 7em;
+        max-height: 11em;
+        height: 11em;
         button {
           display: block;
         }

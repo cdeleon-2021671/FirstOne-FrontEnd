@@ -40,41 +40,43 @@ export const Form = () => {
   const sendInfo = async () => {
     try {
       const email = form.email.replace(/[ ]+/g, "");
+      const name = form.name.replace(/[ ]+/g, "");
       setMessage("");
       setIsDiferent(true);
       setLoading(true);
-      if (form.name == "") setMessage("El nombre no puede estar vacío");
+      if (name == "") setMessage("El nombre no puede estar vacío");
       else if (email == "") setMessage("El correo es obligatorio");
       else if (isDiferent) setMessage("Las contraseñas deben coincidir");
       else if (form.password.length < 8)
         setMessage("La contraseña debe contener al menos 8 dígitos");
       else {
-        const code = [];
-        for (let i = 0; i < 8; i++) {
-          const random = Math.floor(Math.random() * 9);
-          code.push(random);
-        }
-        const newCode = code.join("");
-        setMyCode(newCode);
-        const { data } = await axios.post(
-          `${import.meta.env.VITE_URI_API}/user/code`,
-          { form, newCode }
-        );
-        new Notify({
-          status: "success",
-          title: "Verificación",
-          text: "Correo enviado con el código de verificación",
-          effect: "fade",
-          speed: 300,
-          showIcon: true,
-          showCloseButton: true,
-          autoclose: true,
-          autotimeout: 3000,
-          type: 1,
-          position: "right top",
-        });
-        localStorage.setItem("codeExpired", data.token);
-        setSendCode(true);
+        createAccount();
+        // const code = [];
+        // for (let i = 0; i < 8; i++) {
+        //   const random = Math.floor(Math.random() * 9);
+        //   code.push(random);
+        // }
+        // const newCode = code.join("");
+        // setMyCode(newCode);
+        // const { data } = await axios.post(
+        //   `${import.meta.env.VITE_URI_API}/user/code`,
+        //   { form, newCode }
+        // );
+        // new Notify({
+        //   status: "success",
+        //   title: "Verificación",
+        //   text: "Correo enviado con el código de verificación",
+        //   effect: "fade",
+        //   speed: 300,
+        //   showIcon: true,
+        //   showCloseButton: true,
+        //   autoclose: true,
+        //   autotimeout: 3000,
+        //   type: 1,
+        //   position: "right top",
+        // });
+        // localStorage.setItem("codeExpired", data.token);
+        // setSendCode(true);
       }
       setLoading(false);
     } catch (err) {

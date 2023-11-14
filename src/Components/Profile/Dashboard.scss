@@ -3,27 +3,78 @@
 #profile-container {
   min-height: 100vh;
   display: flex;
+  position: relative;
+  .toggle {
+    cursor: pointer;
+    background: var(--color-primario);
+    position: absolute;
+    font-size: 1.45em;
+    left: 0.2em;
+    top: 0.2em;
+    z-index: 200;
+    display: none;
+    transition: all .2s ease;
+    padding: .3em;
+    color: #fff;
+  }
 }
 
 .dashboard {
-  min-width: 15em;
+  width: 30vw;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--color-secundario);
+  background: var(--color-secundario);
+  color: #fff;
+  position: relative;
+  transition: all 0.2s ease;
   &-item {
     background: var(--color-secundario);
-    color: var(--color-blanco);
     padding: var(--espacio-principal);
     border-bottom: 1px solid #fff;
+    transition: all 0.1s ease;
+    &:hover {
+      background: rgba($color: #fff, $alpha: 0.4);
+    }
   }
 }
+
+@media screen and (min-width: 1200px) {
+  .dashboard {
+    min-width: 15em;
+    max-width: 15em;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  #profile-container {
+    &.isActive {
+      .dashboard {
+        width: 15em;
+      }
+      .toggle {
+        left: 8.5em;
+      }
+    }
+    .toggle {
+      display: block;
+    }
+    .dashboard {
+      position: absolute;
+      height: 100%;
+      width: 0;
+      z-index: 100;
+      overflow: hidden;
+    }
+  }
+}
+
 .buttons{
-    display: flex;
-    gap: var(--espacio-principal);
-    .edit{
-        background: #ffa500;
-    }
-    .close{
-        background: #ff0000;
-    }
+  display: flex;
+  gap: var(--espacio-principal);
+  .edit{
+      background: #ffa500;
+  }
+  .close{
+      background: #ff0000;
+  }
 }

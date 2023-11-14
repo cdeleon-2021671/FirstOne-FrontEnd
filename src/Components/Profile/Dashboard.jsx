@@ -16,9 +16,11 @@ export const Dashboard = () => {
           Perfil
         </Link>
       )}
-      <Link className="dashboard-item" to={`/profile/all-stores`}>
-        Tiendas
-      </Link>
+      {user && user.rol != "CLIENTE" && (
+        <Link className="dashboard-item" to={`/profile/all-stores`}>
+          Tiendas
+        </Link>
+      )}
       {user.rol == "COMERCIANTE" ? (
         <Link className="dashboard-item" to={`/profile/all-users`}>
           Empleados

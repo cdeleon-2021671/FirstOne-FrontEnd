@@ -164,6 +164,7 @@ export const OutletProducts = () => {
       if (search == "all") {
         setBoxes(Array.from(products));
         setHeader("");
+        setIsValid(10);
       } else {
         getSearching();
         setHeader(search);

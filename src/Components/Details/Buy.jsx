@@ -6,7 +6,8 @@ import { AuthContext } from "../../Index";
 import axios from "axios";
 import $ from "jquery";
 
-export const Buy = ({ urlProduct, storeId }) => {
+export const Buy = ({ product }) => {
+  const { urlProduct, storeId } = product;
   const [view, setView] = useState(false);
   const { socialLinks, isLogged, user } = useContext(AuthContext);
   const location = useLocation();
@@ -61,7 +62,7 @@ export const Buy = ({ urlProduct, storeId }) => {
 
   useEffect(() => {
     getSocialLinks();
-  }, [urlProduct]);
+  }, [product]);
 
   const showModal = () => {
     setView(true);

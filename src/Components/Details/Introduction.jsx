@@ -148,7 +148,7 @@ export const Introduction = ({ product, offer }) => {
                 </div>
               )}
               <Options {...product.storeId}></Options>
-              <Buy {...product}></Buy>
+              <Buy product={product}></Buy>
               {viewStore == false && (
                 <div className="details-content-responsiveStore">
                   <h2>{product.storeId.name}</h2>

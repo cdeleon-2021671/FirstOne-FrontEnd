@@ -9,10 +9,11 @@ export const Header = () => {
   const { isLogged, user } = useContext(AuthContext);
 
   return (
-    <div className="header">
-      <h1 className="header-title">
-        <Link title="Página Principal">Tienda.gt</Link>
-      </h1>
+    <div className={`header ${isLogged ? "logged" : ""}`}>
+      <Link title="Página Principal" className="header-title">
+        <img src={`https://tienda.gt/Tienda.gt-logo.svg`} alt="Logo" />
+        Tienda.gt
+      </Link>
       <Searchbar></Searchbar>
       <div className="btnOptions">
         <Link

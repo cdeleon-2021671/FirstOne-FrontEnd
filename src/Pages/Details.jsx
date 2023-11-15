@@ -1,13 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Introduction } from "../Components/Details/Introduction";
-import { useLocation, useParams, Link } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { Animation } from "../Components/Animation/Animation";
 import { Carrusel } from "../Components/Products/Carrusel";
 import { GoToLink } from "../Components/GoToLink/GoToLink";
 import FingerPrint from "@fingerprintjs/fingerprintjs";
-import { helmetJsonLdProp } from "react-schemaorg";
 import { Helmet } from "react-helmet-async";
-import { Product } from "schema-dts";
 import { AuthContext } from "../Index";
 import axios from "axios";
 
@@ -15,10 +13,11 @@ export const Details = () => {
   const { isLogged, user } = useContext(AuthContext);
   const { productId, product, tags, price } = useParams();
   const location = useLocation();
-  const [details, setProduct] = useState(null);
+  const [details, setDetails] = useState(null);
   const [offer, setOffer] = useState(null);
   const [similar, setSimilar] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [format, setFormat] = useState(null);
 
   const addView = async () => {
     try {
@@ -84,7 +83,25 @@ export const Details = () => {
         const newOffer = (product.salePrice * 100) / product.price;
         setOffer(-100 + newOffer);
       }
-      setProduct(product);
+      setFormat({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        name: product.name,
+        image: product.image,
+        description: product.description,
+        sku: product.idProduct,
+        brand: {
+          "@type": "Brand",
+          name: product.storeId.name,
+          logo: product.storeId.urlLogo,
+        },
+        offers: {
+          "@type": "Offer",
+          price: product.price,
+          priceCurrency: "GTQ",
+        },
+      });
+      setDetails(product);
       getSimilarProducts(product);
       setLoading(false);
     } catch (err) {
@@ -115,30 +132,10 @@ export const Details = () => {
 
   return (
     <>
-      {details && details.length != 0 && similar ? (
+      {details && details.length != 0 && similar && format ? (
         <>
-          <Helmet
-            script={[
-              helmetJsonLdProp <
-                Product >
-                {
-                  "@context": "https://schema.org",
-                  "@type": "Product",
-                  name: details.name,
-                  image: details.image,
-                  description: details.description,
-                  brand: {
-                    "@type": "Brand",
-                    name: details.storeId.name,
-                    logo: details.storeId.urlLogo,
-                  },
-                  offers: {
-                    "@type": "Offer",
-                    price: details.price,
-                  },
-                },
-            ]}
-          >
+          <Helmet>
+            <script type="application/ld+json">{JSON.stringify(format)}</script>
             <title>Tienda.gt - {details.name}</title>
             <meta name="description" content={details.description} />
             <link

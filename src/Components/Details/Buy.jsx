@@ -86,7 +86,7 @@ export const Buy = ({ product }) => {
       const url = `https://tienda.gt${location.pathname}`;
       const fp = await FingerPrint.load();
       const { visitorId } = await fp.get();
-      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/event/add-event`, {
+      await axios.post(`${import.meta.env.VITE_ANALYSTICS}/newEvent/add-event`, {
         url: url,
         fingerprint: visitorId,
         product: product,

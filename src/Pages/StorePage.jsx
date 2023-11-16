@@ -101,9 +101,7 @@ export const StorePage = () => {
               href={`https://tienda.gt/${store}/${storeId}`}
             />
           </Helmet>
-          <div
-            id="store-page-container"
-          >
+          <div id="store-page-container">
             <Introduction {...store}></Introduction>
             <Categories
               categories={categories}
@@ -116,13 +114,17 @@ export const StorePage = () => {
               ></GoToLink>
             )}
             <Carrusel products={newOffers} title={"🏷️ Ofertas"}></Carrusel>
-            <GoToLink
-              url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}
-            ></GoToLink>
+            {newOffers && newOffers.length != 0 && (
+              <GoToLink
+                url={`/${store.name.replace(/[ ]+/g, "-")}/offers/${storeId}`}
+              ></GoToLink>
+            )}
             <Carrusel products={popular} title={"⭐ Populares"}></Carrusel>
-            <GoToLink
-              url={`/${store.name.replace(/[ ]+/g, "-")}/popular/${storeId}`}
-            ></GoToLink>
+            {popular && popular.length != 0 && (
+              <GoToLink
+                url={`/${store.name.replace(/[ ]+/g, "-")}/popular/${storeId}`}
+              ></GoToLink>
+            )}
             <Banner {...store}></Banner>
           </div>
         </>

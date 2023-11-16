@@ -12,7 +12,6 @@ export const Header = () => {
     <div className={`header ${isLogged ? "logged" : ""}`}>
       <Link title="Página Principal" className="header-title">
         <img src={`https://tienda.gt/Tienda.gt-logo.svg`} alt="Logo" />
-        Tienda.gt
       </Link>
       <Searchbar></Searchbar>
       <div className="btnOptions">

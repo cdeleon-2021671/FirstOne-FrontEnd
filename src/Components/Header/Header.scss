@@ -1,126 +1,135 @@
 @import "../../Styles.scss";
 
 .header {
-  --spacing: 0.3em;
-  --icon-dimensions: 1.2em;
-  background: var(--color-blanco);
-  padding: 0.5em 1em;
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  gap: var(--espacio-principal);
-  transition: all 0.4s ease;
+  padding: 20px 16px;
+  height: 5.5em;
   &-title {
-    color: var(--color-secundario);
     display: flex;
     align-items: center;
-    font-size: 1.6em;
-    font-weight: bold;
-    min-width: max-content;
     img {
-      width: 2em;
-      object-fit: contain;
+      width: 7em;
     }
   }
   .btnOptions {
     display: flex;
-    gap: 1em;
+    align-items: center;
+    gap: var(--espacio-principal);
   }
   &-identify {
-    cursor: pointer;
-    border-radius: 0.3em;
     display: flex;
     align-items: center;
-    gap: var(--spacing);
+    gap: var(--espacio-secundario);
     min-width: max-content;
+    font-size: 1.2em;
     svg {
-      width: var(--icon-dimensions);
-      height: var(--icon-dimensions);
+      width: 1.5em;
+      height: 100%;
     }
-    color: var(--color-secundario);
   }
 }
 
-@media screen and (max-width: 750px) {
+@media screen and (max-width: 1375px) {
+  .header{
+    height: 5em;
+    &-identify{
+      font-size: 1em;
+    }
+  }
+}
+
+@media screen and (max-width: 875px) {
   .header {
+    height: auto;
+    padding: 16px;
+    gap: 16px;
+    display: flex;
     flex-direction: column;
-    justify-content: center;
-    row-gap: 0.5em;
-    &.logged{
-      .header-title{
-        width: 100%;
+    align-items: center;
+    &.logged {
+      align-items: start;
+      .btnOptions {
+        left: 0;
       }
     }
+    &-title {
+      max-width: max-content;
+      height: 3em;
+    }
     .btnOptions {
-      pointer-events: none;
+      position: absolute;
       width: 100%;
+      pointer-events: none;
       justify-content: space-between;
       direction: rtl;
-      position: absolute;
-      top: 0.8em;
-      padding: 0 1em;
-      a {
-        pointer-events: all;
+      padding: 0 16px;
+      top: 25px;
+    }
+    &-identify {
+      &.twoOption {
         direction: ltr;
       }
+      pointer-events: all;
+      font-size: 16px;
     }
   }
 }
 
 @media screen and (max-width: 500px) {
   .header {
-    padding: var(--espacio-secundario);
-    .btnOptions {
-      top: 0.9em;
-      padding: 0 0.5em;
+    padding: 8px 0 0;
+    gap: 8px;
+    &.logged {
+      .header-title {
+        padding-left: 8px;
+      }
+      .btnOptions{
+        top: 18px;
+      }
     }
-  }
-}
-
-@media screen and (max-width: 450px) {
-  .header {
-    padding: var(--espacio-secundario) 0 0;
-  }
-}
-
-@media screen and (max-width: 415px) {
-  .header {
     &-title {
-      font-size: 1.5em;
+      height: 2.7em;
+      img {
+        width: 5em;
+      }
     }
-  }
-}
-
-@media screen and (max-width: 375px) {
-  .header {
+    .btnOptions {
+      direction: rtl;
+      padding: 0 8px;
+      top: 18px;
+    }
     &-identify {
-      right: 3vw;
-      font-size: 0.9em;
+      font-size: 15px;
     }
   }
 }
 
-@media screen and (max-width: 354px) {
+
+@media screen and (max-width: 310px) {
   .header {
-    &.logged{
+    padding: 8px 0 0;
+    gap: 8px;
+    &.logged {
       .btnOptions{
         position: absolute;
-        justify-content: right;
+        flex-direction: row;
+        direction: rtl;
+        top: 20px;
+      }
+      .header-identify{
+        font-size: 15px;
       }
     }
     &-title {
       order: 1;
-      img {
-        width: 2em;
-      }
     }
-    .btnOptions{
+    .btnOptions {
       order: 2;
       position: static;
-      justify-content: space-evenly;
-    }
-    .searchbar{
-      order: 3;
+      flex-direction: column;
+      direction: ltr;
+      gap: 8px;
     }
   }
 }

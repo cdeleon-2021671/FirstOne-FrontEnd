@@ -77,12 +77,6 @@ const AutoComplete = ({ search, setItems, items }) => {
       for (const key1 of array) {
         let flag = false;
         for (const key2 of items) {
-          console.log('-------------------');
-          console.log(array);
-          console.log(items);
-          console.log(key1);
-          console.log(key2);
-          console.log(key1.id == key2.id);
           if (key1.id == key2.id) {
             flag = true;
             break;

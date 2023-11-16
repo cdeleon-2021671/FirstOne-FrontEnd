@@ -3,7 +3,7 @@ import { useNavigate, useParams, useLocation } from "react-router-dom";
 import FingerPrint from "@fingerprintjs/fingerprintjs";
 import { AuthContext } from "../../Index";
 import { GrClose } from "react-icons/gr";
-import {GoSearch} from 'react-icons/go'
+import { GoSearch } from "react-icons/go";
 import Fuse from "fuse.js";
 import "./Searchbar.scss";
 import $ from "jquery";
@@ -149,54 +149,87 @@ export const Searchbar = () => {
   return (
     <div className="searchbar">
       <div className="searchbar-content">
-        <label htmlFor="mySearchbar">
-          <GoSearch />
-        </label>
-        <input
-          type="text"
-          id="mySearchbar"
-          autoComplete="off"
-          placeholder="Estoy buscando..."
-          value={searchResults}
-          ref={inputRef}
-          onChange={handleChange}
-          onKeyDown={moveSelection}
-          onFocus={showOptions}
-          onBlur={() => {
-            setTimeout(() => {
-              hiddenOptions();
-            }, 100);
-          }}
+        <PrincipalInput
+          searchResults={searchResults}
+          inputRef={inputRef}
+          handleChange={handleChange}
+          moveSelection={moveSelection}
+          showOptions={showOptions}
+          hiddenOptions={hiddenOptions}
+          view={
+            options && options.length != 0 && viewOptions ? "show" : "hiddem"
+          }
         />
-        <label
-          className="closeInput"
-          onClick={() => {
-            inputRef.current.blur();
-          }}
-        >
-          <GrClose />
-        </label>
-      </div>
-      {options && options.length !== 0 && viewOptions && (
-        <div className="searchbar-options">
-          <div className="searchbar-options-container">
+        {options && options.length !== 0 && viewOptions && (
+          <div className="searchbar-content-options">
             {options.map((item, key) => (
-              <div
-                className={`searchbar-content ${
-                  indexPosition == key + 1 && "isActive"
-                }`}
+              <SecundaryInput
                 key={key}
-                onClick={() => goToSearch(item)}
-              >
-                <label htmlFor="mySearchbar">
-                  <GoSearch />
-                </label>
-                <input type="text" value={item} readOnly autoComplete="off" />
-              </div>
+                position={indexPosition}
+                value={key}
+                item={item}
+                goToSearch={goToSearch}
+              />
             ))}
           </div>
-        </div>
-      )}
+        )}
+        {options && options.length != 0 && viewOptions && (
+          <label className="close">
+            <GrClose></GrClose>
+          </label>
+        )}
+      </div>
+      <button
+        className="go"
+        onClick={() => {
+          goToSearch(searchResults);
+          inputRef.current.blur();
+        }}
+      >
+        BUSCAR
+      </button>
+    </div>
+  );
+};
+
+const PrincipalInput = (props) => {
+  const { searchResults, inputRef, handleChange, moveSelection } = props;
+  const { showOptions, hiddenOptions, view } = props;
+  return (
+    <div className={`bar-container ${view}`}>
+      <label htmlFor="mySearchbar" className="icon">
+        <GoSearch />
+      </label>
+      <input
+        type="text"
+        id="mySearchbar"
+        autoComplete="off"
+        placeholder="Estoy buscando..."
+        value={searchResults}
+        ref={inputRef}
+        onChange={handleChange}
+        onKeyDown={moveSelection}
+        onFocus={showOptions}
+        onBlur={() => {
+          setTimeout(() => {
+            hiddenOptions();
+          }, 100);
+        }}
+      />
+    </div>
+  );
+};
+
+const SecundaryInput = ({ position, value, item, goToSearch }) => {
+  return (
+    <div
+      className={`bar-container ${position == value + 1 && "isActive"}`}
+      onClick={() => goToSearch(item)}
+    >
+      <label htmlFor="mySearchbar" className="icon">
+        <GoSearch />
+      </label>
+      <input type="text" value={item} readOnly autoComplete="off" />
     </div>
   );
 };

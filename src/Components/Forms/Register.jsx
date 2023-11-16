@@ -93,6 +93,7 @@ export const Register = () => {
 
   const createAccount = async () => {
     try {
+      if(!type) return 
       let newForm = { ...form };
       if (type) newForm = { ...form, rol: "ADMINISTRADOR" };
       const { data } = await axios.post(

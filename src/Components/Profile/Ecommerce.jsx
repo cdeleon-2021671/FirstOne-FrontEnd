@@ -364,18 +364,12 @@ const SocialLinks = ({ store }) => {
   const [social, setSocial] = useState(null);
   const rrss = [
     store.urlStore,
-    store.urlStore,
-    store.urlStore,
-    store.urlStore,
-    store.urlStore,
-    '+502 3041-7467',
-    store.urlStore,
-    // store.whatsapp,
-    // store.messenger,
-    // store.facebook,
-    // store.instagram,
-    // store.phone,
-    // store.tiktok,
+    store.whatsapp,
+    store.messenger,
+    store.facebook,
+    store.instagram,
+    store.phone,
+    store.tiktok,
   ];
   const getSocialLinks = () => {
     const newSocial = [];

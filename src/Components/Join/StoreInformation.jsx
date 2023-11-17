@@ -289,6 +289,9 @@ const Description = ({ form, setForm }) => {
 };
 
 const ShippingTerms = ({ setForm, form }) => {
+  const value = useRef(null);
+  const price = useRef(null);
+  const [isChecked, setIsChecked] = useState(false);
   const [typing, setTyping] = useState(true);
   const [shipping, setShipping] = useState({
     cobertura: "Envíos a toda Guatemala",
@@ -298,7 +301,18 @@ const ShippingTerms = ({ setForm, form }) => {
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    let { name, value } = e.target;
+    if (name == "saleOff") {
+      if (parseFloat(value).toFixed(2) == 0) value = "";
+      else if (parseFloat(value).toFixed(2) != 0 && value != "")
+        value = `Envío gratis a partir de Q${parseFloat(value).toFixed(2)}`;
+    } else if (name == "shippingNormal") {
+      if (parseFloat(value).toFixed(2) == 0) {
+        value = "Costo de envío gratis!";
+        changeChecked();
+      } else if (parseFloat(value).toFixed(2) != 0 && value != "")
+        value = `Costo de envío a Q${parseFloat(value).toFixed(2)}`;
+    }
     setShipping({
       ...shipping,
       [name]: value,
@@ -310,12 +324,7 @@ const ShippingTerms = ({ setForm, form }) => {
     const array = [];
     for (const key of keys) {
       let text = shipping[key];
-      if (key == "saleOff" && typing == true) continue;
-      else if (key == "saleOff")
-        text = `Envío gratis a partir de Q${parseFloat(text).toFixed(2)}`;
-      else if (text.replace(/[ ]+/g, "") == "") continue;
-      else if (key == "shippingNormal")
-        text = `Costo de envío a Q${parseFloat(text).toFixed(2)}`;
+      if (text.replace(/[ ]+/g, "") == "") continue;
       array.push(text);
     }
     setForm({
@@ -326,15 +335,32 @@ const ShippingTerms = ({ setForm, form }) => {
 
   useEffect(() => {
     getShipping();
-  }, [shipping, typing]);
+  }, [shipping]);
 
   const verifyKey = (e) => {
     if (e.keyCode == 189 || e.keyCode == 187) e.preventDefault();
   };
 
-  const checkedOff = (e) => {
-    setTyping(!e.target.checked);
+  const changeChecked = (e) => {
+    const input = value.current?.value;
+    if (parseFloat(input).toFixed(2) == 0) {
+      setTyping(true);
+      setIsChecked(false);
+    } else {
+      setTyping(!e.target.checked);
+      setIsChecked(!isChecked);
+    }
   };
+
+  useEffect(() => {
+    const value = price.current?.value;
+    let text = `Envío gratis a partir de Q${parseFloat(value).toFixed(2)}`;
+    if (!isChecked) text = "";
+    setShipping({
+      ...shipping,
+      saleOff: "",
+    });
+  }, [isChecked]);
 
   return (
     <div className="container-form">
@@ -358,6 +384,7 @@ const ShippingTerms = ({ setForm, form }) => {
           type="number"
           id="shippingNormal"
           name="shippingNormal"
+          ref={value}
           onChange={handleChange}
           onKeyDown={verifyKey}
           min={0}
@@ -370,7 +397,9 @@ const ShippingTerms = ({ setForm, form }) => {
             type="checkbox"
             id="shippingOff"
             name="shippingOff"
-            onClick={checkedOff}
+            checked={isChecked}
+            readOnly
+            onClick={changeChecked}
           />
         </div>
         <div className="container-form-data">
@@ -380,6 +409,7 @@ const ShippingTerms = ({ setForm, form }) => {
             min={0}
             id="saleOff"
             name="saleOff"
+            ref={price}
             onChange={handleChange}
             onKeyDown={verifyKey}
             disabled={typing}

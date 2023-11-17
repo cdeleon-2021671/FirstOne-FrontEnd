@@ -165,6 +165,9 @@
           display: flex;
           align-items: center;
           padding: 0.35em var(--espacio-secundario);
+          svg{
+            width: 1.5em;
+          }
         }
       }
     }

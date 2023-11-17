@@ -154,7 +154,7 @@ const Methods = ({ store }) => {
         )}
       </div>
       <div className="apart">
-        <label>Opciones de envio</label>
+        <label>Formas de envio</label>
         {store.shippingTerms.length != 0 ? (
           store.shippingTerms.map((item, key) => {
             if (item.includes("http") || item.includes("www"))
@@ -177,7 +177,7 @@ const Methods = ({ store }) => {
         )}
       </div>
       <div className="apart">
-        <label>Opciones de pago</label>
+        <label>Métodos de pago</label>
         {store.paymentOptions.length != 0 ? (
           store.paymentOptions.map((item, key) => <span key={key}>{item}</span>)
         ) : (

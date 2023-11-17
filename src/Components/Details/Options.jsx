@@ -1,6 +1,10 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { FaShippingFast, FaRegMoneyBillAlt, FaAngleDown } from "react-icons/fa";
+import { RiLuggageDepositLine } from "react-icons/ri";
+import { TbTruckDelivery } from "react-icons/tb";
+import { FaRegCreditCard } from "react-icons/fa";
+import { BsCashCoin } from "react-icons/bs";
+import { Link } from "react-router-dom";
 import $ from "jquery";
 
 export const Options = ({ shippingTerms, paymentOptions }) => {
@@ -22,13 +26,20 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
     }
   };
 
+  const options = {
+    "Pago contra entrega": <TbTruckDelivery />,
+    Depósito: <RiLuggageDepositLine />,
+    "Tarjetas de crédito o débito": <FaRegCreditCard />,
+    "Pago en cuotas": <BsCashCoin />,
+  };
+
   return (
     <div className="options">
       {shippingTerms && (
         <div className="options-shipping">
           <label onClick={showShipping} className="isActive">
             <FaShippingFast></FaShippingFast>
-            Opciones de envío
+            Formas de envío
             <small>
               <FaAngleDown></FaAngleDown>
             </small>
@@ -49,7 +60,7 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
         <div className="options-payments">
           <label onClick={showPayments}>
             <FaRegMoneyBillAlt></FaRegMoneyBillAlt>
-            Opciones de pago
+            Métodos de pago
             <small>
               <FaAngleDown></FaAngleDown>
             </small>
@@ -62,7 +73,12 @@ export const Options = ({ shippingTerms, paymentOptions }) => {
                 </Link>
               );
             else item.includes("http") || item.includes("www");
-            return <span key={key}>{item}</span>;
+            return (
+              <span key={key}>
+                {options[item]}
+                {item}
+              </span>
+            );
           })}
         </div>
       )}

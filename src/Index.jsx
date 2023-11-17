@@ -65,30 +65,30 @@ export const Index = () => {
   //   }
   // };
 
-  const getTrending = async (results) => {
-    try {
-      const { data } = await axios.post(
-        `${import.meta.env.VITE_URI_API}/product/get-trending`,
-        results
-      );
-      const { result } = data;
-      setTranding(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getTrending = async (results) => {
+  //   try {
+  //     const { data } = await axios.post(
+  //       `${import.meta.env.VITE_URI_API}/product/get-trending`,
+  //       results
+  //     );
+  //     const { result } = data;
+  //     setTranding(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const getEvents = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_ANALYSTICS}/newEvent/get-latest-events`
-      );
-      const { result } = data;
-      getTrending(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getEvents = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_ANALYSTICS}/newEvent/get-latest-events`
+  //     );
+  //     const { result } = data;
+  //     getTrending(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   // const getCategories = async () => {
   //   try {
@@ -156,13 +156,14 @@ export const Index = () => {
         `${import.meta.env.VITE_URI_API}/cache/get-cache`
       );
       const { stores, autoComplete, categories } = data;
-      const { products, mostViewed, offers } = data;
+      const { products, mostViewed, offers, trending } = data;
       setStores(stores);
       setTags(categories);
       setOffers(offers);
       setProducts(products);
       setMostViewed(mostViewed);
       setAutoComplete(autoComplete);
+      setTranding(trending);
     } catch (err) {
       console.log(err);
     }
@@ -170,7 +171,6 @@ export const Index = () => {
 
   useEffect(() => {
     getInformation();
-    getEvents();
   }, []);
 
   return (

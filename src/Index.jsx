@@ -31,7 +31,7 @@ export const Index = () => {
         name: data.user.name,
         email: data.user.email,
         stores: data.user.stores,
-        rol: data.user.rol
+        rol: data.user.rol,
       });
       setIsLogged(true);
     } catch (err) {
@@ -53,17 +53,17 @@ export const Index = () => {
     }
   }, [isLogged]);
 
-  const getStores = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/store/get-stores`
-      );
-      const { stores } = data;
-      setStores(stores);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getStores = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/store/get-stores`
+  //     );
+  //     const { stores } = data;
+  //     setStores(stores);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const getTrending = async (results) => {
     try {
@@ -90,73 +90,86 @@ export const Index = () => {
     }
   };
 
-  const getCategories = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-products-of-tags`
-      );
-      const { result } = data;
-      setTags(result);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getCategories = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/product/get-products-of-tags`
+  //     );
+  //     const { result } = data;
+  //     setTags(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const getOffers = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-offers`
-      );
-      const { allOffers } = data;
-      setOffers(allOffers);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getOffers = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/product/get-all-offers`
+  //     );
+  //     const { allOffers } = data;
+  //     setOffers(allOffers);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const getProducts = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-all-products`
-      );
-      const { allProducts } = data;
-      setProducts(allProducts);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getProducts = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/product/get-all-products`
+  //     );
+  //     const { allProducts } = data;
+  //     setProducts(allProducts);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const getMostViewed = async () => {
-    try {
-      const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-most-viewed`
-      );
-      const { products } = data;
-      setMostViewed(products);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const getMostViewed = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/product/get-most-viewed`
+  //     );
+  //     const { products } = data;
+  //     setMostViewed(products);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
-  const getAutoComplete = async () => {
+  // const getAutoComplete = async () => {
+  //   try {
+  //     const { data } = await axios.get(
+  //       `${import.meta.env.VITE_URI_API}/product/get-options`
+  //     );
+  //     const { result } = data;
+  //     setAutoComplete(result);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const getInformation = async () => {
     try {
       const { data } = await axios.get(
-        `${import.meta.env.VITE_URI_API}/product/get-options`
+        `${import.meta.env.VITE_URI_API}/cache/get-cache`
       );
-      const { result } = data;
-      setAutoComplete(result);
+      const { stores, autoComplete, categories } = data;
+      const { products, mostViewed, offers } = data;
+      setStores(stores);
+      setTags(categories);
+      setOffers(offers);
+      setProducts(products);
+      setMostViewed(mostViewed);
+      setAutoComplete(autoComplete);
     } catch (err) {
       console.log(err);
     }
   };
 
   useEffect(() => {
-    getStores();
-    getCategories();
-    getOffers();
-    getProducts();
-    getAutoComplete();
-    getMostViewed();
+    getInformation();
     getEvents();
   }, []);
 

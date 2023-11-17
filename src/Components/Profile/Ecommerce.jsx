@@ -52,6 +52,7 @@ export const Ecommerce = () => {
         type: 1,
         position: "right top",
       });
+      await axios.get(`${import.meta.env.VITE_URI_API}/cache/change-cache`);
       setLoading(false);
     } catch (err) {
       console.log(err);
@@ -219,6 +220,7 @@ const Options = ({ store, reloadStore }) => {
         type: 1,
         position: "right top",
       });
+      await axios.get(`${import.meta.env.VITE_URI_API}/cache/change-cache`);
       navigate(-1);
       setLoading(false);
     } catch (err) {
@@ -265,6 +267,7 @@ const Options = ({ store, reloadStore }) => {
         type: 1,
         position: "right top",
       });
+      await axios.get(`${import.meta.env.VITE_URI_API}/cache/change-cache`);
       reloadStore();
       setLoading(false);
     } catch (err) {
@@ -311,6 +314,7 @@ const Options = ({ store, reloadStore }) => {
         type: 1,
         position: "right top",
       });
+      await axios.get(`${import.meta.env.VITE_URI_API}/cache/change-cache`);
       reloadStore();
       setLoading(false);
     } catch (err) {

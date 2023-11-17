@@ -45,12 +45,14 @@ export const Index = () => {
   };
 
   useEffect(() => {
+    console.log('Inicio proceso');
     const token = localStorage.getItem("token");
     if (token) getInfo(token);
     else {
       localStorage.clear();
       setUser({});
     }
+    console.log('Termino proceso');
   }, [isLogged]);
 
   // const getStores = async () => {

@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import { AuthContext } from "../../Index";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { Animation } from "../Animation/Animation";
-import { Editor } from "@tinymce/tinymce-react";
+import { useNavigate } from "react-router-dom";
 import { Message } from "../Modals/Message";
+import { AuthContext } from "../../Index";
+import ReactQuill from "react-quill";
 import { Tags } from "./Tags";
+import axios from "axios";
 import $ from "jquery";
+
+import "react-quill/dist/quill.snow.css";
 
 export const StoreInformation = () => {
   const navigate = useNavigate();
@@ -238,52 +240,37 @@ const Information = ({ setForm, form }) => {
 };
 
 const Description = ({ form, setForm }) => {
-  const editorRef = useRef(null);
+  const [value, setValue] = useState("");
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike", "blockquote"],
+      [{ list: "ordered" }, { list: "bullet" }],
+      ["link"],
+      [{ size: ["small", "large"] }],
+      [{ color: [] }],
+    ],
+  };
 
   const handleChange = () => {
-    if (editorRef.current) {
-      setForm({
-        ...form,
-        description: editorRef.current.getContent(),
-      });
-    }
+    setForm({
+      ...form,
+      description: value,
+    });
   };
+
+  useEffect(() => {
+    handleChange();
+  }, [value]);
 
   return (
     <div className="container-form">
       <span className="container-form-title">Descripción de la tienda</span>
-      <Editor
-        apiKey="zvxwf6llqq2c558yqoy29godx3b6jx7xjquuznib0jbe5nhb"
-        onInit={(evt, editor) => (editorRef.current = editor)}
-        onChange={handleChange}
-        init={{
-          height: 200,
-          max_height: 400,
-          menubar: true,
-          plugins: [
-            // "advlist",
-            // "autolink",
-            // "lists",
-            // "link",
-            // "image",
-            // "charmap",
-            // "preview",
-            // "anchor",
-            // "searchreplace",
-            // "visualblocks",
-            // "code",
-            // "fullscreen",
-            // "insertdatetime",
-            // "media",
-            // "code",
-          ],
-          toolbar:
-            "undo redo | " +
-            "bold italic forecolor" +
-            "numlist | " +
-            "removeformat",
-        }}
-      />
+      <ReactQuill
+        theme="snow"
+        value={value}
+        onChange={setValue}
+        modules={modules}
+      ></ReactQuill>
     </div>
   );
 };

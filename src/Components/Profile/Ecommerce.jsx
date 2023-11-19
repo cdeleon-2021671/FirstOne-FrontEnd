@@ -117,22 +117,22 @@ const Introduction = ({ store }) => {
       <div className="content">
         <Link to={store.urlLogo} target="_blank">
           {" "}
-          <strong>Logo:&nbsp;</strong>
+          <strong className="head">Logo:&nbsp;</strong>
           {store.urlLogo}
         </Link>
         <Link to={store.banner} target="_blank">
           {" "}
-          <strong>Banner:&nbsp;</strong>
+          <strong className="head">Banner:&nbsp;</strong>
           {store.banner}
         </Link>
         <Link to={store.xml} target="_blank">
           {" "}
-          <strong>XML:&nbsp;</strong>
+          <strong className="head">XML:&nbsp;</strong>
           {store.xml}
         </Link>
         <span>
           {" "}
-          <strong>Descripción:&nbsp;</strong>
+          <strong className="head">Descripción:&nbsp;</strong>
           {ReactHtmlParser(store.description)}
         </span>
         <Links store={store}></Links>
@@ -474,7 +474,7 @@ const Links = ({ store }) => {
               to={title != "Teléfono" ? link : ""}
               target={title == "Teléfono" ? "" : "_blank"}
             >
-              <strong>{title}:&nbsp;</strong>
+              <strong className="head">{title}:&nbsp;</strong>
               {link}
             </Link>
           ))}

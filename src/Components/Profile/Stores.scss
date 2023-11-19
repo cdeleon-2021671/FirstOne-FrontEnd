@@ -54,13 +54,16 @@
           display: flex;
           flex-direction: column;
           gap: 0.2em;
-          strong {
+          .head {
             font-weight: bold;
             min-width: max-content;
           }
           a,
           span {
             word-break: break-all;
+            p{
+              display: inline;
+            }
           }
           a:hover {
             color: gray;
